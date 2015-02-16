@@ -37,13 +37,8 @@ Icon
 
 graphicz.opensdf
 graphicz.sdf
-graphicz.sdf
-graphicz.sdf
-appz/Debug/appz.log
-appz/Debug/*
-nyeh/Debug/*
-appz/Debug/appz.log
+appz/Debug/
+nyeh/Debug/
+Debug/
 graphicz.suo
-*.log
-appz/Debug/appz.log
-nyeh/Debug/nyeh.log
+graphicz.sln
