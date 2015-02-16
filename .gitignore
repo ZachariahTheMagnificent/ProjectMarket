@@ -7,9 +7,6 @@ Release/appz.exe
 *.sdf
 *.suo
 *.user
-*vcxproj
-*vcxproj.filters
-*vcxproj.user
 ipch/
 appz/
 nyeh/Debug/
