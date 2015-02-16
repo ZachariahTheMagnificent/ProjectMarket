@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #include "Vector3.h"
-#include "Animations.h"
+#include "DrawOrder.h"
 
 class Camera
 {

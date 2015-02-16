@@ -11,7 +11,7 @@
 #include "shader.hpp"
 #include "LoadTGA.h"
 #include "Camera.h"
-#include "Animations.h"
+#include "DrawOrder.h"
 
 const unsigned MAX_LIGHTS = 8;
 

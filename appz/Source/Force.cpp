@@ -1,5 +1,5 @@
 #include "force.h"
-#include "Animations.h"
+#include "DrawOrder.h"
 
 Force::Force(const unsigned boundX, const unsigned boundY, const unsigned boundZ, bool attract)
 {

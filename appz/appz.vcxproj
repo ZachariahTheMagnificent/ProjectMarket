@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Animations.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Contacts.cpp" />
     <ClCompile Include="Source\ContactSolver.cpp" />
     <ClCompile Include="Source\Directory.cpp" />
+    <ClCompile Include="Source\DrawOrder.cpp" />
     <ClCompile Include="Source\Force.cpp" />
     <ClCompile Include="Source\GLMouse.cpp" />
     <ClCompile Include="Source\Graphics.cpp" />
@@ -31,12 +31,12 @@
     <ClCompile Include="Source\Voxel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Animations.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Contacts.h" />
     <ClInclude Include="Source\ContactSolver.h" />
     <ClInclude Include="Source\Directory.h" />
+    <ClInclude Include="Source\DrawOrder.h" />
     <ClInclude Include="Source\Force.h" />
     <ClInclude Include="Source\GLMouse.h" />
     <ClInclude Include="Source\Graphics.h" />
