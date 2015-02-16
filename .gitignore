@@ -41,5 +41,7 @@ graphicz.sdf
 graphicz.sdf
 appz/Debug/appz.log
 appz/Debug/*
+nyeh/Debug/*
 appz/Debug/appz.log
 graphicz.suo
+*.log

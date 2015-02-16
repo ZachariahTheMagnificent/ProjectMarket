@@ -1,4 +1,4 @@
-﻿Build started 16-Feb-15 11:41:25 AM.
+﻿Build started 16-Feb-15 1:27:31 PM.
      1>Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\nyeh\nyeh.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\scrubs.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -14,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:00.06
