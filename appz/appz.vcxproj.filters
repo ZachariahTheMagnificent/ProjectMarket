@@ -208,6 +208,5 @@
     <None Include="Shader\Text.fragmentshader">
       <Filter>shaders</Filter>
     </None>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
