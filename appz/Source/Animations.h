@@ -107,10 +107,13 @@ public:
 	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
 	void Execute();
 	float GetKinetic();
+	void Render() const;
+	void RenderPartial(const unsigned offset, const unsigned count) const;
 
 
 	Mesh* geometry;
 	Material material;
+	unsigned drawMode;
 
 	bool enableLight;
 	float mass;

@@ -8,6 +8,7 @@ drawOrder::drawOrder()
 	bounce = 0;
 	staticFriction = 0;
 	kineticFriction = 0;
+	drawMode = GL_TRIANGLES;
 }
 
 drawOrder::~drawOrder()
@@ -156,4 +157,14 @@ void drawOrder::SetMomentumTo(Vector3 momentum)
 float drawOrder::GetKinetic()
 {
 	return 0.5f * mass * velocity.Length() * velocity.Length();
+}
+
+void drawOrder::Render() const
+{
+	geometry->Render(material.GetTexture() , drawMode);
+}
+
+void drawOrder::RenderPartial(const unsigned offset, const unsigned count) const
+{
+	geometry->Render(offset, count, material.GetTexture(), drawMode);
 }

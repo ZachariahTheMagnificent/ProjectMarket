@@ -439,6 +439,10 @@ void ScenePhysics::Render()
 		for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 		{
 			Material material;
+			drawOrder draw_cube;
+			draw_cube.geometry = meshList[GEO_CUBE];
+			draw_cube.enableLight = false;
+			draw_cube.material = material;
 			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
 			for(std::vector<Voxel>::iterator voxel = draw->voxels.begin(); voxel != draw->voxels.end(); voxel++)
 			{
@@ -447,7 +451,7 @@ void ScenePhysics::Render()
 				translate.SetToTranslation(voxel->GetPosition());
 				scale.SetToScale(voxel->GetSize().x, voxel->GetSize().y, voxel->GetSize().z);
 				modelStack.LoadMatrix(translate * scale);
-				gfx.RenderMesh(DrawObject(meshList[GEO_CUBE],material,GL_TRIANGLES,true), modelStack.Top());
+				gfx.RenderMesh(draw_cube, modelStack.Top());
 				modelStack.PopMatrix();
 			}
 		}
@@ -594,7 +598,7 @@ void ScenePhysics::ExecuteDrawOrder(drawOrder& draw)
 	//a small check to see weather the draw order is pointing to a geometry before drawing it.
 	if(draw.geometry)
 	{
-		gfx.RenderMesh(DrawObject(draw.geometry,draw.material,GL_TRIANGLES, draw.enableLight), modelStack.Top());
+		gfx.RenderMesh(draw, modelStack.Top());
 	}
 	modelStack.PopMatrix();
 }

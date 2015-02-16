@@ -104,7 +104,7 @@ void Graphics::RenderTexts()
 {
 }
 
-void Graphics::RenderMesh(const DrawObject& object, const Mtx44& matrix)
+void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 {
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
@@ -113,7 +113,7 @@ void Graphics::RenderMesh(const DrawObject& object, const Mtx44& matrix)
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	
-	if(object.IsLightingEnabled())
+	if(object.enableLight)
 	{
 		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
 		modelView = viewStack.Top() * modelStack.Top();
@@ -122,21 +122,21 @@ void Graphics::RenderMesh(const DrawObject& object, const Mtx44& matrix)
 		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
 
 		//load material
-		Component kAmbient = object.GetMaterial().GetAmbient();
-		Component kDiffuse = object.GetMaterial().GetAmbient();
-		Component kSpecular = object.GetMaterial().GetAmbient();
+		Component kAmbient = object.material.GetAmbient();
+		Component kDiffuse = object.material.GetAmbient();
+		Component kSpecular = object.material.GetAmbient();
 
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.GetMaterial().GetShininess());
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.material.GetShininess());
 	}
 	else
 	{	
 		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	}
 
-	if(object.GetMaterial().GetTexture() > 0)
+	if(object.material.GetTexture() > 0)
 	{
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 		glActiveTexture(GL_TEXTURE0);
@@ -154,7 +154,7 @@ void Graphics::RenderMesh(const DrawObject& object, const Mtx44& matrix)
 
 void Graphics::RenderText(const std::string text, const Color color)
 {
-	if(!meshText.GetMesh() || meshText.GetMaterial().GetTexture() <= 0) //Proper error check
+	if(!meshText.geometry || meshText.material.GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
@@ -178,7 +178,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		
 		const unsigned numofverts = 6;
-		meshText.GetMesh()->Render((unsigned)text[i] * numofverts, numofverts);
+		meshText.geometry->Render((unsigned)text[i] * numofverts, numofverts);
 	}
 	
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
@@ -187,7 +187,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 
 void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y)
 {
-	if(!meshText.GetMesh() || meshText.GetMaterial().GetTexture() <= 0) //Proper error check
+	if(!meshText.geometry || meshText.material.GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}

@@ -11,7 +11,7 @@
 #include "shader.hpp"
 #include "LoadTGA.h"
 #include "Camera.h"
-#include "DrawObject.h"
+#include "Animations.h"
 
 const unsigned MAX_LIGHTS = 8;
 
@@ -26,7 +26,7 @@ public:
 	void InitText(const std::wstring filepath);
 	void RenderText(const std::string text, const Color color);
 	void RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y);
-	void RenderMesh(const DrawObject& object, const Mtx44& Matrix);
+	void RenderMesh(const drawOrder& object, const Mtx44& Matrix);
 	void Render();
 	bool AddLight(Light* light);
 	void UpdateLights();
@@ -151,7 +151,7 @@ private:
 	unsigned m_vertexArrayID;
 	Light* lights[MAX_LIGHTS + 1];
 	int currentNumOfLights;
-	DrawObject meshText;
+	drawOrder meshText;
 	GLFWwindow* m_window;
 
 	MS viewStack, modelStack, projectionStack;
