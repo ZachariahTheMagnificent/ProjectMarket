@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\Contacts.cpp" />
     <ClCompile Include="Source\ContactSolver.cpp" />
     <ClCompile Include="Source\Directory.cpp" />
@@ -26,6 +27,9 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\PlayerFrog.cpp" />
+    <ClCompile Include="Source\PlayerHuman.cpp" />
     <ClCompile Include="Source\SceneMain.cpp" />
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -34,6 +38,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Character.h" />
     <ClInclude Include="Source\Contacts.h" />
     <ClInclude Include="Source\ContactSolver.h" />
     <ClInclude Include="Source\Directory.h" />
@@ -48,6 +53,9 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\PlayerFrog.h" />
+    <ClInclude Include="Source\PlayerHuman.h" />
     <ClInclude Include="Source\SceneMain.h" />
     <ClInclude Include="Source\ScenePhysics.h" />
     <ClInclude Include="Source\shader.hpp" />
