@@ -1,6 +1,8 @@
 Desktop.ini
-Debug/
-Release/
+Debug/appz.exe
+Debug/appz.ilk
+Debug/appz.pdb
+Release/appz.exe
 *.opensdf
 *.sdf
 *.suo
