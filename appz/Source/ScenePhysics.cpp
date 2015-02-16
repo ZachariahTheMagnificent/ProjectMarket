@@ -143,53 +143,118 @@ void ScenePhysics::InnitDraws()
 	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_RIGHT]);
 	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_TOP]);
 	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_BOTTOM]);
-	
 	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_GROUND]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_PLAYER]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_LEFT_LIFT]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_THING_AT_CENTRE]);
+
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_CORRUPTED_SENTINEL]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_ROCK_SENTINEL]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_STONE_SENTINEL]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_WISE_SENTINEL]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_SNEAKY_SENTINEL]);
+	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_PURE_SENTINEL]);
 
 	//positions are offset a little from their proper position because of floating point error
 	drawOrders[DRAW_FRONT].geometry = meshList[GEO_FRONT];
 	drawOrders[DRAW_FRONT].transform.translate.Set(-4996,0,0);
 	drawOrders[DRAW_FRONT].transform.rotate.z = 270;
-	drawOrders[DRAW_FRONT].material.SetTextureTo(textures[TEXTURE_FRONT]);
 	drawOrders[DRAW_FRONT].enableLight = false;
+	drawOrders[DRAW_FRONT].material.SetTextureTo(textures[TEXTURE_FRONT]);
 
 	drawOrders[DRAW_BACK].geometry = meshList[GEO_BACK];
 	drawOrders[DRAW_BACK].transform.translate.Set(4998,0,0);
 	drawOrders[DRAW_BACK].transform.rotate.z = 90;
 	drawOrders[DRAW_BACK].transform.rotate.x = 180;
-	drawOrders[DRAW_BACK].material.SetTextureTo(textures[TEXTURE_BACK]);
 	drawOrders[DRAW_BACK].enableLight = false;
+	drawOrders[DRAW_BACK].material.SetTextureTo(textures[TEXTURE_BACK]);
 
 	drawOrders[DRAW_LEFT].geometry = meshList[GEO_LEFT];
 	drawOrders[DRAW_LEFT].transform.translate.Set(0,0,4998);
 	drawOrders[DRAW_LEFT].transform.rotate.x = 270;
 	drawOrders[DRAW_LEFT].transform.rotate.y = 90;
-	drawOrders[DRAW_LEFT].material.SetTextureTo(textures[TEXTURE_LEFT]);
 	drawOrders[DRAW_LEFT].enableLight = false;
+	drawOrders[DRAW_LEFT].material.SetTextureTo(textures[TEXTURE_LEFT]);
 
 	drawOrders[DRAW_RIGHT].geometry = meshList[GEO_RIGHT];
 	drawOrders[DRAW_RIGHT].transform.translate.Set(0,0,-4998);
 	drawOrders[DRAW_RIGHT].transform.rotate.x = 90;
 	drawOrders[DRAW_RIGHT].transform.rotate.y = 270;
-	drawOrders[DRAW_RIGHT].material.SetTextureTo(textures[TEXTURE_RIGHT]);
 	drawOrders[DRAW_RIGHT].enableLight = false;
+	drawOrders[DRAW_RIGHT].material.SetTextureTo(textures[TEXTURE_RIGHT]);
 
 	drawOrders[DRAW_TOP].geometry = meshList[GEO_TOP];
 	drawOrders[DRAW_TOP].transform.translate.Set(0,4998,0);
 	drawOrders[DRAW_TOP].transform.rotate.z = 180;
 	drawOrders[DRAW_TOP].transform.rotate.y = 0;
-	drawOrders[DRAW_TOP].material.SetTextureTo(textures[TEXTURE_TOP]);
 	drawOrders[DRAW_TOP].enableLight = false;
+	drawOrders[DRAW_TOP].material.SetTextureTo(textures[TEXTURE_TOP]);
 
 	drawOrders[DRAW_BOTTOM].geometry = meshList[GEO_BOTTOM];
 	drawOrders[DRAW_BOTTOM].transform.translate.Set(0,-4998,0);
 	drawOrders[DRAW_BOTTOM].transform.rotate.y = 270;
-	drawOrders[DRAW_BOTTOM].material.SetTextureTo(textures[TEXTURE_BOTTOM]);
 	drawOrders[DRAW_BOTTOM].enableLight = false;
+	drawOrders[DRAW_BOTTOM].material.SetTextureTo(textures[TEXTURE_BOTTOM]);
+
+	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_PLAYER].transform.translate.Set(21.7, 5, 68.3);
+	drawOrders[DRAW_PLAYER].enableLight = false;
+	drawOrders[DRAW_PLAYER].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_PLAYER].mass = 75;
+	drawOrders[DRAW_PLAYER].bounce = 0.5;
+	drawOrders[DRAW_PLAYER].material.SetTextureTo(textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE]);
+
+	drawOrders[DRAW_LEFT_LIFT].geometry = meshList[GEO_LIFT];
+	drawOrders[DRAW_LEFT_LIFT].transform.translate.Set(0, 100, 0);
+	drawOrders[DRAW_LEFT_LIFT].enableLight = true;
+	drawOrders[DRAW_LEFT_LIFT].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_LEFT_LIFT].mass = 100;
+	drawOrders[DRAW_LEFT_LIFT].material.SetTextureTo(textures[TEXTURE_METALPLATEFLOORFULL]);
 
 	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
 	drawOrders[DRAW_GROUND].material.SetTextureTo(textures[TEXTURE_METALPLATEFLOORFULL]);
-	drawOrders[DRAW_GROUND].enableLight = true;
+
+	drawOrders[DRAW_FOOTBALL_FIELD].geometry = meshList[GEO_FOOTBALL_FIELD];
+	drawOrders[DRAW_FOOTBALL_FIELD].transform.translate.Set(0,0,0);
+	drawOrders[DRAW_FOOTBALL_FIELD].enableLight = false;
+	drawOrders[DRAW_FOOTBALL_FIELD].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_FOOTBALL_FIELD].material.SetTextureTo(textures[TEXTURE_FOOTBALL_FIELD]);
+
+	drawOrders[DRAW_THING_AT_CENTRE].geometry = meshList[GEO_RING];
+	drawOrders[DRAW_THING_AT_CENTRE].transform.translate.Set(-1000,0,0);
+	drawOrders[DRAW_THING_AT_CENTRE].enableLight = false;
+	drawOrders[DRAW_THING_AT_CENTRE].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_THING_AT_CENTRE].material.SetTextureTo(textures[TEXTURE_RING]);
+
+	drawOrders[DRAW_CORRUPTED_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_CORRUPTED_SENTINEL].material.SetTextureTo(textures[TEXTURE_ELECTRONIC_CIRCUIT]);
+	drawOrders[DRAW_CORRUPTED_SENTINEL].transform.translate.Set(-23.3,3.7,69.9);
+	drawOrders[DRAW_CORRUPTED_SENTINEL].enableLight = false;
+
+	drawOrders[DRAW_ROCK_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_ROCK_SENTINEL].material.SetTextureTo(textures[TEXTURE_DOOR]);
+	drawOrders[DRAW_ROCK_SENTINEL].transform.translate.Set(-1000,0,0);
+	drawOrders[DRAW_ROCK_SENTINEL].enableLight = false;
+
+	drawOrders[DRAW_STONE_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_STONE_SENTINEL].material.SetTextureTo(textures[TEXTURE_RING]);
+	drawOrders[DRAW_STONE_SENTINEL].transform.translate.Set(-1000,0,0);
+	drawOrders[DRAW_STONE_SENTINEL].enableLight = false;
+
+	drawOrders[DRAW_WISE_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_WISE_SENTINEL].material.SetTextureTo(textures[TEXTURE_PLATE_METAL]);
+	drawOrders[DRAW_WISE_SENTINEL].transform.translate.Set(-1000,0,0);
+	drawOrders[DRAW_WISE_SENTINEL].enableLight = false;
+
+	drawOrders[DRAW_SNEAKY_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_SNEAKY_SENTINEL].material.SetTextureTo(textures[TEXTURE_METALPLATEFLOORFULL]);
+	drawOrders[DRAW_SNEAKY_SENTINEL].transform.translate.Set(-1000,0,0);
+	drawOrders[DRAW_SNEAKY_SENTINEL].enableLight = false;
+
+	drawOrders[DRAW_PURE_SENTINEL].geometry = meshList[GEO_SENTINEL];
+	drawOrders[DRAW_PURE_SENTINEL].material.SetTextureTo(textures[TEXTURE_METAL_TILE]);
+	drawOrders[DRAW_PURE_SENTINEL].transform.translate.Set(-23.2, 4.25, -69.8);
+	drawOrders[DRAW_PURE_SENTINEL].enableLight = false;
 }
 
 void ScenePhysics::InnitVoxels()
