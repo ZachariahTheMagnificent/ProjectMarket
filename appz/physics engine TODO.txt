@@ -1,0 +1,6 @@
+Do elasticity
+Do forces(forcefield, strap)
+Do momentum transfer
+Do static friction
+Do ramp collision
+Do optimisation
