@@ -1,0 +1,33 @@
+﻿Build started 16-Feb-15 2:17:52 PM.
+     1>Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\nyeh\nyeh.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\".
+       InitializeBuildStatus:
+         Creating "Release\scrubs.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "Source\Custom Functions.cpp" Source\MatrixStack.cpp Source\Mtx44.cpp Source\Sound.cpp Source\timer.cpp Source\Vector3.cpp
+         Custom Functions.cpp
+     1>Source\Custom Functions.cpp(128): warning C4244: '-=' : conversion from 'double' to 'int', possible loss of data
+     1>Source\Custom Functions.cpp(135): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+         MatrixStack.cpp
+         Mtx44.cpp
+         Sound.cpp
+     1>Source\Sound.cpp(46): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+         timer.cpp
+         Vector3.cpp
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\scrubs.lib" /NOLOGO /LTCG "Release\Custom Functions.obj"
+         Release\MatrixStack.obj
+         Release\Mtx44.obj
+         Release\Sound.obj
+         Release\timer.obj
+         Release\Vector3.obj
+         nyeh.vcxproj -> C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\scrubs.lib
+       FinalizeBuildStatus:
+         Deleting file "Release\scrubs.unsuccessfulbuild".
+         Touching "Release\scrubs.lastbuildstate".
+     1>Done Building Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\nyeh\nyeh.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.29

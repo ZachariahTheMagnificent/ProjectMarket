@@ -1,0 +1,49 @@
+﻿Build started 16-Feb-15 2:17:56 PM.
+     1>Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\appz\appz.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\appz.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Animations.cpp Source\Application.cpp Source\Camera.cpp Source\Contacts.cpp Source\ContactSolver.cpp Source\Directory.cpp Source\DrawObject.cpp Source\Force.cpp Source\GLMouse.cpp Source\Graphics.cpp Source\Keyboard.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\main.cpp Source\Mesh.cpp Source\MeshBuilder.cpp Source\ScenePhysics.cpp Source\shader.cpp Source\Voxel.cpp
+         Animations.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         Application.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Application.h(5): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+         Camera.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Camera.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         Contacts.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         ContactSolver.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         Directory.cpp
+     1>Source\Directory.cpp(13): warning C4101: 'index' : unreferenced local variable
+     1>Source\Directory.cpp(57): warning C4101: 'index' : unreferenced local variable
+         DrawObject.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         Force.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\force.h(2): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         GLMouse.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\GLMouse.h(2): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+         Graphics.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Graphics.h(5): fatal error C1083: Cannot open include file: 'MatrixStack.h': No such file or directory
+         Keyboard.cpp
+         LoadOBJ.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         LoadTGA.cpp
+     1>Source\LoadTGA.cpp(4): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+         main.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Application.h(5): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+         Mesh.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         MeshBuilder.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         ScenePhysics.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\GLMouse.h(2): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+         shader.cpp
+     1>Source\shader.cpp(12): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Voxel.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Voxel.h(2): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+     1>Done Building Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\appz\appz.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:05.94

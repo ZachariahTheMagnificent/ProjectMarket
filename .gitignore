@@ -8,6 +8,5 @@ Release/appz.exe
 *.suo
 *.user
 ipch/
-appz/
+appz/Debug/
 nyeh/Debug/
-nyeh/
