@@ -10,6 +10,7 @@
 #include "Keyboard.h"
 #include "GLMouse.h"
 
+#include "SceneMain.h"
 #include "ScenePhysics.h"
 #include "Sound.h"
 #include "Graphics.h"
@@ -108,7 +109,7 @@ void Application::Run()
 {
 	//Main Loop
 	bool gameQuit = false;
-	Scene* pScene = new ScenePhysics(keyboard, mouse, snd, gfx);
+	Scene* pScene = new SceneMain(keyboard, mouse, snd, gfx);
 	pScene->Init();
 	pScene->SetWindowSize(screenX, screenY);
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
