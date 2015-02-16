@@ -212,6 +212,11 @@ void ScenePhysics::InnitDraws()
 	drawOrders[DRAW_LEFT_LIFT].material.SetTextureTo(textures[TEXTURE_METALPLATEFLOORFULL]);
 
 	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
+	drawOrders[DRAW_GROUND].transform.translate.Set(0,0,0);
+	drawOrders[DRAW_GROUND].enableLight = false;
+	drawOrders[DRAW_GROUND].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_GROUND].children.push_back(&drawOrders[DRAW_FOOTBALL_FIELD]);
+	drawOrders[DRAW_GROUND].kineticFriction = 0.25;
 	drawOrders[DRAW_GROUND].material.SetTextureTo(textures[TEXTURE_METALPLATEFLOORFULL]);
 
 	drawOrders[DRAW_FOOTBALL_FIELD].geometry = meshList[GEO_FOOTBALL_FIELD];
