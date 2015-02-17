@@ -54,7 +54,7 @@ void SceneMain::InnitTextures()
 {
 	textures.resize(NUM_TEXTURES, 0);
 	textures[TEXTURE_SKYBOX] = LoadTGA(L"Image//skybox.tga");
-	textures[TEXTURE_GROUND] = LoadTGA(L"Image//football_field.tga");
+	textures[TEXTURE_GROUND] = LoadTGA(L"Image//ground.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
 
@@ -81,7 +81,7 @@ void SceneMain::InnitGeometry()
 	meshList.resize(NUM_GEOMETRY, NULL);
 
 	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
-	meshList[GEO_GROUND] = MeshBuilder::GenerateQuad(L"ground", Color(1, 1, 1), 10000.f, 10000.f);
+	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
 }
 
@@ -170,7 +170,7 @@ void SceneMain::UpdateView()
 	//positions are offset a little from their proper position because of floating point error
 	drawOrders[DRAW_SKYBOX].transform.translate = Vector3(0,0,0) + camera.ReturnPosition();
 
-	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 50, 0));
+	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
 	float player_rotationY = camera.GetRotation().y - drawOrders[DRAW_PLAYER].transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
 	drawOrders[DRAW_PLAYER].transform.rotate.y += player_current_frame_rotationY;
@@ -293,6 +293,7 @@ void SceneMain::DoUserInput()
 	const int CAMERA_SPEED = 5;
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
+	double movingSpeed = 5;
 
 	if(keyboard.isKeyPressed('1'))
 	{
@@ -314,51 +315,40 @@ void SceneMain::DoUserInput()
 	{
 		drawVoxels = !drawVoxels;
 	}
-	if (keyboard.isKeyHold(VK_UP))
+	if (keyboard.isKeyHold('W'))
 	{
 		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(6000, 0, 0);
 		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveForward(camera);
+		playerAcceleration += player->MoveForward(camera, movingSpeed);
 	}
-	if (keyboard.isKeyHold(VK_DOWN))
+	if (keyboard.isKeyHold('S'))
 	{
 		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(-6000, 0, 0);
 		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveBackward(camera);
+		playerAcceleration += player->MoveBackward(camera, movingSpeed);
 	}
-	if (keyboard.isKeyHold(VK_LEFT))
+	if (keyboard.isKeyHold('A'))
 	{
 		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(0, 0, -6000);
 		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveLeft(camera);
+		playerAcceleration += player->MoveLeft(camera, movingSpeed);
 	}
-	if (keyboard.isKeyHold(VK_RIGHT))
+	if (keyboard.isKeyHold('D'))
 	{
 		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(0, 0, 6000);
 		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveRight(camera);
-	}/*
-	if (keyboard.isKeyHold('O'))
-	{	
-		Vector3 tempVector;
-		tempVector.Set(0, 50, 0);
-		playerAcceleration += tempVector;
+		playerAcceleration += player->MoveRight(camera, movingSpeed);
 	}
-	if (keyboard.isKeyHold('P'))
-	{
-		Vector3 tempVector;
-		tempVector.Set(0, -50, 0);
-		playerAcceleration += tempVector;
-	}*/
-	if (keyboard.isKeyHold('O') && isJumping == false && isFalling == false)
+	//Jump
+	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false)
 	{
 		isJumping = true;
 	}
@@ -370,54 +360,68 @@ void SceneMain::DoUserInput()
 	{
 		player = new PlayerHuman;
 	}
+	/*
+	if (keyboard.isKeyHold('O'))
+	{	
+		Vector3 tempVector;
+		tempVector.Set(0, 50, 0);
+		playerAcceleration += tempVector;
+	}
+	if (keyboard.isKeyHold('P'))
+	{
+		Vector3 tempVector;
+		tempVector.Set(0, -50, 0);
+		playerAcceleration += tempVector;
+	}
+	*/
 	//Ignore
-	if (keyboard.isKeyHold('W'))
-	{
-		camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold('A'))
-	{
-		camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold('S'))
-	{
-		camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold('D'))
-	{
-		camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold(VK_SPACE))
-	{
-		camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
-	}
-	if (keyboard.isKeyHold(VK_CONTROL))
-	{
-		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
-	}
+	//if (keyboard.isKeyHold('W'))
+	//{
+	//	camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+	//}
+	//if (keyboard.isKeyHold('A'))
+	//{
+	//	camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
+	//}
+	//if (keyboard.isKeyHold('S'))
+	//{
+	//	camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+	//}
+	//if (keyboard.isKeyHold('D'))
+	//{
+	//	camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
+	//}
+	//if (keyboard.isKeyHold(VK_SPACE))
+	//{
+	//	camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
+	//}
+	//if (keyboard.isKeyHold(VK_CONTROL))
+	//{
+	//	camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
+	//}
 
 	//Jump
 	if(isJumping == true)
 	{
-		if(jumpedHeight < 5000 && isFalling == false)
+		if(jumpedHeight < 700 && isFalling == false)
 		{
 			Vector3 tempVector;
-			tempVector.Set(0, 200, 0);
+			tempVector.Set(0, 100, 0);
 			playerAcceleration += tempVector;
-			jumpedHeight += 200 - 100;
+			jumpedHeight += 100 - 50;
 		}
 		else
 		{
 			isJumping = false;
 			isFalling = true;
-			jumpedHeight = 5000;
+			jumpedHeight = 700;
 		}
 	}
 	if(isFalling == true)
 	{
 		if(jumpedHeight > 0)
 		{
-			jumpedHeight -= 50;
+			jumpedHeight -= 20;
 		}
 		else
 		{
@@ -425,7 +429,6 @@ void SceneMain::DoUserInput()
 			jumpedHeight = 0;
 		}
 	}
-	//Ignore
 	playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
