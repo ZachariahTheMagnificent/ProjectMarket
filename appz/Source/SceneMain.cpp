@@ -54,7 +54,7 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_RIGHT] = LoadTGA(L"Image//right.tga");
 	textures[TEXTURE_TOP] = LoadTGA(L"Image//top.tga");
 	textures[TEXTURE_GROUND] = LoadTGA(L"Image//football_field.tga");
-
+	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
 
 void SceneMain::InnitLight()
@@ -152,11 +152,19 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_GROUND].transform.translate.Set(0,0,0);
 	drawOrders[DRAW_GROUND].material.SetTextureTo(textures[TEXTURE_GROUND]);
 	drawOrders[DRAW_GROUND].enableLight = false;
+
+	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_CUBE];
+	drawOrders[DRAW_PLAYER].transform.translate.Set(0,10,0);
+	drawOrders[DRAW_PLAYER].material.SetTextureTo(textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE]);
+	drawOrders[DRAW_PLAYER].SetTerminalVelocityTo(Vector3(60,60,60));
+	drawOrders[DRAW_PLAYER].staticFriction = 0.03;
+	drawOrders[DRAW_PLAYER].mass = 1;
+	drawOrders[DRAW_PLAYER].enableLight = false;
 }
 
 void SceneMain::InnitVoxels()
 {
-	drawOrders[DRAW_PLAYER].AddVoxel(4,5,4, drawOrders[DRAW_PLAYER].transform.translate, Color());
+	drawOrders[DRAW_PLAYER].AddVoxel(1,1,1, drawOrders[DRAW_PLAYER].transform.translate, Color());
 
 	//voxel for football field
 	drawOrders[DRAW_GROUND].AddVoxel(10000, 1, 10000, drawOrders[DRAW_GROUND].transform.translate, Color());
@@ -212,7 +220,7 @@ void SceneMain::UpdateView()
 	drawOrders[DRAW_TOP].transform.translate = Vector3(0,4999,0) + camera.ReturnPosition();
 	drawOrders[DRAW_BOTTOM].transform.translate = Vector3(0,-5000,0) + camera.ReturnPosition();
 
-	//camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 4, 0));
+	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 4, 0));
 	float player_rotationY = camera.GetRotation().y - drawOrders[DRAW_PLAYER].transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
 	drawOrders[DRAW_PLAYER].transform.rotate.y += player_current_frame_rotationY;
@@ -230,12 +238,6 @@ void SceneMain::UpdateDraws()
 	for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	{
 		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-		if(&(*draw) == &drawOrders[DRAW_PLAYER])
-		{
-			draw->velocity.x  = playerAcceleration.x * deltaTime;
-			draw->velocity.y  += playerAcceleration.y * deltaTime;
-			draw->velocity.z  = playerAcceleration.z * deltaTime;
-		}
 		draw->UpdateVelocity(deltaTime);
 	}
 
@@ -366,7 +368,7 @@ void SceneMain::DoUserInput()
 	{
 		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
-		tempVector.Set(600, 0, 0);
+		tempVector.Set(6000, 0, 0);
 		tempVector = rotationMatrix * tempVector;
 		playerAcceleration += tempVector;
 	}
@@ -374,7 +376,7 @@ void SceneMain::DoUserInput()
 	{
 		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
-		tempVector.Set(-600, 0, 0);
+		tempVector.Set(-6000, 0, 0);
 		tempVector = rotationMatrix * tempVector;
 		playerAcceleration += tempVector;
 	}
@@ -382,14 +384,14 @@ void SceneMain::DoUserInput()
 	{
 		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
-		tempVector.Set(0, 0, -600);
+		tempVector.Set(0, 0, -6000);
 		tempVector = rotationMatrix * tempVector;
 		playerAcceleration += tempVector;
 	}
 	if (keyboard.isKeyHold(VK_RIGHT))
 	{
 		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;tempVector.Set(0, 0, 600);
+		Vector3 tempVector;tempVector.Set(0, 0, 6000);
 		tempVector = rotationMatrix * tempVector;
 		playerAcceleration += tempVector;
 	}
@@ -430,6 +432,10 @@ void SceneMain::DoUserInput()
 	{
 		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
 	}
+	Force playerForce;
+	playerForce.SetLifespanTo(0.0001);
+	playerForce.SetVector(playerAcceleration);
+	drawOrders[DRAW_PLAYER].AddForce(playerForce);
 }
 
 void SceneMain::ExecuteDrawOrder(drawOrder& draw)

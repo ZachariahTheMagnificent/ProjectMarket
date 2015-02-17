@@ -202,6 +202,7 @@ void ScenePhysics::InnitDraws()
 	drawOrders[DRAW_PLAYER].SetTerminalVelocityTo(Vector3(60,60,60));
 	drawOrders[DRAW_PLAYER].mass = 75;
 	drawOrders[DRAW_PLAYER].bounce = 0.5;
+	drawOrders[DRAW_PLAYER].staticFriction = 0.03;
 	drawOrders[DRAW_PLAYER].material.SetTextureTo(textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE]);
 
 	drawOrders[DRAW_LEFT_LIFT].geometry = meshList[GEO_LIFT];
@@ -454,12 +455,6 @@ void ScenePhysics::UpdateDraws()
 	for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	{
 		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-		if(&(*draw) == &drawOrders[DRAW_PLAYER])
-		{
-			draw->velocity.x  = playerAcceleration.x * deltaTime;
-			draw->velocity.y  += playerAcceleration.y * deltaTime;
-			draw->velocity.z  = playerAcceleration.z * deltaTime;
-		}
 		draw->UpdateVelocity(deltaTime);
 	}
 
@@ -654,6 +649,10 @@ void ScenePhysics::DoUserInput()
 	{
 		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
 	}
+	Force playerForce;
+	playerForce.SetLifespanTo(0.0001);
+	playerForce.SetVector(playerAcceleration);
+	drawOrders[DRAW_PLAYER].AddForce(playerForce);
 }
 
 void ScenePhysics::ExecuteDrawOrder(drawOrder& draw)

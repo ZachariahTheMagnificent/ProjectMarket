@@ -77,9 +77,14 @@ void drawOrder::SetVelocityTo(Vector3 newVelocity)
 
 void drawOrder::UpdateVelocity(const double deltaTime)
 {
-	Vector3 acceleration = GetAcceleration();
+	Vector3 acceleration = GetAcceleration(deltaTime);
 	velocity += acceleration * deltaTime;
 	CapVelocityToTerminal();
+}
+
+void drawOrder::ApplyFriction()
+{
+	velocity *= (1 - staticFriction);
 }
 
 void drawOrder::UpdateTo(const double deltaTime)
@@ -90,6 +95,7 @@ void drawOrder::UpdateTo(const double deltaTime)
 	{
 		voxel->UpdateTo(deltaTime);
 	}
+	ApplyFriction();
 }
 
 void drawOrder::AddVoxel(float x, float y, float z, Vector3 position, Color color)
@@ -119,17 +125,25 @@ void drawOrder::LoseMomentumTo(drawOrder* draw, Vector3 momentumLost)
 
 void drawOrder::AddForce(Vector3 force)
 {
+	Force actualForce;
+	actualForce.SetLifespanTo(0);
+	actualForce.SetVector(force);
+	forces.push_back(actualForce);
+}
+
+void drawOrder::AddForce(Force force)
+{
 	forces.push_back(force);
 }
 
-Vector3 drawOrder::GetAcceleration()
+Vector3 drawOrder::GetAcceleration(float deltaTime)
 {
 	Vector3 acceleration;
-	for(std::vector<Vector3>::iterator force = forces.begin(); force != forces.end(); force++)
+	for(std::vector<Force>::iterator force = forces.begin(); force != forces.end(); force++)
 	{
 		if(mass)
 		{
-			acceleration += *force / mass;
+			acceleration += force->ReturnUpdatedAt(deltaTime) / mass;
 		}
 	}
 	return acceleration;

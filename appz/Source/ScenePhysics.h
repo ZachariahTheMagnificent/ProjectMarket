@@ -8,6 +8,7 @@
 #include "DrawOrder.h"
 #include "MatrixStack.h"
 #include "ContactSolver.h"
+#include "Force.h"
 #include <vector>
 
 class ScenePhysics : public Scene

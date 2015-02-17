@@ -3,6 +3,7 @@
 #include "MatrixStack.h"
 #include "Custom Functions.h"
 #include "Voxel.h"
+#include "Force.h"
 
 struct Rotation
 {
@@ -100,11 +101,13 @@ public:
 	void UpdateTo(const double deltaTime);
 	void AddVoxel(float x, float y, float z, Vector3 position, Color color);
 	void AddForce(Vector3 force);
-	Vector3 GetAcceleration();
+	void AddForce(Force force);
+	Vector3 GetAcceleration(float deltaTime);
 	Vector3 GetMomentum();
 	void SetMomentumTo(Vector3 momentum);
 	void GainMomentumFrom(drawOrder* draw, Vector3 momentumGain);
 	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
+	void ApplyFriction();
 	void Execute();
 	float GetKinetic();
 	void Render() const;
@@ -125,7 +128,7 @@ public:
 	Transformation selfTransform;
 	std::vector<drawOrder*> children;
 	std::vector<Voxel> voxels;
-	std::vector<Vector3> forces;
+	std::vector<Force> forces;
 	Vector3 velocity;
 	Vector3 terminalVelocity;
 };

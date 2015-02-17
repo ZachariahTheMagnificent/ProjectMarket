@@ -13,6 +13,42 @@ Force::~Force()
 {
 }
 
+Vector3 Force::ReturnUpdatedAt(float deltaTime)
+{
+	if(isDead())
+	{
+		return Vector3();
+	}
+	lifespan -= deltaTime;
+	if(lifespan == 0)
+	{
+		lifespan--;
+	}
+	return force;
+}
+
+void Force::SetLifespanTo(float time)
+{
+	lifespan = time;
+}
+
+bool Force::isDead()
+{
+	if(lifespan < 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Force::SetVector(Vector3 vector)
+{
+	force = vector;
+}
+
 void Force::SetBoundsTo(const unsigned boundX, const unsigned boundY, const unsigned boundZ)
 {
 	this->boundX = boundX;
