@@ -9,17 +9,15 @@ public:
 	PlayerHuman(void);
 	~PlayerHuman(void);
 	
-	virtual void Init() = 0;
-	virtual bool Update(const double dt) = 0;
-	virtual void Render() = 0;
-	virtual void Exit() = 0;
+	void Init();
+	Vector3 Update(Camera camera);
+	void Render();
+	void Exit();
 	
 	//movement
-	//void MoveForward();
-	//void MoveBackward();
-	//void MoveRight();
-	//void MoveLeft();
-
-	Transformation transform;
+	Vector3 MoveForward(Camera camera);
+	Vector3 MoveBackward(Camera camera);
+	Vector3 MoveRight(Camera camera);
+	Vector3 MoveLeft(Camera camera);
 };
 

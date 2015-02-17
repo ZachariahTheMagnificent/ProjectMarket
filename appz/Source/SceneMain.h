@@ -8,6 +8,7 @@
 #include "DrawOrder.h"
 #include "MatrixStack.h"
 #include "ContactSolver.h"
+#include "player.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -78,6 +79,10 @@ private:
 	Light light[NUMLIGHTS];
 	Camera camera;
 	MS viewStack, projectionStack, modelStack;
+	Player* player;
+	bool isJumping;
+	bool isFalling;
+	double jumpedHeight;
 
 	//print fps
 	double deltaTime;

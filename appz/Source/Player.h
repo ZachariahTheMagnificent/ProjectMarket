@@ -1,6 +1,7 @@
 #pragma once
 
 #include "character.h"
+#include "Camera.h"
 
 class Player :
 	public Character
@@ -9,17 +10,15 @@ public:
 	Player(void);
 	~Player(void);
 	
-	virtual void Init() = 0;
-	virtual bool Update(const double dt) = 0;
-	virtual void Render() = 0;
-	virtual void Exit() = 0;
+	virtual void Init();
+	virtual Vector3 Update(Camera camera);
+	virtual void Render();
+	virtual void Exit();
 	
 	//movement
-	virtual void MoveForward() = 0;
-	virtual void MoveBackward() = 0;
-	virtual void MoveRight() = 0;
-	virtual void MoveLeft() = 0;
-
-	Transformation transform;
+	virtual Vector3 MoveForward(Camera camera);
+	virtual Vector3 MoveBackward(Camera camera);
+	virtual Vector3 MoveRight(Camera camera);
+	virtual Vector3 MoveLeft(Camera camera);
 };
 

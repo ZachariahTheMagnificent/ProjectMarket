@@ -4,6 +4,8 @@
 #include "shader.hpp"
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
+#include "PlayerHuman.h"
+#include "PlayerFrog.h"
 
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
 	:
@@ -25,6 +27,10 @@ void SceneMain::Init()
 	InnitVoxels();
 	InnitForces();
 	InnitLogic();
+	player = new PlayerHuman;
+	isJumping = false;
+	isFalling = false;
+	jumpedHeight = 0;
 
 	camera.Init(Vector3(21.7, 5, 68.3), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -154,7 +160,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_GROUND].enableLight = false;
 
 	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_CUBE];
-	drawOrders[DRAW_PLAYER].transform.translate.Set(0,10,0);
+	drawOrders[DRAW_PLAYER].transform.translate.Set(0,0.1,0);
 	drawOrders[DRAW_PLAYER].material.SetTextureTo(textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE]);
 	drawOrders[DRAW_PLAYER].SetTerminalVelocityTo(Vector3(60,60,60));
 	drawOrders[DRAW_PLAYER].staticFriction = 0.03;
@@ -172,9 +178,7 @@ void SceneMain::InnitVoxels()
 
 void SceneMain::InnitForces()
 {
-	//Vector3 accelerationDueToGravity(0, -.8f, 0);
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
-	//Vector3 accelerationDueToGravity(0, 0, 0);
 	for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	{
 		draw->AddForce(accelerationDueToGravity * draw->mass);
@@ -366,40 +370,40 @@ void SceneMain::DoUserInput()
 	}
 	if (keyboard.isKeyHold(VK_UP))
 	{
-		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
+		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(6000, 0, 0);
-		tempVector = rotationMatrix * tempVector;
-		playerAcceleration += tempVector;
+		tempVector = rotationMatrix * tempVector;*/
+		playerAcceleration += player->MoveForward(camera);
 	}
 	if (keyboard.isKeyHold(VK_DOWN))
 	{
-		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
+		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(-6000, 0, 0);
-		tempVector = rotationMatrix * tempVector;
-		playerAcceleration += tempVector;
+		tempVector = rotationMatrix * tempVector;*/
+		playerAcceleration += player->MoveBackward(camera);
 	}
 	if (keyboard.isKeyHold(VK_LEFT))
 	{
-		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
+		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 		Vector3 tempVector;
 		tempVector.Set(0, 0, -6000);
-		tempVector = rotationMatrix * tempVector;
-		playerAcceleration += tempVector;
+		tempVector = rotationMatrix * tempVector;*/
+		playerAcceleration += player->MoveLeft(camera);
 	}
 	if (keyboard.isKeyHold(VK_RIGHT))
 	{
-		Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;tempVector.Set(0, 0, 6000);
-		tempVector = rotationMatrix * tempVector;
-		playerAcceleration += tempVector;
-	}
+		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
+		Vector3 tempVector;
+		tempVector.Set(0, 0, 6000);
+		tempVector = rotationMatrix * tempVector;*/
+		playerAcceleration += player->MoveRight(camera);
+	}/*
 	if (keyboard.isKeyHold('O'))
 	{	
 		Vector3 tempVector;
 		tempVector.Set(0, 50, 0);
-		playerAcceleration += tempVector;
 		playerAcceleration += tempVector;
 	}
 	if (keyboard.isKeyHold('P'))
@@ -407,7 +411,20 @@ void SceneMain::DoUserInput()
 		Vector3 tempVector;
 		tempVector.Set(0, -50, 0);
 		playerAcceleration += tempVector;
+	}*/
+	if (keyboard.isKeyHold('O') && isJumping == false && isFalling == false)
+	{
+		isJumping = true;
 	}
+	if (keyboard.isKeyHold('I'))
+	{
+		player = new PlayerFrog;
+	}
+	if (keyboard.isKeyHold('U'))
+	{
+		player = new PlayerHuman;
+	}
+	//Ignore
 	if (keyboard.isKeyHold('W'))
 	{
 		camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
@@ -432,6 +449,38 @@ void SceneMain::DoUserInput()
 	{
 		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
 	}
+
+	//Jump
+	if(isJumping == true)
+	{
+		if(jumpedHeight < 5000 && isFalling == false)
+		{
+			Vector3 tempVector;
+			tempVector.Set(0, 200, 0);
+			playerAcceleration += tempVector;
+			jumpedHeight += 200 - 100;
+		}
+		else
+		{
+			isJumping = false;
+			isFalling = true;
+			jumpedHeight = 5000;
+		}
+	}
+	if(isFalling == true)
+	{
+		if(jumpedHeight > 0)
+		{
+			jumpedHeight -= 50;
+		}
+		else
+		{
+			isFalling = false;
+			jumpedHeight = 0;
+		}
+	}
+	//Ignore
+	playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
 	playerForce.SetVector(playerAcceleration);
