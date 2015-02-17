@@ -18,7 +18,7 @@ void PlayerHuman::Init()
 Vector3 PlayerHuman::Update(Camera camera)
 {
 	Vector3 tempVector;
-	tempVector.Set(0, -100, 0);
+	tempVector.Set(0, -50, 0);
 	return tempVector;
 }
 
@@ -30,38 +30,38 @@ void PlayerHuman::Exit()
 {
 }
 
-Vector3 PlayerHuman::MoveForward(Camera camera)
+Vector3 PlayerHuman::MoveForward(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 	Vector3 tempVector;
-	tempVector.Set(6000, 0, 0);
+	tempVector.Set(5, 0, 0);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
 }
 
-Vector3 PlayerHuman::MoveBackward(Camera camera)
+Vector3 PlayerHuman::MoveBackward(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 	Vector3 tempVector;
-	tempVector.Set(-6000, 0, 0);
+	tempVector.Set(-movingSpeed, 0, 0);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
 }
 
-Vector3 PlayerHuman::MoveRight(Camera camera)
+Vector3 PlayerHuman::MoveRight(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 	Vector3 tempVector;
-	tempVector.Set(0, 0, 6000);
+	tempVector.Set(0, 0, movingSpeed);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
 }
 
-Vector3 PlayerHuman::MoveLeft(Camera camera)
+Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 	Vector3 tempVector;
-	tempVector.Set(0, 0, -6000);
+	tempVector.Set(0, 0, -movingSpeed);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
 }
