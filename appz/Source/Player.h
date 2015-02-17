@@ -16,9 +16,9 @@ public:
 	virtual void Exit();
 	
 	//movement
-	virtual Vector3 MoveForward(Camera camera, double movingSpeed);
-	virtual Vector3 MoveBackward(Camera camera, double movingSpeed);
-	virtual Vector3 MoveRight(Camera camera, double movingSpeed);
-	virtual Vector3 MoveLeft(Camera camera, double movingSpeed);
+	virtual Vector3 MoveForward(Camera camera);
+	virtual Vector3 MoveBackward(Camera camera);
+	virtual Vector3 MoveRight(Camera camera);
+	virtual Vector3 MoveLeft(Camera camera);
 };
 

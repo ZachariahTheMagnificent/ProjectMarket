@@ -15,9 +15,9 @@ public:
 	void Exit();
 	
 	//movement
-	Vector3 MoveForward(Camera camera, double movingSpeed);
-	Vector3 MoveBackward(Camera camera, double movingSpeed);
-	Vector3 MoveRight(Camera camera, double movingSpeed);
-	Vector3 MoveLeft(Camera camera, double movingSpeed);
+	Vector3 MoveForward(Camera camera);
+	Vector3 MoveBackward(Camera camera);
+	Vector3 MoveRight(Camera camera);
+	Vector3 MoveLeft(Camera camera);
 };
 

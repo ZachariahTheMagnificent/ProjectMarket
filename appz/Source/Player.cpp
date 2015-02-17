@@ -27,22 +27,22 @@ void Player::Exit()
 {
 }
 
-Vector3 Player::MoveForward(Camera camera, double movingSpeed)
+Vector3 Player::MoveForward(Camera camera)
 {
 	return Vector3(0, 0, 0);
 }
 
-Vector3 Player::MoveBackward(Camera camera, double movingSpeed)
+Vector3 Player::MoveBackward(Camera camera)
 {
 	return Vector3(0, 0, 0);
 }
 
-Vector3 Player::MoveRight(Camera camera, double movingSpeed)
+Vector3 Player::MoveRight(Camera camera)
 {
 	return Vector3(0, 0, 0);
 }
 
-Vector3 Player::MoveLeft(Camera camera, double movingSpeed)
+Vector3 Player::MoveLeft(Camera camera)
 {
 	return Vector3(0, 0, 0);
 }
