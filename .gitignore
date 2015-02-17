@@ -10,3 +10,4 @@ Release/appz.exe
 ipch/
 appz/Debug/
 nyeh/Debug/
+*.log

@@ -13,6 +13,12 @@ public:
 	virtual bool Update(const double dt) = 0;
 	virtual void Render() = 0;
 	virtual void Exit() = 0;
+	
+	//movement
+	//void MoveForward();
+	//void MoveBackward();
+	//void MoveRight();
+	//void MoveLeft();
 
 	Transformation transform;
 };
