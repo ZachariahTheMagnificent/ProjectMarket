@@ -53,12 +53,7 @@ void SceneMain::InnitLogic()
 void SceneMain::InnitTextures()
 {
 	textures.resize(NUM_TEXTURES, 0);
-	textures[TEXTURE_BACK] = LoadTGA(L"Image//back.tga");
-	textures[TEXTURE_BOTTOM] = LoadTGA(L"Image//bottom.tga");
-	textures[TEXTURE_FRONT] = LoadTGA(L"Image//front.tga");
-	textures[TEXTURE_LEFT] = LoadTGA(L"Image//left.tga");
-	textures[TEXTURE_RIGHT] = LoadTGA(L"Image//right.tga");
-	textures[TEXTURE_TOP] = LoadTGA(L"Image//top.tga");
+	textures[TEXTURE_SKYBOX] = LoadTGA(L"Image//skybox.tga");
 	textures[TEXTURE_GROUND] = LoadTGA(L"Image//football_field.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
@@ -85,14 +80,8 @@ void SceneMain::InnitGeometry()
 	//Initialize all meshes to NULL
 	meshList.resize(NUM_GEOMETRY, NULL);
 
-	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad(L"front", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_BACK] = MeshBuilder::GenerateQuad(L"back", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad(L"left", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad(L"right", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_TOP] = MeshBuilder::GenerateQuad(L"top", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad(L"bottom", Color(1, 1, 1), 10000.f, 10000.f);
+	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
 	meshList[GEO_GROUND] = MeshBuilder::GenerateQuad(L"ground", Color(1, 1, 1), 10000.f, 10000.f);
-
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
 }
 
@@ -101,58 +90,20 @@ void SceneMain::InnitDraws()
 	drawOrders.resize(NUM_DRAWS + meshList.size() - NUM_GEOMETRY);
 
 	//skybox will be the main draw order that all other draw orders are children of
-	drawOrders[DRAW_SKYBOX].geometry = NULL;
-	drawOrders[DRAW_SKYBOX].enableLight = false;
+	drawOrders[DRAW_MAIN].geometry = NULL;
+	drawOrders[DRAW_MAIN].enableLight = false;
 
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_FRONT]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_BACK]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_LEFT]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_RIGHT]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_TOP]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_BOTTOM]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_GROUND]);
-	drawOrders[DRAW_SKYBOX].children.push_back(&drawOrders[DRAW_PLAYER]);
+	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_SKYBOX]);
+	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_GROUND]);
+	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_PLAYER]);
 
 	//positions are offset a little from their proper position because of floating point error
-	drawOrders[DRAW_FRONT].geometry = meshList[GEO_FRONT];
-	drawOrders[DRAW_FRONT].transform.translate.Set(-4996,0,0);
-	drawOrders[DRAW_FRONT].transform.rotate.z = 270;
-	drawOrders[DRAW_FRONT].material.SetTextureTo(textures[TEXTURE_FRONT]);
-	drawOrders[DRAW_FRONT].enableLight = false;
 
-	drawOrders[DRAW_BACK].geometry = meshList[GEO_BACK];
-	drawOrders[DRAW_BACK].transform.translate.Set(4998,0,0);
-	drawOrders[DRAW_BACK].transform.rotate.z = 90;
-	drawOrders[DRAW_BACK].transform.rotate.x = 180;
-	drawOrders[DRAW_BACK].material.SetTextureTo(textures[TEXTURE_BACK]);
-	drawOrders[DRAW_BACK].enableLight = false;
-
-	drawOrders[DRAW_LEFT].geometry = meshList[GEO_LEFT];
-	drawOrders[DRAW_LEFT].transform.translate.Set(0,0,4998);
-	drawOrders[DRAW_LEFT].transform.rotate.x = 270;
-	drawOrders[DRAW_LEFT].transform.rotate.y = 90;
-	drawOrders[DRAW_LEFT].material.SetTextureTo(textures[TEXTURE_LEFT]);
-	drawOrders[DRAW_LEFT].enableLight = false;
-
-	drawOrders[DRAW_RIGHT].geometry = meshList[GEO_RIGHT];
-	drawOrders[DRAW_RIGHT].transform.translate.Set(0,0,-4998);
-	drawOrders[DRAW_RIGHT].transform.rotate.x = 90;
-	drawOrders[DRAW_RIGHT].transform.rotate.y = 270;
-	drawOrders[DRAW_RIGHT].material.SetTextureTo(textures[TEXTURE_RIGHT]);
-	drawOrders[DRAW_RIGHT].enableLight = false;
-
-	drawOrders[DRAW_TOP].geometry = meshList[GEO_TOP];
-	drawOrders[DRAW_TOP].transform.translate.Set(0,4998,0);
-	drawOrders[DRAW_TOP].transform.rotate.z = 180;
-	drawOrders[DRAW_TOP].transform.rotate.y = 0;
-	drawOrders[DRAW_TOP].material.SetTextureTo(textures[TEXTURE_TOP]);
-	drawOrders[DRAW_TOP].enableLight = false;
-
-	drawOrders[DRAW_BOTTOM].geometry = meshList[GEO_BOTTOM];
-	drawOrders[DRAW_BOTTOM].transform.translate.Set(0,-4998,0);
-	drawOrders[DRAW_BOTTOM].transform.rotate.y = 270;
-	drawOrders[DRAW_BOTTOM].material.SetTextureTo(textures[TEXTURE_BOTTOM]);
-	drawOrders[DRAW_BOTTOM].enableLight = false;
+	drawOrders[DRAW_SKYBOX].geometry = meshList[GEO_SKYBOX];
+	drawOrders[DRAW_SKYBOX].transform.translate.Set(0,0,0);
+	drawOrders[DRAW_SKYBOX].transform.scale.Set(10000,10000,10000);
+	drawOrders[DRAW_SKYBOX].material.SetTextureTo(textures[TEXTURE_SKYBOX]);
+	drawOrders[DRAW_SKYBOX].enableLight = false;
 
 	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
 	drawOrders[DRAW_GROUND].transform.translate.Set(0,0,0);
@@ -217,14 +168,9 @@ void SceneMain::UpdateLogic()
 void SceneMain::UpdateView()
 {
 	//positions are offset a little from their proper position because of floating point error
-	drawOrders[DRAW_FRONT].transform.translate = Vector3(-5000,0,0) + camera.ReturnPosition();
-	drawOrders[DRAW_BACK].transform.translate = Vector3(5000,0,0) + camera.ReturnPosition();
-	drawOrders[DRAW_LEFT].transform.translate = Vector3(0,0,5000) + camera.ReturnPosition();
-	drawOrders[DRAW_RIGHT].transform.translate = Vector3(0,0,-5000) + camera.ReturnPosition();
-	drawOrders[DRAW_TOP].transform.translate = Vector3(0,4999,0) + camera.ReturnPosition();
-	drawOrders[DRAW_BOTTOM].transform.translate = Vector3(0,-5000,0) + camera.ReturnPosition();
+	drawOrders[DRAW_SKYBOX].transform.translate = Vector3(0,0,0) + camera.ReturnPosition();
 
-	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 4, 0));
+	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 50, 0));
 	float player_rotationY = camera.GetRotation().y - drawOrders[DRAW_PLAYER].transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
 	drawOrders[DRAW_PLAYER].transform.rotate.y += player_current_frame_rotationY;
@@ -310,7 +256,7 @@ void SceneMain::Render()
 	}
 	else
 	{
-		ExecuteDrawOrder(drawOrders[DRAW_SKYBOX]);
+		ExecuteDrawOrder(drawOrders[DRAW_MAIN]);
 	}
 
 	glDisableVertexAttribArray(0);

@@ -76,15 +76,23 @@ struct Transformation
 {
 	Vector3 translate;
 	Rotation rotate;
+	Vector3 scale;
 	Vector3 pivot;
+
+	Transformation()
+	{
+		scale.Set(1,1,1);
+	}
+
 	Mtx44 Matrix() const
 	{
-		Mtx44 translation, rotation, reorientate;
+		Mtx44 translation, rotation, scalation, reorientate;
 		translation.SetToTranslation(translate);
 		reorientate.SetToTranslation(pivot);
+		scalation.SetToScale(scale.x,scale.y,scale.z);
 		rotation = reorientate.GetInverse() * rotate.MatrixX() * rotate.MatrixY() * rotate.MatrixZ() * reorientate;
 
-		return translation * rotation;
+		return translation * rotation * scalation;
 	}
 };
 
