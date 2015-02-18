@@ -5,6 +5,8 @@
 #include "Voxel.h"
 #include "Force.h"
 
+class Graphics;
+
 struct Rotation
 {
 	float x;
@@ -97,35 +99,57 @@ public:
 	void CapVelocityToTerminal();
 	void SetMaterial(const Material& mat);
 	void SetVelocityTo(Vector3 newVelocity);
+	void UpdateForcesTo(const double deltaTime);
 	void UpdateVelocity(const double deltaTime);
 	void UpdateTo(const double deltaTime);
 	void AddVoxel(float x, float y, float z, Vector3 position, Color color);
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
-	Vector3 GetAcceleration(float deltaTime);
+	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
 	void SetMomentumTo(Vector3 momentum);
 	void GainMomentumFrom(drawOrder* draw, Vector3 momentumGain);
 	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
 	void ApplyFriction();
-	void Execute();
+	void Execute(Graphics& gfx);
+	void SetParentAs(drawOrder* parent);
+	float GetMass() const;
 	float GetKinetic();
 	void Render() const;
+	void GenerateVoxels();
+	void SetBoundsTo(const float sizeX, const float sizeY, const float sizeZ);
+	bool IsCollidingWith(drawOrder& draw) const;
 	void RenderPartial(const unsigned offset, const unsigned count) const;
+	Mtx44 GetMatrix() const;
+	Mesh* GetMesh();
+	Material GetMaterial();
+	unsigned GetDrawMode();
+	bool IsLightEnabled();
+	float GetMaxX() const;
+	float GetMinX() const;
+	float GetMaxY() const;
+	float GetMinY() const;
+	float GetMaxZ() const;
+	float GetMinZ() const;
 
-
+private:
+	Mtx44 GetModelTransform() const;
+public:
 	Mesh* geometry;
 	Material material;
 	unsigned drawMode;
-
 	bool enableLight;
 	float mass;
 	float bounce;
 	float staticFriction;
 	float kineticFriction;
+	float boundsX;
+	float boundsY;
+	float boundsZ;
 	Transformation transform;
 	//this transformation will only apply to the parent and not it's children
 	Transformation selfTransform;
+	drawOrder* parent;
 	std::vector<drawOrder*> children;
 	std::vector<Voxel> voxels;
 	std::vector<Force> forces;

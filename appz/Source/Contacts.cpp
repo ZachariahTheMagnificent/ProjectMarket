@@ -11,11 +11,7 @@ Contact::~Contact()
 
 bool Contact::IsStillValid()
 {
-	Voxel tempVox1 = *firstVoxel;
-	Voxel tempVox2 = *secondVoxel;
-	tempVox1.UpdateTo(timeOfImpact);
-	tempVox2.UpdateTo(timeOfImpact);
-	if(tempVox1.IsCollidingWith(tempVox2))
+	if(firstVoxel->At(timeOfImpact).IsCollidingWith(secondVoxel->At(timeOfImpact)))
 	{
 		return true;
 	}
@@ -34,10 +30,8 @@ void Contact::Set(Voxel* firstVoxel, Voxel* secondVoxel, const double timeOfImpa
 
 void Contact::ResolveAccordingTo(const double deltaTime)
 {
-	Voxel FirstVoxelAtCollision = *firstVoxel;
-	Voxel SecondVoxelAtCollision = *secondVoxel;
-	FirstVoxelAtCollision.UpdateTo(timeOfImpact);
-	SecondVoxelAtCollision.UpdateTo(timeOfImpact);
+	Voxel FirstVoxelAtCollision = firstVoxel->At(timeOfImpact);
+	Voxel SecondVoxelAtCollision = secondVoxel->At(timeOfImpact);
 
 	const float firsts_MinX = FirstVoxelAtCollision.GetMinX();
 	const float firsts_MinY = FirstVoxelAtCollision.GetMinY();

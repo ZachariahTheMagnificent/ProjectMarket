@@ -10,15 +10,14 @@ ContactSolver::~ContactSolver()
 
 bool ContactSolver::CheckThisCollision(Voxel* voxel1, Voxel* voxel2, const double deltaTime)
 {
-	Voxel tempVox1 = *voxel1;
-	Voxel tempVox2 = *voxel2;
 	const double numOfSteps = 1000;
 	const double timestep = 0.001;
 	double timeOfImpact = 0.0;
-	while(!tempVox1.IsCollidingWith(tempVox2) && timeOfImpact < deltaTime)
+	bool update = true;
+	voxel1->ApplyCurrentMatrix();
+	voxel2->ApplyCurrentMatrix();
+	while(!voxel1->At(timeOfImpact).IsCollidingWith(voxel2->At(timeOfImpact)) && timeOfImpact < deltaTime)
 	{
-		tempVox1.UpdateTo(timestep);
-		tempVox2.UpdateTo(timestep);
 		timeOfImpact += timestep;
 	}
 	//if collision is found

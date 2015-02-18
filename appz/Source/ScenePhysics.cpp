@@ -111,17 +111,18 @@ void ScenePhysics::InnitGeometry()
 	//Initialize all meshes to NULL
 	meshList.resize(NUM_GEOMETRY, NULL);
 
-	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad(L"front", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_BACK] = MeshBuilder::GenerateQuad(L"back", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad(L"left", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad(L"right", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_TOP] = MeshBuilder::GenerateQuad(L"top", Color(1, 1, 1), 10000.f, 10000.f);
-	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad(L"bottom", Color(1, 1, 1), 10000.f, 10000.f);
+	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad(L"front", Color(1, 1, 1), 1000.f, 1000.f);
+	meshList[GEO_BACK] = MeshBuilder::GenerateQuad(L"back", Color(1, 1, 1), 1000.f, 1000.f);
+	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad(L"left", Color(1, 1, 1), 1000.f, 1000.f);
+	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad(L"right", Color(1, 1, 1), 1000.f, 1000.f);
+	meshList[GEO_TOP] = MeshBuilder::GenerateQuad(L"top", Color(1, 1, 1), 1000.f, 1000.f);
+	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad(L"bottom", Color(1, 1, 1), 1000.f, 1000.f);
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
 	meshList[GEO_SENTINEL] = MeshBuilder::GenerateOBJ(L"OBJ//sentinel.obj");
 	meshList[GEO_LIFT] = MeshBuilder::GenerateOBJ(L"OBJ//lift.obj");
-	meshList[GEO_GROUND] = MeshBuilder::GenerateOBJ(L"OBJ//Nirvana.obj");
+	//meshList[GEO_GROUND] = MeshBuilder::GenerateOBJ(L"OBJ//Nirvana.obj");
+	meshList[GEO_GROUND] = MeshBuilder::GenerateQuad(L"ground",Color(),10,10);
 	meshList[GEO_FOOTBALL_FIELD] = MeshBuilder::GenerateOBJ(L"OBJ//football field.obj");
 	
 	meshList[GEO_DIDACT] = MeshBuilder::GenerateOBJ(L"OBJ//didact.obj");
@@ -226,11 +227,11 @@ void ScenePhysics::InnitDraws()
 	drawOrders[DRAW_FOOTBALL_FIELD].SetTerminalVelocityTo(Vector3(60,60,60));
 	drawOrders[DRAW_FOOTBALL_FIELD].material.SetTextureTo(textures[TEXTURE_FOOTBALL_FIELD]);
 
-	drawOrders[DRAW_THING_AT_CENTRE].geometry = meshList[GEO_RING];
+	drawOrders[DRAW_THING_AT_CENTRE].geometry = meshList[GEO_DIDACT];
 	drawOrders[DRAW_THING_AT_CENTRE].transform.translate.Set(-1000,0,0);
 	drawOrders[DRAW_THING_AT_CENTRE].enableLight = false;
 	drawOrders[DRAW_THING_AT_CENTRE].SetTerminalVelocityTo(Vector3(60,60,60));
-	drawOrders[DRAW_THING_AT_CENTRE].material.SetTextureTo(textures[TEXTURE_RING]);
+	drawOrders[DRAW_THING_AT_CENTRE].material.SetTextureTo(textures[TEXTURE_DIDACT]);
 
 	drawOrders[DRAW_CORRUPTED_SENTINEL].geometry = meshList[GEO_SENTINEL];
 	drawOrders[DRAW_CORRUPTED_SENTINEL].material.SetTextureTo(textures[TEXTURE_ELECTRONIC_CIRCUIT]);
@@ -265,108 +266,116 @@ void ScenePhysics::InnitDraws()
 
 void ScenePhysics::InnitVoxels()
 {
-	drawOrders[DRAW_PLAYER].AddVoxel(4,5,4, drawOrders[DRAW_PLAYER].transform.translate, Color());
-	drawOrders[DRAW_LEFT_LIFT].AddVoxel(10,10,10, drawOrders[DRAW_LEFT_LIFT].transform.translate, Color());
+	//drawOrders[DRAW_PLAYER].AddVoxel(4,5,4, drawOrders[DRAW_PLAYER].transform.translate, Color());
+	//drawOrders[DRAW_LEFT_LIFT].AddVoxel(10,10,10, drawOrders[DRAW_LEFT_LIFT].transform.translate, Color());
 
-	//voxel for football field
-	drawOrders[DRAW_GROUND].AddVoxel(362.9, 2, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-250.54, -662.6, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(3.3, 112.7, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-433.7, -622.4, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(362.9, 109.7, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-251.1, -615.5, -291.2), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(362.9, 109.7, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-251.1, -615.5, 291.2), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(3.1, 92.1, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -606.6, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 214.8, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, -180.2), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 133.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 214.8, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, 180.2), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(362.9, 1, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-250.54, -565.6, 0), Color());
+	////voxel for football field
+	//drawOrders[DRAW_GROUND].AddVoxel(362.9, 2, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-250.54, -662.6, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(3.3, 112.7, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-433.7, -622.4, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(362.9, 109.7, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-251.1, -615.5, -291.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(362.9, 109.7, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-251.1, -615.5, 291.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(3.1, 92.1, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -606.6, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 214.8, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, -180.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 133.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(3.1, 112.7, 214.8, drawOrders[DRAW_GROUND].transform.translate + Vector3(-67.9, -622.4, 180.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(362.9, 1, 589.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-250.54, -565.6, 0), Color());
 
-	//tunnel to football field
-	drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, 66.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, 72.9), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(79.2, 1.1, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -662.3, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(71.0, 1.9, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -650.9, 69.8), Color());
+	////tunnel to football field
+	//drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, 66.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, 72.9), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(79.2, 1.1, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -662.3, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(71.0, 1.9, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -650.9, 69.8), Color());
 
-	drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, -66.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, -72.9), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(79.2, 1.1, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -662.3, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(71.0, 1.9, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -650.9, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, -66.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(72.2, 11.9, 0.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -656.9, -72.9), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(79.2, 1.1, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -662.3, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(71.0, 1.9, 6.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(-31.0, -650.9, -69.8), Color());
 
-	//elevator shaft
-	drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, -66.5), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, -73.1), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(0.3, 665.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(10.7, -331.2, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(0.3, 653.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.4, -325.2, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(6.3, 1.2, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -662.3, -69.8), Color());
-	
-	drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, 66.5), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, 73.1), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(0.3, 665.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(10.7, -331.2, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(0.3, 653.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.4, -325.2, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(6.3, 1.2, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -662.3, 69.8), Color());
+	////elevator shaft
+	//drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, -66.5), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, -73.1), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(0.3, 665.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(10.7, -331.2, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(0.3, 653.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.4, -325.2, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(6.3, 1.2, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -662.3, -69.8), Color());
+	//
+	//drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, 66.5), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(7.0, 665.4, 0.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -331.2, 73.1), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(0.3, 665.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(10.7, -331.2, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(0.3, 653.4, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.4, -325.2, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(6.3, 1.2, 7.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -662.3, 69.8), Color());
 
-	///walls that surround the tunnels
+	/////walls that surround the tunnels
 
-	drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.0, -340.9, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(33.8, -340.9, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, 43.4), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, 96.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.0, -340.9, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(33.8, -340.9, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, 43.4), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, 96.2), Color());
 
-	drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.0, -340.9, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(33.8, -340.9, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, -43.4), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, -96.2), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.0, -340.9, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1, 619.7, 52, drawOrders[DRAW_GROUND].transform.translate + Vector3(33.8, -340.9, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, -43.4), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(52, 619.7, 1, drawOrders[DRAW_GROUND].transform.translate + Vector3(4.3, -340.9, -96.2), Color());
 
-	//outside platform
+	////outside platform
 
-	drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(54.5, -30.4, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(-39.5, -30.4, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, 118.0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, 21.3), Color());
-	
-	drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(54.5, -30.4, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(-39.5, -30.4, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, -118.0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, -21.3), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(54.5, -30.4, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(-39.5, -30.4, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, 118.0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, 21.3), Color());
+	//
+	//drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(54.5, -30.4, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(40.1, 1, 133.0, drawOrders[DRAW_GROUND].transform.translate + Vector3(-39.5, -30.4, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, -118.0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(133.0, 1, 40.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.3, -30.4, -21.3), Color());
 
-	//base main floor
-	drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, 85.3), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, 53.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21.6, -0.5, 69.0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-11, -0.5, 69.0), Color());
-	
-	drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, -85.3), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, -53.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21.6, -0.5, -69.0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-11, -0.5, -69.0), Color());
+	////base main floor
+	//drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, 85.3), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, 53.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21.6, -0.5, 69.0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-11, -0.5, 69.0), Color());
+	//
+	//drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, -85.3), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(57.2, 1, 24.6, drawOrders[DRAW_GROUND].transform.translate + Vector3(5.3, -0.5, -53.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21.6, -0.5, -69.0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(24.6, 1, 57.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-11, -0.5, -69.0), Color());
 
-	//walls of main bases
-	drawOrders[DRAW_GROUND].AddVoxel(46.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 36.3, 96.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21, 36.3, 42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.2, 36.3, 42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(46.4, 62.0, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 40.3, 42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(34.3, 36.3, 69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.6, 36.3, 69.8), Color());
+	////walls of main bases
+	//drawOrders[DRAW_GROUND].AddVoxel(46.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 36.3, 96.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21, 36.3, 42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.2, 36.3, 42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(46.4, 62.0, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 40.3, 42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(34.3, 36.3, 69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.6, 36.3, 69.8), Color());
 
-	drawOrders[DRAW_GROUND].AddVoxel(46.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 36.3, -96.7), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21, 36.3, -42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.2, 36.3, -42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(46.4, 62.0, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 40.3, -42.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(34.3, 36.3, -69.8), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.6, 36.3, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(46.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 36.3, -96.7), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(21, 36.3, -42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(19.4, 99.5, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.2, 36.3, -42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(46.4, 62.0, 5.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.4, 40.3, -42.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(34.3, 36.3, -69.8), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(5.2, 99.5, 46.4, drawOrders[DRAW_GROUND].transform.translate + Vector3(-19.6, 36.3, -69.8), Color());
 
-	//platform connecting the 2 main bases
-	drawOrders[DRAW_GROUND].AddVoxel(10.8, 1, 86.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -0.5, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 86.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(11.9, 0, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 38.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(3.0, 0, 23.9), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 38.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(3.0, 0, -23.9), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(14.8, 1, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-5.0, -0.5, 0), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(18.8, 1000, 1.03, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.0, 0, 4), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(18.8, 1000, 1.03, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.0, 0, -4), Color());
-	drawOrders[DRAW_GROUND].AddVoxel(1, 1000, 10.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(-13.5, 0, 0), Color());
+	////platform connecting the 2 main bases
+	//drawOrders[DRAW_GROUND].AddVoxel(10.8, 1, 86.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(7.5, -0.5, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 86.3, drawOrders[DRAW_GROUND].transform.translate + Vector3(11.9, 0, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 38.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(3.0, 0, 23.9), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1.9, 1000, 38.5, drawOrders[DRAW_GROUND].transform.translate + Vector3(3.0, 0, -23.9), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(14.8, 1, 7.2, drawOrders[DRAW_GROUND].transform.translate + Vector3(-5.0, -0.5, 0), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(18.8, 1000, 1.03, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.0, 0, 4), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(18.8, 1000, 1.03, drawOrders[DRAW_GROUND].transform.translate + Vector3(-6.0, 0, -4), Color());
+	//drawOrders[DRAW_GROUND].AddVoxel(1, 1000, 10.1, drawOrders[DRAW_GROUND].transform.translate + Vector3(-13.5, 0, 0), Color());
 
-	//invisible wall that blocks the player from flying out of the map
-	drawOrders[DRAW_GROUND].AddVoxel(1000, 1, 1000, drawOrders[DRAW_GROUND].transform.translate + Vector3(0, 60, 0), Color());
+	////invisible wall that blocks the player from flying out of the map
+	//drawOrders[DRAW_GROUND].AddVoxel(1000, 1, 1000, drawOrders[DRAW_GROUND].transform.translate + Vector3(0, 60, 0), Color());
 
-	//platforms going towards didact
+	////platforms going towards didact
+	//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); ++draw)
+	//{
+	//	draw->GenerateVoxels();
+	//}
+	drawOrders[DRAW_GROUND].GenerateVoxels();
+	drawOrders[DRAW_PLAYER].GenerateVoxels();
+	//drawOrders[DRAW_CORRUPTED_SENTINEL].GenerateVoxels();
+	//drawOrders[DRAW_FOOTBALL_FIELD].GenerateVoxels();
 }
 
 void ScenePhysics::InnitForces()
@@ -376,7 +385,7 @@ void ScenePhysics::InnitForces()
 	//Vector3 accelerationDueToGravity(0, 0, 0);
 	for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	{
-		draw->AddForce(accelerationDueToGravity * draw->mass);
+		draw->AddForce(accelerationDueToGravity * draw->GetMass());
 	}
 }
 
@@ -456,6 +465,7 @@ void ScenePhysics::UpdateDraws()
 	{
 		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
 		draw->UpdateVelocity(deltaTime);
+		draw->UpdateForcesTo(deltaTime);
 	}
 
 	//where we do collision
@@ -464,18 +474,15 @@ void ScenePhysics::UpdateDraws()
 		//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
 		for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
 		{
-			if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
+			if(draw1->IsCollidingWith(*draw2))
 			{
-				continue;
-			}
-			bool CollisionIsDone = false;
-
-			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
-			for(std::vector<Voxel>::iterator voxel1 = draw1->voxels.begin(); voxel1 != draw1->voxels.end(); voxel1++)
-			{
-				for(std::vector<Voxel>::iterator voxel2 = draw2->voxels.begin(); voxel2 != draw2->voxels.end(); voxel2++)
+				//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
+				for(std::vector<Voxel>::iterator voxel1 = draw1->voxels.begin(); voxel1 != draw1->voxels.end(); voxel1++)
 				{
-					CollisionIsDone = collisionSystem.CheckThisCollision(&*voxel1, &*voxel2, deltaTime);
+					for(std::vector<Voxel>::iterator voxel2 = draw2->voxels.begin(); voxel2 != draw2->voxels.end(); voxel2++)
+					{
+						collisionSystem.CheckThisCollision(&*voxel1, &*voxel2, deltaTime);
+					}
 				}
 			}
 		}
@@ -499,6 +506,9 @@ void ScenePhysics::Render()
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
 
+	char buffer[126];
+	sprintf(buffer,"fps:%f",1.0/deltaTime);
+
 	if(drawVoxels)
 	{
 		for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
@@ -511,10 +521,11 @@ void ScenePhysics::Render()
 			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
 			for(std::vector<Voxel>::iterator voxel = draw->voxels.begin(); voxel != draw->voxels.end(); voxel++)
 			{
+				voxel->ApplyCurrentMatrix();
 				modelStack.PushMatrix();
 				Mtx44 translate, scale;
 				translate.SetToTranslation(voxel->GetPosition());
-				scale.SetToScale(voxel->GetSize().x, voxel->GetSize().y, voxel->GetSize().z);
+				scale.SetToScale(voxel->GetSize(), voxel->GetSize(), voxel->GetSize());
 				modelStack.LoadMatrix(translate * scale);
 				gfx.RenderMesh(draw_cube, modelStack.Top());
 				modelStack.PopMatrix();
@@ -523,9 +534,9 @@ void ScenePhysics::Render()
 	}
 	else
 	{
-		ExecuteDrawOrder(drawOrders[DRAW_SKYBOX]);
+		drawOrders[DRAW_SKYBOX].Execute(gfx);
 	}
-
+	gfx.RenderTextOnScreen(buffer,Color(1,0,0),1,30,30);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -615,14 +626,13 @@ void ScenePhysics::DoUserInput()
 	if (keyboard.isKeyHold('O'))
 	{	
 		Vector3 tempVector;
-		tempVector.Set(0, 50, 0);
-		playerAcceleration += tempVector;
+		tempVector.Set(0, 5000, 0);
 		playerAcceleration += tempVector;
 	}
 	if (keyboard.isKeyHold('P'))
 	{
 		Vector3 tempVector;
-		tempVector.Set(0, -50, 0);
+		tempVector.Set(0, -5000, 0);
 		playerAcceleration += tempVector;
 	}
 	if (keyboard.isKeyHold('W'))
@@ -653,21 +663,4 @@ void ScenePhysics::DoUserInput()
 	playerForce.SetLifespanTo(0.0001);
 	playerForce.SetVector(playerAcceleration);
 	drawOrders[DRAW_PLAYER].AddForce(playerForce);
-}
-
-void ScenePhysics::ExecuteDrawOrder(drawOrder& draw)
-{
-	modelStack.PushMatrix();
-	modelStack.MultMatrix(draw.transform.Matrix());
-	for(std::vector<drawOrder*>::iterator child = draw.children.begin(); child != draw.children.end(); child++)
-	{
-		ExecuteDrawOrder(**child);
-	}
-	modelStack.MultMatrix(draw.selfTransform.Matrix());
-	//a small check to see weather the draw order is pointing to a geometry before drawing it.
-	if(draw.geometry)
-	{
-		gfx.RenderMesh(draw, modelStack.Top());
-	}
-	modelStack.PopMatrix();
 }

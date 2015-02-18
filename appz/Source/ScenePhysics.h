@@ -149,7 +149,5 @@ private:
 	void UpdateView();
 	void UpdateLight();
 	void UpdateDraws();
-
-	void ExecuteDrawOrder(drawOrder& draw);
 };
 

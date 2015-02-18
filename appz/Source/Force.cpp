@@ -13,18 +13,21 @@ Force::~Force()
 {
 }
 
-Vector3 Force::ReturnUpdatedAt(float deltaTime)
+Vector3 Force::GetVector() const
 {
 	if(isDead())
 	{
 		return Vector3();
 	}
-	lifespan -= deltaTime;
-	if(lifespan == 0)
-	{
-		lifespan--;
-	}
 	return force;
+}
+
+void Force::UpdateTo(const double deltaTime)
+{
+	if(lifespan != 0)
+	{
+		lifespan -= deltaTime;
+	}
 }
 
 void Force::SetLifespanTo(float time)
@@ -32,7 +35,7 @@ void Force::SetLifespanTo(float time)
 	lifespan = time;
 }
 
-bool Force::isDead()
+bool Force::isDead() const
 {
 	if(lifespan < 0)
 	{

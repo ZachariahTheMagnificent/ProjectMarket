@@ -297,7 +297,7 @@ void SceneMain::Render()
 				modelStack.PushMatrix();
 				Mtx44 translate, scale;
 				translate.SetToTranslation(voxel->GetPosition());
-				scale.SetToScale(voxel->GetSize().x, voxel->GetSize().y, voxel->GetSize().z);
+				scale.SetToScale(Voxel::GetSize(), Voxel::GetSize(), Voxel::GetSize());
 				modelStack.LoadMatrix(translate * scale);
 				gfx.RenderMesh(draw_cube, modelStack.Top());
 				modelStack.PopMatrix();

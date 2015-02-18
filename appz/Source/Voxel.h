@@ -9,6 +9,7 @@ class Voxel
 public:
 	Voxel();
 	~Voxel();
+	void ApplyCurrentMatrix();
 	Vector3 GetVelocity() const;
 	float GetMaxX() const;
 	float GetMinX() const;
@@ -17,7 +18,7 @@ public:
 	float GetMaxZ() const;
 	float GetMinZ() const;
 	Vector3 GetPosition() const;
-	Vector3 GetSize() const;
+	static float GetSize();
 	Vector3 GetDistanceFrom(const Voxel& voxel) const;
 	bool IsCollidingWith(const Voxel& voxel) const;
 	bool IsBehind(const Voxel& voxel) const;
@@ -26,18 +27,15 @@ public:
 	bool IsToTheRightOf(const Voxel& voxel) const;
 	bool IsAbove(const Voxel& voxel) const;
 	bool IsBelow(const Voxel& voxel) const;
-	//bool DoCollisionWith(Voxel* voxel, const double dt);
-	void SetSizeTo(const float x, const float y, const float z);
 	void SetColorTo(const Color newColor);
 	void ChangeVelocityTo(const Vector3 newVelocity, Voxel* TransferMomentumToThisVoxel = NULL);
 	void SetPositionTo(const Vector3 newPosition);
 	void AssignTo(drawOrder* newDraw);
-	void UpdateTo(const double deltaTime);
+	Voxel At(const double time);
+	bool operator==(const Voxel& voxel) const;
 private:
 	drawOrder* draw;
 	Vector3 position;
-	float sizeX;
-	float sizeY;
-	float sizeZ;
+	Vector3 displacement;
 	Color color;
 };

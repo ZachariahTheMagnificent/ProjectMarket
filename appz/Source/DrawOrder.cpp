@@ -1,22 +1,36 @@
 #include "DrawOrder.h"
+#include "Graphics.h"
 
 drawOrder::drawOrder()
 {
 	geometry = NULL;
+	parent = NULL;
 	enableLight = false;
 	mass = 0;
 	bounce = 0;
 	staticFriction = 0;
 	kineticFriction = 0;
 	drawMode = GL_TRIANGLES;
+	boundsX = 0;
+	boundsY = 0;
+	boundsZ = 0;
 }
 
 drawOrder::~drawOrder()
 {
 }
 
-void drawOrder::Execute()
+void drawOrder::Execute(Graphics& gfx)
 {
+	for(std::vector<drawOrder*>::iterator child = children.begin(); child != children.end(); child++)
+	{
+		(*child)->Execute(gfx);
+	}
+	//a small check to see weather the draw order is pointing to a geometry before drawing it.
+	if(geometry)
+	{
+		gfx.RenderMesh(*this, GetMatrix());
+	}
 }
 
 void drawOrder::SetMaterial(const Material& mat)
@@ -30,6 +44,38 @@ void drawOrder::SetTerminalVelocityTo(Vector3 vector)
 	vector.y = abs(vector.y);
 	vector.z = abs(vector.z);
 	terminalVelocity = vector;
+}
+
+void drawOrder::SetParentAs(drawOrder* parent)
+{
+	if(parent)
+	{
+		for(std::vector<drawOrder*>::iterator child = parent->children.begin(); child != parent->children.end(); ++child)
+		{
+			if(*child == this)
+			{
+				parent->children.erase(child);
+				break;
+			}
+		}
+	}
+	this->parent = parent;
+	parent->children.push_back(this);
+}
+
+Mtx44 drawOrder::GetModelTransform() const
+{
+	if(parent)
+	{
+		return transform.Matrix() * parent->GetModelTransform();
+	}
+	return transform.Matrix();
+
+}
+ 
+Mtx44 drawOrder::GetMatrix() const
+{
+	return selfTransform.Matrix() * GetModelTransform();
 }
 
 void drawOrder::CapVelocityToTerminal()
@@ -75,9 +121,27 @@ void drawOrder::SetVelocityTo(Vector3 newVelocity)
 	CapVelocityToTerminal();
 }
 
+float drawOrder::GetMass() const
+{
+	return mass;
+}
+void drawOrder::UpdateForcesTo(const double deltaTime)
+{
+	for(std::vector<Force>::iterator force = forces.begin(); force != forces.end(); ++force)
+	{
+		force->UpdateTo(deltaTime);
+		if(force->isDead())
+		{
+			std::vector<Force>::iterator newIterator = force - 1;
+			unsigned index = force - forces.begin();
+			forces.erase(forces.begin() + index);
+			force = newIterator;
+		}
+	}
+}
 void drawOrder::UpdateVelocity(const double deltaTime)
 {
-	Vector3 acceleration = GetAcceleration(deltaTime);
+	Vector3 acceleration = GetAcceleration();
 	velocity += acceleration * deltaTime;
 	CapVelocityToTerminal();
 }
@@ -89,12 +153,7 @@ void drawOrder::ApplyFriction()
 
 void drawOrder::UpdateTo(const double deltaTime)
 {
-	//previousLocation = transform.translate;
 	transform.translate += velocity * deltaTime;
-	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); voxel++)
-	{
-		voxel->UpdateTo(deltaTime);
-	}
 	ApplyFriction();
 }
 
@@ -102,7 +161,6 @@ void drawOrder::AddVoxel(float x, float y, float z, Vector3 position, Color colo
 {
 	voxels.push_back(Voxel());
 	voxels.back().AssignTo(this);
-	voxels.back().SetSizeTo(x, y, z);
 	voxels.back().SetPositionTo(position);
 	voxels.back().SetColorTo(color);
 }
@@ -136,14 +194,14 @@ void drawOrder::AddForce(Force force)
 	forces.push_back(force);
 }
 
-Vector3 drawOrder::GetAcceleration(float deltaTime)
+Vector3 drawOrder::GetAcceleration()
 {
 	Vector3 acceleration;
 	for(std::vector<Force>::iterator force = forces.begin(); force != forces.end(); force++)
 	{
 		if(mass)
 		{
-			acceleration += force->ReturnUpdatedAt(deltaTime) / mass;
+			acceleration += force->GetVector() / mass;
 		}
 	}
 	return acceleration;
@@ -168,6 +226,90 @@ void drawOrder::SetMomentumTo(Vector3 momentum)
 	}
 }
 
+void drawOrder::GenerateVoxels()
+{
+	bool test = !geometry->GetName().compare(L"ground");
+	if(geometry)
+	{
+		voxels = geometry->GenerateVoxels();
+	}
+	float furtherstX = INT_MIN;
+	float furtherstY = INT_MIN;
+	float furtherstZ = INT_MIN;
+	float nearestX = INT_MAX;
+	float nearestY = INT_MAX;
+	float nearestZ = INT_MAX;
+	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
+	{
+		//the voxel is currently not bound to any draw so it should be at it's orgin
+		int x = voxel->GetPosition().x, y = voxel->GetPosition().y, z = voxel->GetPosition().z;
+		if(x < nearestX)
+		{
+			nearestX = x;
+		}
+		if(x > furtherstX)
+		{
+			furtherstX = x;
+		}
+		if(y < nearestY)
+		{
+			nearestY = y;
+		}
+		if(y > furtherstY)
+		{
+			furtherstY = y;
+		}
+		if(z < nearestZ)
+		{
+			nearestZ = z;
+		}
+		if(z > furtherstZ)
+		{
+			furtherstZ = z;
+		}
+		voxel->AssignTo(this);
+	}
+	float sizeX = abs(furtherstX - nearestX);
+	float sizeY = abs(furtherstY - nearestY);
+	float sizeZ = abs(furtherstZ - nearestZ);
+	SetBoundsTo(sizeX, sizeY, sizeZ);
+}
+
+void drawOrder::SetBoundsTo(const float sizeX, const float sizeY, const float sizeZ)
+{
+	boundsX = sizeX;
+	boundsY = sizeY;
+	boundsZ = sizeZ;
+}
+
+bool drawOrder::IsCollidingWith(drawOrder& draw) const
+{
+	const float MinX = draw.GetMinX();
+	const float MinY = draw.GetMinY();
+	const float MinZ = draw.GetMinZ();
+	const float MaxX = draw.GetMaxX();
+	const float MaxY = draw.GetMaxY();
+	const float MaxZ = draw.GetMaxZ();
+
+	const float OurMinX = GetMinX();
+	const float OurMinY = GetMinY();
+	const float OurMinZ = GetMinZ();
+	const float OurMaxX = GetMaxX();
+	const float OurMaxY = GetMaxY();
+	const float OurMaxZ = GetMaxZ();
+
+	if((MinX < OurMaxX) && (MaxX > OurMinX) &&
+		(MinY < OurMaxY) && (MaxY > OurMinY) &&
+		(MinZ < OurMaxZ) && (MaxZ > OurMinZ))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 float drawOrder::GetKinetic()
 {
 	return 0.5f * mass * velocity.Length() * velocity.Length();
@@ -181,4 +323,34 @@ void drawOrder::Render() const
 void drawOrder::RenderPartial(const unsigned offset, const unsigned count) const
 {
 	geometry->Render(offset, count, material.GetTexture(), drawMode);
+}
+
+float drawOrder::GetMaxX() const
+{
+	return (GetMatrix() * transform.translate).x + boundsX/2;
+}
+
+float drawOrder::GetMinX() const
+{
+	return (GetMatrix() * transform.translate).x - boundsX/2;
+}
+
+float drawOrder::GetMaxY() const
+{
+	return (GetMatrix() * transform.translate).y + boundsY/2;
+}
+
+float drawOrder::GetMinY() const
+{
+	return (GetMatrix() * transform.translate).y - boundsY/2;
+}
+
+float drawOrder::GetMaxZ() const
+{
+	return (GetMatrix() * transform.translate).z + boundsZ/2;
+}
+
+float drawOrder::GetMinZ() const
+{
+	return (GetMatrix() * transform.translate).z - boundsZ/2;
 }
