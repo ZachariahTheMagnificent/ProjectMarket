@@ -8,6 +8,7 @@
 #include "DrawOrder.h"
 #include "MatrixStack.h"
 #include "ContactSolver.h"
+#include "player.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -24,12 +25,7 @@ private:
 	//enums
 	enum GEOMETRY_TYPE
 	{
-		GEO_LEFT,
-		GEO_RIGHT,
-		GEO_TOP,
-		GEO_BOTTOM,
-		GEO_FRONT,
-		GEO_BACK,
+		GEO_SKYBOX,
 		GEO_TEXT,
 		GEO_CUBE,	
 		GEO_GROUND,
@@ -37,13 +33,8 @@ private:
 	};
 	enum DRAW_REFERENCE
 	{
+		DRAW_MAIN,
 		DRAW_SKYBOX,
-		DRAW_LEFT,
-		DRAW_RIGHT,
-		DRAW_TOP,
-		DRAW_BOTTOM,
-		DRAW_FRONT,
-		DRAW_BACK,
 
 		DRAW_PLAYER,
 		DRAW_GROUND,
@@ -58,12 +49,7 @@ private:
 	};
 	enum TEXTURE_TYPE
 	{
-		TEXTURE_BACK,
-		TEXTURE_BOTTOM,
-		TEXTURE_FRONT,
-		TEXTURE_LEFT,
-		TEXTURE_RIGHT,
-		TEXTURE_TOP,
+		TEXTURE_SKYBOX,
 		TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE,
 		TEXTURE_GROUND,
 
@@ -78,6 +64,11 @@ private:
 	Light light[NUMLIGHTS];
 	Camera camera;
 	MS viewStack, projectionStack, modelStack;
+	Player* player;
+	bool isJumping;
+	bool isFalling;
+	double jumpedHeight;
+	bool isFrog;
 
 	//print fps
 	double deltaTime;

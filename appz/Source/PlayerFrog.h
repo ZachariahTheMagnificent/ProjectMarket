@@ -9,17 +9,15 @@ public:
 	PlayerFrog(void);
 	~PlayerFrog(void);
 	
-	virtual void Init() = 0;
-	virtual bool Update(const double dt) = 0;
-	virtual void Render() = 0;
-	virtual void Exit() = 0;
+	void Init();
+	Vector3 Update(Camera camera);
+	void Render();
+	void Exit();
 	
 	//movement
-	//void MoveForward();
-	//void MoveBackward();
-	//void MoveRight();
-	//void MoveLeft();
-
-	Transformation transform;
+	Vector3 MoveForward(Camera camera, double movingSpeed);
+	Vector3 MoveBackward(Camera camera, double movingSpeed);
+	Vector3 MoveRight(Camera camera, double movingSpeed);
+	Vector3 MoveLeft(Camera camera, double movingSpeed);
 };
 
