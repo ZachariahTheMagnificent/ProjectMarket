@@ -44,6 +44,7 @@ private:
 	};
 	enum DRAW_REFERENCE
 	{
+		DRAW_MAIN,
 		DRAW_SKYBOX,
 		DRAW_LEFT,
 		DRAW_RIGHT,
@@ -104,7 +105,6 @@ private:
 	std::vector<unsigned> textures;
 	Light light[NUMLIGHTS];
 	Camera camera;
-	MS viewStack, projectionStack, modelStack;
 
 	//print fps
 	double deltaTime;

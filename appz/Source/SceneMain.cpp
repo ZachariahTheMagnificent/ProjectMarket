@@ -82,7 +82,7 @@ void SceneMain::InnitGeometry()
 	meshList.resize(NUM_GEOMETRY, NULL);
 
 	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
-	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f);
+	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 4.f, 4.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
 }
 
@@ -94,21 +94,19 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_MAIN].geometry = NULL;
 	drawOrders[DRAW_MAIN].enableLight = false;
 
-	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_SKYBOX]);
-	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_GROUND]);
-	drawOrders[DRAW_MAIN].children.push_back(&drawOrders[DRAW_PLAYER]);
-
 	//positions are offset a little from their proper position because of floating point error
 
 	drawOrders[DRAW_SKYBOX].geometry = meshList[GEO_SKYBOX];
 	drawOrders[DRAW_SKYBOX].transform.translate.Set(0,0,0);
 	drawOrders[DRAW_SKYBOX].transform.scale.Set(10000,10000,10000);
 	drawOrders[DRAW_SKYBOX].material.SetTextureTo(textures[TEXTURE_SKYBOX]);
+	drawOrders[DRAW_SKYBOX].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_SKYBOX].enableLight = false;
 
 	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
 	drawOrders[DRAW_GROUND].transform.translate.Set(0,0,0);
 	drawOrders[DRAW_GROUND].material.SetTextureTo(textures[TEXTURE_GROUND]);
+	drawOrders[DRAW_GROUND].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_GROUND].enableLight = false;
 
 	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_CUBE];
@@ -117,23 +115,24 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PLAYER].SetTerminalVelocityTo(Vector3(60,60,60));
 	drawOrders[DRAW_PLAYER].staticFriction = 0.03;
 	drawOrders[DRAW_PLAYER].mass = 1;
+	drawOrders[DRAW_PLAYER].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_PLAYER].enableLight = false;
 }
 
 void SceneMain::InnitVoxels()
 {
-	drawOrders[DRAW_PLAYER].AddVoxel(1,1,1, drawOrders[DRAW_PLAYER].transform.translate, Color());
+	drawOrders[DRAW_PLAYER].GenerateVoxels();
 
 	//voxel for football field
-	drawOrders[DRAW_GROUND].AddVoxel(10000, 1, 10000, drawOrders[DRAW_GROUND].transform.translate, Color());
+	drawOrders[DRAW_GROUND].GenerateVoxels();
 }
 
 void SceneMain::InnitForces()
 {
-	Vector3 accelerationDueToGravity(0, -9.8f, 0);
+	Vector3 accelerationDueToGravity(0, -50.f, 0);
 	for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	{
-		draw->AddForce(accelerationDueToGravity * draw->mass);
+		//draw->AddForce(accelerationDueToGravity * draw->mass);
 	}
 }
 
@@ -197,6 +196,7 @@ void SceneMain::UpdateDraws()
 	{
 		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
 		draw->UpdateVelocity(deltaTime);
+		draw->UpdateForcesTo(deltaTime);
 	}
 
 	//where we do collision
@@ -242,29 +242,26 @@ void SceneMain::Render()
 
 	if(drawVoxels)
 	{
+		Material material;
+		drawOrder draw_cube;
+		draw_cube.geometry = meshList[GEO_CUBE];
+		draw_cube.enableLight = false;
+		draw_cube.material = material;
 		for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 		{
-			Material material;
-			drawOrder draw_cube;
-			draw_cube.geometry = meshList[GEO_CUBE];
-			draw_cube.enableLight = false;
-			draw_cube.material = material;
 			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
 			for(std::vector<Voxel>::iterator voxel = draw->voxels.begin(); voxel != draw->voxels.end(); voxel++)
 			{
-				modelStack.PushMatrix();
 				Mtx44 translate, scale;
 				translate.SetToTranslation(voxel->GetPosition());
 				scale.SetToScale(Voxel::GetSize(), Voxel::GetSize(), Voxel::GetSize());
-				modelStack.LoadMatrix(translate * scale);
-				gfx.RenderMesh(draw_cube, modelStack.Top());
-				modelStack.PopMatrix();
+				gfx.RenderMesh(draw_cube, translate * scale);
 			}
 		}
 	}
 	else
 	{
-		ExecuteDrawOrder(drawOrders[DRAW_MAIN]);
+		drawOrders[DRAW_MAIN].Execute(gfx);
 	}
 
 	glDisableVertexAttribArray(0);
@@ -351,16 +348,16 @@ void SceneMain::DoUserInput()
 		{
 			playerAcceleration += player->MoveRight(camera, movingSpeed);
 		}
-		if(isFrog == true && isJumping == false && isFalling == false)
+		/*if(isFrog == true && isJumping == false && isFalling == false)
 		{
 			isJumping = true;
-		}
+		}*/
 	}
 	//Jump
-	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
+	/*if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
 	{
 		isJumping = true;
-	}
+	}*/
 	/*
 	if (keyboard.isKeyHold('O'))
 	{	
@@ -430,26 +427,9 @@ void SceneMain::DoUserInput()
 			jumpedHeight = 0;
 		}
 	}
-	playerAcceleration += player->Update(camera);
+	//playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
 	playerForce.SetVector(playerAcceleration);
 	drawOrders[DRAW_PLAYER].AddForce(playerForce);
-}
-
-void SceneMain::ExecuteDrawOrder(drawOrder& draw)
-{
-	modelStack.PushMatrix();
-	modelStack.MultMatrix(draw.transform.Matrix());
-	for(std::vector<drawOrder*>::iterator child = draw.children.begin(); child != draw.children.end(); child++)
-	{
-		ExecuteDrawOrder(**child);
-	}
-	modelStack.MultMatrix(draw.selfTransform.Matrix());
-	//a small check to see weather the draw order is pointing to a geometry before drawing it.
-	if(draw.geometry)
-	{
-		gfx.RenderMesh(draw, modelStack.Top());
-	}
-	modelStack.PopMatrix();
 }

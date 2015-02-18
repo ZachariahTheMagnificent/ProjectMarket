@@ -511,24 +511,21 @@ void ScenePhysics::Render()
 
 	if(drawVoxels)
 	{
+		Material material;
+		drawOrder draw_cube;
+		draw_cube.geometry = meshList[GEO_CUBE];
+		draw_cube.enableLight = false;
+		draw_cube.material = material;
 		for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 		{
-			Material material;
-			drawOrder draw_cube;
-			draw_cube.geometry = meshList[GEO_CUBE];
-			draw_cube.enableLight = false;
-			draw_cube.material = material;
 			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
 			for(std::vector<Voxel>::iterator voxel = draw->voxels.begin(); voxel != draw->voxels.end(); voxel++)
 			{
 				voxel->ApplyCurrentMatrix();
-				modelStack.PushMatrix();
 				Mtx44 translate, scale;
 				translate.SetToTranslation(voxel->GetPosition());
 				scale.SetToScale(voxel->GetSize(), voxel->GetSize(), voxel->GetSize());
-				modelStack.LoadMatrix(translate * scale);
-				gfx.RenderMesh(draw_cube, modelStack.Top());
-				modelStack.PopMatrix();
+				gfx.RenderMesh(draw_cube,translate * scale);
 			}
 		}
 	}

@@ -132,9 +132,21 @@ void drawOrder::UpdateForcesTo(const double deltaTime)
 		force->UpdateTo(deltaTime);
 		if(force->isDead())
 		{
-			std::vector<Force>::iterator newIterator = force - 1;
 			unsigned index = force - forces.begin();
+			std::vector<Force>::iterator newIterator;
+			if(index != 0)
+			{
+				newIterator = force - 1;
+			}
+			else
+			{
+				newIterator = force;
+			}
 			forces.erase(forces.begin() + index);
+			if(forces.size() == 0)
+			{
+				break;
+			}
 			force = newIterator;
 		}
 	}
@@ -155,14 +167,6 @@ void drawOrder::UpdateTo(const double deltaTime)
 {
 	transform.translate += velocity * deltaTime;
 	ApplyFriction();
-}
-
-void drawOrder::AddVoxel(float x, float y, float z, Vector3 position, Color color)
-{
-	voxels.push_back(Voxel());
-	voxels.back().AssignTo(this);
-	voxels.back().SetPositionTo(position);
-	voxels.back().SetColorTo(color);
 }
 
 void drawOrder::GainMomentumFrom(drawOrder* draw, Vector3 momentumGain)

@@ -63,7 +63,6 @@ private:
 	std::vector<unsigned> textures;
 	Light light[NUMLIGHTS];
 	Camera camera;
-	MS viewStack, projectionStack, modelStack;
 	Player* player;
 	bool isJumping;
 	bool isFalling;
@@ -98,7 +97,5 @@ private:
 	void UpdateView();
 	void UpdateLight();
 	void UpdateDraws();
-
-	void ExecuteDrawOrder(drawOrder& draw);
 };
 

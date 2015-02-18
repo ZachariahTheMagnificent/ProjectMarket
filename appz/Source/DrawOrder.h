@@ -110,7 +110,6 @@ public:
 	void UpdateForcesTo(const double deltaTime);
 	void UpdateVelocity(const double deltaTime);
 	void UpdateTo(const double deltaTime);
-	void AddVoxel(float x, float y, float z, Vector3 position, Color color);
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
 	Vector3 GetAcceleration();
