@@ -56,6 +56,16 @@ void SceneMain::InnitTextures()
 	textures.resize(NUM_TEXTURES, 0);
 	textures[TEXTURE_SKYBOX] = LoadTGA(L"Image//skybox.tga");
 	textures[TEXTURE_GROUND] = LoadTGA(L"Image//ground.tga");
+	textures[TEXTURE_CABINET1] = LoadTGA(L"Image//Cabinet1Texture.tga");
+	textures[TEXTURE_CAN1] = LoadTGA(L"Image//can1.tga");
+	textures[TEXTURE_CAN2] = LoadTGA(L"Image//can2.tga");
+	textures[TEXTURE_CAN3] = LoadTGA(L"Image//can3.tga");
+	textures[TEXTURE_CEREAL1] = LoadTGA(L"Image//cereal1.tga");
+	textures[TEXTURE_CEREAL2] = LoadTGA(L"Image//cereal2.tga");
+	textures[TEXTURE_CEREAL3] = LoadTGA(L"Image//cereal3.tga");
+	textures[TEXTURE_PACKET1] = LoadTGA(L"Image//packet1.tga");
+	textures[TEXTURE_PACKET2] = LoadTGA(L"Image//packet2.tga");
+	textures[TEXTURE_PACKET3] = LoadTGA(L"Image//packet3.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
 
@@ -84,6 +94,16 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
 	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 4.f, 4.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
+	meshList[GEO_CABINET1] = MeshBuilder::GenerateOBJ(L"OBJ//Cabinet1.obj");
+	//meshList[GEO_CAN1] = MeshBuilder::GenerateOBJ(L"OBJ//can1.obj");
+	meshList[GEO_CAN2] = MeshBuilder::GenerateOBJ(L"OBJ//can2.obj");
+	meshList[GEO_CAN3] = MeshBuilder::GenerateOBJ(L"OBJ//can3.obj");
+	meshList[GEO_CEREAL1] = MeshBuilder::GenerateOBJ(L"OBJ//cereal1.obj");
+	meshList[GEO_CEREAL2] = MeshBuilder::GenerateOBJ(L"OBJ//cereal2.obj");
+	meshList[GEO_CEREAL3] = MeshBuilder::GenerateOBJ(L"OBJ//cereal3.obj");
+	meshList[GEO_PACKET1] = MeshBuilder::GenerateOBJ(L"OBJ//packet1.obj");
+	meshList[GEO_PACKET2] = MeshBuilder::GenerateOBJ(L"OBJ//packet2.obj");
+	meshList[GEO_PACKET3] = MeshBuilder::GenerateOBJ(L"OBJ//packet3.obj");
 }
 
 void SceneMain::InnitDraws()
@@ -117,6 +137,66 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PLAYER].mass = 1;
 	drawOrders[DRAW_PLAYER].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_PLAYER].enableLight = false;
+
+	drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
+	drawOrders[DRAW_CABINET1].transform.translate.Set(10,0.1,0);
+	drawOrders[DRAW_CABINET1].material.SetTextureTo(textures[TEXTURE_CABINET1]);
+	drawOrders[DRAW_CABINET1].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CABINET1].enableLight = false;
+
+	drawOrders[DRAW_CAN1].geometry = meshList[GEO_CAN1];
+	drawOrders[DRAW_CAN1].transform.translate.Set(15,0.1,0);
+	drawOrders[DRAW_CAN1].material.SetTextureTo(textures[TEXTURE_CAN1]);
+	drawOrders[DRAW_CAN1].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CAN1].enableLight = false;
+
+	drawOrders[DRAW_CAN2].geometry = meshList[GEO_CAN2];
+	drawOrders[DRAW_CAN2].transform.translate.Set(20,0.1,0);
+	drawOrders[DRAW_CAN2].material.SetTextureTo(textures[TEXTURE_CAN2]);
+	drawOrders[DRAW_CAN2].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CAN2].enableLight = false;
+
+	drawOrders[DRAW_CAN3].geometry = meshList[GEO_CAN3];
+	drawOrders[DRAW_CAN3].transform.translate.Set(25,0.1,0);
+	drawOrders[DRAW_CAN3].material.SetTextureTo(textures[TEXTURE_CAN3]);
+	drawOrders[DRAW_CAN3].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CAN3].enableLight = false;
+
+	drawOrders[DRAW_CEREAL1].geometry = meshList[GEO_CEREAL1];
+	drawOrders[DRAW_CEREAL1].transform.translate.Set(30,0.1,0);
+	drawOrders[DRAW_CEREAL1].material.SetTextureTo(textures[TEXTURE_CEREAL1]);
+	drawOrders[DRAW_CEREAL1].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CEREAL1].enableLight = false;
+
+	drawOrders[DRAW_CEREAL2].geometry = meshList[GEO_CEREAL2];
+	drawOrders[DRAW_CEREAL2].transform.translate.Set(35,0.1,0);
+	drawOrders[DRAW_CEREAL2].material.SetTextureTo(textures[TEXTURE_CEREAL2]);
+	drawOrders[DRAW_CEREAL2].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CEREAL2].enableLight = false;
+
+	drawOrders[DRAW_CEREAL3].geometry = meshList[GEO_CEREAL3];
+	drawOrders[DRAW_CEREAL3].transform.translate.Set(40,0.1,0);
+	drawOrders[DRAW_CEREAL3].material.SetTextureTo(textures[TEXTURE_CEREAL3]);
+	drawOrders[DRAW_CEREAL3].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CEREAL3].enableLight = false;
+
+	drawOrders[DRAW_PACKET1].geometry = meshList[GEO_PACKET1];
+	drawOrders[DRAW_PACKET1].transform.translate.Set(45,0.1,0);
+	drawOrders[DRAW_PACKET1].material.SetTextureTo(textures[TEXTURE_PACKET1]);
+	drawOrders[DRAW_PACKET1].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_PACKET1].enableLight = false;
+
+	drawOrders[DRAW_PACKET2].geometry = meshList[GEO_PACKET2];
+	drawOrders[DRAW_PACKET2].transform.translate.Set(50,0.1,0);
+	drawOrders[DRAW_PACKET2].material.SetTextureTo(textures[TEXTURE_PACKET2]);
+	drawOrders[DRAW_PACKET2].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_PACKET2].enableLight = false;
+
+	drawOrders[DRAW_PACKET3].geometry = meshList[GEO_PACKET3];
+	drawOrders[DRAW_PACKET3].transform.translate.Set(55,0.1,0);
+	drawOrders[DRAW_PACKET3].material.SetTextureTo(textures[TEXTURE_PACKET3]);
+	drawOrders[DRAW_PACKET3].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_PACKET3].enableLight = false;
 }
 
 void SceneMain::InnitVoxels()
@@ -125,6 +205,9 @@ void SceneMain::InnitVoxels()
 
 	//voxel for football field
 	drawOrders[DRAW_GROUND].GenerateVoxels();
+	delete meshList[GEO_GROUND];
+	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1,1,1), 500.f, 500.f); 
+	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
 }
 
 void SceneMain::InnitForces()
@@ -172,11 +255,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
+		//camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
 	}
 	else
 	{
-		camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 3, 0));
+		//camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 3, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - drawOrders[DRAW_PLAYER].transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
@@ -373,30 +456,30 @@ void SceneMain::DoUserInput()
 	}
 	*/
 	//Ignore
-	//if (keyboard.isKeyHold('W'))
-	//{
-	//	camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	//}
-	//if (keyboard.isKeyHold('A'))
-	//{
-	//	camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
-	//}
-	//if (keyboard.isKeyHold('S'))
-	//{
-	//	camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	//}
-	//if (keyboard.isKeyHold('D'))
-	//{
-	//	camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
-	//}
-	//if (keyboard.isKeyHold(VK_SPACE))
-	//{
-	//	camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
-	//}
-	//if (keyboard.isKeyHold(VK_CONTROL))
-	//{
-	//	camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
-	//}
+	if (keyboard.isKeyHold(VK_UP))
+	{
+		camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+	}
+	if (keyboard.isKeyHold(VK_LEFT))
+	{
+		camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
+	}
+	if (keyboard.isKeyHold(VK_DOWN))
+	{
+		camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+	}
+	if (keyboard.isKeyHold(VK_RIGHT))
+	{
+		camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
+	}
+	if (keyboard.isKeyHold(VK_SPACE))
+	{
+		camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
+	}
+	if (keyboard.isKeyHold(VK_CONTROL))
+	{
+		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
+	}
 
 	//Jump
 	if(isJumping == true)
