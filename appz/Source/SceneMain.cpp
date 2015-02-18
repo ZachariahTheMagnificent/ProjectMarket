@@ -31,6 +31,7 @@ void SceneMain::Init()
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
+	isFrog = false;
 
 	camera.Init(Vector3(21.7, 5, 68.3), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -170,7 +171,14 @@ void SceneMain::UpdateView()
 	//positions are offset a little from their proper position because of floating point error
 	drawOrders[DRAW_SKYBOX].transform.translate = Vector3(0,0,0) + camera.ReturnPosition();
 
-	camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
+	if(isFrog == false)
+	{
+		camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
+	}
+	else
+	{
+		camera.Translate(drawOrders[DRAW_PLAYER].transform.translate - camera.ReturnPosition() + Vector3(0, 3, 0));
+	}
 	float player_rotationY = camera.GetRotation().y - drawOrders[DRAW_PLAYER].transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
 	drawOrders[DRAW_PLAYER].transform.rotate.y += player_current_frame_rotationY;
@@ -315,50 +323,43 @@ void SceneMain::DoUserInput()
 	{
 		drawVoxels = !drawVoxels;
 	}
-	if (keyboard.isKeyHold('W'))
-	{
-		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;
-		tempVector.Set(6000, 0, 0);
-		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveForward(camera, movingSpeed);
-	}
-	if (keyboard.isKeyHold('S'))
-	{
-		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;
-		tempVector.Set(-6000, 0, 0);
-		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveBackward(camera, movingSpeed);
-	}
-	if (keyboard.isKeyHold('A'))
-	{
-		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;
-		tempVector.Set(0, 0, -6000);
-		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveLeft(camera, movingSpeed);
-	}
-	if (keyboard.isKeyHold('D'))
-	{
-		/*Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
-		Vector3 tempVector;
-		tempVector.Set(0, 0, 6000);
-		tempVector = rotationMatrix * tempVector;*/
-		playerAcceleration += player->MoveRight(camera, movingSpeed);
-	}
-	//Jump
-	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false)
-	{
-		isJumping = true;
-	}
 	if (keyboard.isKeyHold('I'))
 	{
 		player = new PlayerFrog;
+		isFrog = true;
 	}
 	if (keyboard.isKeyHold('U'))
 	{
 		player = new PlayerHuman;
+		isFrog = false;
+	}
+	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
+	{
+		if (keyboard.isKeyHold('W'))
+		{
+			playerAcceleration += player->MoveForward(camera, movingSpeed);
+		}
+		if (keyboard.isKeyHold('S'))
+		{
+			playerAcceleration += player->MoveBackward(camera, movingSpeed);
+		}
+		if (keyboard.isKeyHold('A'))
+		{
+			playerAcceleration += player->MoveLeft(camera, movingSpeed);
+		}
+		if (keyboard.isKeyHold('D'))
+		{
+			playerAcceleration += player->MoveRight(camera, movingSpeed);
+		}
+		if(isFrog == true && isJumping == false && isFalling == false)
+		{
+			isJumping = true;
+		}
+	}
+	//Jump
+	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
+	{
+		isJumping = true;
 	}
 	/*
 	if (keyboard.isKeyHold('O'))
@@ -425,7 +426,7 @@ void SceneMain::DoUserInput()
 		}
 		else
 		{
-			isFalling = false;
+				isFalling = false;
 			jumpedHeight = 0;
 		}
 	}
