@@ -66,6 +66,7 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_PACKET1] = LoadTGA(L"Image//packet1.tga");
 	textures[TEXTURE_PACKET2] = LoadTGA(L"Image//packet2.tga");
 	textures[TEXTURE_PACKET3] = LoadTGA(L"Image//packet3.tga");
+	/*textures[TEXTURE_BUILDING] = LoadTGA(L"Image//dullwhiite.tga");*/
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
 
@@ -104,6 +105,7 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_PACKET1] = MeshBuilder::GenerateOBJ(L"OBJ//packet1.obj");
 	meshList[GEO_PACKET2] = MeshBuilder::GenerateOBJ(L"OBJ//packet2.obj");
 	meshList[GEO_PACKET3] = MeshBuilder::GenerateOBJ(L"OBJ//packet3.obj");
+	/*meshList[GEO_BUILDING] = MeshBuilder::GenerateOBJ(L"OBJ//building.obj");*/
 }
 
 void SceneMain::InnitDraws()
@@ -197,6 +199,12 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PACKET3].material.SetTextureTo(textures[TEXTURE_PACKET3]);
 	drawOrders[DRAW_PACKET3].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_PACKET3].enableLight = false;
+
+	/*drawOrders[DRAW_BUILDING].geometry = meshList[GEO_BUILDING];
+	drawOrders[DRAW_BUILDING].transform.translate.Set(0,0.1,0);
+	drawOrders[DRAW_BUILDING].material.SetTextureTo(textures[TEXTURE_BUILDING]);
+	drawOrders[DRAW_BUILDING].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_BUILDING].enableLight = false;*/
 }
 
 void SceneMain::InnitVoxels()
@@ -403,15 +411,18 @@ void SceneMain::DoUserInput()
 	{
 		drawVoxels = !drawVoxels;
 	}
-	if (keyboard.isKeyHold('I'))
+	if (keyboard.isKeyPressed('I'))
 	{
-		player = new PlayerFrog;
-		isFrog = true;
-	}
-	if (keyboard.isKeyHold('U'))
-	{
-		player = new PlayerHuman;
-		isFrog = false;
+		if(isFrog == false)
+		{
+			player = new PlayerFrog;
+			isFrog = true;
+		}
+		else
+		{
+			player = new PlayerHuman;
+			isFrog = false;
+		}
 	}
 	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
 	{
