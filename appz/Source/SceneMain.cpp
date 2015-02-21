@@ -100,7 +100,7 @@ void SceneMain::InnitGeometry()
 	meshList.resize(NUM_GEOMETRY, NULL);
 
 	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
-	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 4.f, 4.f);
+	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 50.f, 50.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
 	meshList[GEO_CABINET1] = MeshBuilder::GenerateOBJ(L"OBJ//Cabinet1.obj");
 	meshList[GEO_CAN1] = MeshBuilder::GenerateOBJ(L"OBJ//can1.obj");
@@ -266,12 +266,7 @@ void SceneMain::InnitDraws()
 void SceneMain::InnitVoxels()
 {
 	drawOrders[DRAW_PLAYER].GenerateVoxels();
-
-	//voxel for football field
 	drawOrders[DRAW_GROUND].GenerateVoxels();
-	delete meshList[GEO_GROUND];
-	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1,1,1), 500.f, 500.f); 
-	drawOrders[DRAW_GROUND].geometry = meshList[GEO_GROUND];
 }
 
 void SceneMain::InnitForces()
@@ -347,27 +342,28 @@ void SceneMain::UpdateDraws()
 	}
 
 	//where we do collision
-	for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
-	{
-		//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
-		for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
-		{
-			if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
-			{
-				continue;
-			}
-			bool CollisionIsDone = false;
+	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
+	//{
+	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
+	//	for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
+	//	{
+	//		if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
+	//		{
+	//			continue;
+	//		}
+	//		bool CollisionIsDone = false;
 
-			//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
-			for(std::vector<Voxel>::iterator voxel1 = draw1->voxels.begin(); voxel1 != draw1->voxels.end(); voxel1++)
-			{
-				for(std::vector<Voxel>::iterator voxel2 = draw2->voxels.begin(); voxel2 != draw2->voxels.end(); voxel2++)
-				{
-					CollisionIsDone = collisionSystem.CheckThisCollision(&*voxel1, &*voxel2, deltaTime);
-				}
-			}
-		}
-	}
+	//		//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
+	//		for(std::vector<Voxel>::iterator voxel1 = draw1->voxels.begin(); voxel1 != draw1->voxels.end(); voxel1++)
+	//		{
+	//			for(std::vector<Voxel>::iterator voxel2 = draw2->voxels.begin(); voxel2 != draw2->voxels.end(); voxel2++)
+	//			{
+	//				CollisionIsDone = collisionSystem.CheckThisCollision(&*voxel1, &*voxel2, deltaTime);
+	//			}
+	//		}
+	//	}
+	//}
+	collisionSystem.CheckThisCollision(&drawOrders[DRAW_GROUND],&drawOrders[DRAW_PLAYER],deltaTime);
 	collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
 
 	//draws are finally updated after processing

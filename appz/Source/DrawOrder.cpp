@@ -125,27 +125,17 @@ float drawOrder::GetMass() const
 }
 void drawOrder::UpdateForcesTo(const double deltaTime)
 {
-	for(std::vector<Force>::iterator force = forces.begin(); force != forces.end(); ++force)
+	std::vector<Force>::iterator force = forces.begin();
+	while(force != forces.end())
 	{
 		force->UpdateTo(deltaTime);
 		if(force->isDead())
 		{
-			unsigned index = force - forces.begin();
-			std::vector<Force>::iterator newIterator;
-			if(index != 0)
-			{
-				newIterator = force - 1;
-			}
-			else
-			{
-				newIterator = force;
-			}
-			forces.erase(forces.begin() + index);
-			if(forces.size() == 0)
-			{
-				break;
-			}
-			force = newIterator;
+			force = forces.erase(force);
+		}
+		else
+		{
+			++force;
 		}
 	}
 }
