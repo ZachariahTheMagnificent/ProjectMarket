@@ -34,6 +34,7 @@
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
+    <ClCompile Include="Source\VoxelOctree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Voxel.h" />
+    <ClInclude Include="Source\VoxelOctree.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\Blending.fragmentshader" />

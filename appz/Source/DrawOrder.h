@@ -103,42 +103,42 @@ class drawOrder
 public:
 	drawOrder();
 	~drawOrder();
-	void SetTerminalVelocityTo(Vector3 vector);
-	void CapVelocityToTerminal();
-	void SetMaterial(const Material& mat);
-	void SetVelocityTo(Vector3 newVelocity);
-	void UpdateForcesTo(const double deltaTime);
-	void UpdateVelocity(const double deltaTime);
-	void UpdateTo(const double deltaTime);
-	void AddForce(Vector3 force);
-	void AddForce(Force force);
 	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
-	void SetMomentumTo(Vector3 momentum);
-	void GainMomentumFrom(drawOrder* draw, Vector3 momentumGain);
-	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
-	void ApplyFriction();
-	void Execute(Graphics& gfx);
-	void SetParentAs(drawOrder* parent);
-	float GetMass() const;
-	float GetKinetic();
-	void Render() const;
-	void GenerateVoxels();
-	void SetBoundsTo(const float sizeX, const float sizeY, const float sizeZ);
-	bool IsCollidingWith(drawOrder& draw) const;
-	void RenderPartial(const unsigned offset, const unsigned count) const;
 	Mtx44 GetMatrix() const;
 	Mesh* GetMesh();
 	Material GetMaterial();
 	unsigned GetDrawMode();
-	bool IsLightEnabled();
 	float GetMaxX() const;
 	float GetMinX() const;
 	float GetMaxY() const;
 	float GetMinY() const;
 	float GetMaxZ() const;
 	float GetMinZ() const;
-
+	float GetMass() const;
+	float GetKinetic();
+	bool IsLightEnabled();
+	bool IsCollidingWith(drawOrder& draw) const;
+	void SetTerminalVelocityTo(Vector3 vector);
+	void SetMaterial(const Material& mat);
+	void SetVelocityTo(Vector3 newVelocity);
+	void SetMomentumTo(Vector3 momentum);
+	void SetParentAs(drawOrder* parent);
+	void CapVelocityToTerminal();
+	void AddForce(Vector3 force);
+	void AddForce(Force force);
+	void ApplyFriction();
+	void SetVoxelsToWorldPosition();
+	void SetVoxelsToOrgin();
+	void UpdateForcesTo(const double deltaTime);
+	void UpdateVelocity(const double deltaTime);
+	void UpdateTo(const double deltaTime);
+	void GainMomentumFrom(drawOrder* draw, Vector3 momentumGain);
+	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
+	void Execute(Graphics& gfx);
+	void Render() const;
+	void GenerateVoxels();
+	void RenderPartial(const unsigned offset, const unsigned count) const;
 private:
 	Mtx44 GetModelTransform() const;
 public:
@@ -150,9 +150,7 @@ public:
 	float bounce;
 	float staticFriction;
 	float kineticFriction;
-	float boundsX;
-	float boundsY;
-	float boundsZ;
+	unsigned boundRadius;
 	Transformation transform;
 	//this transformation will only apply to the parent and not it's children
 	Transformation selfTransform;

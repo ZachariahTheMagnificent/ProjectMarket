@@ -11,9 +11,7 @@ drawOrder::drawOrder()
 	staticFriction = 0;
 	kineticFriction = 0;
 	drawMode = GL_TRIANGLES;
-	boundsX = 0;
-	boundsY = 0;
-	boundsZ = 0;
+	boundRadius = 0;
 }
 
 drawOrder::~drawOrder()
@@ -276,14 +274,34 @@ void drawOrder::GenerateVoxels()
 	float sizeX = abs(furtherstX - nearestX);
 	float sizeY = abs(furtherstY - nearestY);
 	float sizeZ = abs(furtherstZ - nearestZ);
-	SetBoundsTo(sizeX, sizeY, sizeZ);
+	if(sizeX > sizeY && sizeX > sizeZ)
+	{
+		boundRadius = sizeX * 0.5 + 0.5;
+	}
+	if(sizeY > sizeX && sizeY > sizeZ)
+	{
+		boundRadius = sizeY * 0.5 + 0.5;
+	}
+	else
+	{
+		boundRadius = sizeZ * 0.5 + 0.5;
+	}
 }
 
-void drawOrder::SetBoundsTo(const float sizeX, const float sizeY, const float sizeZ)
+void drawOrder::SetVoxelsToWorldPosition()
 {
-	boundsX = sizeX;
-	boundsY = sizeY;
-	boundsZ = sizeZ;
+	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
+	{
+		voxel->ApplyCurrentMatrix();
+	}
+}
+
+void drawOrder::SetVoxelsToOrgin()
+{
+	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
+	{
+		voxel->ResetToOrgin();
+	}
 }
 
 bool drawOrder::IsCollidingWith(drawOrder& draw) const
@@ -331,30 +349,30 @@ void drawOrder::RenderPartial(const unsigned offset, const unsigned count) const
 
 float drawOrder::GetMaxX() const
 {
-	return (GetMatrix() * transform.translate).x + boundsX/2;
+	return (GetMatrix() * transform.translate).x + (float)boundRadius;
 }
 
 float drawOrder::GetMinX() const
 {
-	return (GetMatrix() * transform.translate).x - boundsX/2;
+	return (GetMatrix() * transform.translate).x - (float)boundRadius;
 }
 
 float drawOrder::GetMaxY() const
 {
-	return (GetMatrix() * transform.translate).y + boundsY/2;
+	return (GetMatrix() * transform.translate).y + (float)boundRadius;
 }
 
 float drawOrder::GetMinY() const
 {
-	return (GetMatrix() * transform.translate).y - boundsY/2;
+	return (GetMatrix() * transform.translate).y - (float)boundRadius;
 }
 
 float drawOrder::GetMaxZ() const
 {
-	return (GetMatrix() * transform.translate).z + boundsZ/2;
+	return (GetMatrix() * transform.translate).z + (float)boundRadius;
 }
 
 float drawOrder::GetMinZ() const
 {
-	return (GetMatrix() * transform.translate).z - boundsZ/2;
+	return (GetMatrix() * transform.translate).z - (float)boundRadius;
 }

@@ -26,6 +26,17 @@ void Voxel::ApplyCurrentMatrix()
 	}
 }
 
+
+void Voxel::ApplyToMatrix(Mtx44 matrix)
+{
+	displacement = matrix * position - position;
+}
+
+void Voxel::ResetToOrgin()
+{
+	displacement.SetZero();
+}
+
 Vector3 Voxel::GetPosition() const
 {
 	return displacement + position;

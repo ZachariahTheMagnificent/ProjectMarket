@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Vertex.h"
+#include "Mtx44.h"
 
 struct drawOrder;
 
@@ -9,7 +10,6 @@ class Voxel
 public:
 	Voxel();
 	~Voxel();
-	void ApplyCurrentMatrix();
 	Vector3 GetVelocity() const;
 	float GetMaxX() const;
 	float GetMinX() const;
@@ -20,6 +20,7 @@ public:
 	Vector3 GetPosition() const;
 	static float GetSize();
 	Vector3 GetDistanceFrom(const Voxel& voxel) const;
+	Voxel At(const double time);
 	bool IsCollidingWith(const Voxel& voxel) const;
 	bool IsBehind(const Voxel& voxel) const;
 	bool IsInFrontOf(const Voxel& voxel) const;
@@ -27,12 +28,14 @@ public:
 	bool IsToTheRightOf(const Voxel& voxel) const;
 	bool IsAbove(const Voxel& voxel) const;
 	bool IsBelow(const Voxel& voxel) const;
+	bool operator==(const Voxel& voxel) const;
 	void SetColorTo(const Color newColor);
 	void ChangeVelocityTo(const Vector3 newVelocity, Voxel* TransferMomentumToThisVoxel = NULL);
 	void SetPositionTo(const Vector3 newPosition);
 	void AssignTo(drawOrder* newDraw);
-	Voxel At(const double time);
-	bool operator==(const Voxel& voxel) const;
+	void ApplyCurrentMatrix();
+	void ApplyToMatrix(Mtx44 matrix);
+	void ResetToOrgin();
 private:
 	drawOrder* draw;
 	Vector3 position;

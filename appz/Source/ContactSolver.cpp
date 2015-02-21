@@ -8,6 +8,19 @@ ContactSolver::~ContactSolver()
 {
 }
 
+bool ContactSolver::CheckThisCollision(drawOrder* draw1, drawOrder* draw2, const double deltaTime)
+{
+	//forward checking
+	VoxelOctree myTree;
+	myTree.SetUpFor(draw1, draw2);
+	std::vector<Contact> contacts = myTree.GetAllContacts();
+	for(std::vector<Contact>::iterator contact = contacts.begin(); contact != contacts.end(); ++contact)
+	{
+		list.InsertNode(*contact);
+	}
+	return false;
+}
+
 bool ContactSolver::CheckThisCollision(Voxel* voxel1, Voxel* voxel2, const double deltaTime)
 {
 	const double numOfSteps = 1000;
