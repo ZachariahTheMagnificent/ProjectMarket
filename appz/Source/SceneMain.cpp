@@ -66,7 +66,14 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_PACKET1] = LoadTGA(L"Image//packet1.tga");
 	textures[TEXTURE_PACKET2] = LoadTGA(L"Image//packet2.tga");
 	textures[TEXTURE_PACKET3] = LoadTGA(L"Image//packet3.tga");
-	/*textures[TEXTURE_BUILDING] = LoadTGA(L"Image//dullwhiite.tga");*/
+	textures[TEXTURE_BUILDING] = LoadTGA(L"Image//dullwhite.tga");
+	textures[TEXTURE_LIFT] = LoadTGA(L"Image//blue.tga");
+	textures[TEXTURE_LIFTDOOR] = LoadTGA(L"Image//liftdoor.tga");
+	textures[TEXTURE_OUTERDOOR] = LoadTGA(L"Image//glassdoor_texture.tga");
+	textures[TEXTURE_INNERDOOR] = LoadTGA(L"Image//glassdoor_texture.tga");
+	textures[TEXTURE_TRAVELATORSUPPORT] = LoadTGA(L"Image//dullwhite.tga");
+	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture.tga");
+	textures[TEXTURE_TRAVELATORHANDLE] = LoadTGA(L"Image//travelatorhandle_texture.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 }
 
@@ -105,7 +112,14 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_PACKET1] = MeshBuilder::GenerateOBJ(L"OBJ//packet1.obj");
 	meshList[GEO_PACKET2] = MeshBuilder::GenerateOBJ(L"OBJ//packet2.obj");
 	meshList[GEO_PACKET3] = MeshBuilder::GenerateOBJ(L"OBJ//packet3.obj");
-	/*meshList[GEO_BUILDING] = MeshBuilder::GenerateOBJ(L"OBJ//building.obj");*/
+	meshList[GEO_BUILDING] = MeshBuilder::GenerateOBJ(L"OBJ//building.obj");
+	meshList[GEO_LIFT] = MeshBuilder::GenerateOBJ(L"OBJ//bluelift.obj");
+	meshList[GEO_LIFTDOOR] = MeshBuilder::GenerateOBJ(L"OBJ//liftdoor.obj");
+	meshList[GEO_OUTERDOOR] = MeshBuilder::GenerateOBJ(L"OBJ//outerdoor.obj");
+	meshList[GEO_INNERDOOR] = MeshBuilder::GenerateOBJ(L"OBJ//innerdoor.obj");
+	meshList[GEO_TRAVELATORSUPPORT] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorsupport.obj");
+	meshList[GEO_TRAVELATORSLOPE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorslope.obj");
+	meshList[GEO_TRAVELATORHANDLE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorhandle.obj");
 }
 
 void SceneMain::InnitDraws()
@@ -200,11 +214,53 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PACKET3].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_PACKET3].enableLight = false;
 
-	/*drawOrders[DRAW_BUILDING].geometry = meshList[GEO_BUILDING];
-	drawOrders[DRAW_BUILDING].transform.translate.Set(0,0.1,0);
+	drawOrders[DRAW_BUILDING].geometry = meshList[GEO_BUILDING];
+	drawOrders[DRAW_BUILDING].transform.translate.Set(0,0.1,-30);
 	drawOrders[DRAW_BUILDING].material.SetTextureTo(textures[TEXTURE_BUILDING]);
 	drawOrders[DRAW_BUILDING].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_BUILDING].enableLight = false;*/
+	drawOrders[DRAW_BUILDING].enableLight = false;
+
+	drawOrders[DRAW_LIFT].geometry = meshList[GEO_LIFT];
+	drawOrders[DRAW_LIFT].transform.translate.Set(-20,0.1,0);
+	drawOrders[DRAW_LIFT].material.SetTextureTo(textures[TEXTURE_LIFT]);
+	drawOrders[DRAW_LIFT].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_LIFT].enableLight = false;
+
+	drawOrders[DRAW_LIFTDOOR].geometry = meshList[GEO_LIFTDOOR];
+	drawOrders[DRAW_LIFTDOOR].transform.translate.Set(-30,0.1,0);
+	drawOrders[DRAW_LIFTDOOR].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
+	drawOrders[DRAW_LIFTDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_LIFTDOOR].enableLight = false;
+
+	drawOrders[DRAW_OUTERDOOR].geometry = meshList[GEO_OUTERDOOR];
+	drawOrders[DRAW_OUTERDOOR].transform.translate.Set(-40,0.1,0);
+	drawOrders[DRAW_OUTERDOOR].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
+	drawOrders[DRAW_OUTERDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_OUTERDOOR].enableLight = false;
+
+	drawOrders[DRAW_INNERDOOR].geometry = meshList[GEO_INNERDOOR];
+	drawOrders[DRAW_INNERDOOR].transform.translate.Set(-50,0.1,0);
+	drawOrders[DRAW_INNERDOOR].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
+	drawOrders[DRAW_INNERDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_INNERDOOR].enableLight = false;
+
+	drawOrders[DRAW_TRAVELATORSUPPORT].geometry = meshList[GEO_TRAVELATORSUPPORT];
+	drawOrders[DRAW_TRAVELATORSUPPORT].transform.translate.Set(-70,0.1,0);
+	drawOrders[DRAW_TRAVELATORSUPPORT].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
+	drawOrders[DRAW_TRAVELATORSUPPORT].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_TRAVELATORSUPPORT].enableLight = false;
+
+	drawOrders[DRAW_TRAVELATORSLOPE].geometry = meshList[GEO_TRAVELATORSLOPE];
+	drawOrders[DRAW_TRAVELATORSLOPE].transform.translate.Set(-90,0.1,0);
+	drawOrders[DRAW_TRAVELATORSLOPE].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
+	drawOrders[DRAW_TRAVELATORSLOPE].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_TRAVELATORSLOPE].enableLight = false;
+
+	drawOrders[DRAW_TRAVELATORHANDLE].geometry = meshList[GEO_TRAVELATORHANDLE];
+	drawOrders[DRAW_TRAVELATORHANDLE].transform.translate.Set(-110,0.1,0);
+	drawOrders[DRAW_TRAVELATORHANDLE].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
+	drawOrders[DRAW_TRAVELATORHANDLE].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_TRAVELATORHANDLE].enableLight = false;
 }
 
 void SceneMain::InnitVoxels()
