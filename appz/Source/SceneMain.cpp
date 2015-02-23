@@ -404,7 +404,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_INNERDOOR_1].enableLight = true;
 
 	drawOrders[DRAW_INNERDOOR_2].geometry = meshList[GEO_INNERDOOR];
-	drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-15.5,15.5,-19.6);
+	drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-17.5,14.5,-19.6);
 	drawOrders[DRAW_INNERDOOR_2].transform.rotate.Set(0,180,0);
 	drawOrders[DRAW_INNERDOOR_2].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
 	drawOrders[DRAW_INNERDOOR_2].material.SetAmbientTo(1,1,1);
@@ -416,7 +416,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Travelator
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.0,-21.6);
+	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.1,-21.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetDiffuseTo(1,1,1);
@@ -426,7 +426,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.8,-21.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.9,-21.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetDiffuseTo(1,1,1);
@@ -456,7 +456,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.0,-24.6);
+	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.1,-24.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetDiffuseTo(1,1,1);
@@ -466,7 +466,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.8,-24.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.9,-24.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetDiffuseTo(1,1,1);
