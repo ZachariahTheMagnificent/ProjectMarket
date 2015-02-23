@@ -157,7 +157,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PLAYER].enableLight = false;
 	//Draw Items
 	drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
-	drawOrders[DRAW_CABINET1].transform.translate.Set(10,0.1,0);
+	drawOrders[DRAW_CABINET1].transform.translate.Set(0,1.5,-40);
 	drawOrders[DRAW_CABINET1].material.SetTextureTo(textures[TEXTURE_CABINET]);
 	drawOrders[DRAW_CABINET1].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_CABINET1].enableLight = false;
@@ -229,118 +229,126 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_BUILDING].enableLight = false;
 	//Draw Lift
 	drawOrders[DRAW_LIFT_1].geometry = meshList[GEO_LIFT];
-	drawOrders[DRAW_LIFT_1].transform.translate.Set(15.0,5.5,-44.5);
+	drawOrders[DRAW_LIFT_1].transform.translate.Set(15.0,5.5,-101.6);
 	drawOrders[DRAW_LIFT_1].material.SetTextureTo(textures[TEXTURE_LIFT]);
 	drawOrders[DRAW_LIFT_1].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFT_1].enableLight = false;
 
 	drawOrders[DRAW_LIFT_2].geometry = meshList[GEO_LIFT];
-	drawOrders[DRAW_LIFT_2].transform.translate.Set(15.0,15.6,-44.5);
+	drawOrders[DRAW_LIFT_2].transform.translate.Set(15.0,15.6,-101.6);
 	drawOrders[DRAW_LIFT_2].material.SetTextureTo(textures[TEXTURE_LIFT]);
 	drawOrders[DRAW_LIFT_2].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFT_2].enableLight = false;
 
 	drawOrders[DRAW_LIFTDOOR_1_LEFT].geometry = meshList[GEO_LIFTDOOR];
-	drawOrders[DRAW_LIFTDOOR_1_LEFT].transform.translate.Set(14.0,5,-41.5);
+	drawOrders[DRAW_LIFTDOOR_1_LEFT].transform.translate.Set(14.0,5,-98.6);
 	drawOrders[DRAW_LIFTDOOR_1_LEFT].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
 	drawOrders[DRAW_LIFTDOOR_1_LEFT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFTDOOR_1_LEFT].enableLight = false;
 
 	drawOrders[DRAW_LIFTDOOR_1_RIGHT].geometry = meshList[GEO_LIFTDOOR];
-	drawOrders[DRAW_LIFTDOOR_1_RIGHT].transform.translate.Set(16.0,5,-41.5);
+	drawOrders[DRAW_LIFTDOOR_1_RIGHT].transform.translate.Set(16.0,5,-98.6);
 	drawOrders[DRAW_LIFTDOOR_1_RIGHT].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
 	drawOrders[DRAW_LIFTDOOR_1_RIGHT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFTDOOR_1_RIGHT].enableLight = false;
 
 	drawOrders[DRAW_LIFTDOOR_2_LEFT].geometry = meshList[GEO_LIFTDOOR];
-	drawOrders[DRAW_LIFTDOOR_2_LEFT].transform.translate.Set(14.0,15.1,-41.5);
+	drawOrders[DRAW_LIFTDOOR_2_LEFT].transform.translate.Set(14.0,15.1,-98.6);
 	drawOrders[DRAW_LIFTDOOR_2_LEFT].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
 	drawOrders[DRAW_LIFTDOOR_2_LEFT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFTDOOR_2_LEFT].enableLight = false;
 
 	drawOrders[DRAW_LIFTDOOR_2_RIGHT].geometry = meshList[GEO_LIFTDOOR];
-	drawOrders[DRAW_LIFTDOOR_2_RIGHT].transform.translate.Set(16.0,15.1,-41.5);
+	drawOrders[DRAW_LIFTDOOR_2_RIGHT].transform.translate.Set(16.0,15.1,-98.6);
 	drawOrders[DRAW_LIFTDOOR_2_RIGHT].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
 	drawOrders[DRAW_LIFTDOOR_2_RIGHT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_LIFTDOOR_2_RIGHT].enableLight = false;
 	//Draw Door
 	drawOrders[DRAW_OUTERDOOR_1_RIGHT].geometry = meshList[GEO_OUTERDOOR];
-	drawOrders[DRAW_OUTERDOOR_1_RIGHT].transform.translate.Set(2,4.5,-10.5);
+	drawOrders[DRAW_OUTERDOOR_1_RIGHT].transform.translate.Set(2,4.5,-8.6);
 	drawOrders[DRAW_OUTERDOOR_1_RIGHT].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
 	drawOrders[DRAW_OUTERDOOR_1_RIGHT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_OUTERDOOR_1_RIGHT].enableLight = false;
 
 	drawOrders[DRAW_OUTERDOOR_1_LEFT].geometry = meshList[GEO_OUTERDOOR];
-	drawOrders[DRAW_OUTERDOOR_1_LEFT].transform.translate.Set(-2,4.5,-10.5);
+	drawOrders[DRAW_OUTERDOOR_1_LEFT].transform.translate.Set(-2,4.5,-8.6);
 	drawOrders[DRAW_OUTERDOOR_1_LEFT].transform.rotate.Set(0,180,0);
 	drawOrders[DRAW_OUTERDOOR_1_LEFT].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
 	drawOrders[DRAW_OUTERDOOR_1_LEFT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_OUTERDOOR_1_LEFT].enableLight = false;
 
 	drawOrders[DRAW_OUTERDOOR_2_RIGHT].geometry = meshList[GEO_OUTERDOOR];
-	drawOrders[DRAW_OUTERDOOR_2_RIGHT].transform.translate.Set(-9,4.5,-48.5);
+	drawOrders[DRAW_OUTERDOOR_2_RIGHT].transform.translate.Set(-9,4.5,-105.4);
 	drawOrders[DRAW_OUTERDOOR_2_RIGHT].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
 	drawOrders[DRAW_OUTERDOOR_2_RIGHT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_OUTERDOOR_2_RIGHT].enableLight = false;
 
 	drawOrders[DRAW_OUTERDOOR_2_LEFT].geometry = meshList[GEO_OUTERDOOR];
-	drawOrders[DRAW_OUTERDOOR_2_LEFT].transform.translate.Set(-13,4.5,-48.5);
+	drawOrders[DRAW_OUTERDOOR_2_LEFT].transform.translate.Set(-13,4.5,-105.4);
 	drawOrders[DRAW_OUTERDOOR_2_LEFT].transform.rotate.Set(0,180,0);
 	drawOrders[DRAW_OUTERDOOR_2_LEFT].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
 	drawOrders[DRAW_OUTERDOOR_2_LEFT].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_OUTERDOOR_2_LEFT].enableLight = false;
 
-	drawOrders[DRAW_INNERDOOR].geometry = meshList[GEO_INNERDOOR];
-	drawOrders[DRAW_INNERDOOR].transform.translate.Set(-17.5,4.5,-21.5);
-	drawOrders[DRAW_INNERDOOR].transform.rotate.Set(0,180,0);
-	drawOrders[DRAW_INNERDOOR].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
-	drawOrders[DRAW_INNERDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_INNERDOOR].enableLight = false;
+	drawOrders[DRAW_INNERDOOR_1].geometry = meshList[GEO_INNERDOOR];
+	drawOrders[DRAW_INNERDOOR_1].transform.translate.Set(-17.5,4.5,-19.6);
+	drawOrders[DRAW_INNERDOOR_1].transform.rotate.Set(0,180,0);
+	drawOrders[DRAW_INNERDOOR_1].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
+	drawOrders[DRAW_INNERDOOR_1].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_INNERDOOR_1].enableLight = false;
+
+	drawOrders[DRAW_INNERDOOR_2].geometry = meshList[GEO_INNERDOOR];
+	drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-15.5,15.5,-19.6);
+	drawOrders[DRAW_INNERDOOR_2].transform.rotate.Set(0,180,0);
+	drawOrders[DRAW_INNERDOOR_2].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
+	drawOrders[DRAW_INNERDOOR_2].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_INNERDOOR_2].enableLight = false;
+
 	//Draw Travelator
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.0,-23.5);
+	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.0,-21.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.8,-23.5);
+	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.8,-21.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].geometry = meshList[GEO_TRAVELATORHANDLE];
-	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].transform.translate.Set(-1.8,7.8,-22.3);
+	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].transform.translate.Set(-1.8,7.8,-20.4);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_1].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].geometry = meshList[GEO_TRAVELATORHANDLE];
-	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].transform.translate.Set(-1.8,7.8,-24.55);
+	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].transform.translate.Set(-1.8,7.8,-22.65);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.0,-26.5);
+	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.0,-24.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.8,-26.5);
+	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.8,-24.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].geometry = meshList[GEO_TRAVELATORHANDLE];
-	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].transform.translate.Set(-1.8,7.8,-25.3);
+	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].transform.translate.Set(-1.8,7.8,-23.4);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].enableLight = false;
 
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].geometry = meshList[GEO_TRAVELATORHANDLE];
-	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].transform.translate.Set(-1.8,7.8,-27.55);
+	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].transform.translate.Set(-1.8,7.8,-25.65);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].enableLight = false;
