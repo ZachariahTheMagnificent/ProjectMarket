@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "MeshBuilder.h"
 
 static const unsigned NUM_OF_LIGHT_PARAMETERS = 11;
 
@@ -8,6 +9,10 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
+	if(meshText.geometry)
+	{
+		delete meshText.geometry;
+	}
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }
@@ -31,7 +36,7 @@ void Graphics::Init(GLFWwindow* window)
 	// Generate a default VAO for now
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
-	m_programID = LoadShaders( "Shader//Texture.vertexshader", "Shader//Text.fragmentshader" );
+	m_programID = LoadShaders( "Shader//Texture.vertexshader", "Shader//MultiLight.fragmentshader" );
 
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 
@@ -47,6 +52,46 @@ void Graphics::Init(GLFWwindow* window)
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
+
+	for(int index = 0; index < MAX_LIGHTS; ++index)
+	{
+		char typeBuffer[126];
+		char directionBuffer[126];
+		char cutoffBuffer[126];
+		char innerBuffer[126];
+		char exponentBuffer[126];
+		char positionBuffer[126];
+		char colorBuffer[126];
+		char powerBuffer[126];
+		char kCBuffer[126];
+		char kLBuffer[126];
+		char kQBuffer[126];
+
+		sprintf(typeBuffer, "lights[%d].type", index);
+		sprintf(directionBuffer, "lights[%d].spotDirection", index);
+		sprintf(cutoffBuffer, "lights[%d].cosCutoff", index);
+		sprintf(innerBuffer, "lights[%d].cosInner", index);
+		sprintf(exponentBuffer, "lights[%d].exponent", index);
+		sprintf(positionBuffer, "lights[%d].position_cameraspace", index);
+		sprintf(colorBuffer, "lights[%d].color", index);
+		sprintf(powerBuffer, "lights[%d].power", index);
+		sprintf(kCBuffer, "lights[%d].kC", index);
+		sprintf(kLBuffer, "lights[%d].kL", index);
+		sprintf(kQBuffer, "lights[%d].kQ", index);
+
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, typeBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, directionBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, cutoffBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, innerBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, exponentBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, positionBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, colorBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POWER] = glGetUniformLocation(m_programID, powerBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KC] = glGetUniformLocation(m_programID, kCBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KL] = glGetUniformLocation(m_programID,kLBuffer);
+		m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KQ] = glGetUniformLocation(m_programID, kQBuffer);
+	}
+
 	glUseProgram(m_programID);
 
 	for(int index = 0; index < MAX_LIGHTS + 1; ++index)
@@ -58,6 +103,8 @@ void Graphics::Init(GLFWwindow* window)
 
 void Graphics::InitText(std::wstring filepath)
 {
+	meshText.geometry = MeshBuilder::GenerateText(filepath,16,16);
+	meshText.SetTextureTo(LoadTGA(filepath));
 }
 
 void Graphics::SetViewAt(const Camera& camera)
@@ -77,31 +124,56 @@ void Graphics::SetProjectionTo(const float FOVy, const float aspectRatio, const 
 	projectionStack.LoadMatrix(projection);
 }
 
-void Graphics::Render()
+bool Graphics::AddLight(Light* light)
 {
-	//clear depth and color buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glEnableVertexAttribArray(0); // 1st attribute buffer :vertices
-	glEnableVertexAttribArray(1); // 2nd attribute buffer : colors
-	glEnableVertexAttribArray(2); // 3rd attribute : normals
-	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
-	
-	RenderMeshes();
-	RenderTexts();
+	if(currentNumOfLights < MAX_LIGHTS)
+	{
+		lights[currentNumOfLights] = light;
 
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	glDisableVertexAttribArray(3);
+		glUniform1i(m_parameters[U_NUMLIGHTS], currentNumOfLights + 1);
+
+		glUniform1i(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_TYPE], lights[currentNumOfLights]->type);
+		glUniform3fv(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COLOR], 1, &lights[currentNumOfLights]->color.r);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POWER], lights[currentNumOfLights]->power);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KC], lights[currentNumOfLights]->kC);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KL], lights[currentNumOfLights]->kL);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KQ], lights[currentNumOfLights]->kQ);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSCUTOFF], lights[currentNumOfLights]->cosCutoff);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSINNER], lights[currentNumOfLights]->cosInner);
+		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_EXPONENT], lights[currentNumOfLights]->exponent);
+
+		++currentNumOfLights;
+		return true;
+	}
+	return false;
 }
 
-void Graphics::RenderMeshes()
+void Graphics::UpdateLights()
 {
-}
-
-void Graphics::RenderTexts()
-{
+	for(Light** light = lights; *light != NULL; ++light)
+	{
+		const unsigned index = light - lights;
+		if((*light)->type == Light::LIGHT_DIRECTIONAL)
+		{
+			Vector3 lightDir = (*light)->position;
+			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+		}
+		else if((*light)->type == Light::LIGHT_SPOT)
+		{
+			Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
+			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+			Vector3 spotDirection_cameraspace = viewStack.Top() * (*light)->spotDirection;
+			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+		}
+		else
+		{
+			Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
+			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		}
+		//Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
+		//glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	}
 }
 
 void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
@@ -146,9 +218,7 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 	{
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
 	}
-
 	object.Render();
-
 	modelStack.PopMatrix();
 }
 
@@ -232,69 +302,4 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
-}
-
-bool Graphics::AddLight(Light* light)
-{
-	if(currentNumOfLights < MAX_LIGHTS)
-	{
-		lights[currentNumOfLights] = light;
-
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].spotDirection");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].cosCutoff");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].cosInner");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].exponent");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].position_cameraspace");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].color");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].power");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].kC");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KL] = glGetUniformLocation(m_programID,"lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].kL");
-		m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + 0].kQ");
-
-
-		glUniform1i(m_parameters[U_NUMLIGHTS], currentNumOfLights + 1);
-
-		glUniform1i(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_TYPE], lights[currentNumOfLights]->type);
-		glUniform3fv(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COLOR], 1, &lights[currentNumOfLights]->color.r);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POWER], lights[currentNumOfLights]->power);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KC], lights[currentNumOfLights]->kC);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KL], lights[currentNumOfLights]->kL);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_KQ], lights[currentNumOfLights]->kQ);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSCUTOFF], lights[currentNumOfLights]->cosCutoff);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_COSINNER], lights[currentNumOfLights]->cosInner);
-		glUniform1f(m_parameters[currentNumOfLights*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_EXPONENT], lights[currentNumOfLights]->exponent);
-
-		++currentNumOfLights;
-		return true;
-	}
-	return false;
-}
-
-void Graphics::UpdateLights()
-{
-	for(Light** light = lights; *light != NULL; ++light)
-	{
-		const unsigned index = light - lights;
-		if((*light)->type == Light::LIGHT_DIRECTIONAL)
-		{
-			Vector3 lightDir = (*light)->position;
-			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-		}
-		else if((*light)->type == Light::LIGHT_SPOT)
-		{
-			Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
-			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-			Vector3 spotDirection_cameraspace = viewStack.Top() * (*light)->spotDirection;
-			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-		}
-		else
-		{
-			Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
-			glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		}
-		Vector3 lightPosition_cameraspace = viewStack.Top() * (*light)->position;
-		glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
 }

@@ -24,6 +24,7 @@ public:
 	void Render( unsigned textureID = 0, unsigned mode = GL_TRIANGLES);
 	//a function made to render only parts of the mesh
 	void Render(unsigned offset, unsigned count, unsigned textureID, unsigned mode);
+	void SetColor(Color color);
 	std::vector<Voxel> GenerateVoxels();
 private:
 	const std::wstring name;

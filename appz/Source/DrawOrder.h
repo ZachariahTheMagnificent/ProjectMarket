@@ -106,6 +106,7 @@ public:
 	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
 	Mtx44 GetMatrix() const;
+	Mtx44 GetRotationMatrix() const;
 	Mesh* GetMesh();
 	Material GetMaterial();
 	unsigned GetDrawMode();
@@ -116,9 +117,11 @@ public:
 	float GetMaxZ() const;
 	float GetMinZ() const;
 	float GetMass() const;
+	unsigned GetTexture() const;
 	float GetKinetic();
 	bool IsLightEnabled();
 	bool IsCollidingWith(drawOrder& draw) const;
+	void SetTextureTo(unsigned textureID);
 	void SetTerminalVelocityTo(Vector3 vector);
 	void SetMaterial(const Material& mat);
 	void SetVelocityTo(Vector3 newVelocity);

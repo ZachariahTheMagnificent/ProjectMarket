@@ -11,7 +11,7 @@ name(meshName)
 	vertices = Vertex_buffer;
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, Vertex_buffer.size() * sizeof(Vertex), &Vertex_buffer.front(), GL_STATIC_DRAW);\
+	glBufferData(GL_ARRAY_BUFFER, Vertex_buffer.size() * sizeof(Vertex), &Vertex_buffer.front(), GL_STATIC_DRAW);
 }
 
 Mesh::~Mesh()
@@ -26,6 +26,7 @@ const std::wstring& Mesh::GetName() const
 
 std::vector<Voxel> Mesh::GenerateVoxels()
 {
+	srand(time(NULL));
 	std::vector<Voxel> voxels;
 	const float sizeOfVoxel = Voxel::GetSize();
 	//create a buffer to store the vertices that were transformed by the matrix
@@ -63,7 +64,13 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 
 				Voxel temp;
 				temp.SetPositionTo(voxelPosition);
-				temp.SetColorTo(Color());
+				float red = rand();
+				red = red - (int)red;
+				float green = rand();
+				green = green - (int)green;
+				float blue = rand();
+				blue = blue - (int)blue;
+				temp.SetColorTo(Color(red,green,blue));
 
 				//check if the we already have similar voxel before adding it to the vector
 				bool isUnique = true;
@@ -98,6 +105,12 @@ void Mesh::Render(unsigned textureID, unsigned mode)
 	glDrawArrays(mode, 0, nVerts);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Mesh::SetColor(Color color)
+{
+	//glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex), &Vertex_buffer.front(), GL_STATIC_DRAW);
 }
 
 void Mesh::Render(unsigned offset, unsigned count, unsigned textureID, unsigned mode)

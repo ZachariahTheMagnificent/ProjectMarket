@@ -27,7 +27,6 @@ public:
 	void RenderText(const std::string text, const Color color);
 	void RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y);
 	void RenderMesh(const drawOrder& object, const Mtx44& Matrix);
-	void Render();
 	bool AddLight(Light* light);
 	void UpdateLights();
 private:
@@ -155,7 +154,4 @@ private:
 	GLFWwindow* m_window;
 
 	MS viewStack, modelStack, projectionStack;
-
-	void RenderMeshes();
-	void RenderTexts();
 };

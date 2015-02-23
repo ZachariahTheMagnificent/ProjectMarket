@@ -17,6 +17,16 @@ Voxel Voxel::At(const double time)
 	return temp;
 }
 
+Color Voxel::GetColor() const
+{
+	return color;
+}
+
+Mtx44 Voxel::GetRotationMatrix() const
+{
+	return draw->GetRotationMatrix();
+}
+
 void Voxel::ApplyCurrentMatrix()
 {
 	if(draw)

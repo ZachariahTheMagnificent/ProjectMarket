@@ -8,10 +8,8 @@ VoxelOctree::~VoxelOctree()
 {
 }
 
-void VoxelOctree::SetUpFor(drawOrder* draw1, drawOrder* draw2)
+void VoxelOctree::SetUpFor(drawOrder* draw1, drawOrder* draw2, const double deltaTime)
 {
-	draw1->SetVoxelsToOrgin();
-	draw2->SetVoxelsToOrgin();
 	if(draw1->boundRadius > draw2->boundRadius)
 	{
 		biggerDraw = draw1;
@@ -39,9 +37,10 @@ void VoxelOctree::SetUpFor(drawOrder* draw1, drawOrder* draw2)
 		tree[index] = &*voxel;
 	}
 
-	Vector3 smallerDrawDisplacement = smallerDraw->transform.translate - Vector3(smallerDraw->boundRadius, smallerDraw->boundRadius, smallerDraw->boundRadius);
-	Vector3 biggerDrawDisplacement = biggerDraw->transform.translate - Vector3(biggerDraw->boundRadius, biggerDraw->boundRadius, biggerDraw->boundRadius);
+	Vector3 smallerDrawDisplacement = smallerDraw->transform.translate - Vector3(smallerDraw->boundRadius, smallerDraw->boundRadius, smallerDraw->boundRadius) + smallerDraw->velocity * deltaTime;
+	Vector3 biggerDrawDisplacement = biggerDraw->transform.translate - Vector3(biggerDraw->boundRadius, biggerDraw->boundRadius, biggerDraw->boundRadius) + biggerDraw->velocity * deltaTime;
 	displacement = biggerDrawDisplacement - smallerDrawDisplacement;
+	this->deltaTime = deltaTime;
 }
 
 std::vector<Contact> VoxelOctree::GetAllContacts()
@@ -49,7 +48,7 @@ std::vector<Contact> VoxelOctree::GetAllContacts()
 	std::vector<Contact> contactBuffer;
 	//set the orgin of the biggerdraw to the smallerdraw to better compare the former's voxels' position to the latter's voxels'
 	Vector3 originalTranslate = biggerDraw->transform.translate;
-	biggerDraw->transform.translate = displacement + Vector3(biggerDraw->boundRadius, biggerDraw->boundRadius, biggerDraw->boundRadius);
+	biggerDraw->transform.translate = displacement - Vector3(biggerDraw->boundRadius, biggerDraw->boundRadius, biggerDraw->boundRadius);
 	Mtx44 matrix = biggerDraw->GetMatrix();
 	biggerDraw->transform.translate = originalTranslate;
 	
@@ -64,7 +63,7 @@ std::vector<Contact> VoxelOctree::GetAllContacts()
 			//if there is already a voxel there
 			if(tree[index])
 			{
-				contactBuffer.push_back(Contact(tree[index], &*voxel));
+				contactBuffer.push_back(Contact(tree[index], &*voxel,deltaTime));
 			}
 		}
 	}

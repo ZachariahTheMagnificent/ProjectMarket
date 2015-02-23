@@ -218,6 +218,21 @@ void drawOrder::SetMomentumTo(Vector3 momentum)
 	}
 }
 
+unsigned drawOrder::GetTexture() const
+{
+	return material.GetTexture();
+}
+
+void drawOrder::SetTextureTo(unsigned textureID)
+{
+	material.SetTextureTo(textureID);
+}
+
+Mtx44 drawOrder::GetRotationMatrix() const
+{
+	return transform.rotate.MatrixX() * transform.rotate.MatrixY() * transform.rotate.MatrixZ();
+}
+
 void drawOrder::GenerateVoxels()
 {
 	bool test = !geometry->GetName().compare(L"ground");

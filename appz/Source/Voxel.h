@@ -17,6 +17,8 @@ public:
 	float GetMinY() const;
 	float GetMaxZ() const;
 	float GetMinZ() const;
+	Color GetColor() const;
+	Mtx44 GetRotationMatrix() const;
 	Vector3 GetPosition() const;
 	static float GetSize();
 	Vector3 GetDistanceFrom(const Voxel& voxel) const;
