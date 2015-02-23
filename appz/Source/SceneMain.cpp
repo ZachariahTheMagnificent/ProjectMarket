@@ -164,6 +164,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PLAYER].staticFriction = 0.03;
 	drawOrders[DRAW_PLAYER].mass = 1;
 	drawOrders[DRAW_PLAYER].SetParentAs(&drawOrders[DRAW_MAIN]);
+<<<<<<< HEAD
 	drawOrders[DRAW_PLAYER].enableLight = true;
 
 	drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
@@ -173,6 +174,8 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CABINET1].material.SetDiffuseTo(1,1,1);
 	drawOrders[DRAW_CABINET1].material.SetSpecularTo(1,1,1);
 	drawOrders[DRAW_CABINET1].material.SetShininessTo(20);
+=======
+>>>>>>> origin/master
 	drawOrders[DRAW_CABINET1].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_CABINET1].enableLight = true;
 
@@ -264,8 +267,12 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PACKET3].material.SetSpecularTo(1,1,1);
 	drawOrders[DRAW_PACKET3].material.SetShininessTo(20);
 	drawOrders[DRAW_PACKET3].SetParentAs(&drawOrders[DRAW_MAIN]);
+<<<<<<< HEAD
 	drawOrders[DRAW_PACKET3].enableLight = true;
 
+=======
+	drawOrders[DRAW_PACKET3].enableLight = false;
+>>>>>>> origin/master
 	drawOrders[DRAW_BUILDING].geometry = meshList[GEO_BUILDING];
 	drawOrders[DRAW_BUILDING].transform.translate.Set(0,0.1,-30);
 	drawOrders[DRAW_BUILDING].material.SetTextureTo(textures[TEXTURE_BUILDING]);
@@ -274,6 +281,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_BUILDING].material.SetSpecularTo(1,1,1);
 	drawOrders[DRAW_BUILDING].material.SetShininessTo(20);
 	drawOrders[DRAW_BUILDING].SetParentAs(&drawOrders[DRAW_MAIN]);
+<<<<<<< HEAD
 	drawOrders[DRAW_BUILDING].enableLight = true;
 
 	drawOrders[DRAW_LIFT].geometry = meshList[GEO_LIFT];
@@ -345,6 +353,9 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORHANDLE].material.SetShininessTo(20);
 	drawOrders[DRAW_TRAVELATORHANDLE].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE].enableLight = true;
+=======
+	drawOrders[DRAW_BUILDING].enableLight = false;
+>>>>>>> origin/master
 }
 
 void SceneMain::InnitVoxels()
@@ -599,13 +610,35 @@ void SceneMain::DoUserInput()
 		}
 		if(isFrog == true && isJumping == false && isFalling == false)
 		{
+<<<<<<< HEAD
 			isJumping = true;
 		}
+=======
+		isJumping = true;
+		}*/
+>>>>>>> origin/master
 	}
 	//Jump
 	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
 	{
+<<<<<<< HEAD
 		isJumping = true;
+=======
+	isJumping = true;
+	}*/
+	/*
+	if (keyboard.isKeyHold('O'))
+	{	
+	Vector3 tempVector;
+	tempVector.Set(0, 50, 0);
+	playerAcceleration += tempVector;
+	}
+	if (keyboard.isKeyHold('P'))
+	{
+	Vector3 tempVector;
+	tempVector.Set(0, -50, 0);
+	playerAcceleration += tempVector;
+>>>>>>> origin/master
 	}
 	//
 	//if (keyboard.isKeyHold('O'))
