@@ -238,7 +238,8 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CASHIER_TABLE].enableLight = true;
 
 	drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
-	drawOrders[DRAW_CABINET1].transform.translate.Set(0,1.5,-40);
+	drawOrders[DRAW_CABINET1].transform.translate.Set(0,1.5,-35);
+	drawOrders[DRAW_CABINET1].transform.rotate.Set(0,180,0);
 	drawOrders[DRAW_CABINET1].material.SetTextureTo(textures[TEXTURE_CABINET]);
 	drawOrders[DRAW_CABINET1].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CABINET1].material.SetDiffuseTo(1,1,1);
@@ -564,7 +565,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].enableLight = true;
 
 	drawOrders[DRAW_TROLLEY].geometry = meshList[GEO_TROLLEY];
-	drawOrders[DRAW_TROLLEY].transform.translate.Set(0,0.1,0);
+	drawOrders[DRAW_TROLLEY].transform.translate.Set(16,1.2,-17);
 	drawOrders[DRAW_TROLLEY].material.SetTextureTo(textures[TEXTURE_TROLLEY]);
 	drawOrders[DRAW_TROLLEY].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TROLLEY].material.SetDiffuseTo(1,1,1);
