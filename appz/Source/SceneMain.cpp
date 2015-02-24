@@ -158,27 +158,27 @@ void SceneMain::InnitDraws()
 	//main will be the main draw order that all other draw orders are children of
 	globals.AddDraw(drawOrder(L"main"));
 
-	globals.AddDraw(drawOrder(L"skybox",globals.GetMesh(L"skybox"), &globals.GetMaterial(L"skybox"), &globals.GetDraw(L"main")));
+	globals.AddDraw(drawOrder(L"skybox",globals.GetMesh(L"skybox"), &globals.GetMaterial(L"skybox"), NULL));
 	globals.GetDraw(L"skybox").transform.translate.Set(0,0,0);
 	globals.GetDraw(L"skybox").transform.scale.Set(10000,10000,10000);
 
-	globals.AddDraw(drawOrder(L"ground",globals.GetMesh(L"ground"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"ground",globals.GetMesh(L"ground"), &globals.GetMaterial(L"ground"), NULL, true));
 	globals.GetDraw(L"ground").transform.translate.Set(0,0,0);
 
 	//Draw Character
-	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character body").transform.translate.Set(0,3,0);
 
-	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character arm left").transform.translate.Set(-1.25,2.75,0);
 
-	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character arm right").transform.translate.Set(1.25,2.75,0);
 
-	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character leg left").transform.translate.Set(-0.5,0.5,0);
 
-	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character leg right").transform.translate.Set(0.5,0.5,0);
 
 	drawOrder player = globals.GetDraw(L"character body");
@@ -186,8 +186,17 @@ void SceneMain::InnitDraws()
 	player.transform.translate.Set(10,0.1,0);
 	player.SetTerminalVelocityTo(Vector3(60,60,60));
 	player.staticFriction = 0.03;
-	player.mass = 1;
+	player.mass = 0;
 	globals.AddDraw(player);
+
+	globals.GetDraw(L"skybox").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"ground").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"character body").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"character arm left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"character arm right").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"character leg left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"character leg right").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"player").SetParentAs(&globals.GetDraw(L"main"));
 
 	//for(int index = 0; index < 1500; ++index)
 	//{

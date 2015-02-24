@@ -12,7 +12,7 @@ bounce(bounce),
 staticFriction(staticFriction),
 kineticFriction(kineticFriction)
 {
-	parent = NULL;
+	this->parent = NULL;
 	SetParentAs(parent);
 	boundRadius = 0;
 	drawMode = GL_TRIANGLES;
