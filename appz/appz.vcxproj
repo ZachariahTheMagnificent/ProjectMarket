@@ -58,6 +58,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerFrog.h" />
     <ClInclude Include="Source\PlayerHuman.h" />
+    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMain.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ScenePhysics.h" />

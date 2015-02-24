@@ -15,12 +15,14 @@ protected:
 	Sound& snd;
 	unsigned screenX;
 	unsigned screenY;
+	bool gameQuit;
 public:
 	Scene(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
 		:
 	keyboard(keyboard),
 	mouse(mouse),
 	gfx(gfx),
+	gameQuit(false),
 	snd(snd)
 	{
 		screenX = 0;
