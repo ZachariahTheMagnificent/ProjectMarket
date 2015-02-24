@@ -77,7 +77,7 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"door texture", L"Image//door_texture.tga");
 	globals.AddTexture(L"travelatorslope texture2", L"Image//travelatorslope_texture2.tga");
 	globals.AddTexture(L"travelatorhandle texture", L"Image//travelatorhandle_texture.tga");
-	globals.AddTexture(L"TrolleyTexture", L"Image//TrolleyTexture.tga");
+	globals.AddTexture(L"trolleytexture", L"Image//TrolleyTexture.tga");
 	globals.AddTexture(L"character1", L"Image//character1.tga");
 }
 
@@ -87,7 +87,7 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"ground",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"ground")));
 	globals.AddMaterial(Material(L"building",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"building")));
 	globals.AddMaterial(Material(L"cashiertable",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cashiertable texture")));
-	globals.AddMaterial(Material(L"Cabinet",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"CabinetTexture")));
+	globals.AddMaterial(Material(L"cabinet",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"CabinetTexture")));
 	globals.AddMaterial(Material(L"can1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can1")));
 	globals.AddMaterial(Material(L"can2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can2")));
 	globals.AddMaterial(Material(L"can3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can3")));
@@ -101,9 +101,9 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"lift",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lift")));
 	globals.AddMaterial(Material(L"liftdoor",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftdoor")));
 	globals.AddMaterial(Material(L"door texture",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"door texture")));
-	globals.AddMaterial(Material(L"travellatorhandle",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorhandle texture")));
-	globals.AddMaterial(Material(L"travellatorslope",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
-	globals.AddMaterial(Material(L"Trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"TrolleyTexture")));
+	globals.AddMaterial(Material(L"travelatorhandle",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorhandle texture")));
+	globals.AddMaterial(Material(L"travelatorslope",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
+	globals.AddMaterial(Material(L"trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"trolleytexture")));
 	globals.AddMaterial(Material(L"character1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
 }
 
@@ -130,8 +130,8 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 50.f, 50.f));
 	globals.AddMesh(MeshBuilder::GenerateCube(L"cube",Color(),1,1,1));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
-	globals.AddMesh(MeshBuilder::GenerateOBJ(L"Cabinet1", L"OBJ//Cabinet1.obj"));
-	globals.AddMesh(MeshBuilder::GenerateOBJ(L"Cabinet2", L"OBJ//Cabinet2.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet2", L"OBJ//Cabinet2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can1", L"OBJ//can1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can2", L"OBJ//can2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can3", L"OBJ//can3.obj"));
@@ -212,7 +212,19 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(buffer);
 	liftTranslate+= Vector3(0,10.1,0);
 	}
+	//Draw liftdoor
+	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
+	globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-98.6);
 
+	globals.AddDraw(drawOrder(L"liftdoor_1_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
+	globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-98.6);
+
+	globals.AddDraw(drawOrder(L"liftdoor_2_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
+	globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-98.6);
+
+	globals.AddDraw(drawOrder(L"liftdoor_2_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
+	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6);
+	
 	//Draw Cashier Table
 	drawOrder cashiertable(L"cashiertable",globals.GetMesh(L"cashiertable"), &globals.GetMaterial(L"cashiertable"), NULL, true);
 	Vector3 cashiertableTranslate(5,1,-88.5);
@@ -238,8 +250,112 @@ void SceneMain::InnitDraws()
 	buffer.name = Namebuffer;
 	buffer.transform.translate = travelatorsupportTranslate;
 	globals.AddDraw(buffer);
-	travelatorsupportTranslate+= Vector3(0,0,-1.19);
+	travelatorsupportTranslate+= Vector3(0,0,-3.19);
 	}
+	//Draw Travelator Slope
+	drawOrder travelatorslope(L"travelatorslope",globals.GetMesh(L"travelatorslope"), &globals.GetMaterial(L"travelatorslope"), NULL, true);
+	Vector3 travelatorslopeTranslate(-2,5.91,-21.6);
+	for(int i = 0; i < 2; ++i)
+	{
+	drawOrder buffer(travelatorslope);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorslope%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = travelatorslopeTranslate;
+	globals.AddDraw(buffer);
+	travelatorslopeTranslate+= Vector3(0,0,-3.2);
+	}
+	//Draw Travelator Handle 1 AND 2
+	drawOrder travelatorhandle(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), NULL, true);
+	Vector3 travelatorhandleTranslate(-1.8,7.8,-20.4);
+	for(int i = 0; i < 2; ++i)
+	{
+	drawOrder buffer(travelatorhandle);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorhandle%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = travelatorhandleTranslate;
+	globals.AddDraw(buffer);
+	travelatorhandleTranslate+= Vector3(0,0,-2.25);
+	}
+	//Draw Travelator Handle 3 AND 4
+	drawOrder travelatorhandle2(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), NULL, true);
+	Vector3 travelatorhandleTranslate2(-1.8,7.8,-23.6);
+	for(int i = 3; i < 5; ++i)
+	{
+	drawOrder buffer(travelatorhandle2);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorhandle%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = travelatorhandleTranslate2;
+	globals.AddDraw(buffer);
+	travelatorhandleTranslate2+= Vector3(0,0,-2.25);
+	}
+
+	//Draw Outer Door
+	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.6);
+
+	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.6);
+	globals.GetDraw(L"outer_door_1_left").transform.rotate.Set(0,180,0);
+
+	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
+
+	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
+	globals.GetDraw(L"outer_door_2_left").transform.rotate.Set(0,180,0);
+
+	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
+	globals.GetDraw(L"inner_door_1").transform.rotate.Set(0,180,0);
+
+	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), NULL, true));
+	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.6);
+	globals.GetDraw(L"inner_door_2").transform.rotate.Set(0,180,0);
+
+	//Draw Trolley First Row
+	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), NULL, true);
+	Vector3 trolleyTranslate(16,1.2,-16);
+	for(int i = 0; i < 3; ++i)
+	{
+	drawOrder buffer(trolley);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"trolley%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = trolleyTranslate;
+	globals.AddDraw(buffer);
+	trolleyTranslate+= Vector3(-1.5,0,0);
+	}
+
+	//Draw Trolley Second Row
+	drawOrder trolley2(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), NULL, true);
+	Vector3 trolleyTranslate2(16,1.2,-12);
+	for(int i = 3; i < 6; ++i)
+	{
+	drawOrder buffer(trolley2);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"trolley%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = trolleyTranslate2;
+	globals.AddDraw(buffer);
+	trolleyTranslate2+= Vector3(-1.5,0,0);
+	}
+	//Draw lv2Cabinet1_column1
+	drawOrder lv2cabinet1_column1(L"lv2cabinet1_column1",globals.GetMesh(L"cabinet1"), &globals.GetMaterial(L"cabinet"), NULL, true);
+	Vector3 lv2cabinet1_column1Translate(-7.5,11,-45);
+	for(int i = 0; i < 5; ++i)
+	{
+	drawOrder buffer(lv2cabinet1_column1);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = lv2cabinet1_column1Translate; 
+	globals.AddDraw(buffer);
+	lv2cabinet1_column1Translate+= Vector3(0,0,-12);
+	}
+
 
 	//Setting Parents
 	globals.GetDraw(L"skybox").SetParentAs(&globals.GetDraw(L"main"));
@@ -263,6 +379,11 @@ void SceneMain::InnitDraws()
 	wsprintf(Namebuffer,L"lift%d",i);
 	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
+	//lift door parent setting
+	globals.GetDraw(L"liftdoor_1_left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"liftdoor_1_right").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"liftdoor_2_left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"liftdoor_2_right").SetParentAs(&globals.GetDraw(L"main"));
 
 	//cashier table parent setting
 	for(int i = 0; i < 2; ++i)
@@ -279,16 +400,58 @@ void SceneMain::InnitDraws()
 	wsprintf(Namebuffer,L"travelatorsupport%d",i);
 	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
-
+	//travelator slope parent setting
+	for(int i = 0; i < 2; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorslope%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+	//travelator handle 0 & 1 parent setting
+	for(int i = 0; i < 2; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorhandle%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+	//travelator handle 2 & 3 parent setting
+	for(int i = 3; i < 5; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"travelatorhandle%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
 	
+	//door parents settings
+	globals.GetDraw(L"outer_door_1_right").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"outer_door_1_left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"outer_door_2_right").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"outer_door_2_left").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"inner_door_1").SetParentAs(&globals.GetDraw(L"main"));
+	globals.GetDraw(L"inner_door_2").SetParentAs(&globals.GetDraw(L"main"));
 
-	//Draw Items
-	//drawOrders[DRAW_CASHIER_TABLE].geometry = meshList[DRAW_CASHIER_TABLE];
-	//drawOrders[DRAW_CASHIER_TABLE].transform.translate.Set(5,1,-88.5);
-
-	//drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
-	//drawOrders[DRAW_CABINET1].transform.translate.Set(0,1.5,-40);
-
+	//trolley first row parents settings
+	for(int i = 0; i < 3; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"trolley%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+	//trolley second row parents settings
+	for(int i = 3; i < 6; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"trolley%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+	//lv2cabinet1_column1 parents settings
+	for(int i = 0; i < 5; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+	
 	//drawOrders[DRAW_CABINET2].geometry = meshList[GEO_CABINET2];
 	//drawOrders[DRAW_CABINET2].transform.translate.Set(-10,0.1,0);
 
@@ -318,79 +481,6 @@ void SceneMain::InnitDraws()
 
 	//drawOrders[DRAW_PACKET3].geometry = meshList[GEO_PACKET3];
 	//drawOrders[DRAW_PACKET3].transform.translate.Set(55,0.1,0);
-
-	////Draw Building
-	//drawOrders[DRAW_BUILDING].geometry = meshList[GEO_BUILDING];
-	//drawOrders[DRAW_BUILDING].transform.translate.Set(0,0.1,-30);
-	//
-	//drawOrders[DRAW_LIFT_1].geometry = meshList[GEO_LIFT];
-	//drawOrders[DRAW_LIFT_1].transform.translate.Set(15.0,5.5,-101.6);
-
-	//drawOrders[DRAW_LIFT_2].geometry = meshList[GEO_LIFT];
-	//drawOrders[DRAW_LIFT_2].transform.translate.Set(15.0,15.6,-101.6);
-
-	//drawOrders[DRAW_LIFTDOOR_1_LEFT].geometry = meshList[GEO_LIFTDOOR];
-	//drawOrders[DRAW_LIFTDOOR_1_LEFT].transform.translate.Set(14.0,5,-98.6);
-
-	//drawOrders[DRAW_LIFTDOOR_1_RIGHT].geometry = meshList[GEO_LIFTDOOR];
-	//drawOrders[DRAW_LIFTDOOR_1_RIGHT].transform.translate.Set(16.0,5,-98.6);
-
-	//drawOrders[DRAW_LIFTDOOR_2_LEFT].geometry = meshList[GEO_LIFTDOOR];
-	//drawOrders[DRAW_LIFTDOOR_2_LEFT].transform.translate.Set(14.0,15.1,-98.6);
-
-	//drawOrders[DRAW_LIFTDOOR_2_RIGHT].geometry = meshList[GEO_LIFTDOOR];
-	//drawOrders[DRAW_LIFTDOOR_2_RIGHT].transform.translate.Set(16.0,15.1,-98.6);
-
-	////Draw Door
-	//drawOrders[DRAW_OUTERDOOR_1_RIGHT].geometry = meshList[GEO_OUTERDOOR];
-	//drawOrders[DRAW_OUTERDOOR_1_RIGHT].transform.translate.Set(2,4.5,-8.6);
-
-	//drawOrders[DRAW_OUTERDOOR_1_LEFT].geometry = meshList[GEO_OUTERDOOR];
-	//drawOrders[DRAW_OUTERDOOR_1_LEFT].transform.translate.Set(-2,4.5,-8.6);
-	//drawOrders[DRAW_OUTERDOOR_1_LEFT].transform.rotate.Set(0,180,0);
-
-	//drawOrders[DRAW_OUTERDOOR_2_RIGHT].geometry = meshList[GEO_OUTERDOOR];
-	//drawOrders[DRAW_OUTERDOOR_2_RIGHT].transform.translate.Set(-9,4.5,-105.4);
-
-	//drawOrders[DRAW_OUTERDOOR_2_LEFT].geometry = meshList[GEO_OUTERDOOR];
-	//drawOrders[DRAW_OUTERDOOR_2_LEFT].transform.translate.Set(-13,4.5,-105.4);
-	//drawOrders[DRAW_OUTERDOOR_2_LEFT].transform.rotate.Set(0,180,0);
-
-	//drawOrders[DRAW_INNERDOOR_1].geometry = meshList[GEO_INNERDOOR];
-	//drawOrders[DRAW_INNERDOOR_1].transform.translate.Set(-17.5,4.5,-19.6);
-	//drawOrders[DRAW_INNERDOOR_1].transform.rotate.Set(0,180,0);
-
-	//drawOrders[DRAW_INNERDOOR_2].geometry = meshList[GEO_INNERDOOR];
-	//drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-17.5,14.5,-19.6);
-	//drawOrders[DRAW_INNERDOOR_2].transform.rotate.Set(0,180,0);
-
-	////Draw Travelator
-	//drawOrders[DRAW_TRAVELATORSUPPORT_UP].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	//drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.1,-21.6);
-
-	//drawOrders[DRAW_TRAVELATORSLOPE_UP].geometry = meshList[GEO_TRAVELATORSLOPE];
-	//drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.91,-21.6);
-
-	//drawOrders[DRAW_TRAVELATORHANDLE_UP_1].geometry = meshList[GEO_TRAVELATORHANDLE];
-	//drawOrders[DRAW_TRAVELATORHANDLE_UP_1].transform.translate.Set(-1.8,7.8,-20.4);
-
-	//drawOrders[DRAW_TRAVELATORHANDLE_UP_2].geometry = meshList[GEO_TRAVELATORHANDLE];
-	//drawOrders[DRAW_TRAVELATORHANDLE_UP_2].transform.translate.Set(-1.8,7.8,-22.65);
-
-	//drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	//drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.1,-24.6);
-
-	//drawOrders[DRAW_TRAVELATORSLOPE_DOWN].geometry = meshList[GEO_TRAVELATORSLOPE];
-	//drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.91,-24.6);
-
-	//drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].geometry = meshList[GEO_TRAVELATORHANDLE];
-	//drawOrders[DRAW_TRAVELATORHANDLE_DOWN_1].transform.translate.Set(-1.8,7.8,-23.4);
-
-	//drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].geometry = meshList[GEO_TRAVELATORHANDLE];
-	//drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].transform.translate.Set(-1.8,7.8,-25.65);
-
-	//drawOrders[DRAW_TROLLEY].geometry = meshList[GEO_TROLLEY];
-	//drawOrders[DRAW_TROLLEY].transform.translate.Set(0,0.1,0);
 }
 
 void SceneMain::InnitVoxels()
