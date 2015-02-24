@@ -60,6 +60,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerFrog.h" />
     <ClInclude Include="Source\PlayerHuman.h" />
+    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMain.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ScenePhysics.h" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <None Include="Shader\Blending.fragmentshader" />
     <None Include="Shader\LightSource.fragmentshader" />
+    <None Include="Shader\MultiLight.fragmentshader" />
     <None Include="Shader\Shading.fragmentshader" />
     <None Include="Shader\Shading.vertexshader" />
     <None Include="Shader\SimpleFragmentShader.fragmentshader" />

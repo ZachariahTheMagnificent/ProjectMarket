@@ -25,24 +25,28 @@ GlobalList::~GlobalList()
 bool GlobalList::AddMesh(Mesh* mesh)
 {
 	meshList[mesh->GetName()] = mesh;
+	return true;
 }
 
 bool GlobalList::AddTexture(const std::wstring filepath)
 {
 	std::wstring name = filepath.substr(0, filepath.size() - 4);
 	textureList[filepath] = LoadTGA(filepath);
+	return true;
 }
 
 bool GlobalList::AddMaterial(const Material& material)
 {
 	materials.push_back(material);
 	materialList[material.GetName()] = &materials.back();
+	return true;
 }
 
 bool GlobalList::AddObject(const drawOrder& draw)
 {
 	draws.push_back(draw);
 	drawList[draw.GetName()] = &draws.back();
+	return true;
 }
 
 Mesh* GlobalList::GetMesh(const std::wstring meshName) const

@@ -1,85 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="shaders">
-      <UniqueIdentifier>{92bf1c45-446c-47af-8e8f-d21d047b8190}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\physics">
-      <UniqueIdentifier>{774a68ba-caf2-427d-94d6-3b9f28d39cf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\physics">
-      <UniqueIdentifier>{2cc013c7-067e-47ba-a054-d84130793799}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scenes">
-      <UniqueIdentifier>{93281649-5c16-4588-9bc7-fd0de7de6cf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{538ecbb0-e8a6-40c9-a224-9870614ae733}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Mesh">
-      <UniqueIdentifier>{95fecb1b-b8f7-457d-9ef5-a3112f6f0099}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Mesh">
-      <UniqueIdentifier>{7d4625b8-08c3-4e27-9273-e26349655b0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Input">
-      <UniqueIdentifier>{d4ecd343-a87a-4cbf-9aef-5cd924bc621d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Input">
-      <UniqueIdentifier>{61c4a986-dc6b-480e-85cc-d5c40e4e30b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Rendering">
-      <UniqueIdentifier>{21ae21d2-bb66-4d0a-b16b-cd0b96fa644c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rendering">
-      <UniqueIdentifier>{183602f1-059f-4f87-8c43-d5176feb5b01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\IO files">
-      <UniqueIdentifier>{b753a05c-30df-4427-afdc-731503033265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\IO files">
-      <UniqueIdentifier>{a9aec842-7d0a-4380-a89e-b4907da4a1e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Characters">
-      <UniqueIdentifier>{ea96f3f0-6bab-4894-85bf-f4249d98607b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Characters">
-      <UniqueIdentifier>{219f3ce8-9707-4f13-b478-821a05574910}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Character.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerFrog.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerHuman.cpp">
+      <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="Source\Force.cpp">
-      <Filter>Source Files\physics</Filter>
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Contacts.cpp">
-      <Filter>Source Files\physics</Filter>
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\ContactSolver.cpp">
-      <Filter>Source Files\physics</Filter>
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Source Files\Mesh</Filter>
+    <ClCompile Include="Source\DrawOrder.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Voxel.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\GLMouse.cpp">
       <Filter>Source Files\Input</Filter>
@@ -87,172 +40,227 @@
     <ClCompile Include="Source\Keyboard.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MeshBuilder.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\shader.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Voxel.cpp">
-      <Filter>Source Files\physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Directory.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadTGA.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadOBJ.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ScenePhysics.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Graphics.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DrawOrder.cpp">
-      <Filter>Source Files\physics</Filter>
+    <ClCompile Include="Source\SceneMainMenu.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneMain.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Character.cpp">
-      <Filter>Source Files\Characters</Filter>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source Files\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Source Files\Characters</Filter>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source Files\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayerFrog.cpp">
-      <Filter>Source Files\Characters</Filter>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source Files\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PlayerHuman.cpp">
-      <Filter>Source Files\Characters</Filter>
+    <ClCompile Include="Source\Graphics.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\VoxelOctree.cpp">
-      <Filter>Source Files\physics</Filter>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Directory.cpp">
+      <Filter>Source Files\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Source\GlobalList.cpp">
-      <Filter>Source Files</Filter>
-    <ClCompile Include="Source\SceneMainMenu.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VoxelOctree.cpp">
+      <Filter>Source Files\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\GLMouse.h">
+      <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Contacts.h">
-      <Filter>Header Files\physics</Filter>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Force.h">
-      <Filter>Header Files\physics</Filter>
+    <ClInclude Include="Source\SceneMain.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ContactSolver.h">
-      <Filter>Header Files\physics</Filter>
+    <ClInclude Include="Source\ScenePhysics.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
+    <ClInclude Include="Source\Player.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerFrog.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerHuman.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshBuilder.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Character.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Force.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DrawOrder.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ContactSolver.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Contacts.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Material.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadTGA.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadOBJ.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Vertex.h">
-      <Filter>Header Files\Mesh</Filter>
+    <ClInclude Include="Source\Voxel.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GLMouse.h">
-      <Filter>Header Files\Input</Filter>
+    <ClInclude Include="Source\Graphics.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Keyboard.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\shader.hpp">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Voxel.h">
-      <Filter>Header Files\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadOBJ.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadTGA.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Directory.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScenePhysics.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Graphics.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DrawOrder.h">
-      <Filter>Header Files\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneMain.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Character.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PlayerFrog.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PlayerHuman.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\VoxelOctree.h">
-      <Filter>Header Files\physics</Filter>
+      <Filter>Header Files\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Source\GlobalList.h">
-      <Filter>Header Files</Filter>
-    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VoxelOctree.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\shader.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\SimpleFragmentShader.fragmentshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\SimpleVertexShader.vertexshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\TransformVertexShader.vertexshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\Shading.fragmentshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\Shading.vertexshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\Texture.fragmentshader">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="Shader\Texture.vertexshader">
-      <Filter>shaders</Filter>
+    <None Include="Shader\Blending.fragmentshader">
+      <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\LightSource.fragmentshader">
-      <Filter>shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="Shader\Blending.fragmentshader">
-      <Filter>shaders</Filter>
+    <None Include="Shader\TransformVertexShader.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Shading.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Shading.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\SimpleFragmentShader.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\SimpleVertexShader.vertexshader">
+      <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\Text.fragmentshader">
-      <Filter>shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
+    <None Include="Shader\Texture.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Texture.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\MultiLight.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9c726431-582a-438c-b867-97d654198496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{15a9c895-2840-4614-931f-7510f9f98932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{874f6107-f020-4bd5-bca0-5a41eaa29a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{ed83a8b6-ee76-4fd3-b308-29ea85f33ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{9d6cf2e6-619b-476f-ac53-0dcb852758ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{a2895430-8c1d-476e-9905-3ebf7e21899d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{20d77ebd-3daa-47f8-a5e5-899e92fa83fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{3bc4959a-153b-4715-bdca-6f34775c5b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{263845e4-86f8-411a-b404-18ab32092893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mesh">
+      <UniqueIdentifier>{187d72c2-1a1f-4243-9b5e-24945ea0add6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mesh">
+      <UniqueIdentifier>{76264397-9369-4802-a1d3-11d776e03ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character">
+      <UniqueIdentifier>{60a27f3c-7dcd-4f59-b64e-831c31770948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character">
+      <UniqueIdentifier>{f89037ea-bf70-4a89-85cc-e14bc6b27d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{878ee189-17ab-458a-a0b6-09d5f40bff23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{2650da8e-f091-433a-a650-323b05ab4207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Containers">
+      <UniqueIdentifier>{02b58ba2-a2a3-4214-b7e1-f74766ae192d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{98406296-fce1-47eb-8929-bddcde8ad82b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{5631003b-9c8b-40ed-b8b9-4aaa3807af88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Containers">
+      <UniqueIdentifier>{141090ba-84c9-409d-9ad9-b5ff0b3a2ecb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
