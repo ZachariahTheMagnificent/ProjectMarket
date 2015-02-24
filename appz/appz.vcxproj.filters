@@ -134,6 +134,8 @@
     </ClCompile>
     <ClCompile Include="Source\GlobalList.cpp">
       <Filter>Source Files</Filter>
+    <ClCompile Include="Source\SceneMainMenu.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +219,8 @@
     </ClInclude>
     <ClInclude Include="Source\GlobalList.h">
       <Filter>Header Files</Filter>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

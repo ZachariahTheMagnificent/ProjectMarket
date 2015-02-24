@@ -57,6 +57,7 @@ void SceneMain::InnitTextures()
 	textures.resize(NUM_TEXTURES, 0);
 	textures[TEXTURE_SKYBOX] = LoadTGA(L"Image//skybox.tga");
 	textures[TEXTURE_GROUND] = LoadTGA(L"Image//ground.tga");
+	textures[TEXTURE_CASHIER_TABLE] = LoadTGA(L"Image//cashiertable_texture.tga");
 	textures[TEXTURE_CABINET] = LoadTGA(L"Image//CabinetTexture.tga");
 	textures[TEXTURE_CAN1] = LoadTGA(L"Image//can1.tga");
 	textures[TEXTURE_CAN2] = LoadTGA(L"Image//can2.tga");
@@ -70,12 +71,14 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_BUILDING] = LoadTGA(L"Image//dullwhite.tga");
 	textures[TEXTURE_LIFT] = LoadTGA(L"Image//blue.tga");
 	textures[TEXTURE_LIFTDOOR] = LoadTGA(L"Image//liftdoor.tga");
-	textures[TEXTURE_OUTERDOOR] = LoadTGA(L"Image//glassdoor_texture.tga");
-	textures[TEXTURE_INNERDOOR] = LoadTGA(L"Image//glassdoor_texture.tga");
+	textures[TEXTURE_OUTERDOOR] = LoadTGA(L"Image//door_texture.tga");
+	textures[TEXTURE_INNERDOOR] = LoadTGA(L"Image//door_texture.tga");
 	textures[TEXTURE_TRAVELATORSUPPORT] = LoadTGA(L"Image//dullwhite.tga");
-	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture.tga");
+	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture2.tga");
 	textures[TEXTURE_TRAVELATORHANDLE] = LoadTGA(L"Image//travelatorhandle_texture.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
+	textures[TEXTURE_TROLLEY] = LoadTGA(L"Image//TrolleyTexture.tga");
+	textures[TEXTURE_CHARACTER] = LoadTGA(L"Image//character1.tga");
 }
 
 void SceneMain::InnitLight()
@@ -103,6 +106,7 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_SKYBOX] = MeshBuilder::GenerateOBJ(L"OBJ//skybox.obj");
 	meshList[GEO_GROUND] = MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 50.f, 50.f);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube(L"Cube",Color(),1,1,1);
+	meshList[GEO_CASHIER_TABLE] = MeshBuilder::GenerateOBJ(L"OBJ//cashiertable.obj");
 	meshList[GEO_CABINET1] = MeshBuilder::GenerateOBJ(L"OBJ//Cabinet1.obj");
 	meshList[GEO_CABINET2] = MeshBuilder::GenerateOBJ(L"OBJ//Cabinet2.obj");
 	meshList[GEO_CAN1] = MeshBuilder::GenerateOBJ(L"OBJ//can1.obj");
@@ -122,6 +126,10 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_TRAVELATORSUPPORT] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorsupport.obj");
 	meshList[GEO_TRAVELATORSLOPE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorslope.obj");
 	meshList[GEO_TRAVELATORHANDLE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorhandle.obj");
+	meshList[GEO_TROLLEY] = MeshBuilder::GenerateOBJ(L"OBJ//trolley.obj");
+	meshList[GEO_CHARACTER_ARM] = MeshBuilder::GenerateOBJ(L"OBJ//characterarm.obj");
+	meshList[GEO_CHARACTER_LEG] = MeshBuilder::GenerateOBJ(L"OBJ//characterleg.obj");
+	meshList[GEO_CHARACTER_BODY] = MeshBuilder::GenerateOBJ(L"OBJ//characterbody.obj");
 }
 
 void SceneMain::InnitDraws()
@@ -154,9 +162,59 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_GROUND].material.SetShininessTo(20);
 	drawOrders[DRAW_GROUND].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_GROUND].enableLight = true;
+	//Draw Character
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].transform.translate.Set(-1.25,2.75,0);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].transform.translate.Set(1.25,2.75,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].transform.translate.Set(-0.5,0.5,0);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].transform.translate.Set(0.5,0.5,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_BODY].geometry = meshList[GEO_CHARACTER_BODY];
+	drawOrders[DRAW_CHARACTER_BODY].transform.translate.Set(0,3,0);
+	drawOrders[DRAW_CHARACTER_BODY].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_BODY].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_BODY].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_BODY].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_BODY].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_BODY].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CHARACTER_BODY].enableLight = true;
 
 	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_CUBE];
-	drawOrders[DRAW_PLAYER].transform.translate.Set(0,0.1,0);
+	drawOrders[DRAW_PLAYER].transform.translate.Set(10,0.1,0);
 	drawOrders[DRAW_PLAYER].material.SetTextureTo(textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE]);
 	drawOrders[DRAW_PLAYER].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_PLAYER].material.SetDiffuseTo(1,1,1);
@@ -169,6 +227,16 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_PLAYER].enableLight = true;
 
 	//Draw Items
+	drawOrders[DRAW_CASHIER_TABLE].geometry = meshList[DRAW_CASHIER_TABLE];
+	drawOrders[DRAW_CASHIER_TABLE].transform.translate.Set(5,1,-88.5);
+	drawOrders[DRAW_CASHIER_TABLE].material.SetTextureTo(textures[TEXTURE_CASHIER_TABLE]);
+	drawOrders[DRAW_CASHIER_TABLE].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CASHIER_TABLE].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CASHIER_TABLE].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CASHIER_TABLE].material.SetShininessTo(20);
+	drawOrders[DRAW_CASHIER_TABLE].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_CASHIER_TABLE].enableLight = true;
+
 	drawOrders[DRAW_CABINET1].geometry = meshList[GEO_CABINET1];
 	drawOrders[DRAW_CABINET1].transform.translate.Set(0,1.5,-40);
 	drawOrders[DRAW_CABINET1].material.SetTextureTo(textures[TEXTURE_CABINET]);
@@ -190,7 +258,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CABINET2].enableLight = true;
 
 	drawOrders[DRAW_CAN1].geometry = meshList[GEO_CAN1];
-	drawOrders[DRAW_CAN1].transform.translate.Set(15,0.1,0);
+	drawOrders[DRAW_CAN1].transform.translate.Set(15,2,0);
 	drawOrders[DRAW_CAN1].material.SetTextureTo(textures[TEXTURE_CAN1]);
 	drawOrders[DRAW_CAN1].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CAN1].material.SetDiffuseTo(1,1,1);
@@ -404,7 +472,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_INNERDOOR_1].enableLight = true;
 
 	drawOrders[DRAW_INNERDOOR_2].geometry = meshList[GEO_INNERDOOR];
-	drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-15.5,15.5,-19.6);
+	drawOrders[DRAW_INNERDOOR_2].transform.translate.Set(-17.5,14.5,-19.6);
 	drawOrders[DRAW_INNERDOOR_2].transform.rotate.Set(0,180,0);
 	drawOrders[DRAW_INNERDOOR_2].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
 	drawOrders[DRAW_INNERDOOR_2].material.SetAmbientTo(1,1,1);
@@ -416,7 +484,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Travelator
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.0,-21.6);
+	drawOrders[DRAW_TRAVELATORSUPPORT_UP].transform.translate.Set(-2,7.1,-21.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].material.SetDiffuseTo(1,1,1);
@@ -426,7 +494,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.8,-21.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.91,-21.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetDiffuseTo(1,1,1);
@@ -456,7 +524,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORHANDLE_UP_2].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].geometry = meshList[GEO_TRAVELATORSUPPORT];
-	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.0,-24.6);
+	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].transform.translate.Set(-2,7.1,-24.6);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].material.SetDiffuseTo(1,1,1);
@@ -466,7 +534,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.8,-24.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.91,-24.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetDiffuseTo(1,1,1);
@@ -494,6 +562,16 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].material.SetShininessTo(20);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_TRAVELATORHANDLE_DOWN_2].enableLight = true;
+
+	drawOrders[DRAW_TROLLEY].geometry = meshList[GEO_TROLLEY];
+	drawOrders[DRAW_TROLLEY].transform.translate.Set(0,0.1,0);
+	drawOrders[DRAW_TROLLEY].material.SetTextureTo(textures[TEXTURE_TROLLEY]);
+	drawOrders[DRAW_TROLLEY].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_TROLLEY].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_TROLLEY].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_TROLLEY].material.SetShininessTo(20);
+	drawOrders[DRAW_TROLLEY].SetParentAs(&drawOrders[DRAW_MAIN]);
+	drawOrders[DRAW_TROLLEY].enableLight = true;
 }
 
 void SceneMain::InnitVoxels()

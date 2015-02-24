@@ -32,6 +32,7 @@
     <ClCompile Include="Source\PlayerFrog.cpp" />
     <ClCompile Include="Source\PlayerHuman.cpp" />
     <ClCompile Include="Source\SceneMain.cpp" />
+    <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Source\PlayerFrog.h" />
     <ClInclude Include="Source\PlayerHuman.h" />
     <ClInclude Include="Source\SceneMain.h" />
+    <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\ScenePhysics.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Vertex.h" />

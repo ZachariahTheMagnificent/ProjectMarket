@@ -11,11 +11,12 @@
 #include "player.h"
 #include <vector>
 
-class SceneMain : public Scene
+
+class SceneMainMenu: public Scene
 {
 public:
-	SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
-	~SceneMain(void);
+	SceneMainMenu(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
+	~SceneMainMenu(void);
 
 	virtual void Init();
 	virtual bool Update(const double dt);
@@ -53,6 +54,12 @@ private:
 		GEO_CHARACTER_ARM,
 		GEO_CHARACTER_LEG,
 		GEO_CHARACTER_BODY,
+		GEO_PLAY,
+		GEO_INST,
+		GEO_CREDITS,
+		GEO_EXIT,
+		GEO_QUAD4,
+		GEO_BG,
 		NUM_GEOMETRY,
 	};
 	enum DRAW_REFERENCE
@@ -106,7 +113,12 @@ private:
 		DRAW_CHARACTER_LEFT_LEG,
 		DRAW_CHARACTER_RIGHT_LEG,
 		DRAW_CHARACTER_BODY,
-
+		//Draw main menu
+		DRAW_PLAY,
+		DRAW_INST,
+		DRAW_CREDITS,
+		DRAW_EXIT,
+		DRAW_BG,
 		NUM_DRAWS,
 	};
 	enum LIGHTS
@@ -141,6 +153,11 @@ private:
 		TEXTURE_TRAVELATORHANDLE,
 		TEXTURE_TROLLEY,
 		TEXTURE_CHARACTER,
+		TEXTURE_PLAY,
+		TEXTURE_INST,
+		TEXTURE_CREDITS,
+		TEXTURE_EXIT,
+		TEXTURE_BG,
 
 		NUM_TEXTURES,
 	};
@@ -187,4 +204,3 @@ private:
 	void UpdateLight();
 	void UpdateDraws();
 };
-
