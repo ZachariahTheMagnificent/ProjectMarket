@@ -22,8 +22,8 @@ Sound snd;
 Graphics gfx;
 const unsigned char FPS = 60;
 const unsigned int frameTime = 1000 / FPS;
-const unsigned screenX = 1000;
-const unsigned screenY = 1000;
+const unsigned screenX = 600;
+const unsigned screenY = 500;
 
 static void error_callback(const int error, const char* description)
 {
