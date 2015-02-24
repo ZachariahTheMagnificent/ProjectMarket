@@ -565,7 +565,7 @@ void SceneMain::UpdateLight()
 void SceneMain::UpdateDraws()
 {
 	//Shopping Wanderer
-	globals.GetDraw(L"character body").transform.translate = ;
+	//globals.GetDraw(L"character body").transform.translate = ;
 
 
 	//where forces are applied
