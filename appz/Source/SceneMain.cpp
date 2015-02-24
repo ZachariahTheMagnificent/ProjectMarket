@@ -164,7 +164,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_GROUND].enableLight = true;
 	//Draw Character
 	drawOrders[DRAW_CHARACTER_LEFT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].transform.translate.Set(-1.25,2.75,0);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].transform.translate.Set(-1.25,3.95,-40);
 	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
 	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetDiffuseTo(1,1,1);
@@ -174,7 +174,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CHARACTER_LEFT_ARM].enableLight = true;
 
 	drawOrders[DRAW_CHARACTER_RIGHT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].transform.translate.Set(1.25,2.75,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].transform.translate.Set(1.25,3.95,-40);
 	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
 	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetDiffuseTo(1,1,1);
@@ -184,7 +184,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CHARACTER_RIGHT_ARM].enableLight = true;
 
 	drawOrders[DRAW_CHARACTER_LEFT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].transform.translate.Set(-0.5,0.5,0);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].transform.translate.Set(-0.5,1.7,-40);
 	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
 	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetDiffuseTo(1,1,1);
@@ -194,7 +194,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CHARACTER_LEFT_LEG].enableLight = true;
 
 	drawOrders[DRAW_CHARACTER_RIGHT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].transform.translate.Set(0.5,0.5,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].transform.translate.Set(0.5,1.7,-40);
 	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
 	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetDiffuseTo(1,1,1);
@@ -204,7 +204,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CHARACTER_RIGHT_LEG].enableLight = true;
 
 	drawOrders[DRAW_CHARACTER_BODY].geometry = meshList[GEO_CHARACTER_BODY];
-	drawOrders[DRAW_CHARACTER_BODY].transform.translate.Set(0,3,0);
+	drawOrders[DRAW_CHARACTER_BODY].transform.translate.Set(0,4.2,-40);
 	drawOrders[DRAW_CHARACTER_BODY].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
 	drawOrders[DRAW_CHARACTER_BODY].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CHARACTER_BODY].material.SetDiffuseTo(1,1,1);
