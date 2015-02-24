@@ -6,6 +6,7 @@
 #include "LoadTGA.h"
 #include "PlayerHuman.h"
 #include "PlayerFrog.h"
+#include "ShopperWanderer.h"
 
 
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
@@ -34,6 +35,7 @@ void SceneMain::Init()
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
+	SW1.DrawIsEqualTo(globals.GetDraw(L"character body"));
 
 	camera.Init(Vector3(21.7, 5, 68.3), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -472,6 +474,10 @@ void SceneMain::UpdateLight()
 
 void SceneMain::UpdateDraws()
 {
+	//Shopping Wanderer
+	globals.GetDraw(L"character body").transform.translate = ;
+
+
 	//where forces are applied
 	//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	//{
