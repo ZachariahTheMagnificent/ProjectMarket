@@ -588,7 +588,7 @@ void SceneMain::InnitVoxels()
 		drawOrders[DRAW_PACKET1].GenerateVoxels();
 		drawOrders[DRAW_PACKET2].GenerateVoxels();
 		drawOrders[DRAW_PACKET3].GenerateVoxels();
-		drawOrders[DRAW_BUILDING].GenerateVoxels();
+		//drawOrders[DRAW_BUILDING].GenerateVoxels();
 }
 
 void SceneMain::InnitForces()
