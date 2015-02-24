@@ -61,4 +61,4 @@ private:
 	void UpdateView();
 	void UpdateLight();
 	void UpdateDraws();
-};
+};};
