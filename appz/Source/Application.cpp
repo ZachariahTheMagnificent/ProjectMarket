@@ -109,7 +109,7 @@ void Application::Run()
 {
 	//Main Loop
 	bool gameQuit = false;
-	Scene* pScene = new SceneMainMenu(keyboard, mouse, snd, gfx);
+	Scene* pScene = new SceneMain(keyboard, mouse, snd, gfx);
 	pScene->Init();
 	pScene->SetWindowSize(screenX, screenY);
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
