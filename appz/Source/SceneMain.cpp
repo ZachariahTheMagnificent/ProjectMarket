@@ -74,7 +74,7 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_OUTERDOOR] = LoadTGA(L"Image//door_texture.tga");
 	textures[TEXTURE_INNERDOOR] = LoadTGA(L"Image//door_texture.tga");
 	textures[TEXTURE_TRAVELATORSUPPORT] = LoadTGA(L"Image//dullwhite.tga");
-	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture.tga");
+	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture2.tga");
 	textures[TEXTURE_TRAVELATORHANDLE] = LoadTGA(L"Image//travelatorhandle_texture.tga");
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 	textures[TEXTURE_TROLLEY] = LoadTGA(L"Image//TrolleyTexture.tga");
@@ -258,7 +258,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CABINET2].enableLight = true;
 
 	drawOrders[DRAW_CAN1].geometry = meshList[GEO_CAN1];
-	drawOrders[DRAW_CAN1].transform.translate.Set(15,0.1,0);
+	drawOrders[DRAW_CAN1].transform.translate.Set(15,2,0);
 	drawOrders[DRAW_CAN1].material.SetTextureTo(textures[TEXTURE_CAN1]);
 	drawOrders[DRAW_CAN1].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_CAN1].material.SetDiffuseTo(1,1,1);
@@ -494,7 +494,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_UP].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.9,-21.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_UP].transform.translate.Set(-2,5.91,-21.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_UP].material.SetDiffuseTo(1,1,1);
@@ -534,7 +534,7 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_TRAVELATORSUPPORT_DOWN].enableLight = true;
 
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].geometry = meshList[GEO_TRAVELATORSLOPE];
-	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.9,-24.6);
+	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].transform.translate.Set(-2,5.91,-24.6);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetAmbientTo(1,1,1);
 	drawOrders[DRAW_TRAVELATORSLOPE_DOWN].material.SetDiffuseTo(1,1,1);
