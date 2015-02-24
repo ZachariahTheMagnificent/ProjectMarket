@@ -215,6 +215,9 @@
     <ClInclude Include="Source\VoxelOctree.h">
       <Filter>Header Files\physics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\SimpleFragmentShader.fragmentshader">
