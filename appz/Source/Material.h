@@ -25,8 +25,9 @@ public:
 		Component comp;
 		SetTo(comp, comp, comp, 0, 0);
 	}
-	Material(const Component kAmbient, const Component kDiffuse, const Component kSpecular, const float kShininess, const unsigned textureID)
+	Material(std::wstring name, const Component kAmbient, const Component kDiffuse, const Component kSpecular, const float kShininess, const unsigned textureID)
 	{
+		SetNameAs(name);
 		SetTo(kAmbient, kDiffuse, kSpecular, kShininess, textureID);
 	}
 	void SetNameAs(const std::wstring newName)

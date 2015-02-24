@@ -28,24 +28,21 @@ bool GlobalList::AddMesh(Mesh* mesh)
 	return true;
 }
 
-bool GlobalList::AddTexture(const std::wstring filepath)
+bool GlobalList::AddTexture(const std::wstring name, const std::wstring filepath)
 {
-	std::wstring name = filepath.substr(0, filepath.size() - 4);
-	textureList[filepath] = LoadTGA(filepath);
+	textureList[name] = LoadTGA(filepath);
 	return true;
 }
 
 bool GlobalList::AddMaterial(const Material& material)
 {
-	materials.push_back(material);
-	materialList[material.GetName()] = &materials.back();
+	materialList[material.GetName()] = material;
 	return true;
 }
 
-bool GlobalList::AddObject(const drawOrder& draw)
+bool GlobalList::AddDraw(const drawOrder& draw)
 {
-	draws.push_back(draw);
-	drawList[draw.GetName()] = &draws.back();
+	drawList[draw.GetName()] = draw;
 	return true;
 }
 
@@ -54,17 +51,37 @@ Mesh* GlobalList::GetMesh(const std::wstring meshName) const
 	return meshList.find(meshName)->second;
 }
 
-drawOrder& GlobalList::GetDraw(const std::wstring drawName) const
+drawOrder& GlobalList::GetDraw(const std::wstring drawName)
 {
-	return *drawList.find(drawName)->second;
+	return drawList.find(drawName)->second;
 }
 
-Material& GlobalList::GetMaterial(const std::wstring materialName) const
+Material& GlobalList::GetMaterial(const std::wstring materialName)
 {
-	return *materialList.find(materialName)->second;
+	return materialList.find(materialName)->second;
 }
 
 unsigned GlobalList::GetTexture(const std::wstring textureName) const
 {
 	return textureList.find(textureName)->second;
+}
+
+std::map<std::wstring, Mesh*>& GlobalList::GetMeshList()
+{
+	return meshList;
+}
+
+std::map<std::wstring, drawOrder>& GlobalList::GetDrawList()
+{
+	return drawList;
+}
+
+std::map<std::wstring, Material>& GlobalList::GetMaterialList()
+{
+	return materialList;
+}
+
+std::map<std::wstring, unsigned>& GlobalList::GetTextureList()
+{
+	return textureList;
 }

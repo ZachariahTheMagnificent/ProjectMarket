@@ -1,21 +1,39 @@
 #include "DrawOrder.h"
 #include "Graphics.h"
 
-drawOrder::drawOrder()
+drawOrder::drawOrder(std::wstring name, Mesh* geometry, Material* material, drawOrder* parent, bool enableLight, float mass, float bounce, float staticFriction, float kineticFriction)
+	:
+name(name),
+geometry(geometry),
+material(material),
+enableLight(enableLight),
+mass(mass),
+bounce(bounce),
+staticFriction(staticFriction),
+kineticFriction(kineticFriction)
 {
-	geometry = NULL;
 	parent = NULL;
-	enableLight = false;
-	mass = 0;
-	bounce = 0;
-	staticFriction = 0;
-	kineticFriction = 0;
-	drawMode = GL_TRIANGLES;
+	SetParentAs(parent);
 	boundRadius = 0;
+	drawMode = GL_TRIANGLES;
 }
 
 drawOrder::~drawOrder()
 {
+}
+
+void drawOrder::Copy(drawOrder& original)
+{
+	name = original.name;
+	geometry = original.geometry;
+	material = original.material;
+	enableLight = original.enableLight;
+	mass = original.mass;
+	bounce = original.bounce;
+	staticFriction = original.staticFriction;
+	kineticFriction = original.kineticFriction;
+	SetParentAs(original.parent);
+	drawMode = original.drawMode;
 }
 
 const std::wstring& drawOrder::GetName() const
@@ -36,7 +54,7 @@ void drawOrder::Execute(Graphics& gfx)
 	}
 }
 
-void drawOrder::SetMaterial(const Material& mat)
+void drawOrder::SetMaterial(Material* mat)
 {
 	material = mat;
 }
@@ -233,12 +251,12 @@ void drawOrder::SetMomentumTo(Vector3 momentum)
 
 unsigned drawOrder::GetTexture() const
 {
-	return material.GetTexture();
+	return material->GetTexture();
 }
 
 void drawOrder::SetTextureTo(unsigned textureID)
 {
-	material.SetTextureTo(textureID);
+	material->SetTextureTo(textureID);
 }
 
 Mtx44 drawOrder::GetRotationMatrix() const
@@ -357,12 +375,12 @@ float drawOrder::GetKinetic()
 
 void drawOrder::Render() const
 {
-	geometry->Render(material.GetTexture() , drawMode);
+	geometry->Render(material->GetTexture() , drawMode);
 }
 
 void drawOrder::RenderPartial(const unsigned offset, const unsigned count) const
 {
-	geometry->Render(offset, count, material.GetTexture(), drawMode);
+	geometry->Render(offset, count, material->GetTexture(), drawMode);
 }
 
 float drawOrder::GetMaxX() const

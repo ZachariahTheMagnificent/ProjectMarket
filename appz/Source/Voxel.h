@@ -3,7 +3,7 @@
 #include "Vertex.h"
 #include "Mtx44.h"
 
-struct drawOrder;
+class drawOrder;
 
 class Voxel
 {
