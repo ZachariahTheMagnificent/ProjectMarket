@@ -101,8 +101,9 @@ struct Transformation
 class drawOrder
 {
 public:
-	drawOrder();
+	drawOrder(std::wstring name = std::wstring(), Mesh* geometry = NULL, Material* material = NULL, drawOrder* parent = NULL, bool enableLight = false, float mass = 0, float bounce = 0, float staticFriction = 0, float kineticFriction = 0);
 	~drawOrder();
+	const std::wstring& GetName() const;
 	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
 	Mtx44 GetMatrix() const;
@@ -121,12 +122,14 @@ public:
 	float GetKinetic();
 	bool IsLightEnabled();
 	bool IsCollidingWith(drawOrder& draw) const;
+	void SetNameAs(const std::wstring name);
 	void SetTextureTo(unsigned textureID);
 	void SetTerminalVelocityTo(Vector3 vector);
-	void SetMaterial(const Material& mat);
+	void SetMaterial(Material* mat);
 	void SetVelocityTo(Vector3 newVelocity);
 	void SetMomentumTo(Vector3 momentum);
 	void SetParentAs(drawOrder* parent);
+	void Copy(drawOrder& original);
 	void CapVelocityToTerminal();
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
@@ -145,8 +148,9 @@ public:
 private:
 	Mtx44 GetModelTransform() const;
 public:
+	std::wstring name;
 	Mesh* geometry;
-	Material material;
+	Material* material;
 	unsigned drawMode;
 	bool enableLight;
 	float mass;

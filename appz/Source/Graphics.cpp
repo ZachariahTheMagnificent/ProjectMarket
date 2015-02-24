@@ -4,6 +4,8 @@
 static const unsigned NUM_OF_LIGHT_PARAMETERS = 11;
 
 Graphics::Graphics()
+	:
+meshText(L"text")
 {
 }
 
@@ -104,7 +106,8 @@ void Graphics::Init(GLFWwindow* window)
 void Graphics::InitText(std::wstring filepath)
 {
 	meshText.geometry = MeshBuilder::GenerateText(filepath,16,16);
-	meshText.SetTextureTo(LoadTGA(filepath));
+	textMaterial = Material(L"mat", Component(1,1,1), Component(1,1,1), Component(1,1,1), 20,LoadTGA(filepath));
+	meshText.SetMaterial(&textMaterial);
 }
 
 void Graphics::SetViewAt(const Camera& camera)
@@ -194,21 +197,21 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
 
 		//load material
-		Component kAmbient = object.material.GetAmbient();
-		Component kDiffuse = object.material.GetAmbient();
-		Component kSpecular = object.material.GetAmbient();
+		Component kAmbient = object.material->GetAmbient();
+		Component kDiffuse = object.material->GetDiffuse();
+		Component kSpecular = object.material->GetSpecular();
 
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.material.GetShininess());
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.material->GetShininess());
 	}
 	else
 	{	
 		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	}
 
-	if(object.material.GetTexture() > 0)
+	if(object.material->GetTexture() > 0)
 	{
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 		glActiveTexture(GL_TEXTURE0);
@@ -224,7 +227,7 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 
 void Graphics::RenderText(const std::string text, const Color color)
 {
-	if(!meshText.geometry || meshText.material.GetTexture() <= 0) //Proper error check
+	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
@@ -257,7 +260,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 
 void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y)
 {
-	if(!meshText.geometry || meshText.material.GetTexture() <= 0) //Proper error check
+	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}

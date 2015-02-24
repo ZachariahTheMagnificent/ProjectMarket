@@ -151,6 +151,7 @@ private:
 	Light* lights[MAX_LIGHTS + 1];
 	int currentNumOfLights;
 	drawOrder meshText;
+	Material textMaterial;
 	GLFWwindow* m_window;
 
 	MS viewStack, modelStack, projectionStack;

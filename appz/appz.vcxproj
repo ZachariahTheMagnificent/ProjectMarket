@@ -20,6 +20,7 @@
     <ClCompile Include="Source\DrawOrder.cpp" />
     <ClCompile Include="Source\Force.cpp" />
     <ClCompile Include="Source\GLMouse.cpp" />
+    <ClCompile Include="Source\GlobalList.cpp" />
     <ClCompile Include="Source\Graphics.cpp" />
     <ClCompile Include="Source\Keyboard.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="Source\DrawOrder.h" />
     <ClInclude Include="Source\Force.h" />
     <ClInclude Include="Source\GLMouse.h" />
+    <ClInclude Include="Source\GlobalList.h" />
     <ClInclude Include="Source\Graphics.h" />
     <ClInclude Include="Source\Keyboard.h" />
     <ClInclude Include="Source\Light.h" />
@@ -70,6 +72,7 @@
   <ItemGroup>
     <None Include="Shader\Blending.fragmentshader" />
     <None Include="Shader\LightSource.fragmentshader" />
+    <None Include="Shader\MultiLight.fragmentshader" />
     <None Include="Shader\Shading.fragmentshader" />
     <None Include="Shader\Shading.vertexshader" />
     <None Include="Shader\SimpleFragmentShader.fragmentshader" />

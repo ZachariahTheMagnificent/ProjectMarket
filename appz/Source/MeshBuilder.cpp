@@ -656,12 +656,12 @@ Mesh* MeshBuilder::GenerateCircle(const std::wstring &meshName, const Color colo
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateOBJ(const std::wstring &file_path)
+Mesh* MeshBuilder::GenerateOBJ(const std::wstring& name, const std::wstring &file_path)
 {
 	std::vector<Vertex> vertex_buffer;
 	ObjLoader::LoadOBJ(file_path, vertex_buffer);
 	//set the file name as the name of the object removing the .obj at the end
-	Mesh* mesh = new Mesh(file_path.substr(0,file_path.size() - 4), vertex_buffer);
+	Mesh* mesh = new Mesh(name, vertex_buffer);
 	return mesh;
 }
 

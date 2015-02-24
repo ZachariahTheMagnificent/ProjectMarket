@@ -25,9 +25,14 @@ public:
 		Component comp;
 		SetTo(comp, comp, comp, 0, 0);
 	}
-	Material(const Component kAmbient, const Component kDiffuse, const Component kSpecular, const float kShininess, const unsigned textureID)
+	Material(std::wstring name, const Component kAmbient, const Component kDiffuse, const Component kSpecular, const float kShininess, const unsigned textureID)
 	{
+		SetNameAs(name);
 		SetTo(kAmbient, kDiffuse, kSpecular, kShininess, textureID);
+	}
+	void SetNameAs(const std::wstring newName)
+	{
+		name = newName;
 	}
 	void SetTo(const Component kAmbient, const Component kDiffuse, const Component kSpecular, const float kShininess, const unsigned texture)
 	{
@@ -69,6 +74,10 @@ public:
 	{
 		SetSpecularTo(Component(r,g,b));
 	}
+	const std::wstring& GetName() const
+	{
+		return name;
+	} 
 	const Component& GetAmbient() const
 	{
 		return kAmbient;
@@ -95,6 +104,7 @@ private:
 	Component kSpecular;
 	float kShininess;
 	unsigned textureID;
+	std::wstring name;
 };
 
 #endif
