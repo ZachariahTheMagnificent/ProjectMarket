@@ -77,6 +77,7 @@
 //	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture.tga");
 //	textures[TEXTURE_TRAVELATORHANDLE] = LoadTGA(L"Image//travelatorhandle_texture.tga");
 //	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
+<<<<<<< HEAD
 //	textures[TEXTURE_PLAYBUTTON] = LoadTGA(L"Image//Quad1.tga");
 //	textures[TEXTURE_INSTBUTTON] = LoadTGA(L"Image//Quad2.tga");
 //	textures[TEXTURE_CREDITSBUTTON] = LoadTGA(L"Quad3.tga");
@@ -85,6 +86,8 @@
 //	textures[TEXTURE_INCREDITS] = LoadTGA(L"Image//incredits.tga");
 //	textures[TEXTURE_INSTRUCTIONS] = LoadTGA(L"Image//instructions.tga");
 //	textures[TEXTURE_INEXIT] = LoadTGA(L"Image//inexit.tga");
+=======
+>>>>>>> origin/master
 //}
 //
 //void SceneMainMenu::InnitLight()
@@ -130,6 +133,7 @@
 //	meshList[GEO_TRAVELATORSUPPORT] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorsupport.obj");
 //	meshList[GEO_TRAVELATORSLOPE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorslope.obj");
 //	meshList[GEO_TRAVELATORHANDLE] = MeshBuilder::GenerateOBJ(L"OBJ//travelatorhandle.obj");
+<<<<<<< HEAD
 //	meshList[GEO_PLAYBUTTON] = MeshBuilder::GenerateQuad(L"play", Color(1, 1, 1), 50.f, 50.f);
 //	meshList[GEO_INSTBUTTON] = MeshBuilder::GenerateQuad(L"instructions", Color(1, 1, 1), 50.f, 50.f);
 //	meshList[GEO_CREDITSBUTTON] = MeshBuilder::GenerateQuad(L"credits", Color(1, 1, 1), 50.f, 50.f);
@@ -138,6 +142,8 @@
 //	meshList[GEO_INCREDITS] = MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 50.f, 50.f);
 //	meshList[GEO_INSTRUCTIONS] = MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 50.f, 50.f);
 //	meshList[GEO_INEXIT] = MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 50.f, 50.f);
+=======
+>>>>>>> origin/master
 //}
 //
 //void SceneMainMenu::InnitDraws()
@@ -238,6 +244,7 @@
 //	drawOrders[DRAW_BUILDING].SetParentAs(&drawOrders[DRAW_MAIN]);
 //	drawOrders[DRAW_BUILDING].enableLight = false;
 //
+<<<<<<< HEAD
 //	drawOrders[DRAW_LIFT_1].geometry = meshList[GEO_LIFT];
 //	drawOrders[DRAW_LIFT_1].transform.translate.Set(15.0,5.5,-101.6);
 //	drawOrders[DRAW_LIFT_1].material.SetTextureTo(textures[TEXTURE_LIFT]);
@@ -501,6 +508,49 @@
 //	drawOrders[DRAW_INEXIT].material.SetTextureTo(textures[TEXTURE_CEREAL3]);
 //	drawOrders[DRAW_INEXIT].SetParentAs(&drawOrders[DRAW_MAIN]);
 //	drawOrders[DRAW_INEXIT].enableLight = false;
+=======
+//	drawOrders[DRAW_LIFT].geometry = meshList[GEO_LIFT];
+//	drawOrders[DRAW_LIFT].transform.translate.Set(-20,0.1,0);
+//	drawOrders[DRAW_LIFT].material.SetTextureTo(textures[TEXTURE_LIFT]);
+//	drawOrders[DRAW_LIFT].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_LIFT].enableLight = false;
+//
+//	drawOrders[DRAW_LIFTDOOR].geometry = meshList[GEO_LIFTDOOR];
+//	drawOrders[DRAW_LIFTDOOR].transform.translate.Set(-30,0.1,0);
+//	drawOrders[DRAW_LIFTDOOR].material.SetTextureTo(textures[TEXTURE_LIFTDOOR]);
+//	drawOrders[DRAW_LIFTDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_LIFTDOOR].enableLight = false;
+//
+//	drawOrders[DRAW_OUTERDOOR].geometry = meshList[GEO_OUTERDOOR];
+//	drawOrders[DRAW_OUTERDOOR].transform.translate.Set(-40,0.1,0);
+//	drawOrders[DRAW_OUTERDOOR].material.SetTextureTo(textures[TEXTURE_OUTERDOOR]);
+//	drawOrders[DRAW_OUTERDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_OUTERDOOR].enableLight = false;
+//
+//	drawOrders[DRAW_INNERDOOR].geometry = meshList[GEO_INNERDOOR];
+//	drawOrders[DRAW_INNERDOOR].transform.translate.Set(-50,0.1,0);
+//	drawOrders[DRAW_INNERDOOR].material.SetTextureTo(textures[TEXTURE_INNERDOOR]);
+//	drawOrders[DRAW_INNERDOOR].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_INNERDOOR].enableLight = false;
+//
+//	drawOrders[DRAW_TRAVELATORSUPPORT].geometry = meshList[GEO_TRAVELATORSUPPORT];
+//	drawOrders[DRAW_TRAVELATORSUPPORT].transform.translate.Set(-70,0.1,0);
+//	drawOrders[DRAW_TRAVELATORSUPPORT].material.SetTextureTo(textures[TEXTURE_TRAVELATORSUPPORT]);
+//	drawOrders[DRAW_TRAVELATORSUPPORT].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_TRAVELATORSUPPORT].enableLight = false;
+//
+//	drawOrders[DRAW_TRAVELATORSLOPE].geometry = meshList[GEO_TRAVELATORSLOPE];
+//	drawOrders[DRAW_TRAVELATORSLOPE].transform.translate.Set(-90,0.1,0);
+//	drawOrders[DRAW_TRAVELATORSLOPE].material.SetTextureTo(textures[TEXTURE_TRAVELATORSLOPE]);
+//	drawOrders[DRAW_TRAVELATORSLOPE].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_TRAVELATORSLOPE].enableLight = false;
+//
+//	drawOrders[DRAW_TRAVELATORHANDLE].geometry = meshList[GEO_TRAVELATORHANDLE];
+//	drawOrders[DRAW_TRAVELATORHANDLE].transform.translate.Set(-110,0.1,0);
+//	drawOrders[DRAW_TRAVELATORHANDLE].material.SetTextureTo(textures[TEXTURE_TRAVELATORHANDLE]);
+//	drawOrders[DRAW_TRAVELATORHANDLE].SetParentAs(&drawOrders[DRAW_MAIN]);
+//	drawOrders[DRAW_TRAVELATORHANDLE].enableLight = false;
+>>>>>>> origin/master
 //}
 //
 //void SceneMainMenu::InnitVoxels()
@@ -545,6 +595,7 @@
 //
 //void SceneMainMenu::UpdateLogic()
 //{
+<<<<<<< HEAD
 //	if(state==START)
 //	{
 //		gameQuit=false;
@@ -562,11 +613,35 @@
 //		gameQuit=false;
 //	}
 //	else if(state==MAINMENU)
+=======
+//	if(mainmenu==START)
+//	{
+//		gameQuit=false;
+//	}
+//	else if(mainmenu==INST)
+//	{
+//		gameQuit=false;
+//	}
+//	else if(mainmenu==CREDITS)
+//	{
+//		gameQuit=false;
+//	}
+//	else if(mainmenu==EXIT)
+//	{
+//		gameQuit=true;
+//	}
+//	else if(mainmenu==CHOOSETOEXIT)
+//	{
+//		gameQuit=false;
+//	}
+//	else if(mainmenu==MAINMENU)
+>>>>>>> origin/master
 //	{
 //		
 //		gameQuit=false;
 //		if(option==1)
 //		{
+<<<<<<< HEAD
 //			state=START;
 //		}
 //		else if(option==2)
@@ -580,6 +655,21 @@
 //		else if(option==4)
 //		{
 //			state=CHOOSETOEXIT;
+=======
+//			mainmenu=START;
+//		}
+//		else if(option==2)
+//		{
+//			mainmenu=INST;
+//		}
+//		else if(option==3)
+//		{
+//			mainmenu=CREDITS;
+//		}
+//		else if(option==4)
+//		{
+//			mainmenu=CHOOSETOEXIT;
+>>>>>>> origin/master
 //		}
 //	}
 //}
@@ -683,6 +773,7 @@
 //	{
 //		drawOrders[DRAW_MAIN].Execute(gfx);
 //	}
+<<<<<<< HEAD
 //	gfx.RenderQuadOnScreen(&drawOrders[DRAW_BG]);
 //	if(state=MAINMENU)
 //	{
@@ -707,6 +798,9 @@
 //	{
 //		gfx.RenderQuadOnScreen(&drawOrders[DRAW_INEXIT]);
 //	}
+=======
+//
+>>>>>>> origin/master
 //	glDisableVertexAttribArray(0);
 //	glDisableVertexAttribArray(1);
 //	glDisableVertexAttribArray(2);
