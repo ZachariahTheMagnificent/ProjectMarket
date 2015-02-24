@@ -18,6 +18,11 @@ drawOrder::~drawOrder()
 {
 }
 
+const std::wstring& drawOrder::GetName() const
+{
+	return name;
+}
+
 void drawOrder::Execute(Graphics& gfx)
 {
 	for(std::vector<drawOrder*>::iterator child = children.begin(); child != children.end(); child++)
@@ -44,6 +49,11 @@ void drawOrder::SetTerminalVelocityTo(Vector3 vector)
 	terminalVelocity = vector;
 }
 
+void drawOrder::SetNameAs(const std::wstring name)
+{
+	this->name = name;
+}
+
 void drawOrder::SetParentAs(drawOrder* parent)
 {
 	if(parent)
@@ -58,7 +68,10 @@ void drawOrder::SetParentAs(drawOrder* parent)
 		}
 	}
 	this->parent = parent;
-	parent->children.push_back(this);
+	if(parent)
+	{
+		parent->children.push_back(this);
+	}
 }
 
 Mtx44 drawOrder::GetModelTransform() const

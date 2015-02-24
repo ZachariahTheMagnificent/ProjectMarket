@@ -103,6 +103,7 @@ class drawOrder
 public:
 	drawOrder();
 	~drawOrder();
+	const std::wstring& GetName() const;
 	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
 	Mtx44 GetMatrix() const;
@@ -121,6 +122,7 @@ public:
 	float GetKinetic();
 	bool IsLightEnabled();
 	bool IsCollidingWith(drawOrder& draw) const;
+	void SetNameAs(const std::wstring name);
 	void SetTextureTo(unsigned textureID);
 	void SetTerminalVelocityTo(Vector3 vector);
 	void SetMaterial(const Material& mat);
@@ -145,6 +147,7 @@ public:
 private:
 	Mtx44 GetModelTransform() const;
 public:
+	std::wstring name;
 	Mesh* geometry;
 	Material material;
 	unsigned drawMode;

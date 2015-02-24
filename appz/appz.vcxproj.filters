@@ -132,6 +132,9 @@
     <ClCompile Include="Source\VoxelOctree.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GlobalList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -211,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="Source\VoxelOctree.h">
       <Filter>Header Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GlobalList.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
