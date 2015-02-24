@@ -79,6 +79,7 @@ void SceneMain::InnitTextures()
 	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
 	textures[TEXTURE_TROLLEY] = LoadTGA(L"Image//TrolleyTexture.tga");
 	textures[TEXTURE_CHARACTER] = LoadTGA(L"Image//character1.tga");
+	textures[TEXTURE_ROBOTCASHIER] = LoadTGA(L"Image//robot_texture.tga");
 }
 
 void SceneMain::InnitLight()
@@ -130,6 +131,8 @@ void SceneMain::InnitGeometry()
 	meshList[GEO_CHARACTER_ARM] = MeshBuilder::GenerateOBJ(L"OBJ//characterarm.obj");
 	meshList[GEO_CHARACTER_LEG] = MeshBuilder::GenerateOBJ(L"OBJ//characterleg.obj");
 	meshList[GEO_CHARACTER_BODY] = MeshBuilder::GenerateOBJ(L"OBJ//characterbody.obj");
+	meshList[GEO_ROBOTCASHIER_ARM] = MeshBuilder::GenerateOBJ(L"OBJ//robotarm.obj");
+	meshList[GEO_ROBOTCASHIER_BODY] = MeshBuilder::GenerateOBJ(L"OBJ//robotbody.obj");
 }
 
 void SceneMain::InnitDraws()
@@ -162,47 +165,39 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_GROUND].material.SetShininessTo(20);
 	drawOrders[DRAW_GROUND].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_GROUND].enableLight = true;
+
+	//Draw Robot cashier
+	drawOrders[DRAW_ROBOTCASHIER_BODY].geometry = meshList[GEO_ROBOTCASHIER_BODY];
+	drawOrders[DRAW_ROBOTCASHIER_BODY].transform.translate.Set(1.5,5,-4.5);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].material.SetTextureTo(textures[TEXTURE_ROBOTCASHIER]);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].material.SetShininessTo(20);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].SetParentAs(&drawOrders[DRAW_CASHIER_TABLE]);
+	drawOrders[DRAW_ROBOTCASHIER_BODY].enableLight = true;
+
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].geometry = meshList[GEO_ROBOTCASHIER_ARM];
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].transform.translate.Set(-1.015,0.753,0);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].material.SetTextureTo(textures[TEXTURE_ROBOTCASHIER]);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].SetParentAs(&drawOrders[DRAW_ROBOTCASHIER_BODY]);
+	drawOrders[DRAW_ROBOTCASHIER_LEFT_ARM].enableLight = true;
+
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].geometry = meshList[GEO_ROBOTCASHIER_ARM];
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].transform.translate.Set(1.015,0.753,0);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].material.SetTextureTo(textures[TEXTURE_ROBOTCASHIER]);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].SetParentAs(&drawOrders[DRAW_ROBOTCASHIER_BODY]);
+	drawOrders[DRAW_ROBOTCASHIER_RIGHT_ARM].enableLight = true;
+
 	//Draw Character
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].transform.translate.Set(-1.25,3.95,-40);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetAmbientTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetDiffuseTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetSpecularTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetShininessTo(20);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_CHARACTER_LEFT_ARM].enableLight = true;
-
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].transform.translate.Set(1.25,3.95,-40);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetAmbientTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetDiffuseTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetSpecularTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetShininessTo(20);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_CHARACTER_RIGHT_ARM].enableLight = true;
-
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].transform.translate.Set(-0.5,1.7,-40);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetAmbientTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetDiffuseTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetSpecularTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetShininessTo(20);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_CHARACTER_LEFT_LEG].enableLight = true;
-
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].transform.translate.Set(0.5,1.7,-40);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetAmbientTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetDiffuseTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetSpecularTo(1,1,1);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetShininessTo(20);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].SetParentAs(&drawOrders[DRAW_MAIN]);
-	drawOrders[DRAW_CHARACTER_RIGHT_LEG].enableLight = true;
-
 	drawOrders[DRAW_CHARACTER_BODY].geometry = meshList[GEO_CHARACTER_BODY];
 	drawOrders[DRAW_CHARACTER_BODY].transform.translate.Set(0,4.2,-40);
 	drawOrders[DRAW_CHARACTER_BODY].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
@@ -212,6 +207,46 @@ void SceneMain::InnitDraws()
 	drawOrders[DRAW_CHARACTER_BODY].material.SetShininessTo(20);
 	drawOrders[DRAW_CHARACTER_BODY].SetParentAs(&drawOrders[DRAW_MAIN]);
 	drawOrders[DRAW_CHARACTER_BODY].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].transform.translate.Set(-1.25,-0.25,0);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].SetParentAs(&drawOrders[DRAW_CHARACTER_BODY]);
+	drawOrders[DRAW_CHARACTER_LEFT_ARM].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].geometry = meshList[GEO_CHARACTER_ARM];
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].transform.translate.Set(1.25,-0.25,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].SetParentAs(&drawOrders[DRAW_CHARACTER_BODY]);
+	drawOrders[DRAW_CHARACTER_RIGHT_ARM].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].transform.translate.Set(-0.5,-2.5,0);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].SetParentAs(&drawOrders[DRAW_CHARACTER_BODY]);
+	drawOrders[DRAW_CHARACTER_LEFT_LEG].enableLight = true;
+
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].geometry = meshList[GEO_CHARACTER_LEG];
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].transform.translate.Set(0.5,-2.5,0);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetTextureTo(textures[TEXTURE_CHARACTER]);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetAmbientTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetDiffuseTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetSpecularTo(1,1,1);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].material.SetShininessTo(20);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].SetParentAs(&drawOrders[DRAW_CHARACTER_BODY]);
+	drawOrders[DRAW_CHARACTER_RIGHT_LEG].enableLight = true;
 
 	drawOrders[DRAW_PLAYER].geometry = meshList[GEO_CUBE];
 	drawOrders[DRAW_PLAYER].transform.translate.Set(10,0.1,0);
