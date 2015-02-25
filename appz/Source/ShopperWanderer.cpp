@@ -8,6 +8,16 @@ ShopperWanderer::ShopperWanderer(void)
 	charBodyAngleRotate = 0;
 	charArmRotate = 0;
 	leftArmRotateUp = true;
+	
+	int pointNo = 0;
+	for(int disDiffX = 0; disDiffX <= 12; disDiffX += 12)
+	{
+		for(int disDiffZ = 0; disDiffZ <= 60; disDiffZ +=  15)
+		{
+			points[pointNo] = Vector3(-6.5+disDiffX,15,-37.5-disDiffZ);
+			++pointNo;
+		}
+	}
 }
 
 
@@ -23,10 +33,15 @@ void ShopperWanderer::Render()
 {
 }
 
+void ShopperWanderer::SetPosition(int No)
+{
+	characterBody->transform.translate = points[No];
+}
+
 void ShopperWanderer::Update(const double dt)
 {
-	//If distance less than 10, character walking
-	if(distanceMovedInOneDir < 50)
+	//If distance less than 15, character walking
+	if(distanceMovedInOneDir < 15)
 	{
 		characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, distanceSpeed);
 		distanceMovedInOneDir += distanceSpeed;
@@ -51,11 +66,64 @@ void ShopperWanderer::Update(const double dt)
 			characterRightLeg->selfTransform.rotate.x += distanceSpeed * 5;
 		}
 	}
-	//If distance less than 10, character rotate
+	//If distance less than 15, character rotate
 	else
 	{
+		if(characterBody->transform.translate.x <= points[0].x + 1)
+		{
+			if(characterBody->transform.translate.z >= points[0].z - 1)
+			{
+				if(rand() % 2 == 0)
+					charBodyAngleRotate = 180; // toward -z
+				else
+					charBodyAngleRotate = 90; // toward +x
+			}
+			else if(characterBody->transform.translate.z <= points[9].z + 1)
+			{
+				if(rand() % 2 == 0)
+					charBodyAngleRotate = 0; // toward +z
+				else
+					charBodyAngleRotate = 90; // toward +x
+			}
+			else
+			{
+				int temp = rand() % 3;
+				if(temp == 0)
+					charBodyAngleRotate = 180; // toward -z
+				else if(temp == 1)
+					charBodyAngleRotate = 0; // toward +z
+				else
+					charBodyAngleRotate = 90; // toward +x
+			}
+		}
+		else
+		{
+			if(characterBody->transform.translate.z >= points[0].z - 1)
+			{
+				if(rand() % 2 == 0)
+					charBodyAngleRotate = 180; // toward -z
+				else
+					charBodyAngleRotate = 270; // toward -x
+			}
+			else if(characterBody->transform.translate.z <= points[9].z + 1)
+			{
+				if(rand() % 2 == 0)
+					charBodyAngleRotate = 0; // toward +z
+				else
+					charBodyAngleRotate = 270; // toward -x
+			}
+			else
+			{
+				int temp = rand() % 3;
+				if(temp == 0)
+					charBodyAngleRotate = 180; // toward -z
+				else if(temp == 1)
+					charBodyAngleRotate = 0; // toward +z
+				else
+					charBodyAngleRotate = 270; // toward -x
+			}
+		}
 		//rotate body
-		charBodyAngleRotate += 90;
 		characterBody->transform.rotate.y = charBodyAngleRotate;
 		//reset disance moved in one direction
 		distanceMovedInOneDir = 0;

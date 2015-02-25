@@ -36,6 +36,7 @@ void SceneMain::Init()
 	jumpedHeight = 0;
 	isFrog = false;
 	SW1.DrawIsEqualTo(globals.GetDraw(L"character body"), globals.GetDraw(L"character arm left"), globals.GetDraw(L"character arm right"), globals.GetDraw(L"character leg left"), globals.GetDraw(L"character leg right"));
+	SW1.SetPosition(4);
 
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -181,7 +182,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Character
 	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character body").transform.translate.Set(-1.25,3.8,0);
+	globals.GetDraw(L"character body").transform.translate.Set(0,3.8,0);
 
 	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character arm left").transform.translate.Set(1.25,0.6,0);

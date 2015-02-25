@@ -22,12 +22,14 @@ private:
 	float charArmRotate;
 	//viariables to check whether the character left arm is rotating upward
 	bool leftArmRotateUp;
+	Vector3 points[10];
 public:
 	ShopperWanderer(void);
 	~ShopperWanderer(void);
 	
 	void Init();
 	void Render();
+	void SetPosition(int No);
 	void Update(const double dt);
 	void Exit();
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
