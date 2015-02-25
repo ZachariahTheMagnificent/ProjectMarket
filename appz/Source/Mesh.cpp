@@ -26,12 +26,57 @@ const std::wstring& Mesh::GetName() const
 
 std::vector<Voxel> Mesh::GenerateVoxels()
 {
-	srand(time(NULL));
 	std::vector<Voxel> voxels;
 	const float sizeOfVoxel = Voxel::GetSize();
 	//create a buffer to store the vertices that were transformed by the matrix
 	std::vector<Vertex> temp_vertices;
 	temp_vertices = vertices;
+	std::vector<bool> VoxelGrid;
+	int furthestLeft = INT_MAX;
+	int furthestRight = INT_MIN;
+	int furthestDown = INT_MAX;
+	int furthestUp = INT_MIN;
+	int furthestBack = INT_MAX;
+	int furthestFront = INT_MIN;
+	for(std::vector<Vertex>::iterator vertex = temp_vertices.begin(); vertex != temp_vertices.end(); ++vertex)
+	{
+		if(vertex->pos.x < furthestLeft)
+		{
+			furthestLeft = vertex->pos.x;
+		}
+		if(vertex->pos.x > furthestRight)
+		{
+			furthestRight = vertex->pos.x + 1;
+		}
+		if(vertex->pos.y < furthestDown)
+		{
+			furthestDown = vertex->pos.y;
+		}
+		if(vertex->pos.y > furthestUp)
+		{
+			furthestUp = vertex->pos.y + 1;
+		}
+		if(vertex->pos.z < furthestBack)
+		{
+			furthestBack = vertex->pos.z;
+		}
+		if(vertex->pos.z > furthestFront)
+		{
+			furthestFront = vertex->pos.z + 1;
+		}
+	}
+	int lengthX(furthestRight - furthestLeft + 1);
+	int lengthY(furthestUp - furthestDown + 1);
+	int lengthZ(furthestFront - furthestBack + 1);
+	VoxelGrid.resize(lengthX * lengthY * lengthZ);
+	Vector3 voxelDisplacement(0 - furthestLeft, 0 - furthestDown, 0 - furthestBack);
+	//for(std::vector<Vertex>::iterator vertex = vertices.begin(); vertex != vertices.end(); vertex += 3)
+	//{
+	//	Vector3 triangleVector1 = vertex->pos - (vertex + 1)->pos;
+	//	Vector3 triangleVector2 = (vertex + 2)->pos - (vertex + 1)->pos;
+	//	Vector3 normal = triangleVector1.Cross(triangleVector2);
+	//}
+	int areaXY = lengthX * lengthY;
 	for(std::vector<Vertex>::iterator vertex = temp_vertices.begin(); vertex != temp_vertices.end();vertex+=3)
 	{
 		//create 2 vectors to represent the triangle
@@ -58,32 +103,33 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 				Vector3 voxelPosition = point1 + displacement;
 
 				//remove the floating point values
-				voxelPosition.x = (int)voxelPosition.x;
-				voxelPosition.y = (int)voxelPosition.y;
-				voxelPosition.z = (int)voxelPosition.z;
+				voxelPosition.x = (int)(voxelPosition.x + voxelDisplacement.x + 0.5);
+				voxelPosition.y = (int)(voxelPosition.y + voxelDisplacement.y + 0.5);
+				voxelPosition.z = (int)(voxelPosition.z + voxelDisplacement.z + 0.5);
 
-				Voxel temp;
-				temp.SetPositionTo(voxelPosition);
-				float red = rand();
-				red = red - (int)red;
-				float green = rand();
-				green = green - (int)green;
-				float blue = rand();
-				blue = blue - (int)blue;
-				temp.SetColorTo(Color(red,green,blue));
-
-				//check if the we already have similar voxel before adding it to the vector
-				bool isUnique = true;
-				for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
+				
+				int index = voxelPosition.x + voxelPosition.y * lengthX + voxelPosition.z * areaXY;
+				VoxelGrid[index] = true;
+			}
+		}
+	}
+	for(int x = furthestLeft; x <= furthestRight; ++x)
+	{
+		for(int y = furthestDown; y <= furthestUp; ++x)
+		{
+			for(int z = furthestBack; z <= furthestFront; ++z)
+			{
+				if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
 				{
-					if(*voxel == temp)
-					{
-						isUnique = false;
-						break;
-					}
-				}
-				if(isUnique)
-				{
+					Voxel temp;
+					temp.SetPositionTo(Vector3(x,y,z));
+					float red = rand();
+					red = red - (int)red;
+					float green = rand();
+					green = green - (int)green;
+					float blue = rand();
+					blue = blue - (int)blue;
+					temp.SetColorTo(Color(red,green,blue));
 					voxels.push_back(temp);
 				}
 			}

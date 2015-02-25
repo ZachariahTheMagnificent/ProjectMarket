@@ -5,6 +5,7 @@
 #include "GLMouse.h"
 #include "Sound.h"
 #include "Graphics.h"
+#include "Scene.h"
 
 class Scene
 {
@@ -25,6 +26,7 @@ public:
 	gameQuit(false),
 	snd(snd)
 	{
+		Math::InitRNG();
 		screenX = 0;
 		screenY = 0;
 	}

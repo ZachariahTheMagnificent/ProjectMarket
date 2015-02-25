@@ -613,19 +613,10 @@ void SceneMain::InnitDraws()
 
 void SceneMain::InnitVoxels()
 {
-	//drawOrders[DRAW_PLAYER].GenerateVoxels();
-	//drawOrders[DRAW_GROUND].GenerateVoxels();
-	//drawOrders[DRAW_CABINET1].GenerateVoxels();
-	//drawOrders[DRAW_CAN1].GenerateVoxels();
-	//drawOrders[DRAW_CAN2].GenerateVoxels();
-	//drawOrders[DRAW_CAN3].GenerateVoxels();
-	//drawOrders[DRAW_CEREAL1].GenerateVoxels();
-	//drawOrders[DRAW_CEREAL2].GenerateVoxels();
-	//drawOrders[DRAW_CEREAL3].GenerateVoxels();
-	//drawOrders[DRAW_PACKET1].GenerateVoxels();
-	//drawOrders[DRAW_PACKET2].GenerateVoxels();
-	//drawOrders[DRAW_PACKET3].GenerateVoxels();
-	//drawOrders[DRAW_BUILDING].GenerateVoxels();
+	for(std::map<std::wstring, drawOrder>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	{
+		draw->second.GenerateVoxels();
+	}
 }
 
 void SceneMain::InnitForces()
