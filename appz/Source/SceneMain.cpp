@@ -136,6 +136,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet2", L"OBJ//Cabinet2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet3", L"OBJ//Cabinet3.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet4", L"OBJ//Cabinet4.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can1", L"OBJ//can1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can2", L"OBJ//can2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can3", L"OBJ//can3.obj"));
@@ -200,6 +201,8 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"character leg right").transform.translate.Set(-0.5,-1.5,0);
 	globals.GetDraw(L"character leg right").selfTransform.rotate.x = 12.5;
 
+
+
 	//Draw cashier robot0
 	globals.AddDraw(drawOrder(L"robotbody0",globals.GetMesh(L"robotbody"), &globals.GetMaterial(L"robot"), NULL, true));
 	globals.GetDraw(L"robotbody0").transform.translate.Set(1,4,-4);
@@ -257,6 +260,8 @@ void SceneMain::InnitDraws()
 	
 	//Draw Cashier Table
 	drawOrder cashiertable(L"cashiertable",globals.GetMesh(L"cashiertable"), &globals.GetMaterial(L"cashiertable"), NULL, true);
+
+	
 	Vector3 cashiertableTranslate(5,1,-84.2);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -447,6 +452,33 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(buffer);
 	lv2cabinet2_column2Translate+= Vector3(0,0,-15);
 	}
+	//Draw Hidden room cabinets
+	drawOrder lv2cabinet4_hiddenroom(L"lv2cabinet4_hiddenroom",globals.GetMesh(L"cabinet4"), &globals.GetMaterial(L"cabinet"), NULL, true);
+	Vector3 lv2cabinet4_hiddenroomTranslate(3,11,-16);
+	for(int i = 0; i < 2; ++i)
+	{
+	drawOrder buffer(lv2cabinet4_hiddenroom);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet4_hiddenroom_%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = lv2cabinet4_hiddenroomTranslate; 
+	buffer.transform.rotate.y=90;
+	globals.AddDraw(buffer);
+	lv2cabinet4_hiddenroomTranslate+= Vector3(-14,0,0);
+	}
+	drawOrder lv2cabinet5_hiddenroom(L"lv2cabinet5_hiddenroom",globals.GetMesh(L"cabinet4"), &globals.GetMaterial(L"cabinet"), NULL, true);
+	Vector3 lv2cabinet5_hiddenroomTranslate(10,11,-12);
+	for(int i = 0; i < 2; ++i)
+	{
+	drawOrder buffer(lv2cabinet5_hiddenroom);
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
+	buffer.name = Namebuffer;
+	buffer.transform.translate = lv2cabinet5_hiddenroomTranslate; 
+	buffer.transform.rotate.y=90;
+	globals.AddDraw(buffer);
+	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
+	}
 
 	//Setting Parents
 	globals.GetDraw(L"skybox").SetParentAs(&globals.GetDraw(L"main"));
@@ -567,6 +599,22 @@ void SceneMain::InnitDraws()
 	wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
 	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
+	//lv2cabinet4_hiddenroom parents settings
+	for(int i = 0; i < 2; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet4_hiddenroom_%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+
+	//lv2cabinet5_hiddenroom parents settings
+	for(int i = 0; i < 2; ++i)
+	{
+	wchar_t Namebuffer[64];
+	wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
+	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+	}
+
 
 	//lv2cabinet2_column1 parents settings
 	for(int i = 0; i < 4; ++i)
