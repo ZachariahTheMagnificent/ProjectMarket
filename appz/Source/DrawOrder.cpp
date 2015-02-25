@@ -270,7 +270,6 @@ Mtx44 drawOrder::GetRotationMatrix() const
 
 void drawOrder::GenerateVoxels()
 {
-	bool test = !geometry->GetName().compare(L"ground");
 	if(geometry)
 	{
 		voxels = geometry->GenerateVoxels();

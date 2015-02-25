@@ -739,21 +739,24 @@ void SceneMain::Render()
 		Material material;
 		drawOrder draw_cube(L"cube");
 		draw_cube.geometry = globals.GetMesh(L"cube");
-		draw_cube.enableLight = false;
+		draw_cube.enableLight = true;
 		draw_cube.material = &material;
-		//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
-		//{
-		//	//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
-		//	for(std::vector<Voxel>::iterator voxel = draw->voxels.begin(); voxel != draw->voxels.end(); voxel++)
-		//	{
-		//		//draw_cube.geometry = MeshBuilder::GenerateCube(L"cube", voxel->GetColor(),Voxel::GetSize(),Voxel::GetSize(),Voxel::GetSize());
-		//		Mtx44 translate, scale;
-		//		voxel->ApplyCurrentMatrix();
-		//		translate.SetToTranslation(voxel->GetPosition());
-		//		gfx.RenderMesh(draw_cube, translate * scale);
-		//		//delete (draw_cube.geometry);
-		//	}
-		//}
+		material.SetShininessTo(20);
+		for(std::map<std::wstring, drawOrder>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+		{
+			for(std::vector<Voxel>::iterator voxel = draw->second.voxels.begin(); voxel != draw->second.voxels.end(); voxel++)
+			{
+				const int voxelSize = Voxel::GetSize();
+				voxel->ApplyCurrentMatrix();
+				material.SetDiffuseTo(voxel->GetColor().r, voxel->GetColor().g, voxel->GetColor().b);
+				material.SetAmbientTo(1, 1, 1);
+				material.SetSpecularTo(1, 1, 1);
+				Mtx44 translate, scale;
+				translate.SetToTranslation(voxel->GetPosition());
+				scale.SetToScale(voxelSize, voxelSize, voxelSize);
+				gfx.RenderMesh(draw_cube, translate * scale);
+			}
+		}
 	}
 	else
 	{

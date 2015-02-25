@@ -98,6 +98,10 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 			Vector3 point1 = vertex->pos + displacement1;
 			Vector3 point2 = (vertex+2)->pos + displacement2;
 			Vector3 voxelVector = point2 - point1;
+			if(voxelVector.IsZero())
+			{
+				continue;
+			}
 			for(Vector3 displacement = voxelVector.Normalized() * (sizeOfVoxel*0.5), increment = voxelVector.Normalized() * sizeOfVoxel; displacement.Length() < voxelVector.Length(); displacement += increment)
 			{
 				Vector3 voxelPosition = point1 + displacement;
@@ -113,11 +117,11 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 			}
 		}
 	}
-	for(int x = furthestLeft; x <= furthestRight; ++x)
+	for(int z = furthestBack; z <= furthestFront; ++z)
 	{
-		for(int y = furthestDown; y <= furthestUp; ++x)
+		for(int y = furthestDown; y <= furthestUp; ++y)
 		{
-			for(int z = furthestBack; z <= furthestFront; ++z)
+			for(int x = furthestLeft; x <= furthestRight; ++x)
 			{
 				if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
 				{
