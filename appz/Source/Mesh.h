@@ -29,7 +29,7 @@ public:
 private:
 	const std::wstring name;
 	unsigned m_vertexBuffer;
-	std::vector<Vertex> vertices;
+	//std::vector<Vertex> vertices;
 	Material material;
 	int nVerts;
 };
