@@ -35,7 +35,7 @@ void SceneMain::Init()
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
-	SW1.DrawIsEqualTo(globals.GetDraw(L"character body"));
+	SW1.DrawIsEqualTo(globals.GetDraw(L"character body"), globals.GetDraw(L"character arm left"), globals.GetDraw(L"character arm right"), globals.GetDraw(L"character leg left"), globals.GetDraw(L"character leg right"));
 
 	camera.Init(Vector3(21.7, 5, 68.3), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -176,19 +176,23 @@ void SceneMain::InnitDraws()
 
 	//Draw Character
 	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character body").transform.translate.Set(0,3,0);
+	globals.GetDraw(L"character body").transform.translate.Set(-1.25,3.8,0);
 
 	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character arm left").transform.translate.Set(-1.25,-0.4,0);
+	globals.GetDraw(L"character arm left").transform.translate.Set(1.25,0.6,0);
+	globals.GetDraw(L"character arm left").selfTransform.rotate.x = 25;
 
 	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character arm right").transform.translate.Set(1.25,-0.4,0);
+	globals.GetDraw(L"character arm right").transform.translate.Set(-1.25,0.6,0);
+	globals.GetDraw(L"character arm right").selfTransform.rotate.x = -35;
 
 	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character leg left").transform.translate.Set(-0.5,-2.5,0);
+	globals.GetDraw(L"character leg left").transform.translate.Set(0.5,-1.5,0);
+	globals.GetDraw(L"character leg left").selfTransform.rotate.x = -17.5;
 
 	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), NULL, true));
-	globals.GetDraw(L"character leg right").transform.translate.Set(0.5,-2.5,0);
+	globals.GetDraw(L"character leg right").transform.translate.Set(-0.5,-1.5,0);
+	globals.GetDraw(L"character leg right").selfTransform.rotate.x = 12.5;
 
 	//Draw Player
 	drawOrder player = globals.GetDraw(L"character body");
@@ -441,6 +445,7 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
+	SW1.Update(dt);
 	return false;
 }
 
@@ -474,10 +479,6 @@ void SceneMain::UpdateLight()
 
 void SceneMain::UpdateDraws()
 {
-	//Shopping Wanderer
-	globals.GetDraw(L"character body").transform.translate = ;
-
-
 	//where forces are applied
 	//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
 	//{
