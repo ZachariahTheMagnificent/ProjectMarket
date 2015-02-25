@@ -660,18 +660,18 @@ void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentna
 
 void SceneMain::InnitVoxels()
 {
-	for(std::map<std::wstring, drawOrder>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	{
-		draw->second.GenerateVoxels();
+		draw->second->GenerateVoxels();
 	}
 }
 
 void SceneMain::InnitForces()
 {
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
-	for(std::map<std::wstring, drawOrder>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	{
-		draw->second.AddForce(accelerationDueToGravity * draw->second.mass);
+		draw->second->AddForce(accelerationDueToGravity * draw->second->mass);
 	}
 }
 
@@ -789,9 +789,9 @@ void SceneMain::Render()
 		draw_cube.enableLight = true;
 		draw_cube.material = &material;
 		material.SetShininessTo(20);
-		for(std::map<std::wstring, drawOrder>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 		{
-			for(std::vector<Voxel>::iterator voxel = draw->second.voxels.begin(); voxel != draw->second.voxels.end(); voxel++)
+			for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
 			{
 				const int voxelSize = Voxel::GetSize();
 				voxel->ApplyCurrentMatrix();
