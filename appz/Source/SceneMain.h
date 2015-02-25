@@ -10,7 +10,7 @@
 #include "ContactSolver.h"
 #include "player.h"
 #include "GlobalList.h"
-#include "ShopperWanderer.h"
+#include "ShopperWandererLv2.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -31,7 +31,7 @@ private:
 	Light light[1];
 	Camera camera;
 	Player* player;
-	ShopperWanderer SW1;
+	ShopperWandererLv2 SWLv2[2];
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;

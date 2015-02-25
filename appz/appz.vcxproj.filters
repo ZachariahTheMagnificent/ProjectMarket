@@ -120,9 +120,6 @@
     <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ShopperWanderer.cpp">
-      <Filter>Source Files\Characters</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Shopper.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
@@ -152,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="Source\LoadTGA.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShopperWandererLv2.cpp">
+      <Filter>Source Files\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +224,6 @@
     <ClInclude Include="Source\Shopper.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ShopperWanderer.h">
-      <Filter>Header Files\Characters</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Polygon.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
@@ -250,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Source\LoadTGA.h">
       <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShopperWandererLv2.h">
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,20 +1,20 @@
-#include "ShopperWanderer.h"
+#include "ShopperWandererLv2.h"
 
 
-ShopperWanderer::ShopperWanderer(void)
+ShopperWandererLv2::ShopperWandererLv2(void)
 {
 	distanceMovedInOneDir = 0;
-	distanceSpeed = 0.1;
+	distanceSpeed = 0.2;
 	charBodyAngleRotate = 0;
 	charArmRotate = 30;
 	leftArmRotateUp = true;
 	
 	int pointNo = 0;
-	for(int disDiffX = 0; disDiffX <= 12; disDiffX += 12)
+	for(int disDiffX = 0; disDiffX <= 15; disDiffX += 15)
 	{
 		for(int disDiffZ = 0; disDiffZ <= 60; disDiffZ +=  15)
 		{
-			points[pointNo] = Vector3(-6.5+disDiffX,15,-37.5-disDiffZ);
+			points[pointNo] = Vector3(-8.5+disDiffX,15,-37.5-disDiffZ);
 			++pointNo;
 		}
 	}
@@ -25,24 +25,24 @@ ShopperWanderer::ShopperWanderer(void)
 }
 
 
-ShopperWanderer::~ShopperWanderer(void)
+ShopperWandererLv2::~ShopperWandererLv2(void)
 {
 }
 
-void ShopperWanderer::Init()
+void ShopperWandererLv2::Init()
 {
 }
 
-void ShopperWanderer::Render()
+void ShopperWandererLv2::Render()
 {
 }
 
-void ShopperWanderer::SetPosition(int No)
+void ShopperWandererLv2::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
 }
 
-void ShopperWanderer::Update(const double dt)
+void ShopperWandererLv2::Update(const double dt)
 {
 	if(idling == true)
 	{
@@ -72,19 +72,19 @@ void ShopperWanderer::Update(const double dt)
 				leftArmRotateUp = true;
 			if(leftArmRotateUp == true)
 			{
-				characterLeftArm->selfTransform.rotate.x -= distanceSpeed * 10;
-				characterRightArm->selfTransform.rotate.x += distanceSpeed * 10;
-				charArmRotate += distanceSpeed * 10;
-				characterLeftLeg->selfTransform.rotate.x += distanceSpeed * 5;
-				characterRightLeg->selfTransform.rotate.x -= distanceSpeed * 5;
+				characterLeftArm->selfTransform.rotate.x -= distanceSpeed * 50;
+				characterRightArm->selfTransform.rotate.x += distanceSpeed * 50;
+				charArmRotate += distanceSpeed * 50;
+				characterLeftLeg->selfTransform.rotate.x += distanceSpeed * 25;
+				characterRightLeg->selfTransform.rotate.x -= distanceSpeed * 25;
 			}
 			else
 			{
-				characterLeftArm->selfTransform.rotate.x += distanceSpeed * 10;
-				characterRightArm->selfTransform.rotate.x -= distanceSpeed * 10;
-				charArmRotate -= distanceSpeed * 10;
-				characterLeftLeg->selfTransform.rotate.x -= distanceSpeed * 5;
-				characterRightLeg->selfTransform.rotate.x += distanceSpeed * 5;
+				characterLeftArm->selfTransform.rotate.x += distanceSpeed * 50;
+				characterRightArm->selfTransform.rotate.x -= distanceSpeed * 50;
+				charArmRotate -= distanceSpeed * 50;
+				characterLeftLeg->selfTransform.rotate.x -= distanceSpeed * 25;
+				characterRightLeg->selfTransform.rotate.x += distanceSpeed * 25;
 			}
 		}
 		//If distance less than 15, character rotate
@@ -150,7 +150,7 @@ void ShopperWanderer::Update(const double dt)
 			distanceMovedInOneDir = 0;
 		}
 		timeWalking += dt;
-		if(timeWalking > 5)
+		if(timeWalking > 10)
 		{
 			timeWalking = 0;
 			if(rand() % 2 == 0)
@@ -167,11 +167,11 @@ void ShopperWanderer::Update(const double dt)
 	}
 }
 
-void ShopperWanderer::Exit()
+void ShopperWandererLv2::Exit()
 {
 }
 
-void ShopperWanderer::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
+void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
 {
 	characterBody = &TempCharacterBody;
 	characterLeftArm = &TempCharacterLeftArm;

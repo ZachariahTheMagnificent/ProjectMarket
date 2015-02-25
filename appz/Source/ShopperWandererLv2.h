@@ -3,7 +3,7 @@
 #include "Shopper.h"
 #include "DrawOrder.h"
 
-class ShopperWanderer :
+class ShopperWandererLv2 :
 	public Shopper
 {
 private:
@@ -29,8 +29,8 @@ private:
 	float timeIdling;
 	float timeWalking;
 public:
-	ShopperWanderer(void);
-	~ShopperWanderer(void);
+	ShopperWandererLv2(void);
+	~ShopperWandererLv2(void);
 	
 	void Init();
 	void Render();
