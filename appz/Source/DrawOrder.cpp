@@ -96,15 +96,14 @@ Mtx44 drawOrder::GetModelTransform() const
 {
 	if(parent)
 	{
-		return transform.Matrix() * parent->GetModelTransform();
+		return transform.TranslationMatrix() * transform.ScalationMatrix() * parent->GetModelTransform();
 	}
-	return transform.Matrix();
-
+	return transform.RotationMatrix() * transform.TranslationMatrix() * transform.ScalationMatrix();
 }
  
 Mtx44 drawOrder::GetMatrix() const
 {
-	return selfTransform.Matrix() * GetModelTransform();
+	return parent->GetModelTransform() * parent->GetRotationMatrix() * transform.Matrix() * selfTransform.Matrix();
 }
 
 void drawOrder::CapVelocityToTerminal()
@@ -257,6 +256,11 @@ unsigned drawOrder::GetTexture() const
 void drawOrder::SetTextureTo(unsigned textureID)
 {
 	material->SetTextureTo(textureID);
+}
+
+Mtx44 drawOrder::GetTranslationMatrix() const
+{
+	return transform.TranslationMatrix();
 }
 
 Mtx44 drawOrder::GetRotationMatrix() const
