@@ -543,7 +543,10 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(buffer);
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
-	CreateCans(drawOrder(L"can1_cabinet1_0",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0");
+
+	CreateCans(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0",6,6,1,0.5,-0.4,1.5,6.5);
+	CreateCans(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0",2,3,0.45,1.2,-0.9,1.7,6.5);
+	CreateCans(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0",5,5,1,0.6,-0.5,1.55,6.65);
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -561,45 +564,41 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 	}
 }
 
-void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname)
+void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname, int CanPerColumn, int ColumnPerCompartment,float defaultZ, float CanDistanceX,float CanDistanceZ,float BunchOffset, float CabinetOffset)
 {	
 	int can_count = 0;
-	//Draw Can1 for Level2 cabinet1
-	/*drawOrder can1_C0_cabinet1_0(L"can1_C0_cabinet1_0",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true);
-	Vector3 can1_C0_cabinet1_0Translate(-3.25,5.5,1);*/
 
 	for(int i = 0; i < 5; i++) // place in 5 cabinet
 	{
 		if (i>0)
 		{
-			offset.x += 6.5;
+			offset.x += CabinetOffset;
 		}
 
 		for(int i = 0; i < 2; i++) // 2 bunch for one cabinet
 		{	
 			if (i>0)
 			{
-				offset.x += 1.5;
+				offset.x += BunchOffset;
 			}
 
-			for(int i = 0; i < 6; ++i) // 6 column for one compartment
+			for(int i = 0; i < ColumnPerCompartment; ++i) // 6 column for one compartment
 			{
-				offset.z = 1;
+				offset.z = defaultZ;
 				if(i>0)
 				{
-					offset+= Vector3(0.5,0,0);
+					offset+= Vector3(CanDistanceX,0,0);
 				}
 
-				for(int i = 0; i < 6; ++i) //6 cans in one column
+				for(int i = 0; i < CanPerColumn; ++i) //6 cans in one column
 				{
 					drawOrder buffer(can);
 					std::wstring name(can.name);
 					name += can_count;
 					buffer.name = name;
 					buffer.transform.translate = offset; 
-					buffer.transform.rotate.Set(0,-90,0);
 					globals.AddDraw(buffer);
-					offset+= Vector3(0,0,-0.4);
+					offset+= Vector3(0,0,CanDistanceZ);
 					globals.GetDraw(name).SetParentAs(&globals.GetDraw(parentname));
 				}
 			}

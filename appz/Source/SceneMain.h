@@ -19,7 +19,7 @@ public:
 	SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
 	~SceneMain(void);
 
-	void CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname);
+	void CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname, int CanPerColumn, int ColumnPerCompartment,float defaultZ, float CanDistanceX,float CanDistanceZ,float BunchOffset, float CabinetOffset);
 	
 	virtual void Init();
 	virtual bool Update(const double dt);
