@@ -6,7 +6,7 @@ ShopperWanderer::ShopperWanderer(void)
 	distanceMovedInOneDir = 0;
 	distanceSpeed = 0.1;
 	charBodyAngleRotate = 0;
-	charArmRotate = 0;
+	charArmRotate = 30;
 	leftArmRotateUp = true;
 	
 	int pointNo = 0;
@@ -18,6 +18,10 @@ ShopperWanderer::ShopperWanderer(void)
 			++pointNo;
 		}
 	}
+	idling = true;
+	walking = true;
+	timeIdling = 0;
+	timeWalking = 0;
 }
 
 
@@ -40,93 +44,126 @@ void ShopperWanderer::SetPosition(int No)
 
 void ShopperWanderer::Update(const double dt)
 {
-	//If distance less than 15, character walking
-	if(distanceMovedInOneDir < 15)
+	if(idling == true)
 	{
-		characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, distanceSpeed);
-		distanceMovedInOneDir += distanceSpeed;
-		if(charArmRotate > 60)
-			leftArmRotateUp = false;
-		else if(charArmRotate < 0)
-			leftArmRotateUp = true;
-		if(leftArmRotateUp == true)
+		characterLeftArm->selfTransform.rotate.x = -5;
+		characterRightArm->selfTransform.rotate.x = -5;
+		charArmRotate = 30;
+		characterLeftLeg->selfTransform.rotate.x = -2.5;
+		characterRightLeg->selfTransform.rotate.x = -2.5;
+		timeIdling += dt;
+		if(timeIdling > 5)
 		{
-			characterLeftArm->selfTransform.rotate.x -= distanceSpeed * 10;
-			characterRightArm->selfTransform.rotate.x += distanceSpeed * 10;
-			charArmRotate += distanceSpeed * 10;
-			characterLeftLeg->selfTransform.rotate.x += distanceSpeed * 5;
-			characterRightLeg->selfTransform.rotate.x -= distanceSpeed * 5;
-		}
-		else
-		{
-			characterLeftArm->selfTransform.rotate.x += distanceSpeed * 10;
-			characterRightArm->selfTransform.rotate.x -= distanceSpeed * 10;
-			charArmRotate -= distanceSpeed * 10;
-			characterLeftLeg->selfTransform.rotate.x -= distanceSpeed * 5;
-			characterRightLeg->selfTransform.rotate.x += distanceSpeed * 5;
+			timeIdling = 0;
+			idling = false;
+			walking = true;
 		}
 	}
-	//If distance less than 15, character rotate
 	else
 	{
-		if(characterBody->transform.translate.x <= points[0].x + 1)
+		//If distance less than 15, character walking
+		if(distanceMovedInOneDir < 15)
 		{
-			if(characterBody->transform.translate.z >= points[0].z - 1)
+			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, distanceSpeed);
+			distanceMovedInOneDir += distanceSpeed;
+			if(charArmRotate > 60)
+				leftArmRotateUp = false;
+			else if(charArmRotate < 0)
+				leftArmRotateUp = true;
+			if(leftArmRotateUp == true)
 			{
-				if(rand() % 2 == 0)
-					charBodyAngleRotate = 180; // toward -z
-				else
-					charBodyAngleRotate = 90; // toward +x
-			}
-			else if(characterBody->transform.translate.z <= points[9].z + 1)
-			{
-				if(rand() % 2 == 0)
-					charBodyAngleRotate = 0; // toward +z
-				else
-					charBodyAngleRotate = 90; // toward +x
+				characterLeftArm->selfTransform.rotate.x -= distanceSpeed * 10;
+				characterRightArm->selfTransform.rotate.x += distanceSpeed * 10;
+				charArmRotate += distanceSpeed * 10;
+				characterLeftLeg->selfTransform.rotate.x += distanceSpeed * 5;
+				characterRightLeg->selfTransform.rotate.x -= distanceSpeed * 5;
 			}
 			else
 			{
-				int temp = rand() % 3;
-				if(temp == 0)
-					charBodyAngleRotate = 180; // toward -z
-				else if(temp == 1)
-					charBodyAngleRotate = 0; // toward +z
-				else
-					charBodyAngleRotate = 90; // toward +x
+				characterLeftArm->selfTransform.rotate.x += distanceSpeed * 10;
+				characterRightArm->selfTransform.rotate.x -= distanceSpeed * 10;
+				charArmRotate -= distanceSpeed * 10;
+				characterLeftLeg->selfTransform.rotate.x -= distanceSpeed * 5;
+				characterRightLeg->selfTransform.rotate.x += distanceSpeed * 5;
 			}
 		}
+		//If distance less than 15, character rotate
 		else
 		{
-			if(characterBody->transform.translate.z >= points[0].z - 1)
+			if(characterBody->transform.translate.x <= points[0].x + 1)
 			{
-				if(rand() % 2 == 0)
-					charBodyAngleRotate = 180; // toward -z
+				if(characterBody->transform.translate.z >= points[0].z - 1)
+				{
+					if(rand() % 2 == 0)
+						charBodyAngleRotate = 180; // toward -z
+					else
+						charBodyAngleRotate = 90; // toward +x
+				}
+				else if(characterBody->transform.translate.z <= points[9].z + 1)
+				{
+					if(rand() % 2 == 0)
+						charBodyAngleRotate = 0; // toward +z
+					else
+						charBodyAngleRotate = 90; // toward +x
+				}
 				else
-					charBodyAngleRotate = 270; // toward -x
-			}
-			else if(characterBody->transform.translate.z <= points[9].z + 1)
-			{
-				if(rand() % 2 == 0)
-					charBodyAngleRotate = 0; // toward +z
-				else
-					charBodyAngleRotate = 270; // toward -x
+				{
+					int temp = rand() % 3;
+					if(temp == 0)
+						charBodyAngleRotate = 180; // toward -z
+					else if(temp == 1)
+						charBodyAngleRotate = 0; // toward +z
+					else
+						charBodyAngleRotate = 90; // toward +x
+				}
 			}
 			else
 			{
-				int temp = rand() % 3;
-				if(temp == 0)
-					charBodyAngleRotate = 180; // toward -z
-				else if(temp == 1)
-					charBodyAngleRotate = 0; // toward +z
+				if(characterBody->transform.translate.z >= points[0].z - 1)
+				{
+					if(rand() % 2 == 0)
+						charBodyAngleRotate = 180; // toward -z
+					else
+						charBodyAngleRotate = 270; // toward -x
+				}
+				else if(characterBody->transform.translate.z <= points[9].z + 1)
+				{
+					if(rand() % 2 == 0)
+						charBodyAngleRotate = 0; // toward +z
+					else
+						charBodyAngleRotate = 270; // toward -x
+				}
 				else
-					charBodyAngleRotate = 270; // toward -x
+				{
+					int temp = rand() % 3;
+					if(temp == 0)
+						charBodyAngleRotate = 180; // toward -z
+					else if(temp == 1)
+						charBodyAngleRotate = 0; // toward +z
+					else
+						charBodyAngleRotate = 270; // toward -x
+				}
+			}
+			//rotate body
+			characterBody->transform.rotate.y = charBodyAngleRotate;
+			//reset disance moved in one direction
+			distanceMovedInOneDir = 0;
+		}
+		timeWalking += dt;
+		if(timeWalking > 5)
+		{
+			timeWalking = 0;
+			if(rand() % 2 == 0)
+			{
+				idling = false;
+				walking = true;
+			}
+			else
+			{
+				idling = true;
+				walking = false;
 			}
 		}
-		//rotate body
-		characterBody->transform.rotate.y = charBodyAngleRotate;
-		//reset disance moved in one direction
-		distanceMovedInOneDir = 0;
 	}
 }
 

@@ -187,11 +187,11 @@ void SceneMain::InnitDraws()
 
 	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character arm left").transform.translate.Set(1.25,0.6,0);
-	globals.GetDraw(L"character arm left").selfTransform.rotate.x = 25;
+	globals.GetDraw(L"character arm left").selfTransform.rotate.x = -5;
 
 	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character arm right").transform.translate.Set(-1.25,0.6,0);
-	globals.GetDraw(L"character arm right").selfTransform.rotate.x = -35;
+	globals.GetDraw(L"character arm right").selfTransform.rotate.x = -5;
 
 	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), NULL, true));
 	globals.GetDraw(L"character leg left").transform.translate.Set(0.5,-1.5,0);

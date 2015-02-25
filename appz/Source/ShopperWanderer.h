@@ -22,7 +22,12 @@ private:
 	float charArmRotate;
 	//viariables to check whether the character left arm is rotating upward
 	bool leftArmRotateUp;
+	//Vector3 to store position checkpoint
 	Vector3 points[10];
+	bool walking;
+	bool idling;
+	float timeIdling;
+	float timeWalking;
 public:
 	ShopperWanderer(void);
 	~ShopperWanderer(void);
