@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector3.h"
 
-struct drawOrder;
+class drawOrder;
 
 class Force
 {

@@ -131,7 +131,7 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 50.f, 50.f));
+	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateCube(L"cube",Color(),1,1,1));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
@@ -176,7 +176,6 @@ void SceneMain::InnitDraws()
 	//Draw Ground
 	globals.AddDraw(drawOrder(L"ground",globals.GetMesh(L"ground"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"ground").transform.translate.Set(0,0,-40);
-	globals.GetDraw(L"ground").transform.scale.Set(5,5,5);
 
 	//Draw Building
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
@@ -744,17 +743,13 @@ void SceneMain::Render()
 		material.SetShininessTo(20);
 		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 		{
+			Mtx44 matrix(draw->second->GetMatrix());
 			for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
 			{
-				const int voxelSize = Voxel::GetSize();
-				voxel->ApplyCurrentMatrix();
-				material.SetDiffuseTo(voxel->GetColor().r, voxel->GetColor().g, voxel->GetColor().b);
-				material.SetAmbientTo(1, 1, 1);
-				material.SetSpecularTo(1, 1, 1);
-				Mtx44 translate, scale;
+				voxel->ApplyToMatrix(matrix);
+				Mtx44 translate;
 				translate.SetToTranslation(voxel->GetPosition());
-				scale.SetToScale(voxelSize, voxelSize, voxelSize);
-				gfx.RenderMesh(draw_cube, translate * scale);
+				gfx.RenderMesh(draw_cube, translate);
 			}
 		}
 	}
