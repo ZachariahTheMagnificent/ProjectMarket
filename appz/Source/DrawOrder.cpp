@@ -20,6 +20,17 @@ kineticFriction(kineticFriction)
 
 drawOrder::~drawOrder()
 {
+	if(parent)
+	{
+		for(std::vector<drawOrder*>::iterator child = parent->children.begin(); child != parent->children.end(); ++child)
+		{
+			if(*child == this)
+			{
+				parent->children.erase(child);
+				break;
+			}
+		}
+	}
 }
 
 void drawOrder::Copy(drawOrder& original)

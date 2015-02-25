@@ -45,7 +45,9 @@ bool GlobalList::AddMaterial(const Material& material)
 
 bool GlobalList::AddDraw(const drawOrder& draw)
 {
+	//make the parent's child pointer point to the draw in the vector instead of the draw we were passed with
 	draws.push_back(draw);
+	draws.back().SetParentAs(draw.parent);
 	drawList[draw.GetName()] = &draws.back();
 	return true;
 }

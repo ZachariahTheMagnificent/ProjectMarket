@@ -52,6 +52,7 @@ private:
 	//functions
 	void DoUserInput();
 
+	void InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment);
 	void InnitTextures();
 	void InnitLight();
 	void InnitGeometry();
