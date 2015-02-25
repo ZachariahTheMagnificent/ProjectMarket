@@ -135,11 +135,14 @@
     <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shopper.cpp">
-      <Filter>Source Files\Character</Filter>
+    <ClCompile Include="Source\GlobalList.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ShopperWanderer.cpp">
-      <Filter>Source Files\Character</Filter>
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Shopper.cpp">
+      <Filter>Source Files\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,11 +230,14 @@
     <ClInclude Include="Source\Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GlobalList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Shopper.h">
-      <Filter>Header Files\Character</Filter>
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\ShopperWanderer.h">
-      <Filter>Header Files\Character</Filter>
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +269,9 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="Shader\Text.fragmentshader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="Shader\MultiLight.fragmentshader">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>
