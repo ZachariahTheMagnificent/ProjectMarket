@@ -85,28 +85,7 @@ struct Transformation
 	{
 		scale.Set(1,1,1);
 	}
-	Mtx44 TranslationMatrix() const
-	{
-		Mtx44 translation;
-		translation.SetToTranslation(translate);
 
-		return translation;
-	}
-	Mtx44 RotationMatrix() const
-	{
-		Mtx44 rotation, reorientate;
-		reorientate.SetToTranslation(pivot);
-		rotation = reorientate.GetInverse() * rotate.MatrixX() * rotate.MatrixY() * rotate.MatrixZ() * reorientate;
-
-		return rotation;
-	}
-	Mtx44 ScalationMatrix() const
-	{
-		Mtx44 scalation;
-		scalation.SetToScale(scale.x,scale.y,scale.z);
-
-		return scalation;
-	}
 	Mtx44 Matrix() const
 	{
 		Mtx44 translation, rotation, scalation, reorientate;
@@ -115,7 +94,7 @@ struct Transformation
 		scalation.SetToScale(scale.x,scale.y,scale.z);
 		rotation = reorientate.GetInverse() * rotate.MatrixX() * rotate.MatrixY() * rotate.MatrixZ() * reorientate;
 
-		return TranslationMatrix() * RotationMatrix() * ScalationMatrix();
+		return translation * rotation * scalation;
 	}
 };
 
@@ -128,7 +107,6 @@ public:
 	Vector3 GetAcceleration();
 	Vector3 GetMomentum();
 	Mtx44 GetMatrix() const;
-	Mtx44 GetTranslationMatrix() const;
 	Mtx44 GetRotationMatrix() const;
 	Mesh* GetMesh();
 	Material GetMaterial();
