@@ -12,7 +12,7 @@ Camera::~Camera()
 void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
 	transform.translate = pos;
-	transform.rotate.Set(0,0,0);
+	transform.rotate.Set(0,90,0);
 }
 
 const Vector3 Camera::ReturnUp() const

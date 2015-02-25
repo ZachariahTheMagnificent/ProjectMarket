@@ -19,11 +19,14 @@ public:
 	SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
 	~SceneMain(void);
 
+	void CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname);
+	
 	virtual void Init();
 	virtual bool Update(const double dt);
 	virtual void Render();
 	virtual void Exit();
 private:
+
 	GlobalList globals;
 	Light light[1];
 	Camera camera;

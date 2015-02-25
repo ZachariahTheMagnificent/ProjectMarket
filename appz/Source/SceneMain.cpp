@@ -237,13 +237,13 @@ void SceneMain::InnitDraws()
 	Vector3 liftTranslate(15.0,5.5,-101.6);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(lift);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lift%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = liftTranslate;
-	globals.AddDraw(buffer);
-	liftTranslate+= Vector3(0,10.1,0);
+		drawOrder buffer(lift);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lift%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = liftTranslate;
+		globals.AddDraw(buffer);
+		liftTranslate+= Vector3(0,10.1,0);
 	}
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
@@ -257,7 +257,7 @@ void SceneMain::InnitDraws()
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), NULL, true));
 	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6);
-	
+
 	//Draw Cashier Table
 	drawOrder cashiertable(L"cashiertable",globals.GetMesh(L"cashiertable"), &globals.GetMaterial(L"cashiertable"), NULL, true);
 
@@ -265,13 +265,13 @@ void SceneMain::InnitDraws()
 	Vector3 cashiertableTranslate(5,1,-84.2);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(cashiertable);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"cashiertable%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = cashiertableTranslate;
-	globals.AddDraw(buffer);
-	cashiertableTranslate+= Vector3(-15,0,0);
+		drawOrder buffer(cashiertable);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"cashiertable%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = cashiertableTranslate;
+		globals.AddDraw(buffer);
+		cashiertableTranslate+= Vector3(-15,0,0);
 	}
 
 	//Draw Travelator Support
@@ -279,52 +279,52 @@ void SceneMain::InnitDraws()
 	Vector3 travelatorsupportTranslate(-2,7.1,-21.6);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(travelatorsupport);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorsupport%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = travelatorsupportTranslate;
-	globals.AddDraw(buffer);
-	travelatorsupportTranslate+= Vector3(0,0,-3.14);
+		drawOrder buffer(travelatorsupport);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorsupport%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = travelatorsupportTranslate;
+		globals.AddDraw(buffer);
+		travelatorsupportTranslate+= Vector3(0,0,-3.14);
 	}
 	//Draw Travelator Slope
 	drawOrder travelatorslope(L"travelatorslope",globals.GetMesh(L"travelatorslope"), &globals.GetMaterial(L"travelatorslope"), NULL, true);
 	Vector3 travelatorslopeTranslate(-2,5.91,-21.5);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(travelatorslope);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorslope%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = travelatorslopeTranslate;
-	globals.AddDraw(buffer);
-	travelatorslopeTranslate+= Vector3(0,0,-3.05);
+		drawOrder buffer(travelatorslope);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorslope%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = travelatorslopeTranslate;
+		globals.AddDraw(buffer);
+		travelatorslopeTranslate+= Vector3(0,0,-3.05);
 	}
 	//Draw Travelator Handle 1 AND 2
 	drawOrder travelatorhandle(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), NULL, true);
 	Vector3 travelatorhandleTranslate(-1.8,7.8,-20.4);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(travelatorhandle);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorhandle%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = travelatorhandleTranslate;
-	globals.AddDraw(buffer);
-	travelatorhandleTranslate+= Vector3(0,0,-2.25);
+		drawOrder buffer(travelatorhandle);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorhandle%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = travelatorhandleTranslate;
+		globals.AddDraw(buffer);
+		travelatorhandleTranslate+= Vector3(0,0,-2.25);
 	}
 	//Draw Travelator Handle 3 AND 4
 	drawOrder travelatorhandle2(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), NULL, true);
 	Vector3 travelatorhandleTranslate2(-1.8,7.8,-23.6);
 	for(int i = 3; i < 5; ++i)
 	{
-	drawOrder buffer(travelatorhandle2);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorhandle%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = travelatorhandleTranslate2;
-	globals.AddDraw(buffer);
-	travelatorhandleTranslate2+= Vector3(0,0,-2.10);
+		drawOrder buffer(travelatorhandle2);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorhandle%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = travelatorhandleTranslate2;
+		globals.AddDraw(buffer);
+		travelatorhandleTranslate2+= Vector3(0,0,-2.10);
 	}
 
 	//Draw Outer Door
@@ -355,13 +355,13 @@ void SceneMain::InnitDraws()
 	Vector3 trolleyTranslate(16,1.2,-16);
 	for(int i = 0; i < 3; ++i)
 	{
-	drawOrder buffer(trolley);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"trolley%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = trolleyTranslate;
-	globals.AddDraw(buffer);
-	trolleyTranslate+= Vector3(-1.5,0,0);
+		drawOrder buffer(trolley);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"trolley%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = trolleyTranslate;
+		globals.AddDraw(buffer);
+		trolleyTranslate+= Vector3(-1.5,0,0);
 	}
 
 	//Draw Trolley Second Row
@@ -369,88 +369,72 @@ void SceneMain::InnitDraws()
 	Vector3 trolleyTranslate2(16,1.2,-12);
 	for(int i = 3; i < 6; ++i)
 	{
-	drawOrder buffer(trolley2);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"trolley%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = trolleyTranslate2;
-	globals.AddDraw(buffer);
-	trolleyTranslate2+= Vector3(-1.5,0,0);
+		drawOrder buffer(trolley2);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"trolley%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = trolleyTranslate2;
+		globals.AddDraw(buffer);
+		trolleyTranslate2+= Vector3(-1.5,0,0);
 	}
+
 	//Draw lv1Cabinet3_column1
 	drawOrder lv1cabinet3_column1(L"lv1cabinet3_column1",globals.GetMesh(L"cabinet3"), &globals.GetMaterial(L"cabinet"), NULL, true);
-	Vector3 lv1cabinet3_column1Translate(-9.5,1,-42);
+	Vector3 lv1cabinet3_column1Translate(-3.5,1,-42);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(lv1cabinet3_column1);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv1cabinet3_column1_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv1cabinet3_column1Translate; 
-	globals.AddDraw(buffer);
-	lv1cabinet3_column1Translate+= Vector3(0,0,-18);
+		drawOrder buffer(lv1cabinet3_column1);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv1cabinet3_column1_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv1cabinet3_column1Translate; 
+		globals.AddDraw(buffer);
+		lv1cabinet3_column1Translate+= Vector3(0,0,-18);
 	}
-
-	//Draw lv1Cabinet3_column2
-	drawOrder lv1cabinet3_column2(L"lv1cabinet3_column2",globals.GetMesh(L"cabinet3"), &globals.GetMaterial(L"cabinet"), NULL, true);
-	Vector3 lv1cabinet3_column2Translate(6.5,1,-42);
-	for(int i = 2; i < 4; ++i)
-	{
-	drawOrder buffer(lv1cabinet3_column2);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv1cabinet3_column2_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv1cabinet3_column2Translate; 
-	globals.AddDraw(buffer);
-	lv1cabinet3_column2Translate+= Vector3(0,0,-18);
-	}
-
-
-
 
 	//Draw lv2Cabinet1_column1
 	drawOrder lv2cabinet1_column1(L"lv2cabinet1_column1",globals.GetMesh(L"cabinet1"), &globals.GetMaterial(L"cabinet"), NULL, true);
-	Vector3 lv2cabinet1_column1Translate(-18,11,-45);
+	Vector3 lv2cabinet1_column1Translate(-18,11,-43);
 	for(int i = 0; i < 5; ++i)
 	{
-	drawOrder buffer(lv2cabinet1_column1);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv2cabinet1_column1Translate; 
-	buffer.transform.rotate.Set(0,90,0);
-	globals.AddDraw(buffer);
-	lv2cabinet1_column1Translate+= Vector3(0,0,-12);
+		drawOrder buffer(lv2cabinet1_column1);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv2cabinet1_column1Translate; 
+		buffer.transform.rotate.Set(0,90,0);
+		globals.AddDraw(buffer);
+		lv2cabinet1_column1Translate+= Vector3(0,0,-13);
 	}
 
 	//Draw lv2Cabinet2_column1
 	drawOrder lv2cabinet2_column1(L"lv2cabinet2_column1",globals.GetMesh(L"cabinet2"), &globals.GetMaterial(L"cabinet"), NULL, true);
-	Vector3 lv2cabinet2_column1Translate(-2,11,-45);
+	Vector3 lv2cabinet2_column1Translate(-2,11,-43);
 	for(int i = 0; i < 4; ++i)
 	{
-	drawOrder buffer(lv2cabinet2_column1);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet2_column1_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv2cabinet2_column1Translate; 
-	buffer.transform.rotate.Set(0,-90,0);
-	globals.AddDraw(buffer);
-	lv2cabinet2_column1Translate+= Vector3(0,0,-15);
+		drawOrder buffer(lv2cabinet2_column1);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet2_column1_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv2cabinet2_column1Translate; 
+		buffer.transform.rotate.Set(0,-90,0);
+		globals.AddDraw(buffer);
+		lv2cabinet2_column1Translate+= Vector3(0,0,-16);
 	}
 
 	//Draw lv2Cabinet2_column2
 	drawOrder lv2cabinet2_column2(L"lv2cabinet2_column2",globals.GetMesh(L"cabinet2"), &globals.GetMaterial(L"cabinet"), NULL, true);
-	Vector3 lv2cabinet2_column2Translate(1.5,11,-45);
+	Vector3 lv2cabinet2_column2Translate(1.5,11,-43);
 	for(int i = 0; i < 4; ++i)
 	{
-	drawOrder buffer(lv2cabinet2_column2);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet2_column2_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv2cabinet2_column2Translate; 
-	buffer.transform.rotate.Set(0,90,0);
-	globals.AddDraw(buffer);
-	lv2cabinet2_column2Translate+= Vector3(0,0,-15);
+		drawOrder buffer(lv2cabinet2_column2);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet2_column2_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv2cabinet2_column2Translate; 
+		buffer.transform.rotate.Set(0,90,0);
+		globals.AddDraw(buffer);
+		lv2cabinet2_column2Translate+= Vector3(0,0,-16);
 	}
 	//Draw Hidden room cabinets
 	drawOrder lv2cabinet4_hiddenroom(L"lv2cabinet4_hiddenroom",globals.GetMesh(L"cabinet4"), &globals.GetMaterial(L"cabinet"), NULL, true);
@@ -506,9 +490,9 @@ void SceneMain::InnitDraws()
 	//lift parent setting
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lift%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lift%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//lift door parent setting
 	globals.GetDraw(L"liftdoor_1_left").SetParentAs(&globals.GetDraw(L"main"));
@@ -519,40 +503,40 @@ void SceneMain::InnitDraws()
 	//cashier table parent setting
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"cashiertable%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"cashiertable%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 
 	//travelator support parent setting
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorsupport%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorsupport%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//travelator slope parent setting
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorslope%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorslope%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//travelator handle 0 & 1 parent setting
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorhandle%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorhandle%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//travelator handle 2 & 3 parent setting
 	for(int i = 3; i < 5; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"travelatorhandle%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"travelatorhandle%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
-	
+
 	//door parents settings
 	globals.GetDraw(L"outer_door_1_right").SetParentAs(&globals.GetDraw(L"main"));
 	globals.GetDraw(L"outer_door_1_left").SetParentAs(&globals.GetDraw(L"main"));
@@ -564,40 +548,32 @@ void SceneMain::InnitDraws()
 	//trolley first row parents settings
 	for(int i = 0; i < 3; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"trolley%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"trolley%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//trolley second row parents settings
 	for(int i = 3; i < 6; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"trolley%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"trolley%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 
 	//lv1cabinet3_column1 parents settings
 	for(int i = 0; i < 2; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv1cabinet3_column1_%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
-	}
-
-	//lv1cabinet3_column2 parents settings
-	for(int i = 2; i < 4; ++i)
-	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv1cabinet3_column2_%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv1cabinet3_column1_%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 
 	//lv2cabinet1_column1 parents settings
 	for(int i = 0; i < 5; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 	//lv2cabinet4_hiddenroom parents settings
 	for(int i = 0; i < 2; ++i)
@@ -619,45 +595,67 @@ void SceneMain::InnitDraws()
 	//lv2cabinet2_column1 parents settings
 	for(int i = 0; i < 4; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet2_column1_%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet2_column1_%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
 
 	//lv2cabinet2_column2 parents settings
 	for(int i = 0; i < 4; ++i)
 	{
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet2_column2_%d",i);
-	globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet2_column2_%d",i);
+		globals.GetDraw(Namebuffer).SetParentAs(&globals.GetDraw(L"main"));
 	}
+
+	CreateCans(drawOrder(L"can1_cabinet1_0",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0");
 	
-	//drawOrders[DRAW_CAN1].geometry = meshList[GEO_CAN1];
-	//drawOrders[DRAW_CAN1].transform.translate.Set(15,2,0);
+}
 
-	//drawOrders[DRAW_CAN2].geometry = meshList[GEO_CAN2];
-	//drawOrders[DRAW_CAN2].transform.translate.Set(20,0.1,0);
+void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname)
+{	
+	int can_count = 0;
+	//Draw Can1 for Level2 cabinet1
+	/*drawOrder can1_C0_cabinet1_0(L"can1_C0_cabinet1_0",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true);
+	Vector3 can1_C0_cabinet1_0Translate(-3.25,5.5,1);*/
 
-	//drawOrders[DRAW_CAN3].geometry = meshList[GEO_CAN3];
-	//drawOrders[DRAW_CAN3].transform.translate.Set(25,0.1,0);
+	for(int i = 0; i < 5; i++) // place in 5 cabinet
+	{
+		if (i>0)
+		{
+			offset.x += 6.5;
+		}
 
-	//drawOrders[DRAW_CEREAL1].geometry = meshList[GEO_CEREAL1];
-	//drawOrders[DRAW_CEREAL1].transform.translate.Set(30,0.1,0);
+		for(int i = 0; i < 2; i++) // 2 bunch for one cabinet
+		{	
+			if (i>0)
+			{
+				offset.x += 1.5;
+			}
 
-	//drawOrders[DRAW_CEREAL2].geometry = meshList[GEO_CEREAL2];
-	//drawOrders[DRAW_CEREAL2].transform.translate.Set(35,0.1,0);
+			for(int i = 0; i < 6; ++i) // 6 column for one compartment
+			{
+				offset.z = 1;
+				if(i>0)
+				{
+					offset+= Vector3(0.5,0,0);
+				}
 
-	//drawOrders[DRAW_CEREAL3].geometry = meshList[GEO_CEREAL3];
-	//drawOrders[DRAW_CEREAL3].transform.translate.Set(40,0.1,0);
-
-	//drawOrders[DRAW_PACKET1].geometry = meshList[GEO_PACKET1];
-	//drawOrders[DRAW_PACKET1].transform.translate.Set(45,0.1,0);
-
-	//drawOrders[DRAW_PACKET2].geometry = meshList[GEO_PACKET2];
-	//drawOrders[DRAW_PACKET2].transform.translate.Set(50,0.1,0);
-
-	//drawOrders[DRAW_PACKET3].geometry = meshList[GEO_PACKET3];
-	//drawOrders[DRAW_PACKET3].transform.translate.Set(55,0.1,0);
+				for(int i = 0; i < 6; ++i) //6 cans in one column
+				{
+					drawOrder buffer(can);
+					std::wstring name(can.name);
+					name += can_count;
+					buffer.name = name;
+					buffer.transform.translate = offset; 
+					buffer.transform.rotate.Set(0,-90,0);
+					globals.AddDraw(buffer);
+					offset+= Vector3(0,0,-0.4);
+					globals.GetDraw(name).SetParentAs(&globals.GetDraw(parentname));
+				}
+			}
+		}
+	}
 }
 
 void SceneMain::InnitVoxels()
