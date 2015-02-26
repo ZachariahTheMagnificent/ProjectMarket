@@ -12,7 +12,7 @@
 #include "GlobalList.h"
 #include "ShopperIdlerLv1.h"
 #include "ShopperWandererLv2.h"
-#include "WizardLv1.h"
+#include "WizardLv2.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -32,7 +32,7 @@ private:
 	Camera camera;
 	Player* player;
 	ShopperWandererLv2 SWLv2[2];
-	WizardLv1 wizard;
+	WizardLv2 wizard;
 	ShopperIdler SILv1;
 	bool isJumping;
 	bool isFalling;

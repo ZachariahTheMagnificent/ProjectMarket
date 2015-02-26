@@ -1,26 +1,26 @@
-#include "WizardLv1.h"
+#include "WizardLv2.h"
 
 
-WizardLv1::WizardLv1(void)
+WizardLv2::WizardLv2(void)
 {
 	charArmRotate = 0;
 	ArmsRotateUp = true;
 }
 
 
-WizardLv1::~WizardLv1(void)
+WizardLv2::~WizardLv2(void)
 {
 }
 
-void WizardLv1::Init()
+void WizardLv2::Init()
 {
 }
 
-void WizardLv1::Render()
+void WizardLv2::Render()
 {
 }
 
-void WizardLv1::Update(const double dt)
+void WizardLv2::Update(const double dt)
 {
 	if(ArmsRotateUp == true)
 	{
@@ -35,11 +35,11 @@ void WizardLv1::Update(const double dt)
 	}
 }
 
-void WizardLv1::Exit()
+void WizardLv2::Exit()
 {
 }
 
-void WizardLv1::Reset()
+void WizardLv2::Reset()
 {
 	charArmRotate = 0;
 	ArmsRotateUp = true;
@@ -47,7 +47,7 @@ void WizardLv1::Reset()
 	characterRightArm->selfTransform.rotate.Set(0,0,0);
 }
 
-void WizardLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
+void WizardLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
 {
 	characterBody = &TempCharacterBody;
 	characterLeftArm = &TempCharacterLeftArm;

@@ -3,7 +3,7 @@
 #include "Character.h"
 #include "DrawOrder.h"
 
-class WizardLv1 :
+class WizardLv2 :
 	public Character
 {
 private:
@@ -18,8 +18,8 @@ private:
 	//viariables to check whether the character arms are rotating upward
 	bool ArmsRotateUp;
 public:
-	WizardLv1(void);
-	~WizardLv1(void);
+	WizardLv2(void);
+	~WizardLv2(void);
 	
 	void Init();
 	void Render();
