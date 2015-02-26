@@ -44,7 +44,6 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 	int furthestFront = INT_MIN;
 
 	//loop through all our vertices
-	int index = 0;
 	for(std::vector<Polygonn>::iterator polygon = polygons.begin(), end = polygons.end(); polygon != end; ++polygon)
 	{
 		Vertex const* vert = polygon->ReturnLastVertex();
@@ -176,28 +175,28 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 		//}
 	}
 
-	for(int z = furthestBack; z <= furthestFront; ++z)
-	{
-		for(int y = furthestDown; y <= furthestUp; ++y)
-		{
-			for(int x = furthestLeft; x <= furthestRight; ++x)
-			{
-				if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
-				{
-					Voxel temp;
-					temp.SetPositionTo(Vector3(x,y,z));
-					float red = rand();
-					red = red - (int)red;
-					float green = rand();
-					green = green - (int)green;
-					float blue = rand();
-					blue = blue - (int)blue;
-					temp.SetColorTo(Color(red,green,blue));
-					voxels.push_back(temp);
-				}
-			}
-		}
-	}
+	//for(int z = furthestBack; z <= furthestFront; ++z)
+	//{
+	//	for(int y = furthestDown; y <= furthestUp; ++y)
+	//	{
+	//		for(int x = furthestLeft; x <= furthestRight; ++x)
+	//		{
+	//			if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
+	//			{
+	//				Voxel temp;
+	//				temp.SetPositionTo(Vector3(x,y,z));
+	//				float red = rand();
+	//				red = red - (int)red;
+	//				float green = rand();
+	//				green = green - (int)green;
+	//				float blue = rand();
+	//				blue = blue - (int)blue;
+	//				temp.SetColorTo(Color(red,green,blue));
+	//				voxels.push_back(temp);
+	//			}
+	//		}
+	//	}
+	//}
 	return voxels;
 }
 

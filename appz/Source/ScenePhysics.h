@@ -11,6 +11,7 @@
 #include "Force.h"
 #include <vector>
 #include "GlobalList.h"
+#include "VoxelOctree.h"
 
 class ScenePhysics : public Scene
 {
@@ -33,6 +34,7 @@ private:
 	double accumulatingDT;
 	double currentFPS;
 	ContactSolver collisionSystem;
+	VoxelOctree collisionEnvironment;
 
 	//logic
 	bool drawVoxels;

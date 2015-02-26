@@ -152,7 +152,7 @@ void ScenePhysics::InnitDraws()
 	globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"left lift").mass = 100;
 	
-	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"ground"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"nirvana").kineticFriction = 0.25;
 	
@@ -188,6 +188,7 @@ void ScenePhysics::InnitVoxels()
 	{
 		draw->second->GenerateVoxels();
 	}
+	collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
 	//globals.GetDraw(L"nirvana").GenerateVoxels();
 	//globals.GetDraw(L"player").GenerateVoxels();
 }
@@ -291,7 +292,7 @@ void ScenePhysics::UpdateDraws()
 	//}
 	//collisionSystem.CheckThisCollision(&drawOrders[DRAW_GROUND],&drawOrders[DRAW_PLAYER],deltaTime);
 	//collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
-
+	collisionEnvironment.SolveCollisionFor(globals.GetDraw(L"player"));
 	//draws are finally updated after processing
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
 	{
