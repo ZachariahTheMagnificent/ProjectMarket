@@ -43,7 +43,7 @@ void SceneMain::Init()
 	
 	//camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	camera.Init(Vector3(0, 20, -100), Vector3(1, 0, 0), Vector3(0, 1, 0));
-	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_Idler_body"), globals.GetDraw(L"shopper_Idler_arm_left"), globals.GetDraw(L"shopper_Idler_arm_right"), globals.GetDraw(L"shopper_Idler_leg_left"), globals.GetDraw(L"shopper_Idler_leg_right"));
+	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -200,17 +200,6 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
 	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
 	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-
-	
-
-	//Draw Player
-	drawOrder player = globals.GetDraw(L"character body");
-	player.SetNameAs(L"player");
-	player.transform.translate.Set(10,0.1,0);
-	player.SetTerminalVelocityTo(Vector3(60,60,60));
-	player.staticFriction = 0.03;
-	player.mass = 0;
-	globals.AddDraw(player);
 
 	//Draw Shopper Idler at level 1
 	drawOrder ShopperIdlerBody = globals.GetDraw(L"character body");

@@ -38,7 +38,6 @@
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Shopper.cpp" />
-    <ClCompile Include="Source\ShopperIdler.cpp" />
     <ClCompile Include="Source\ShopperPayerLv1.cpp" />
     <ClCompile Include="Source\ShopperIdlerLv1.cpp" />
     <ClCompile Include="Source\ShopperWandererLv2.cpp" />
