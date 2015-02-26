@@ -114,7 +114,18 @@ Mtx44 drawOrder::GetModelTransform() const
  
 Mtx44 drawOrder::GetMatrix() const
 {
-	return parent->GetModelTransform() * parent->GetRotationMatrix() * transform.Matrix() * selfTransform.Matrix();
+	Mtx44 parentModel, parentRotation;
+	if(parent)
+	{
+		parentModel = parent->GetModelTransform();
+		parentRotation = parent->GetRotationMatrix();
+	}
+	else
+	{
+		parentModel.SetToIdentity();
+		parentRotation.SetToIdentity();
+	}
+	return parentModel * parentRotation * transform.Matrix() * selfTransform.Matrix();
 }
 
 void drawOrder::CapVelocityToTerminal()

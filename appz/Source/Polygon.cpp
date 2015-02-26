@@ -26,9 +26,15 @@ void Polygon::Set(const Vertex& initVertex1, const Vertex& initVertex2, const Ve
 
 bool Polygon::NormalIsFacing(const Vertex& vert) const
 {
-	Vector3 testVec = vert.pos - vertex1.pos;
-	float angle = cosh(testVec.Dot(normal)/(testVec.Length() * normal.Length()));
-	if(angle > Math::HALF_PI)
+	//Vector3 testVec = vert.pos - vertex1.pos;
+	//float angle = cosh(testVec.Dot(normal)/(testVec.Length() * normal.Length()));
+	//if(angle > Math::HALF_PI)
+	//{
+	//	return false;
+	//}
+	float distance = -normal.x*vertex1.pos.x - normal.y*vertex1.pos.y - normal.z*vertex1.pos.z;
+	float equation = normal.x*vert.pos.x + normal.y*vert.pos.y + normal.z*vert.pos.z + distance;
+	if(equation < 0)
 	{
 		return false;
 	}

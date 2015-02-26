@@ -6,7 +6,7 @@
 #include "LoadTGA.h"
 #include "PlayerHuman.h"
 #include "PlayerFrog.h"
-
+#include "Polygon.h"
 
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
 	:
@@ -609,6 +609,19 @@ void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentna
 
 void SceneMain::InnitVoxels()
 {
+	StopWatch timer;
+	timer.startTimer();
+	Vertex Vertex1;
+	Vertex1.pos.Set(24,59,85);
+	Vertex Vertex2;
+	Vertex2.pos.Set(76,95,31);
+	Vertex Vertex3;
+	Vertex3.pos.Set(75,98,91);
+	for(int index = 0; index < 1000000; ++index)
+	{
+		Polygon::Polygon(Vertex1, Vertex2, Vertex3);
+	}
+	const double elapsed = timer.getElapsedTime();
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	{
 		draw->second->GenerateVoxels();

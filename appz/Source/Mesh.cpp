@@ -113,7 +113,19 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 						voxelPosition.y = (int)(voxelPosition.y + 0.5);
 						voxelPosition.z = (int)(voxelPosition.z + 0.5);
 						int index = voxelPosition.x + voxelPosition.y * lengthX + voxelPosition.z * areaXY;
-						VoxelGrid[index] = true;
+						if(VoxelGrid[index] == false)
+						{
+							Voxel voxel;
+							float red = rand();
+							red = red - (int)red;
+							float green = rand();
+							green = green - (int)green;
+							float blue = rand();
+							blue = blue - (int)blue;
+							voxel.SetColorTo(Color(red,green,blue));
+							voxels.push_back(voxel);
+							VoxelGrid[index] = true;
+						}
 					}
 				}
 			}
@@ -157,28 +169,28 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 		//}
 	}
 
-	for(int z = furthestBack; z <= furthestFront; ++z)
-	{
-		for(int y = furthestDown; y <= furthestUp; ++y)
-		{
-			for(int x = furthestLeft; x <= furthestRight; ++x)
-			{
-				if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
-				{
-					Voxel temp;
-					temp.SetPositionTo(Vector3(x,y,z));
-					float red = rand();
-					red = red - (int)red;
-					float green = rand();
-					green = green - (int)green;
-					float blue = rand();
-					blue = blue - (int)blue;
-					temp.SetColorTo(Color(red,green,blue));
-					voxels.push_back(temp);
-				}
-			}
-		}
-	}
+	//for(int z = furthestBack; z <= furthestFront; ++z)
+	//{
+	//	for(int y = furthestDown; y <= furthestUp; ++y)
+	//	{
+	//		for(int x = furthestLeft; x <= furthestRight; ++x)
+	//		{
+	//			if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
+	//			{
+	//				Voxel temp;
+	//				temp.SetPositionTo(Vector3(x,y,z));
+	//				float red = rand();
+	//				red = red - (int)red;
+	//				float green = rand();
+	//				green = green - (int)green;
+	//				float blue = rand();
+	//				blue = blue - (int)blue;
+	//				temp.SetColorTo(Color(red,green,blue));
+	//				voxels.push_back(temp);
+	//			}
+	//		}
+	//	}
+	//}
 	return voxels;
 }
 

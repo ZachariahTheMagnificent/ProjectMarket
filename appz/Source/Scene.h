@@ -6,6 +6,7 @@
 #include "Sound.h"
 #include "Graphics.h"
 #include "Scene.h"
+#include "timer.h"
 
 class Scene
 {
