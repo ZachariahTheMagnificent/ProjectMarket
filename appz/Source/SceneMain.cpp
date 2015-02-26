@@ -260,7 +260,6 @@ void SceneMain::InnitDraws()
 	}
 	drawOrder shopperwandererlegleft = globals.GetDraw(L"character leg left");
 	Vector3 shopperwandererlegleftTranslate(0.5,-1.5,0);
-	float shopperwandererlegleftRotateX= -5;
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(shopperwandererlegleft);
@@ -271,13 +270,11 @@ void SceneMain::InnitDraws()
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegleftTranslate;
-		buffer.transform.rotate.x = shopperwandererlegleftRotateX;
 		globals.AddDraw(buffer);
 		//shopperwandererlegleftTranslate+= Vector3(0,15,0);
 	}
 	drawOrder shopperwandererlegright = globals.GetDraw(L"character leg right");
 	Vector3 shopperwandererlegrightTranslate(-0.5,-1.5,0);
-	float shopperwandererlegrightRotateX= -5;
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(shopperwandererlegright);
@@ -288,7 +285,6 @@ void SceneMain::InnitDraws()
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegrightTranslate;
-		buffer.transform.rotate.x = shopperwandererlegrightRotateX;
 		globals.AddDraw(buffer);
 		//shopperwandererlegrightTranslate+= Vector3(0,15,0);
 	}

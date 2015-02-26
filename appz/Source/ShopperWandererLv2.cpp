@@ -4,7 +4,6 @@
 ShopperWandererLv2::ShopperWandererLv2(void)
 {
 	distanceMovedInOneDir = 0;
-	distanceSpeed = 0.2;
 	charBodyAngleRotate = 0;
 	charArmRotate = 30;
 	leftArmRotateUp = true;
@@ -59,8 +58,8 @@ void ShopperWandererLv2::Update(const double dt)
 		characterLeftArm->selfTransform.rotate.x = -5;
 		characterRightArm->selfTransform.rotate.x = -5;
 		charArmRotate = 30;
-		characterLeftLeg->selfTransform.rotate.x = -2.5;
-		characterRightLeg->selfTransform.rotate.x = -2.5;
+		characterLeftLeg->selfTransform.rotate.x = 0;
+		characterRightLeg->selfTransform.rotate.x = 0;
 		timeIdling += dt;
 		if(timeIdling > 5)
 		{
@@ -74,27 +73,27 @@ void ShopperWandererLv2::Update(const double dt)
 		//If distance less than 15, character walking
 		if(distanceMovedInOneDir < 15)
 		{
-			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, distanceSpeed);
-			distanceMovedInOneDir += distanceSpeed;
+			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 2);
+			distanceMovedInOneDir += dt * 2;
 			if(charArmRotate > 60)
 				leftArmRotateUp = false;
 			else if(charArmRotate < 0)
 				leftArmRotateUp = true;
 			if(leftArmRotateUp == true)
 			{
-				characterLeftArm->selfTransform.rotate.x -= distanceSpeed * 50;
-				characterRightArm->selfTransform.rotate.x += distanceSpeed * 50;
-				charArmRotate += distanceSpeed * 50;
-				characterLeftLeg->selfTransform.rotate.x += distanceSpeed * 25;
-				characterRightLeg->selfTransform.rotate.x -= distanceSpeed * 25;
+				characterLeftArm->selfTransform.rotate.x -= dt * 80;
+				characterRightArm->selfTransform.rotate.x += dt * 80;
+				charArmRotate += dt * 80;
+				characterLeftLeg->selfTransform.rotate.x += dt * 40;
+				characterRightLeg->selfTransform.rotate.x -= dt * 40;
 			}
 			else
 			{
-				characterLeftArm->selfTransform.rotate.x += distanceSpeed * 50;
-				characterRightArm->selfTransform.rotate.x -= distanceSpeed * 50;
-				charArmRotate -= distanceSpeed * 50;
-				characterLeftLeg->selfTransform.rotate.x -= distanceSpeed * 25;
-				characterRightLeg->selfTransform.rotate.x += distanceSpeed * 25;
+				characterLeftArm->selfTransform.rotate.x += dt * 80;
+				characterRightArm->selfTransform.rotate.x -= dt * 80;
+				charArmRotate -= dt * 80;
+				characterLeftLeg->selfTransform.rotate.x -= dt * 40;
+				characterRightLeg->selfTransform.rotate.x += dt * 40;
 			}
 		}
 		//If distance less than 15, character rotate
@@ -190,13 +189,12 @@ void ShopperWandererLv2::Reset()
 	timeIdling = 0;
 	timeWalking = 0;
 	distanceMovedInOneDir = 0;
-	distanceSpeed = 0.2;
 	charBodyAngleRotate = 0;
 	characterLeftArm->selfTransform.rotate.x = -5;
 	characterRightArm->selfTransform.rotate.x = -5;
 	charArmRotate = 30;
-	characterLeftLeg->selfTransform.rotate.x = -2.5;
-	characterRightLeg->selfTransform.rotate.x = -2.5;
+	characterLeftLeg->selfTransform.rotate.x = 0;
+	characterRightLeg->selfTransform.rotate.x = 0;
 	leftArmRotateUp = true;
 }
 
