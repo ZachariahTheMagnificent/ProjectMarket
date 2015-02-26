@@ -618,7 +618,7 @@ void SceneMain::InnitVoxels()
 	Vertex3.pos.Set(75,98,91);
 	for(int index = 0; index < 1000000; ++index)
 	{
-		Polygon::Polygon(Vertex1, Vertex2, Vertex3);
+		Polygonn::Polygonn(Vertex1, Vertex2, Vertex3);
 	}
 	const double elapsed = timer.getElapsedTime();
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
