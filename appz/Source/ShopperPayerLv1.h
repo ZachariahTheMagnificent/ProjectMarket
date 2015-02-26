@@ -13,8 +13,8 @@ private:
 	drawOrder* characterRightArm;
 	drawOrder* characterLeftLeg;
 	drawOrder* characterRightLeg;
-	//viariables to store distance moved
-	float distanceMovedInOneDir;
+	//viariables to store distance need to move in one direction
+	float distanceNeedToMoveInOneDir;
 	//viariables to store rotation of character body
 	float charBodyAngleRotate;
 	//viariables to store rotation of character arm
@@ -23,14 +23,16 @@ private:
 	bool leftArmRotateUp;
 	//Vector3 to store position checkpoint
 	Vector3 points[7];
+	//Vector3 to store position to go
+	Vector3 targetPosition;
+	//int to store position number to go
+	int targetPosNo;
+	//bool to check whether if character took item
+	bool tookItems;
+	//bool to check moving forward
+	bool walkingForward;
 	//Walking state
 	bool walking;
-	//Time spent walking
-	float timeWalking;
-	//Idling state
-	bool idling;
-	//Time spent idling
-	float timeIdling;
 	//Default position
 	Vector3 defaultPoint;
 	float defaultCharBodyAngleRotate;
@@ -44,6 +46,7 @@ public:
 	void Update(const double dt);
 	void Exit();
 	void Reset();
+	void CheckDisAndTargetPos(int No);
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 	void RotateChar(ShopperPayerLv1& OtherShopper);
 	Vector3 GetPos();

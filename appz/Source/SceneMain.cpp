@@ -41,7 +41,7 @@ void SceneMain::Init()
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
 	SWLv2[1].SetPosition(0);
 	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body0"), globals.GetDraw(L"shopper_payer_arm_left0"), globals.GetDraw(L"shopper_payer_arm_right0"), globals.GetDraw(L"shopper_payer_leg_left0"), globals.GetDraw(L"shopper_payer_leg_right0"));
-	SPLv1.SetPosition(6);
+	SPLv1.SetPosition(5);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
@@ -715,6 +715,7 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
+	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
 		wizard.Update(dt);
