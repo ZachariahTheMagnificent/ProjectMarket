@@ -590,14 +590,14 @@ void SceneMain::InnitDraws()
 	}
 
 	//Draw Player
-	drawOrder player = globals.GetDraw(L"robotbody0");
-	player.SetNameAs(L"player");
-	player.SetParentAs(&globals.GetDraw(L"main"));
-	player.transform.translate.Set(10,0.1,0);
-	player.SetTerminalVelocityTo(Vector3(60,60,60));
-	player.staticFriction = 0.03;
-	player.mass = 0;
-	globals.AddDraw(player);
+	//drawOrder player1 = globals.GetDraw(L"robotbody0");
+	//player1.SetNameAs(L"player");
+	//player1.SetParentAs(&globals.GetDraw(L"main"));
+	//player1.transform.translate.Set(10,0.1,0);
+	//player1.SetTerminalVelocityTo(Vector3(60,60,60));
+	//player1.staticFriction = 0.03;
+	//player1.mass = 0;
+	//globals.AddDraw(player1);
 
 	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
 	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));

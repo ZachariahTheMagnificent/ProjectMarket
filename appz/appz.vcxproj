@@ -38,7 +38,6 @@
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Shopper.cpp" />
-    <ClCompile Include="Source\ShopperIdler.cpp" />
     <ClCompile Include="Source\ShopperPayerLv1.cpp" />
     <ClCompile Include="Source\ShopperIdlerLv1.cpp" />
     <ClCompile Include="Source\ShopperWandererLv2.cpp" />
@@ -77,7 +76,6 @@
     <ClInclude Include="Source\ScenePhysics.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Shopper.h" />
-    <ClInclude Include="Source\ShopperIdler.h" />
     <ClInclude Include="Source\ShopperPayerLv1.h" />
     <ClInclude Include="Source\ShopperIdlerLv1.h" />
     <ClInclude Include="Source\ShopperWandererLv2.h" />
