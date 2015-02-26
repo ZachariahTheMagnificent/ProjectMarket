@@ -77,6 +77,7 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"cereal1", L"Image//cereal1.tga");
 	globals.AddTexture(L"cereal2", L"Image//cereal2.tga");
 	globals.AddTexture(L"cereal3", L"Image//cereal3.tga");
+	globals.AddTexture(L"cereal4", L"Image//cereal4.tga");
 	globals.AddTexture(L"packet1", L"Image//packet1.tga");
 	globals.AddTexture(L"packet2", L"Image//packet2.tga");
 	globals.AddTexture(L"packet3", L"Image//packet3.tga");
@@ -105,6 +106,7 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"cereal1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal1")));
 	globals.AddMaterial(Material(L"cereal2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal2")));
 	globals.AddMaterial(Material(L"cereal3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal3")));
+	globals.AddMaterial(Material(L"cereal4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal4")));
 	globals.AddMaterial(Material(L"packet1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet1")));
 	globals.AddMaterial(Material(L"packet2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet2")));
 	globals.AddMaterial(Material(L"packet3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet3")));
@@ -153,6 +155,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal1", L"OBJ//cereal1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal2", L"OBJ//cereal2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal3", L"OBJ//cereal3.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal4", L"OBJ//cereal4.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet1", L"OBJ//packet1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet2", L"OBJ//packet2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet3", L"OBJ//packet3.obj"));
@@ -230,7 +233,7 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(ShopperIdlerArmRight);
 
 	drawOrder ShopperIdlerLegLeft = globals.GetDraw(L"character leg left");
-	ShopperIdlerLegLeft.SetNameAs(L"shopper_idler_arm_left");
+	ShopperIdlerLegLeft.SetNameAs(L"shopper_idler_leg_left");
 	ShopperIdlerLegLeft.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
 	ShopperIdlerLegLeft.transform.translate.Set(-0.5,-1.5,0);
 	globals.AddDraw(ShopperIdlerLegLeft);
@@ -595,6 +598,12 @@ void SceneMain::InnitDraws()
 
 	CreateItems(drawOrder(L"can4_cabinet2_column2_",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
 	CreateItems(drawOrder(L"packet2_cabinet2_column2_",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
+
+	CreateItems(drawOrder(L"cereal1_cabinet3_",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal2_cabinet3_",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
+
+	CreateItems(drawOrder(L"cereal3_cabinet3_",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal4_cabinet3_",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)

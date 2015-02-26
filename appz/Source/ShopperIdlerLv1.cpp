@@ -9,14 +9,11 @@ ShopperIdler::ShopperIdler(void)
 	leftArmRotateUp = true;
 	
 	int pointNo = 0;
-	for(int disDiffX = 0; disDiffX <=0 ; disDiffX += 0)
-	{
 		for(int disDiffZ = 0; disDiffZ <= 7; disDiffZ += 7 )
 		{
-			points[pointNo] = Vector3(-8.5+disDiffX,15,-37.5-disDiffZ);
+			points[pointNo] = Vector3(-8.5,15,-37.5-disDiffZ);
 			++pointNo;
 		}
-	}
 	idling = true;
 	walking = false;
 	timeIdling = 0;
