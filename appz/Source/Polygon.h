@@ -10,12 +10,16 @@ public:
 	void CalculateNormal();
 	bool NormalIsFacing(const Vertex& vert) const;
 	bool OppositeNormalIsFacing(const Vertex& vert);
+	bool Intersects(Polygonn& polygon) const;
+	bool Intersects(Vector3& line, Vector3 displacement) const;
 	Vertex const* ReturnFirstVertex() const;
 	Vertex const* ReturnSecondVertex() const;
 	Vertex const* ReturnLastVertex() const;
 	void GetBounds(float*const returnFurthestLeft, float*const returnFurthestRight, float*const returnFurthestDown, float*const returnFurthestUp, float*const returnFurthestBack, float*const returnFurthestFront);
 	const Vector3& GetNormal() const;
-	static unsigned ReturnNumOfNonVertVariables();
+	const Vertex GetVertex1() const;
+	const Vertex GetVertex2() const;
+	const Vertex GetVertex3() const;
 	void MoveAlongNormalBy(const float displacement);
 	Polygonn Flipped();
 private:

@@ -42,6 +42,7 @@ private:
 	double accumulatingDT;
 	double currentFPS;
 	ContactSolver collisionSystem;
+	VoxelOctree collisionEnvironment;
 
 	//logic
 	bool drawVoxels;

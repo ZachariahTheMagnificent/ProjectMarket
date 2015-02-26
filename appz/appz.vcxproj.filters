@@ -159,6 +159,9 @@
     <ClCompile Include="Source\ShopperIdler.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Source\VoxelLeaf.cpp">
+      <Filter>Source Files\Container</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Contacts.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="Source\ShopperIdler.h">
       <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VoxelLeaf.h">
+      <Filter>Header Files\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

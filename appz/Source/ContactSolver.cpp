@@ -10,35 +10,35 @@ ContactSolver::~ContactSolver()
 
 bool ContactSolver::CheckThisCollision(drawOrder* draw1, drawOrder* draw2, const double deltaTime)
 {
-	VoxelOctree myTree;
-	myTree.SetUpFor(draw1, draw2, deltaTime);
-	std::vector<Contact> contacts = myTree.GetAllContacts();
-	for(std::vector<Contact>::iterator contact = contacts.begin(); contact != contacts.end(); ++contact)
-	{
-		list.InsertNode(*contact);
-	}
-	bool test = contacts.size();
+	//VoxelOctree myTree;
+	//myTree.SetUpFor(draw1, draw2, deltaTime);
+	//std::vector<Contact> contacts = myTree.GetAllContacts();
+	//for(std::vector<Contact>::iterator contact = contacts.begin(); contact != contacts.end(); ++contact)
+	//{
+	//	list.InsertNode(*contact);
+	//}
+	//bool test = contacts.size();
 	return false;
 }
 
 bool ContactSolver::CheckThisCollision(Voxel* voxel1, Voxel* voxel2, const double deltaTime)
 {
-	const double numOfSteps = 1000;
-	const double timestep = 0.001;
-	double timeOfImpact = 0.0;
-	bool update = true;
-	voxel1->ApplyCurrentMatrix();
-	voxel2->ApplyCurrentMatrix();
-	while(!voxel1->At(timeOfImpact).IsCollidingWith(voxel2->At(timeOfImpact)) && timeOfImpact < deltaTime)
-	{
-		timeOfImpact += timestep;
-	}
-	//if collision is found
-	if(timeOfImpact < deltaTime)
-	{
-		list.InsertNode(Contact(voxel1, voxel2, timeOfImpact));
-		return true;
-	}
+	//const double numOfSteps = 1000;
+	//const double timestep = 0.001;
+	//double timeOfImpact = 0.0;
+	//bool update = true;
+	//voxel1->ApplyCurrentMatrix();
+	//voxel2->ApplyCurrentMatrix();
+	//while(!voxel1->At(timeOfImpact).IsCollidingWith(voxel2->At(timeOfImpact)) && timeOfImpact < deltaTime)
+	//{
+	//	timeOfImpact += timestep;
+	//}
+	////if collision is found
+	//if(timeOfImpact < deltaTime)
+	//{
+	//	list.InsertNode(Contact(voxel1, voxel2, timeOfImpact));
+	//	return true;
+	//}
 	return false;
 }
 
