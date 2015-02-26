@@ -37,6 +37,7 @@
     <ClCompile Include="Source\ScenePhysics.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Shopper.cpp" />
+    <ClCompile Include="Source\ShopperIdler.cpp" />
     <ClCompile Include="Source\ShopperWanderer.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
     <ClCompile Include="Source\VoxelOctree.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Source\ScenePhysics.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Shopper.h" />
+    <ClInclude Include="Source\ShopperIdler.h" />
     <ClInclude Include="Source\ShopperWanderer.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Voxel.h" />
