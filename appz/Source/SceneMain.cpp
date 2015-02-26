@@ -34,13 +34,15 @@ void SceneMain::Init()
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
-	UpdateLv2 = true;
+	UpdateLv2 = false;
+	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
 	SWLv2[1].SetPosition(0);
-
-	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
+	
+	//camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(0, 20, -100), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
 	gfx.InitText(L"Image//kitten_bri.tga");
 }
@@ -163,6 +165,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterarm", L"OBJ//characterarm.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterleg", L"OBJ//characterleg.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterbody", L"OBJ//characterbody.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"wizardbody", L"OBJ//characterwizardbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
 }
@@ -185,24 +188,8 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
-	//Draw Character
-	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
-	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-
-	//Draw Player
-	drawOrder player = globals.GetDraw(L"character body");
-	player.SetNameAs(L"player");
-	player.transform.translate.Set(10,0.1,0);
-	player.SetTerminalVelocityTo(Vector3(60,60,60));
-	player.staticFriction = 0.03;
-	player.mass = 0;
-	globals.AddDraw(player);
-
 	//Draw Shopper Wanderers at level 2
-	drawOrder shopperwandererbody = globals.GetDraw(L"character body");
+	drawOrder shopperwandererbody(L"shopper_wanderer_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererbodyTranslate(0,3.8,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -213,7 +200,7 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererbodyTranslate;
 		globals.AddDraw(buffer);
 	}
-	drawOrder shopperwandererarmleft = globals.GetDraw(L"character arm left");
+	drawOrder shopperwandererarmleft(L"shopper_wanderer_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererarmleftTranslate(1.25,0.6,0);
 	float shopperwandererarmleftRotateX= -5;
 	for(int i = 0; i < 2; ++i)
@@ -229,7 +216,7 @@ void SceneMain::InnitDraws()
 		buffer.transform.rotate.x = shopperwandererarmleftRotateX;
 		globals.AddDraw(buffer);
 	}
-	drawOrder shopperwandererarmright = globals.GetDraw(L"character arm right");
+	drawOrder shopperwandererarmright(L"shopper_wanderer_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererarmrightTranslate(-1.25,0.6,0);
 	float shopperwandererarmrightRotateX= -5;
 	for(int i = 0; i < 2; ++i)
@@ -245,7 +232,7 @@ void SceneMain::InnitDraws()
 		buffer.transform.rotate.x = shopperwandererarmrightRotateX;
 		globals.AddDraw(buffer);
 	}
-	drawOrder shopperwandererlegleft = globals.GetDraw(L"character leg left");
+	drawOrder shopperwandererlegleft(L"shopper_wanderer_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererlegleftTranslate(0.5,-1.5,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -259,7 +246,7 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererlegleftTranslate;
 		globals.AddDraw(buffer);
 	}
-	drawOrder shopperwandererlegright = globals.GetDraw(L"character leg right");
+	drawOrder shopperwandererlegright(L"shopper_wanderer_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererlegrightTranslate(-0.5,-1.5,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -274,8 +261,18 @@ void SceneMain::InnitDraws()
 		globals.AddDraw(buffer);
 	}
 
-	//Hide character
-	globals.GetDraw(L"character body").transform.translate.Set(0,20000,0);
+	//Draw Wizard
+	globals.AddDraw(drawOrder(L"wizard_body",globals.GetMesh(L"wizardbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"wizard_body").transform.translate.Set(-18,15,-102);
+	globals.GetDraw(L"wizard_body").transform.rotate.y = 90;
+	globals.AddDraw(drawOrder(L"wizard_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"wizard_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"wizard_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"wizard_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 	//Draw Lift
 	drawOrder lift(L"lift",globals.GetMesh(L"lift"), &globals.GetMaterial(L"lift"), &globals.GetDraw(L"main"), true);
@@ -528,6 +525,15 @@ void SceneMain::InnitDraws()
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
+	//Draw Player
+	drawOrder player = globals.GetDraw(L"robotbody0");
+	player.SetNameAs(L"player");
+	player.transform.translate.Set(10,0.1,0);
+	player.SetTerminalVelocityTo(Vector3(60,60,60));
+	player.staticFriction = 0.03;
+	player.mass = 0;
+	globals.AddDraw(player);
+
 	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
 	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
 	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
@@ -651,6 +657,7 @@ bool SceneMain::Update(const double dt)
 	UpdateLight();
 	if(UpdateLv2 == true)
 	{
+		wizard.Update(dt);
 		for(int i = 0; i < 2; ++i)
 		{
 			SWLv2[i].Update(dt);
@@ -836,6 +843,7 @@ void SceneMain::DoUserInput()
 		{
 			SWLv2[i].Reset();
 		}
+		wizard.Reset();
 		UpdateLv2 = false;
 	}
 	if (keyboard.isKeyPressed('U'))

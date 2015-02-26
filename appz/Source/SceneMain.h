@@ -11,6 +11,7 @@
 #include "player.h"
 #include "GlobalList.h"
 #include "ShopperWandererLv2.h"
+#include "WizardLv1.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -30,6 +31,7 @@ private:
 	Camera camera;
 	Player* player;
 	ShopperWandererLv2 SWLv2[2];
+	WizardLv1 wizard;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;

@@ -159,6 +159,12 @@
     <ClCompile Include="Source\ShopperIdler.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ShopperPayerLv1.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WizardLv1.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Contacts.h">
@@ -261,6 +267,12 @@
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\ShopperIdler.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShopperPayerLv1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WizardLv1.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
