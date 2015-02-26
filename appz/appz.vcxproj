@@ -39,10 +39,13 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Shopper.cpp" />
     <ClCompile Include="Source\ShopperIdler.cpp" />
+    <ClCompile Include="Source\ShopperPayerLv1.cpp" />
+    <ClCompile Include="Source\ShopperIdlerLv1.cpp" />
     <ClCompile Include="Source\ShopperWandererLv2.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
     <ClCompile Include="Source\VoxelLeaf.cpp" />
     <ClCompile Include="Source\VoxelOctree.cpp" />
+    <ClCompile Include="Source\WizardLv2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -75,11 +78,14 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Shopper.h" />
     <ClInclude Include="Source\ShopperIdler.h" />
+    <ClInclude Include="Source\ShopperPayerLv1.h" />
+    <ClInclude Include="Source\ShopperIdlerLv1.h" />
     <ClInclude Include="Source\ShopperWandererLv2.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Voxel.h" />
     <ClInclude Include="Source\VoxelLeaf.h" />
     <ClInclude Include="Source\VoxelOctree.h" />
+    <ClInclude Include="Source\WizardLv2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\Blending.fragmentshader" />

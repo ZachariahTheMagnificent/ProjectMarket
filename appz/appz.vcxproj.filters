@@ -156,7 +156,13 @@
     <ClCompile Include="Source\RobotCashier.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ShopperIdler.cpp">
+    <ClCompile Include="Source\ShopperIdlerLv1.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShopperPayerLv1.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WizardLv2.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Source\VoxelLeaf.cpp">
@@ -263,7 +269,13 @@
     <ClInclude Include="Source\RobotCashier.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ShopperIdler.h">
+    <ClInclude Include="Source\ShopperIdlerLv1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShopperPayerLv1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WizardLv2.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\VoxelLeaf.h">

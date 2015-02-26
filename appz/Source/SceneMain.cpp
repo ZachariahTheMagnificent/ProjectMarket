@@ -34,12 +34,16 @@ void SceneMain::Init()
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
-	UpdateLv2 = true;
+	UpdateLv2 = false;
+	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
 	SWLv2[1].SetPosition(0);
-
+	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body0"), globals.GetDraw(L"shopper_payer_arm_left0"), globals.GetDraw(L"shopper_payer_arm_right0"), globals.GetDraw(L"shopper_payer_leg_left0"), globals.GetDraw(L"shopper_payer_leg_right0"));
+	SPLv1.SetPosition(5);
+	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
+	SILv1.SetPosition(0);
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
 	gfx.InitText(L"Image//kitten_bri.tga");
@@ -68,9 +72,11 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"can1", L"Image//can1.tga");
 	globals.AddTexture(L"can2", L"Image//can2.tga");
 	globals.AddTexture(L"can3", L"Image//can3.tga");
+	globals.AddTexture(L"can4", L"Image//can4.tga");
 	globals.AddTexture(L"cereal1", L"Image//cereal1.tga");
 	globals.AddTexture(L"cereal2", L"Image//cereal2.tga");
 	globals.AddTexture(L"cereal3", L"Image//cereal3.tga");
+	globals.AddTexture(L"cereal4", L"Image//cereal4.tga");
 	globals.AddTexture(L"packet1", L"Image//packet1.tga");
 	globals.AddTexture(L"packet2", L"Image//packet2.tga");
 	globals.AddTexture(L"packet3", L"Image//packet3.tga");
@@ -95,9 +101,11 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"can1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can1")));
 	globals.AddMaterial(Material(L"can2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can2")));
 	globals.AddMaterial(Material(L"can3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can3")));
+	globals.AddMaterial(Material(L"can4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can4")));
 	globals.AddMaterial(Material(L"cereal1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal1")));
 	globals.AddMaterial(Material(L"cereal2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal2")));
 	globals.AddMaterial(Material(L"cereal3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal3")));
+	globals.AddMaterial(Material(L"cereal4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal4")));
 	globals.AddMaterial(Material(L"packet1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet1")));
 	globals.AddMaterial(Material(L"packet2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet2")));
 	globals.AddMaterial(Material(L"packet3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet3")));
@@ -142,9 +150,11 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can1", L"OBJ//can1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can2", L"OBJ//can2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can3", L"OBJ//can3.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can4", L"OBJ//can4.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal1", L"OBJ//cereal1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal2", L"OBJ//cereal2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal3", L"OBJ//cereal3.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal4", L"OBJ//cereal4.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet1", L"OBJ//packet1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet2", L"OBJ//packet2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"packet3", L"OBJ//packet3.obj"));
@@ -160,6 +170,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterarm", L"OBJ//characterarm.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterleg", L"OBJ//characterleg.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"characterbody", L"OBJ//characterbody.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"wizardbody", L"OBJ//characterwizardbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
 }
@@ -176,7 +187,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Ground
 	globals.AddDraw(drawOrder(L"ground",globals.GetMesh(L"ground"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"ground").transform.translate.Set(0,0,-40);
+	globals.GetDraw(L"ground").transform.translate.Set(0,1.09,-40);
 
 	//Draw Building
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
@@ -184,20 +195,9 @@ void SceneMain::InnitDraws()
 
 	//Draw Character
 	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
-	//globals.GetDraw(L"character body").transform.translate.Set(0,3.8,0);
-
 	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character arm left").transform.translate.Set(1.25,0.6,0);
-	//globals.GetDraw(L"character arm left").selfTransform.rotate.x = -5;
-
 	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character arm right").transform.translate.Set(-1.25,0.6,0);
-	//globals.GetDraw(L"character arm right").selfTransform.rotate.x = -5;
-
 	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character leg left").transform.translate.Set(0.5,-1.5,0);
-	//globals.GetDraw(L"character leg left").selfTransform.rotate.x = -2.5;
-
 	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
 	//globals.GetDraw(L"character leg right").transform.translate.Set(-0.5,-1.5,0);
 	//globals.GetDraw(L"character leg right").selfTransform.rotate.x = 2.5;
@@ -211,8 +211,39 @@ void SceneMain::InnitDraws()
 	player.mass = 1;
 	globals.AddDraw(player);
 
+	//Draw Shopper Idler at level 1
+	drawOrder ShopperIdlerBody = globals.GetDraw(L"character body");
+	ShopperIdlerBody.SetNameAs(L"shopper_idler_body");
+	ShopperIdlerBody.transform.translate.Set(10,0.1,0);
+	globals.AddDraw(ShopperIdlerBody);
+
+	drawOrder ShopperIdlerArmLeft = globals.GetDraw(L"character arm left");
+	ShopperIdlerArmLeft.SetNameAs(L"shopper_idler_arm_left");
+	ShopperIdlerArmLeft.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerArmLeft.transform.translate.Set(1.25,0.6,0);
+	ShopperIdlerArmLeft.transform.rotate.x = -5;
+	globals.AddDraw(ShopperIdlerArmLeft);
+
+	drawOrder ShopperIdlerArmRight = globals.GetDraw(L"character arm right");
+	ShopperIdlerArmRight.SetNameAs(L"shopper_idler_arm_right");
+	ShopperIdlerArmRight.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerArmRight.transform.translate.Set(1.25,0.6,0);
+	ShopperIdlerArmRight.transform.rotate.x = -5;
+	globals.AddDraw(ShopperIdlerArmRight);
+
+	drawOrder ShopperIdlerLegLeft = globals.GetDraw(L"character leg left");
+	ShopperIdlerLegLeft.SetNameAs(L"shopper_idler_leg_left");
+	ShopperIdlerLegLeft.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerLegLeft.transform.translate.Set(-0.5,-1.5,0);
+	globals.AddDraw(ShopperIdlerLegLeft);
+
+	drawOrder ShopperIdlerLegRight = globals.GetDraw(L"character leg right");
+	ShopperIdlerLegRight.SetNameAs(L"shopper_idler_leg_right");
+	ShopperIdlerLegRight.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerLegRight.transform.translate.Set(-0.5,-1.5,0);
+	globals.AddDraw(ShopperIdlerLegRight);
 	//Draw Shopper Wanderers at level 2
-	drawOrder shopperwandererbody = globals.GetDraw(L"character body");
+	drawOrder shopperwandererbody(L"shopper_wanderer_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererbodyTranslate(0,3.8,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -222,9 +253,8 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = shopperwandererbodyTranslate;
 		globals.AddDraw(buffer);
-		buffer.SetParentAs(&globals.GetDraw(L"main"));
 	}
-	drawOrder shopperwandererarmleft = globals.GetDraw(L"character arm left");
+	drawOrder shopperwandererarmleft(L"shopper_wanderer_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererarmleftTranslate(1.25,0.6,0);
 	float shopperwandererarmleftRotateX= -5;
 	for(int i = 0; i < 2; ++i)
@@ -239,9 +269,8 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererarmleftTranslate;
 		buffer.transform.rotate.x = shopperwandererarmleftRotateX;
 		globals.AddDraw(buffer);
-		//shopperwandererarmleftTranslate+= Vector3(0,15,0);
 	}
-	drawOrder shopperwandererarmright = globals.GetDraw(L"character arm right");
+	drawOrder shopperwandererarmright(L"shopper_wanderer_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererarmrightTranslate(-1.25,0.6,0);
 	float shopperwandererarmrightRotateX= -5;
 	for(int i = 0; i < 2; ++i)
@@ -256,9 +285,8 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererarmrightTranslate;
 		buffer.transform.rotate.x = shopperwandererarmrightRotateX;
 		globals.AddDraw(buffer);
-		//shopperwandererarmrightTranslate+= Vector3(0,15,0);
 	}
-	drawOrder shopperwandererlegleft = globals.GetDraw(L"character leg left");
+	drawOrder shopperwandererlegleft(L"shopper_wanderer_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererlegleftTranslate(0.5,-1.5,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -271,9 +299,8 @@ void SceneMain::InnitDraws()
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegleftTranslate;
 		globals.AddDraw(buffer);
-		//shopperwandererlegleftTranslate+= Vector3(0,15,0);
 	}
-	drawOrder shopperwandererlegright = globals.GetDraw(L"character leg right");
+	drawOrder shopperwandererlegright(L"shopper_wanderer_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererlegrightTranslate(-0.5,-1.5,0);
 	for(int i = 0; i < 2; ++i)
 	{
@@ -286,9 +313,31 @@ void SceneMain::InnitDraws()
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegrightTranslate;
 		globals.AddDraw(buffer);
-		//shopperwandererlegrightTranslate+= Vector3(0,15,0);
 	}
 
+	//Draw Wizard
+	globals.AddDraw(drawOrder(L"wizard_body",globals.GetMesh(L"wizardbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"wizard_body").transform.translate.Set(-18,15,-102);
+	globals.GetDraw(L"wizard_body").transform.rotate.y = 90;
+	globals.AddDraw(drawOrder(L"wizard_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"wizard_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"wizard_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"wizard_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.GetDraw(L"wizard_leg_right").transform.translate.Set(-0.5,-1.5,0);
+	
+	//Draw Wizard
+	globals.AddDraw(drawOrder(L"shopper_payer_body0",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"shopper_payer_arm_left0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
+	globals.GetDraw(L"shopper_payer_arm_left0").transform.translate.Set(1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"shopper_payer_arm_right0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
+	globals.GetDraw(L"shopper_payer_arm_right0").transform.translate.Set(-1.25,0.6,0);
+	globals.AddDraw(drawOrder(L"shopper_payer_leg_left0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
+	globals.GetDraw(L"shopper_payer_leg_left0").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"shopper_payer_leg_right0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
+	globals.GetDraw(L"shopper_payer_leg_right0").transform.translate.Set(-0.5,-1.5,0);
 	//Draw Lift
 	drawOrder lift(L"lift",globals.GetMesh(L"lift"), &globals.GetMaterial(L"lift"), &globals.GetDraw(L"main"), true);
 	Vector3 liftTranslate(15.0,5.5,-101.6);
@@ -540,9 +589,31 @@ void SceneMain::InnitDraws()
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
-	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+	//Draw Player
+	drawOrder player = globals.GetDraw(L"robotbody0");
+	player.SetNameAs(L"player");
+	player.SetParentAs(&globals.GetDraw(L"main"));
+	player.transform.translate.Set(10,0.1,0);
+	player.SetTerminalVelocityTo(Vector3(60,60,60));
+	player.staticFriction = 0.03;
+	player.mass = 0;
+	globals.AddDraw(player);
+
+	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+
+	CreateItems(drawOrder(L"packet1_cabinet2_column1_",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
+	CreateItems(drawOrder(L"packet3_cabinet2_column1_",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
+
+	CreateItems(drawOrder(L"can4_cabinet2_column2_",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
+	CreateItems(drawOrder(L"packet2_cabinet2_column2_",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
+
+	CreateItems(drawOrder(L"cereal1_cabinet3_",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal2_cabinet3_",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
+
+	CreateItems(drawOrder(L"cereal3_cabinet3_",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal4_cabinet3_",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -560,7 +631,7 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 	}
 }
 
-void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
+void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
 {	
 	int item_count = 0;
 
@@ -592,7 +663,8 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 					std::wstring name(item.name);
 					name += item_count;
 					buffer.name = name;
-					buffer.transform.translate = offset; 
+					buffer.transform.translate = offset;
+					buffer.transform.rotate = RotateItem;
 					globals.AddDraw(buffer);
 					offset+= Vector3(0,0,ItemDistanceZ);
 					globals.GetDraw(name).SetParentAs(&globals.GetDraw(parentname));
@@ -643,11 +715,26 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
+	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
+		wizard.Update(dt);
 		for(int i = 0; i < 2; ++i)
 		{
 			SWLv2[i].Update(dt);
+		}
+		for(int i = 0; i < 2; ++i)
+		{
+			int j = i + 1;
+			while(true)
+			{
+				if(j == 2)
+					j = 0;
+				if(j == i)
+					break;
+				SWLv2[i].RotateChar(SWLv2[j]);
+				j++;
+			}
 		}
 	}
 	return false;
@@ -820,6 +907,7 @@ void SceneMain::DoUserInput()
 		{
 			SWLv2[i].Reset();
 		}
+		wizard.Reset();
 		UpdateLv2 = false;
 	}
 	if (keyboard.isKeyPressed('U'))
