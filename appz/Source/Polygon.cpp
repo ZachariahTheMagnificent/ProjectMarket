@@ -9,11 +9,16 @@ Polygonn::~Polygonn()
 {
 }
 
-static unsigned ReturnNumOfNonVertVariables()
+bool Polygonn::Intersects(Polygonn& polygon) const
 {
-	static const unsigned numofvariables = 4;
-	static const unsigned numofvertices = 3;
-	static const unsigned numofnonvertvariables = numofvariables - numofvertices;
+	return true;
+}
+
+bool Polygonn::Intersects(Vector3& line, Vector3 displacement) const
+{
+	float distance = -normal.x*vertex1.pos.x - normal.y*vertex1.pos.y - normal.z*vertex1.pos.z;
+	float equation = (-displacement.x*normal.x - displacement.y*normal.y - displacement.z*normal.z - distance)/(line.x*normal.x + line.y*normal.y + line.z*normal.z);
+	return true;
 }
 
 void Polygonn::Set(const Vertex& initVertex1, const Vertex& initVertex2, const Vertex& initVertex3)
@@ -34,7 +39,7 @@ bool Polygonn::NormalIsFacing(const Vertex& vert) const
 	//}
 	float distance = -normal.x*vertex1.pos.x - normal.y*vertex1.pos.y - normal.z*vertex1.pos.z;
 	float equation = normal.x*vert.pos.x + normal.y*vert.pos.y + normal.z*vert.pos.z + distance;
-	if(equation < 0)
+	if(equation <= 0)
 	{
 		return false;
 	}
@@ -158,6 +163,21 @@ void Polygonn::GetBounds(float*const returnFurthestLeft, float*const returnFurth
 const Vector3& Polygonn::GetNormal() const
 {
 	return normal;
+}
+
+const Vertex Polygonn::GetVertex1() const
+{
+	return vertex1;
+}
+
+const Vertex Polygonn::GetVertex2() const
+{
+	return vertex2;
+}
+
+const Vertex Polygonn::GetVertex3() const
+{
+	return vertex3;
 }
 
 void Polygonn::MoveAlongNormalBy(const float displacement)

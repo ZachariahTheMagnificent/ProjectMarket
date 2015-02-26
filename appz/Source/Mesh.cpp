@@ -87,17 +87,23 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 	{
 		//create the 5 polygons that the voxels will be checked against
 		Polygonn polygon1(*polygon);
-		polygon1.MoveAlongNormalBy(-0.5);
+		polygon1.MoveAlongNormalBy(-1);
 
 		Polygonn polygon2(polygon->Flipped());
-		polygon2.MoveAlongNormalBy(-0.5);
+		polygon2.MoveAlongNormalBy(-1);
 
-		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnSecondVertex(), *polygon2.ReturnFirstVertex());
-		Polygonn polygon4(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnFirstVertex());
-		Polygonn polygon5(*polygon1.ReturnSecondVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
+		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
+		Polygonn polygon4(*polygon2.ReturnFirstVertex(), *polygon2.ReturnLastVertex(), *polygon1.ReturnSecondVertex());
+		Polygonn polygon5(*polygon1.ReturnSecondVertex(), *polygon2.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
 		float furthestLeft, furthestRight, furthestDown, furthestUp, furthestBack, furthestFront;
 
 		polygon->GetBounds(&furthestLeft, &furthestRight, &furthestDown, &furthestUp, &furthestBack, &furthestFront);
+		furthestLeft = (int)furthestLeft;
+		furthestRight = (int)(furthestRight + 0.5);
+		furthestDown = (int)furthestDown;
+		furthestUp = (int)(furthestUp + 0.5);
+		furthestBack = (int)furthestBack;
+		furthestFront = (int)(furthestFront + 0.5);
 		for(int z = furthestBack, endZ = furthestFront + 1; z <= endZ; ++z)
 		{
 			for(int y = furthestDown, endY = furthestUp + 1; y <= endY; ++y)
@@ -116,6 +122,7 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 						if(VoxelGrid[index] == false)
 						{
 							Voxel voxel;
+							voxel.SetPositionTo(temp.pos);
 							float red = rand();
 							red = red - (int)red;
 							float green = rand();
@@ -131,8 +138,8 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 			}
 		}
 		////create 2 vectors to represent the triangle
-		//Vector3 triangleVector1 = (vertex+1)->pos - vertex->pos;
-		//Vector3 triangleVector2 = (vertex+1)->pos - (vertex+2)->pos;
+		//Vector3 triangleVector1 = polygon->ReturnSecondVertex()->pos - polygon->ReturnFirstVertex()->pos;
+		//Vector3 triangleVector2 = polygon->ReturnSecondVertex()->pos - polygon->ReturnLastVertex()->pos;
 		//Vector3 LongestVector;
 		//if(triangleVector1.Length() > triangleVector2.Length())
 		//{
@@ -146,8 +153,8 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 		//for(Vector3 displacement1, displacement2, increment1 = triangleVector1 / steps, increment2 = triangleVector2 / steps; displacement1.Length() < triangleVector1.Length(); displacement1 += increment1, displacement2 += increment2)
 		//{
 		//	//create a vector that we create our voxel in
-		//	Vector3 point1 = vertex->pos + displacement1;
-		//	Vector3 point2 = (vertex+2)->pos + displacement2;
+		//	Vector3 point1 = polygon->ReturnFirstVertex()->pos + displacement1;
+		//	Vector3 point2 = polygon->ReturnLastVertex()->pos + displacement2;
 		//	Vector3 voxelVector = point2 - point1;
 		//	if(voxelVector.IsZero())
 		//	{
@@ -169,28 +176,28 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 		//}
 	}
 
-	//for(int z = furthestBack; z <= furthestFront; ++z)
-	//{
-	//	for(int y = furthestDown; y <= furthestUp; ++y)
-	//	{
-	//		for(int x = furthestLeft; x <= furthestRight; ++x)
-	//		{
-	//			if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
-	//			{
-	//				Voxel temp;
-	//				temp.SetPositionTo(Vector3(x,y,z));
-	//				float red = rand();
-	//				red = red - (int)red;
-	//				float green = rand();
-	//				green = green - (int)green;
-	//				float blue = rand();
-	//				blue = blue - (int)blue;
-	//				temp.SetColorTo(Color(red,green,blue));
-	//				voxels.push_back(temp);
-	//			}
-	//		}
-	//	}
-	//}
+	for(int z = furthestBack; z <= furthestFront; ++z)
+	{
+		for(int y = furthestDown; y <= furthestUp; ++y)
+		{
+			for(int x = furthestLeft; x <= furthestRight; ++x)
+			{
+				if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
+				{
+					Voxel temp;
+					temp.SetPositionTo(Vector3(x,y,z));
+					float red = rand();
+					red = red - (int)red;
+					float green = rand();
+					green = green - (int)green;
+					float blue = rand();
+					blue = blue - (int)blue;
+					temp.SetColorTo(Color(red,green,blue));
+					voxels.push_back(temp);
+				}
+			}
+		}
+	}
 	return voxels;
 }
 

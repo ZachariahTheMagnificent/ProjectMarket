@@ -133,7 +133,7 @@ void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
-	globals.AddMesh(MeshBuilder::GenerateCube(L"cube",Color(),1,1,1));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cube", L"OBJ//cubey.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet2", L"OBJ//Cabinet2.obj"));
@@ -208,7 +208,7 @@ void SceneMain::InnitDraws()
 	player.transform.translate.Set(10,0.1,0);
 	player.SetTerminalVelocityTo(Vector3(60,60,60));
 	player.staticFriction = 0.03;
-	player.mass = 0;
+	player.mass = 1;
 	globals.AddDraw(player);
 
 	//Draw Shopper Wanderers at level 2
@@ -604,23 +604,12 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 
 void SceneMain::InnitVoxels()
 {
-	StopWatch timer;
-	timer.startTimer();
-	Vertex Vertex1;
-	Vertex1.pos.Set(24,59,85);
-	Vertex Vertex2;
-	Vertex2.pos.Set(76,95,31);
-	Vertex Vertex3;
-	Vertex3.pos.Set(75,98,91);
-	for(int index = 0; index < 1000000; ++index)
-	{
-		Polygonn::Polygonn(Vertex1, Vertex2, Vertex3);
-	}
-	const double elapsed = timer.getElapsedTime();
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	{
 		draw->second->GenerateVoxels();
 	}
+	collisionEnvironment.AddVoxels(globals.GetDraw(L"ground"));
+	collisionEnvironment.AddVoxels(globals.GetDraw(L"building"));
 }
 
 void SceneMain::InnitForces()
@@ -675,11 +664,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		//camera.Translate(globals.GetDraw(L"player").transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
+		camera.Translate(globals.GetDraw(L"player").transform.translate - camera.ReturnPosition() + Vector3(0, 10, 0));
 	}
 	else
 	{
-		//camera.Translate(globals.GetDraw(L"player").transform.translate - camera.ReturnPosition() + Vector3(0, 3, 0));
+		camera.Translate(globals.GetDraw(L"player").transform.translate - camera.ReturnPosition() + Vector3(0, 3, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 25;
@@ -695,13 +684,19 @@ void SceneMain::UpdateLight()
 void SceneMain::UpdateDraws()
 {
 	//where forces are applied
-	//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
-	//{
-	//	//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-	//	draw->UpdateVelocity(deltaTime);
-	//	draw->UpdateForcesTo(deltaTime);
-	//}
-
+	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	{
+		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
+		draw->second->UpdateVelocity(deltaTime);
+		draw->second->UpdateForcesTo(deltaTime);
+	}
+	Mtx44 matrix = globals.GetDraw(L"player").GetMatrix();
+	for(std::vector<Voxel>::iterator voxel = globals.GetDraw(L"player").voxels.begin(), end = globals.GetDraw(L"player").voxels.end(); voxel != end; ++voxel)
+	{
+		voxel->ApplyToMatrix(matrix);
+	}
+	collisionEnvironment.SolveCollisionFor(globals.GetDraw(L"player"));
+	
 	//where we do collision
 	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
 	//{
@@ -724,14 +719,15 @@ void SceneMain::UpdateDraws()
 	//		}
 	//	}
 	//}
-	//collisionSystem.CheckThisCollision(&drawOrders[DRAW_GROUND],&drawOrders[DRAW_PLAYER],deltaTime);
+	//collisionSystem.CheckThisCollision(&globals.GetDraw(L"ground"), &globals.GetDraw(L"player"), deltaTime);
+	//collisionSystem.CheckThisCollision(&globals.GetDraw(L"building"), &globals.GetDraw(L"player"), deltaTime);
 	//collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
 
 	//draws are finally updated after processing
-	//for(std::vector<drawOrder>::iterator draw = drawOrders.begin(); draw != drawOrders.end(); draw++)
-	//{
-	//	draw->UpdateTo(deltaTime);
-	//}
+	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	{
+		draw->second->UpdateTo(deltaTime);
+	}
 }
 
 void SceneMain::Render()
@@ -746,12 +742,8 @@ void SceneMain::Render()
 
 	if(drawVoxels)
 	{
-		Material material;
-		drawOrder draw_cube(L"cube");
-		draw_cube.geometry = globals.GetMesh(L"cube");
-		draw_cube.enableLight = true;
-		draw_cube.material = &material;
-		material.SetShininessTo(20);
+		Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+		drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
 		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 		{
 			Mtx44 matrix(draw->second->GetMatrix());

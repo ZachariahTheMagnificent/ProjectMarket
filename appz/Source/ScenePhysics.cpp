@@ -152,7 +152,7 @@ void ScenePhysics::InnitDraws()
 	globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"left lift").mass = 100;
 	
-	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"ground"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"nirvana").kineticFriction = 0.25;
 	
@@ -170,9 +170,9 @@ void ScenePhysics::InnitDraws()
 	globals.GetDraw(L"rock sentinel").transform.translate.Set(-1000,0,0);
 	
 	globals.AddDraw(drawOrder(L"stone sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"stone"), &globals.GetDraw(L"main"), false));
-	globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
+	//globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
 	
-	globals.AddDraw(drawOrder(L"wise sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"metal plate"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"wise sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"plate metal"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"wise sentinel").transform.translate.Set(-1000,0,0);
 	
 	globals.AddDraw(drawOrder(L"sneaky sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), false));
