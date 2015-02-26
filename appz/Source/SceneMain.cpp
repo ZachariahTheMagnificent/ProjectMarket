@@ -68,6 +68,7 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"can1", L"Image//can1.tga");
 	globals.AddTexture(L"can2", L"Image//can2.tga");
 	globals.AddTexture(L"can3", L"Image//can3.tga");
+	globals.AddTexture(L"can4", L"Image//can4.tga");
 	globals.AddTexture(L"cereal1", L"Image//cereal1.tga");
 	globals.AddTexture(L"cereal2", L"Image//cereal2.tga");
 	globals.AddTexture(L"cereal3", L"Image//cereal3.tga");
@@ -95,6 +96,7 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"can1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can1")));
 	globals.AddMaterial(Material(L"can2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can2")));
 	globals.AddMaterial(Material(L"can3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can3")));
+	globals.AddMaterial(Material(L"can4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can4")));
 	globals.AddMaterial(Material(L"cereal1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal1")));
 	globals.AddMaterial(Material(L"cereal2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal2")));
 	globals.AddMaterial(Material(L"cereal3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal3")));
@@ -142,6 +144,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can1", L"OBJ//can1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can2", L"OBJ//can2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can3", L"OBJ//can3.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can4", L"OBJ//can4.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal1", L"OBJ//cereal1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal2", L"OBJ//cereal2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal3", L"OBJ//cereal3.obj"));
@@ -525,9 +528,15 @@ void SceneMain::InnitDraws()
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
-	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+
+	CreateItems(drawOrder(L"packet1_cabinet2_column1_",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
+	CreateItems(drawOrder(L"packet3_cabinet2_column1_",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
+
+	CreateItems(drawOrder(L"can4_cabinet2_column2_",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
+	CreateItems(drawOrder(L"packet2_cabinet2_column2_",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -545,7 +554,7 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 	}
 }
 
-void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
+void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
 {	
 	int item_count = 0;
 
@@ -577,7 +586,8 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 					std::wstring name(item.name);
 					name += item_count;
 					buffer.name = name;
-					buffer.transform.translate = offset; 
+					buffer.transform.translate = offset;
+					buffer.transform.rotate = RotateItem;
 					globals.AddDraw(buffer);
 					offset+= Vector3(0,0,ItemDistanceZ);
 					globals.GetDraw(name).SetParentAs(&globals.GetDraw(parentname));
