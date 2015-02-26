@@ -43,6 +43,9 @@ void SceneMain::Init()
 	
 	//camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	camera.Init(Vector3(0, 20, -100), Vector3(1, 0, 0), Vector3(0, 1, 0));
+	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_Idler_body"), globals.GetDraw(L"shopper_Idler_arm_left"), globals.GetDraw(L"shopper_Idler_arm_right"), globals.GetDraw(L"shopper_Idler_leg_left"), globals.GetDraw(L"shopper_Idler_leg_right"));
+	SILv1.SetPosition(0);
+	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
 	gfx.InitText(L"Image//kitten_bri.tga");
 }
@@ -188,6 +191,55 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
+	//Draw Character
+	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
+
+	
+
+	//Draw Player
+	drawOrder player = globals.GetDraw(L"character body");
+	player.SetNameAs(L"player");
+	player.transform.translate.Set(10,0.1,0);
+	player.SetTerminalVelocityTo(Vector3(60,60,60));
+	player.staticFriction = 0.03;
+	player.mass = 0;
+	globals.AddDraw(player);
+
+	//Draw Shopper Idler at level 1
+	drawOrder ShopperIdlerBody = globals.GetDraw(L"character body");
+	ShopperIdlerBody.SetNameAs(L"shopper_idler_body");
+	ShopperIdlerBody.transform.translate.Set(10,0.1,0);
+	globals.AddDraw(ShopperIdlerBody);
+
+	drawOrder ShopperIdlerArmLeft = globals.GetDraw(L"character arm left");
+	ShopperIdlerArmLeft.SetNameAs(L"shopper_idler_arm_left");
+	ShopperIdlerArmLeft.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerArmLeft.transform.translate.Set(1.25,0.6,0);
+	ShopperIdlerArmLeft.transform.rotate.x = -5;
+	globals.AddDraw(ShopperIdlerArmLeft);
+
+	drawOrder ShopperIdlerArmRight = globals.GetDraw(L"character arm right");
+	ShopperIdlerArmRight.SetNameAs(L"shopper_idler_arm_right");
+	ShopperIdlerArmRight.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerArmRight.transform.translate.Set(1.25,0.6,0);
+	ShopperIdlerArmRight.transform.rotate.x = -5;
+	globals.AddDraw(ShopperIdlerArmRight);
+
+	drawOrder ShopperIdlerLegLeft = globals.GetDraw(L"character leg left");
+	ShopperIdlerLegLeft.SetNameAs(L"shopper_idler_arm_left");
+	ShopperIdlerLegLeft.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerLegLeft.transform.translate.Set(-0.5,-1.5,0);
+	globals.AddDraw(ShopperIdlerLegLeft);
+
+	drawOrder ShopperIdlerLegRight = globals.GetDraw(L"character leg right");
+	ShopperIdlerLegRight.SetNameAs(L"shopper_idler_leg_right");
+	ShopperIdlerLegRight.SetParentAs(&globals.GetDraw(L"shopper_idler_body"));
+	ShopperIdlerLegRight.transform.translate.Set(-0.5,-1.5,0);
+	globals.AddDraw(ShopperIdlerLegRight);
 	//Draw Shopper Wanderers at level 2
 	drawOrder shopperwandererbody(L"shopper_wanderer_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true);
 	Vector3 shopperwandererbodyTranslate(0,3.8,0);

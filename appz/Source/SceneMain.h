@@ -10,6 +10,7 @@
 #include "ContactSolver.h"
 #include "player.h"
 #include "GlobalList.h"
+#include "ShopperIdlerLv1.h"
 #include "ShopperWandererLv2.h"
 #include "WizardLv1.h"
 #include <vector>
@@ -32,6 +33,7 @@ private:
 	Player* player;
 	ShopperWandererLv2 SWLv2[2];
 	WizardLv1 wizard;
+	ShopperIdler SILv1;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
