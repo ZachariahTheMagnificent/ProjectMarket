@@ -144,6 +144,9 @@
     <ClCompile Include="Source\Shopper.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Source\RobotCashier.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -237,6 +240,9 @@
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\ShopperWanderer.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RobotCashier.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
