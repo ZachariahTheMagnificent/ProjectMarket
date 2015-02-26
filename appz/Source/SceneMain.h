@@ -64,7 +64,7 @@ private:
 	void InnitSounds();
 	void InnitMaterials();
 
-	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
+	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
 
 	void UpdateLogic();
 	void UpdateView();

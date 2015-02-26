@@ -87,10 +87,10 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 	{
 		//create the 5 polygons that the voxels will be checked against
 		Polygonn polygon1(*polygon);
-		polygon1.MoveAlongNormalBy(0.5);
+		polygon1.MoveAlongNormalBy(-0.5);
 
 		Polygonn polygon2(polygon->Flipped());
-		polygon2.MoveAlongNormalBy(0.5);
+		polygon2.MoveAlongNormalBy(-0.5);
 
 		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnSecondVertex(), *polygon2.ReturnFirstVertex());
 		Polygonn polygon4(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnFirstVertex());

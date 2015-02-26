@@ -175,6 +175,7 @@ float drawOrder::GetMass() const
 {
 	return mass;
 }
+
 void drawOrder::UpdateForcesTo(const double deltaTime)
 {
 	std::vector<Force>::iterator force = forces.begin();
@@ -191,6 +192,7 @@ void drawOrder::UpdateForcesTo(const double deltaTime)
 		}
 	}
 }
+
 void drawOrder::UpdateVelocity(const double deltaTime)
 {
 	Vector3 acceleration = GetAcceleration();
