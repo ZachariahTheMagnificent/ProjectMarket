@@ -184,23 +184,10 @@ void SceneMain::InnitDraws()
 
 	//Draw Character
 	globals.AddDraw(drawOrder(L"character body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
-	//globals.GetDraw(L"character body").transform.translate.Set(0,3.8,0);
-
 	globals.AddDraw(drawOrder(L"character arm left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character arm left").transform.translate.Set(1.25,0.6,0);
-	//globals.GetDraw(L"character arm left").selfTransform.rotate.x = -5;
-
 	globals.AddDraw(drawOrder(L"character arm right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character arm right").transform.translate.Set(-1.25,0.6,0);
-	//globals.GetDraw(L"character arm right").selfTransform.rotate.x = -5;
-
 	globals.AddDraw(drawOrder(L"character leg left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character leg left").transform.translate.Set(0.5,-1.5,0);
-	//globals.GetDraw(L"character leg left").selfTransform.rotate.x = -2.5;
-
 	globals.AddDraw(drawOrder(L"character leg right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"character body"), true));
-	//globals.GetDraw(L"character leg right").transform.translate.Set(-0.5,-1.5,0);
-	//globals.GetDraw(L"character leg right").selfTransform.rotate.x = 2.5;
 
 	//Draw Player
 	drawOrder player = globals.GetDraw(L"character body");
@@ -222,7 +209,6 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = shopperwandererbodyTranslate;
 		globals.AddDraw(buffer);
-		buffer.SetParentAs(&globals.GetDraw(L"main"));
 	}
 	drawOrder shopperwandererarmleft = globals.GetDraw(L"character arm left");
 	Vector3 shopperwandererarmleftTranslate(1.25,0.6,0);
@@ -239,7 +225,6 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererarmleftTranslate;
 		buffer.transform.rotate.x = shopperwandererarmleftRotateX;
 		globals.AddDraw(buffer);
-		//shopperwandererarmleftTranslate+= Vector3(0,15,0);
 	}
 	drawOrder shopperwandererarmright = globals.GetDraw(L"character arm right");
 	Vector3 shopperwandererarmrightTranslate(-1.25,0.6,0);
@@ -256,7 +241,6 @@ void SceneMain::InnitDraws()
 		buffer.transform.translate = shopperwandererarmrightTranslate;
 		buffer.transform.rotate.x = shopperwandererarmrightRotateX;
 		globals.AddDraw(buffer);
-		//shopperwandererarmrightTranslate+= Vector3(0,15,0);
 	}
 	drawOrder shopperwandererlegleft = globals.GetDraw(L"character leg left");
 	Vector3 shopperwandererlegleftTranslate(0.5,-1.5,0);
@@ -271,7 +255,6 @@ void SceneMain::InnitDraws()
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegleftTranslate;
 		globals.AddDraw(buffer);
-		//shopperwandererlegleftTranslate+= Vector3(0,15,0);
 	}
 	drawOrder shopperwandererlegright = globals.GetDraw(L"character leg right");
 	Vector3 shopperwandererlegrightTranslate(-0.5,-1.5,0);
@@ -286,8 +269,10 @@ void SceneMain::InnitDraws()
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
 		buffer.transform.translate = shopperwandererlegrightTranslate;
 		globals.AddDraw(buffer);
-		//shopperwandererlegrightTranslate+= Vector3(0,15,0);
 	}
+
+	//Hide character
+	globals.GetDraw(L"character body").transform.translate.Set(0,20000,0);
 
 	//Draw Lift
 	drawOrder lift(L"lift",globals.GetMesh(L"lift"), &globals.GetMaterial(L"lift"), &globals.GetDraw(L"main"), true);
@@ -659,6 +644,19 @@ bool SceneMain::Update(const double dt)
 		for(int i = 0; i < 2; ++i)
 		{
 			SWLv2[i].Update(dt);
+		}
+		for(int i = 0; i < 2; ++i)
+		{
+			int j = i + 1;
+			while(true)
+			{
+				if(j == 2)
+					j = 0;
+				if(j == i)
+					break;
+				SWLv2[i].RotateChar(SWLv2[j]);
+				j++;
+			}
 		}
 	}
 	return false;

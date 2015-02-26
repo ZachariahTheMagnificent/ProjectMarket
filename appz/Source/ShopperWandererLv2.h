@@ -45,4 +45,7 @@ public:
 	void Exit();
 	void Reset();
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
+	void RotateChar(ShopperWandererLv2& OtherShopper);
+	Vector3 GetPos();
+	bool IsBlocking(ShopperWandererLv2& OtherShopper, float toTurn);
 };
