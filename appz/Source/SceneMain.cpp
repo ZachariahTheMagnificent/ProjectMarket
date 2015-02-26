@@ -544,9 +544,9 @@ void SceneMain::InnitDraws()
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
-	CreateCans(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0",6,6,1,0.5,-0.4,1.5,6.5);
-	CreateCans(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0",2,3,0.45,1.2,-0.9,1.7,6.5);
-	CreateCans(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0",5,5,1,0.6,-0.5,1.55,6.65);
+	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -564,22 +564,22 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 	}
 }
 
-void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname, int CanPerColumn, int ColumnPerCompartment,float defaultZ, float CanDistanceX,float CanDistanceZ,float BunchOffset, float CabinetOffset)
+void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
 {	
-	int can_count = 0;
+	int item_count = 0;
 
-	for(int i = 0; i < 5; i++) // place in 5 cabinet
+	for(int i = 0; i < NumCabinet; i++) // place in 5 cabinet
 	{
 		if (i>0)
 		{
-			offset.x += CabinetOffset;
+			offset += CabinetOffset;
 		}
 
-		for(int i = 0; i < 2; i++) // 2 bunch for one cabinet
+		for(int i = 0; i < NumBunch; i++) // 2 bunch for one cabinet
 		{	
 			if (i>0)
 			{
-				offset.x += BunchOffset;
+				offset += BunchOffset;
 			}
 
 			for(int i = 0; i < ColumnPerCompartment; ++i) // 6 column for one compartment
@@ -587,18 +587,18 @@ void SceneMain::CreateCans(drawOrder& can, Vector3 offset, std::wstring parentna
 				offset.z = defaultZ;
 				if(i>0)
 				{
-					offset+= Vector3(CanDistanceX,0,0);
+					offset+= Vector3(ItemDistanceX,0,0);
 				}
 
-				for(int i = 0; i < CanPerColumn; ++i) //6 cans in one column
+				for(int i = 0; i < ItemPerColumn; ++i) //6 cans in one column
 				{
-					drawOrder buffer(can);
-					std::wstring name(can.name);
-					name += can_count;
+					drawOrder buffer(item);
+					std::wstring name(item.name);
+					name += item_count;
 					buffer.name = name;
 					buffer.transform.translate = offset; 
 					globals.AddDraw(buffer);
-					offset+= Vector3(0,0,CanDistanceZ);
+					offset+= Vector3(0,0,ItemDistanceZ);
 					globals.GetDraw(name).SetParentAs(&globals.GetDraw(parentname));
 				}
 			}

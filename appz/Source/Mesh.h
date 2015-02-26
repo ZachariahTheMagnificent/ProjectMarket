@@ -28,7 +28,7 @@ public:
 private:
 	const std::wstring name;
 	unsigned m_vertexBuffer;
-	std::vector<Polygon> polygons;
+	std::vector<Polygonn> polygons;
 	int nVerts;
 };
 

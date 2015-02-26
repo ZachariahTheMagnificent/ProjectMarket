@@ -1,11 +1,11 @@
 #pragma once
 #include "Vertex.h"
 
-class Polygon
+class Polygonn
 {
 public:
-	Polygon(const Vertex& initVertex1 = Vertex(), const Vertex& initVertex2 = Vertex(), const Vertex& initVertex3 = Vertex());
-	~Polygon();
+	Polygonn(const Vertex& initVertex1 = Vertex(), const Vertex& initVertex2 = Vertex(), const Vertex& initVertex3 = Vertex());
+	~Polygonn();
 	void Set(const Vertex& initVertex1 = Vertex(), const Vertex& initVertex2 = Vertex(), const Vertex& initVertex3 = Vertex());
 	void CalculateNormal();
 	bool NormalIsFacing(const Vertex& vert) const;
@@ -17,7 +17,7 @@ public:
 	const Vector3& GetNormal() const;
 	static unsigned ReturnNumOfNonVertVariables();
 	void MoveAlongNormalBy(const float displacement);
-	Polygon Flipped();
+	Polygonn Flipped();
 private:
 	Vertex vertex1, vertex2, vertex3;
 	Vector3 normal;

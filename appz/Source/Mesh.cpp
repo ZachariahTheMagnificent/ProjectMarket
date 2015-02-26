@@ -13,7 +13,7 @@ name(meshName)
 	{
 		if(!(vert1->pos - vert2->pos).Cross(vert3->pos - vert2->pos).IsZero())
 		{
-			polygons.push_back(Polygon(*vert1, *vert2, *vert3));
+			polygons.push_back(Polygonn(*vert1, *vert2, *vert3));
 		}
 	}
 	glGenBuffers(1, &m_vertexBuffer);
@@ -45,7 +45,7 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 
 	//loop through all our vertices
 	int index = 0;
-	for(std::vector<Polygon>::iterator polygon = polygons.begin(), end = polygons.end(); polygon != end; ++polygon)
+	for(std::vector<Polygonn>::iterator polygon = polygons.begin(), end = polygons.end(); polygon != end; ++polygon)
 	{
 		Vertex const* vert = polygon->ReturnLastVertex();
 		for(Vertex const* vertex = polygon->ReturnFirstVertex(); vertex != vert; ++vertex)
@@ -83,18 +83,18 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 	VoxelGrid.resize(lengthX * lengthY * lengthZ);
 	Vector3 voxelDisplacement(0 - furthestLeft, 0 - furthestDown, 0 - furthestBack);
 	int areaXY = lengthX * lengthY;
-	for(std::vector<Polygon>::iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
+	for(std::vector<Polygonn>::iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
 	{
 		//create the 5 polygons that the voxels will be checked against
-		Polygon polygon1(*polygon);
+		Polygonn polygon1(*polygon);
 		polygon1.MoveAlongNormalBy(0.5);
 
-		Polygon polygon2(polygon->Flipped());
+		Polygonn polygon2(polygon->Flipped());
 		polygon2.MoveAlongNormalBy(0.5);
 
-		Polygon polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnSecondVertex(), *polygon2.ReturnFirstVertex());
-		Polygon polygon4(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnFirstVertex());
-		Polygon polygon5(*polygon1.ReturnSecondVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
+		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnSecondVertex(), *polygon2.ReturnFirstVertex());
+		Polygonn polygon4(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnFirstVertex());
+		Polygonn polygon5(*polygon1.ReturnSecondVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
 		float furthestLeft, furthestRight, furthestDown, furthestUp, furthestBack, furthestFront;
 
 		polygon->GetBounds(&furthestLeft, &furthestRight, &furthestDown, &furthestUp, &furthestBack, &furthestFront);

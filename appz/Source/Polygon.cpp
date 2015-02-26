@@ -1,11 +1,11 @@
 #include "Polygon.h"
 
-Polygon::Polygon(const Vertex& initVertex1, const Vertex& initVertex2, const Vertex& initVertex3)
+Polygonn::Polygonn(const Vertex& initVertex1, const Vertex& initVertex2, const Vertex& initVertex3)
 {
 	Set(initVertex1, initVertex2, initVertex3);
 }
 
-Polygon::~Polygon()
+Polygonn::~Polygonn()
 {
 }
 
@@ -16,7 +16,7 @@ static unsigned ReturnNumOfNonVertVariables()
 	static const unsigned numofnonvertvariables = numofvariables - numofvertices;
 }
 
-void Polygon::Set(const Vertex& initVertex1, const Vertex& initVertex2, const Vertex& initVertex3)
+void Polygonn::Set(const Vertex& initVertex1, const Vertex& initVertex2, const Vertex& initVertex3)
 {
 	vertex1 = initVertex1;
 	vertex2 = initVertex2;
@@ -24,7 +24,7 @@ void Polygon::Set(const Vertex& initVertex1, const Vertex& initVertex2, const Ve
 	CalculateNormal();
 }
 
-bool Polygon::NormalIsFacing(const Vertex& vert) const
+bool Polygonn::NormalIsFacing(const Vertex& vert) const
 {
 	//Vector3 testVec = vert.pos - vertex1.pos;
 	//float angle = cosh(testVec.Dot(normal)/(testVec.Length() * normal.Length()));
@@ -41,7 +41,7 @@ bool Polygon::NormalIsFacing(const Vertex& vert) const
 	return true;
 }
 
-bool Polygon::OppositeNormalIsFacing(const Vertex& vert)
+bool Polygonn::OppositeNormalIsFacing(const Vertex& vert)
 {
 	normal = -normal;
 	bool check = NormalIsFacing(vert);
@@ -49,29 +49,29 @@ bool Polygon::OppositeNormalIsFacing(const Vertex& vert)
 	return check;
 }
 
-void Polygon::CalculateNormal()
+void Polygonn::CalculateNormal()
 {
 	Vector3 edge1(vertex1.pos - vertex2.pos);
 	Vector3 edge2(vertex3.pos - vertex2.pos);
 	normal = edge1.Cross(edge2).Normalized();
 }
 
-Vertex const* Polygon::ReturnFirstVertex() const
+Vertex const* Polygonn::ReturnFirstVertex() const
 {
 	return &vertex1;
 }
 
-Vertex const* Polygon::ReturnSecondVertex() const
+Vertex const* Polygonn::ReturnSecondVertex() const
 {
 	return &vertex2;
 }
 
-Vertex const* Polygon::ReturnLastVertex() const
+Vertex const* Polygonn::ReturnLastVertex() const
 {
 	return &vertex3;
 }
 
-void Polygon::GetBounds(float*const returnFurthestLeft, float*const returnFurthestRight, float*const returnFurthestDown, float*const returnFurthestUp, float*const returnFurthestBack, float*const returnFurthestFront)
+void Polygonn::GetBounds(float*const returnFurthestLeft, float*const returnFurthestRight, float*const returnFurthestDown, float*const returnFurthestUp, float*const returnFurthestBack, float*const returnFurthestFront)
 {
 	//range for x
 	if(vertex1.pos.x <= vertex2.pos.x && vertex1.pos.x <= vertex3.pos.x)
@@ -155,12 +155,12 @@ void Polygon::GetBounds(float*const returnFurthestLeft, float*const returnFurthe
 	}
 }
 
-const Vector3& Polygon::GetNormal() const
+const Vector3& Polygonn::GetNormal() const
 {
 	return normal;
 }
 
-void Polygon::MoveAlongNormalBy(const float displacement)
+void Polygonn::MoveAlongNormalBy(const float displacement)
 {
 	Vector3 vectorDisplacement = normal * displacement;
 
@@ -169,7 +169,7 @@ void Polygon::MoveAlongNormalBy(const float displacement)
 	vertex3.pos += vectorDisplacement;
 }
 
-Polygon Polygon::Flipped()
+Polygonn Polygonn::Flipped()
 {
-	return Polygon(vertex1, vertex3, vertex2);
+	return Polygonn(vertex1, vertex3, vertex2);
 }

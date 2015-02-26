@@ -18,8 +18,6 @@ class SceneMain : public Scene
 public:
 	SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
 	~SceneMain(void);
-
-	void CreateCans(drawOrder& can, Vector3 offset, std::wstring parentname, int CanPerColumn, int ColumnPerCompartment,float defaultZ, float CanDistanceX,float CanDistanceZ,float BunchOffset, float CabinetOffset);
 	
 	virtual void Init();
 	virtual bool Update(const double dt);
@@ -62,6 +60,8 @@ private:
 	void InnitLogic();
 	void InnitSounds();
 	void InnitMaterials();
+
+	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
 
 	void UpdateLogic();
 	void UpdateView();
