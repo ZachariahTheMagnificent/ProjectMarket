@@ -13,6 +13,7 @@
 #include "ShopperIdlerLv1.h"
 #include "ShopperWandererLv2.h"
 #include "WizardLv2.h"
+#include "ShopperPayerLv1.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -34,6 +35,7 @@ private:
 	ShopperWandererLv2 SWLv2[2];
 	WizardLv2 wizard;
 	ShopperIdler SILv1;
+	ShopperPayerLv1 SPLv1;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
