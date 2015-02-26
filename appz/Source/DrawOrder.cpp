@@ -20,6 +20,17 @@ kineticFriction(kineticFriction)
 
 drawOrder::~drawOrder()
 {
+	if(parent)
+	{
+		for(std::vector<drawOrder*>::iterator child = parent->children.begin(); child != parent->children.end(); ++child)
+		{
+			if(*child == this)
+			{
+				parent->children.erase(child);
+				break;
+			}
+		}
+	}
 }
 
 void drawOrder::Copy(drawOrder& original)
@@ -103,7 +114,18 @@ Mtx44 drawOrder::GetModelTransform() const
  
 Mtx44 drawOrder::GetMatrix() const
 {
-	return parent->GetModelTransform() * parent->GetRotationMatrix() * transform.Matrix() * selfTransform.Matrix();
+	Mtx44 parentModel, parentRotation;
+	if(parent)
+	{
+		parentModel = parent->GetModelTransform();
+		parentRotation = parent->GetRotationMatrix();
+	}
+	else
+	{
+		parentModel.SetToIdentity();
+		parentRotation.SetToIdentity();
+	}
+	return parentModel * parentRotation * transform.Matrix() * selfTransform.Matrix();
 }
 
 void drawOrder::CapVelocityToTerminal()

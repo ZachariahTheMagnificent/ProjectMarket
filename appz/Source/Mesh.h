@@ -3,11 +3,10 @@
 
 #include <string>
 #include <vector>
-#include "Vertex.h"
 #include "Mtx44.h"
 #include "GL\glew.h"
-#include "Material.h"
 #include "Voxel.h"
+#include "Polygon.h"
 
 /******************************************************************************/
 /*!
@@ -29,8 +28,7 @@ public:
 private:
 	const std::wstring name;
 	unsigned m_vertexBuffer;
-	std::vector<Vertex> vertices;
-	Material material;
+	std::vector<Polygonn> polygons;
 	int nVerts;
 };
 

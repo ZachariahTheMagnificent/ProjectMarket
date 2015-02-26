@@ -4,6 +4,7 @@
 #include "Custom Functions.h"
 #include "Voxel.h"
 #include "Force.h"
+#include "Material.h"
 
 class Graphics;
 

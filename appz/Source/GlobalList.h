@@ -16,12 +16,14 @@ public:
 	Material& GetMaterial(const std::wstring materialName);
 	unsigned GetTexture(const std::wstring textureName) const;
 	std::map<std::wstring, Mesh*>& GetMeshList();
-	std::map<std::wstring, drawOrder>& GetDrawList();
-	std::map<std::wstring, Material>& GetMaterialList();
+	std::map<std::wstring, drawOrder*>& GetDrawList();
+	std::map<std::wstring, Material*>& GetMaterialList();
 	std::map<std::wstring, unsigned>& GetTextureList();
 private:
+	std::vector<drawOrder> draws;
+	std::vector<Material> materials; 
 	std::map<std::wstring, Mesh*> meshList;
-	std::map<std::wstring, drawOrder> drawList;
-	std::map<std::wstring, Material> materialList;
+	std::map<std::wstring, drawOrder*> drawList;
+	std::map<std::wstring, Material*> materialList;
 	std::map<std::wstring, unsigned> textureList;
 };

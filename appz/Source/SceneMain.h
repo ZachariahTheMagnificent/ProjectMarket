@@ -10,7 +10,7 @@
 #include "ContactSolver.h"
 #include "player.h"
 #include "GlobalList.h"
-#include "ShopperWanderer.h"
+#include "ShopperWandererLv2.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -18,21 +18,23 @@ class SceneMain : public Scene
 public:
 	SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx);
 	~SceneMain(void);
-
+	
 	virtual void Init();
 	virtual bool Update(const double dt);
 	virtual void Render();
 	virtual void Exit();
 private:
+
 	GlobalList globals;
 	Light light[1];
 	Camera camera;
 	Player* player;
-	ShopperWanderer SW1;
+	ShopperWandererLv2 SWLv2[2];
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
 	bool isFrog;
+	bool UpdateLv2;
 
 	//print fps
 	double deltaTime;
@@ -49,6 +51,7 @@ private:
 	//functions
 	void DoUserInput();
 
+	void InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment);
 	void InnitTextures();
 	void InnitLight();
 	void InnitGeometry();
@@ -58,6 +61,8 @@ private:
 	void InnitLogic();
 	void InnitSounds();
 	void InnitMaterials();
+
+	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
 
 	void UpdateLogic();
 	void UpdateView();

@@ -46,29 +46,26 @@
     <Filter Include="Source Files\Rendering">
       <UniqueIdentifier>{183602f1-059f-4f87-8c43-d5176feb5b01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\IO files">
-      <UniqueIdentifier>{b753a05c-30df-4427-afdc-731503033265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\IO files">
-      <UniqueIdentifier>{a9aec842-7d0a-4380-a89e-b4907da4a1e4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Characters">
       <UniqueIdentifier>{ea96f3f0-6bab-4894-85bf-f4249d98607b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Characters">
       <UniqueIdentifier>{219f3ce8-9707-4f13-b478-821a05574910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{48d26551-4ac9-4114-b85b-9ce0591145f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{e7334c94-1d2f-468a-8648-e9d22a7ae9f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Container">
+      <UniqueIdentifier>{bf26d489-e20b-4cc0-a400-1ef97c3ac4f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Container">
+      <UniqueIdentifier>{29cdbdb3-95e9-4da1-b8da-e56c166cf240}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Force.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
@@ -96,15 +93,6 @@
     <ClCompile Include="Source\Voxel.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Directory.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadTGA.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadOBJ.cpp">
-      <Filter>Source Files\IO files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ScenePhysics.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -129,19 +117,40 @@
     <ClCompile Include="Source\PlayerHuman.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Source\VoxelOctree.cpp">
-      <Filter>Source Files\physics</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GlobalList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ShopperWanderer.cpp">
+    <ClCompile Include="Source\Shopper.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shopper.cpp">
+    <ClCompile Include="Source\Polygon.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GlobalList.cpp">
+      <Filter>Source Files\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\VoxelOctree.cpp">
+      <Filter>Source Files\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Directory.cpp">
+      <Filter>Source Files\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShopperWandererLv2.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Source\RobotCashier.cpp">
@@ -152,12 +161,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Contacts.h">
       <Filter>Header Files\physics</Filter>
     </ClInclude>
@@ -194,15 +197,6 @@
     <ClInclude Include="Source\Voxel.h">
       <Filter>Header Files\physics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LoadOBJ.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadTGA.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Directory.h">
-      <Filter>Header Files\IO files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ScenePhysics.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -227,22 +221,40 @@
     <ClInclude Include="Source\PlayerHuman.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Source\VoxelOctree.h">
-      <Filter>Header Files\physics</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SceneMainMenu.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GlobalList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Shopper.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ShopperWanderer.h">
+    <ClInclude Include="Source\Polygon.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GlobalList.h">
+      <Filter>Header Files\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\VoxelOctree.h">
+      <Filter>Header Files\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Directory.h">
+      <Filter>Header Files\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadOBJ.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadTGA.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ShopperWandererLv2.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\RobotCashier.h">

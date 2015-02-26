@@ -32,6 +32,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayerFrog.cpp" />
     <ClCompile Include="Source\PlayerHuman.cpp" />
+    <ClCompile Include="Source\Polygon.cpp" />
     <ClCompile Include="Source\SceneMain.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\ScenePhysics.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="Source\Shopper.cpp" />
     <ClCompile Include="Source\ShopperIdler.cpp" />
     <ClCompile Include="Source\ShopperWanderer.cpp" />
+    <ClCompile Include="Source\ShopperWandererLv2.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
     <ClCompile Include="Source\VoxelOctree.cpp" />
   </ItemGroup>
@@ -65,6 +67,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PlayerFrog.h" />
     <ClInclude Include="Source\PlayerHuman.h" />
+    <ClInclude Include="Source\Polygon.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMain.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
@@ -73,6 +76,7 @@
     <ClInclude Include="Source\Shopper.h" />
     <ClInclude Include="Source\ShopperIdler.h" />
     <ClInclude Include="Source\ShopperWanderer.h" />
+    <ClInclude Include="Source\ShopperWandererLv2.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Voxel.h" />
     <ClInclude Include="Source\VoxelOctree.h" />
