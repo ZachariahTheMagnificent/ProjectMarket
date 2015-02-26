@@ -18,7 +18,7 @@ ShopperWandererLv2::ShopperWandererLv2(void)
 			++pointNo;
 		}
 	}
-	idling = true;
+	idling = false;
 	walking = true;
 	timeIdling = 0;
 	timeWalking = 0;
@@ -40,6 +40,16 @@ void ShopperWandererLv2::Render()
 void ShopperWandererLv2::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
+	if(No == 0 || No == 5)
+	{
+		characterBody->transform.rotate.y = 180;
+	}
+	else
+	{
+		characterBody->transform.rotate.y = 0;
+	}
+	defaultPoint = points[No];
+	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
 }
 
 void ShopperWandererLv2::Update(const double dt)
@@ -169,6 +179,25 @@ void ShopperWandererLv2::Update(const double dt)
 
 void ShopperWandererLv2::Exit()
 {
+}
+
+void ShopperWandererLv2::Reset()
+{
+	characterBody->transform.translate = defaultPoint;
+	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
+	idling = false;
+	walking = true;
+	timeIdling = 0;
+	timeWalking = 0;
+	distanceMovedInOneDir = 0;
+	distanceSpeed = 0.2;
+	charBodyAngleRotate = 0;
+	characterLeftArm->selfTransform.rotate.x = -5;
+	characterRightArm->selfTransform.rotate.x = -5;
+	charArmRotate = 30;
+	characterLeftLeg->selfTransform.rotate.x = -2.5;
+	characterRightLeg->selfTransform.rotate.x = -2.5;
+	leftArmRotateUp = true;
 }
 
 void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

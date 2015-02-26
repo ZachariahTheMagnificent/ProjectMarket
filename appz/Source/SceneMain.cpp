@@ -34,10 +34,11 @@ void SceneMain::Init()
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
+	UpdateLv2 = true;
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
-	SWLv2[1].SetPosition(1);
+	SWLv2[1].SetPosition(0);
 
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
@@ -221,7 +222,6 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = shopperwandererbodyTranslate;
 		globals.AddDraw(buffer);
-		shopperwandererbodyTranslate+= Vector3(0,15,0);
 		buffer.SetParentAs(&globals.GetDraw(L"main"));
 	}
 	drawOrder shopperwandererarmleft = globals.GetDraw(L"character arm left");
@@ -658,9 +658,12 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
-	for(int i = 0; i < 2; ++i)
+	if(UpdateLv2 == true)
 	{
-		SWLv2[i].Update(dt);
+		for(int i = 0; i < 2; ++i)
+		{
+			SWLv2[i].Update(dt);
+		}
 	}
 	return false;
 }
@@ -822,6 +825,18 @@ void SceneMain::DoUserInput()
 			player = new PlayerHuman;
 			isFrog = false;
 		}
+	}
+	if (keyboard.isKeyPressed('Y'))
+	{
+		for(int i = 0; i < 2; ++i)
+		{
+			SWLv2[i].Reset();
+		}
+		UpdateLv2 = false;
+	}
+	if (keyboard.isKeyPressed('U'))
+	{
+		UpdateLv2 = true;
 	}
 	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
 	{

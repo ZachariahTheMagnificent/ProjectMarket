@@ -34,6 +34,7 @@ private:
 	bool isFalling;
 	double jumpedHeight;
 	bool isFrog;
+	bool UpdateLv2;
 
 	//print fps
 	double deltaTime;

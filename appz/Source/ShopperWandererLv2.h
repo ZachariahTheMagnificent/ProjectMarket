@@ -24,10 +24,17 @@ private:
 	bool leftArmRotateUp;
 	//Vector3 to store position checkpoint
 	Vector3 points[10];
+	//Walking state
 	bool walking;
-	bool idling;
-	float timeIdling;
+	//Time spent walking
 	float timeWalking;
+	//Idling state
+	bool idling;
+	//Time spent idling
+	float timeIdling;
+	//Default position
+	Vector3 defaultPoint;
+	float defaultCharBodyAngleRotate;
 public:
 	ShopperWandererLv2(void);
 	~ShopperWandererLv2(void);
@@ -37,5 +44,6 @@ public:
 	void SetPosition(int No);
 	void Update(const double dt);
 	void Exit();
+	void Reset();
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 };
