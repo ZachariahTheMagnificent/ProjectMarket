@@ -5,8 +5,8 @@ ShopperPayerLv1::ShopperPayerLv1(void)
 {
 	distanceNeedToMoveInOneDir = 0;
 	charBodyAngleRotate = 0;
-	charArmRotate = 30;
-	leftArmRotateUp = true;
+	charLegRotate = 15;
+	rightLegRotateUp = true;
 	points[0] = Vector3(-17.5,5,-10);// Behind inner entrance door, inside entrance room
 	points[1] = Vector3(-17.5,5,-51);// Position to rotate toward the two cabinets
 	points[2] = Vector3(-7.5,5,-51);// Between two cabinets
@@ -15,6 +15,7 @@ ShopperPayerLv1::ShopperPayerLv1(void)
 	points[5] = Vector3(-11.5,5,-95);// Position to rotate toward exit door
 	points[6] = Vector3(-11.5,5,-110);// Behind outer exit door, outside
 	targetPosNo = 1;
+	defaultTookItems = false;
 	targetPosition = points[targetPosNo];
 	tookItems = false;
 	walkingForward = true;
@@ -35,10 +36,17 @@ void ShopperPayerLv1::Render()
 
 void ShopperPayerLv1::SetPosition(int No)
 {
+	if(No == 9)
+		No = 0;
 	characterBody->transform.translate = points[No];
 	CheckDisAndTargetPos(No);
 	defaultPoint = points[No];
 	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
+	if(No >= 2)
+	{
+		takenItems();
+		defaultTookItems = true;
+	}
 }
 
 void ShopperPayerLv1::Update(const double dt)
@@ -50,33 +58,39 @@ void ShopperPayerLv1::Update(const double dt)
 		else
 			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, -dt * 2);
 		distanceNeedToMoveInOneDir -= dt * 2;
-		if(charArmRotate > 60)
-			leftArmRotateUp = false;
-		else if(charArmRotate < 0)
-			leftArmRotateUp = true;
-		if(leftArmRotateUp == true)
+		if(charLegRotate > 30)
+			rightLegRotateUp = false;
+		else if(charLegRotate < 0)
+			rightLegRotateUp = true;
+		if(rightLegRotateUp == true)
 		{
-			characterLeftArm->selfTransform.rotate.x -= dt * 80;
-			characterRightArm->selfTransform.rotate.x += dt * 80;
-			charArmRotate += dt * 80;
 			characterLeftLeg->selfTransform.rotate.x += dt * 40;
 			characterRightLeg->selfTransform.rotate.x -= dt * 40;
+			charLegRotate += dt * 40;
 		}
 		else
 		{
-			characterLeftArm->selfTransform.rotate.x += dt * 80;
-			characterRightArm->selfTransform.rotate.x -= dt * 80;
-			charArmRotate -= dt * 80;
 			characterLeftLeg->selfTransform.rotate.x -= dt * 40;
 			characterRightLeg->selfTransform.rotate.x += dt * 40;
+			charLegRotate -= dt * 40;
 		}
 	}
 	else
 	{
-		if(targetPosNo == 0)
-			SetPosition(0);
+		if(targetPosNo == 2 && tookItems == false)
+		{
+			takenItems();
+		}
 		else
-			CheckDisAndTargetPos(targetPosNo);
+		{
+			if(targetPosNo == 0)
+			{
+				SetPosition(0);
+				returnItems();
+			}
+			else
+				CheckDisAndTargetPos(targetPosNo);
+		}
 	}
 	//if(idling == true)
 	//{
@@ -149,12 +163,14 @@ void ShopperPayerLv1::Reset()
 	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
 	distanceNeedToMoveInOneDir = 0;
 	charBodyAngleRotate = 0;
-	characterLeftArm->selfTransform.rotate.x = -5;
-	characterRightArm->selfTransform.rotate.x = -5;
-	charArmRotate = 30;
+	charLegRotate = 15;
 	characterLeftLeg->selfTransform.rotate.x = 0;
 	characterRightLeg->selfTransform.rotate.x = 0;
-	leftArmRotateUp = true;
+	rightLegRotateUp = true;
+	if(defaultTookItems == true)
+	{
+		takenItems();
+	}
 }
 
 void ShopperPayerLv1::CheckDisAndTargetPos(int No)
@@ -207,13 +223,28 @@ void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 	}
 }
 
-void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
+void ShopperPayerLv1::takenItems()
+{
+	items->SetParentAs(characterBody);
+	items->transform.translate = Vector3(0, -1.2, 4);
+	tookItems = true;
+}
+
+void ShopperPayerLv1::returnItems()
+{
+	items->SetParentAs(main);
+	items->transform.translate = Vector3(-3.5,2,-42);
+	tookItems = false;
+}
+
+
+void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempMain)
 {
 	characterBody = &TempCharacterBody;
-	characterLeftArm = &TempCharacterLeftArm;
-	characterRightArm = &TempCharacterRightArm;
 	characterLeftLeg = &TempCharacterLeftLeg;
 	characterRightLeg  = &TempCharacterRightLeg;
+	items = &TempItems;
+	main = &TempMain;
 }
 
 void ShopperPayerLv1::RotateChar(ShopperPayerLv1& OtherShopper)

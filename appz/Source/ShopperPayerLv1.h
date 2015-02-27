@@ -9,18 +9,18 @@ class ShopperPayerLv1 :
 private:
 	//drawOrder Pointer to character body, arms and legs
 	drawOrder* characterBody;
-	drawOrder* characterLeftArm;
-	drawOrder* characterRightArm;
 	drawOrder* characterLeftLeg;
 	drawOrder* characterRightLeg;
+	drawOrder* items;
+	drawOrder* main;
 	//viariables to store distance need to move in one direction
 	float distanceNeedToMoveInOneDir;
 	//viariables to store rotation of character body
 	float charBodyAngleRotate;
-	//viariables to store rotation of character arm
-	float charArmRotate;
-	//viariables to check whether the character left arm is rotating upward
-	bool leftArmRotateUp;
+	//viariables to store rotation of character legs
+	float charLegRotate;
+	//viariables to check whether the character right leg is rotating upward
+	bool rightLegRotateUp;
 	//Vector3 to store position checkpoint
 	Vector3 points[7];
 	//Vector3 to store position to go
@@ -36,6 +36,7 @@ private:
 	//Default position
 	Vector3 defaultPoint;
 	float defaultCharBodyAngleRotate;
+	bool defaultTookItems;
 public:
 	ShopperPayerLv1(void);
 	~ShopperPayerLv1(void);
@@ -47,7 +48,9 @@ public:
 	void Exit();
 	void Reset();
 	void CheckDisAndTargetPos(int No);
-	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
+	void takenItems();
+	void returnItems();
+	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempMain);
 	void RotateChar(ShopperPayerLv1& OtherShopper);
 	Vector3 GetPos();
 	bool IsBlocking(ShopperPayerLv1& OtherShopper, float toTurn);
