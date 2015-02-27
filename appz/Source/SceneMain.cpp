@@ -41,8 +41,8 @@ void SceneMain::Init()
 	SWLv2[0].SetPosition(9);
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
 	SWLv2[1].SetPosition(0);
-	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body0"), globals.GetDraw(L"shopper_payer_leg_left0"), globals.GetDraw(L"shopper_payer_leg_right0"), globals.GetDraw(L"shopper_payer_items0"), globals.GetDraw(L"lv1cabinet3_column1_0"));
-	SPLv1.SetPosition(9);
+	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body0"), globals.GetDraw(L"shopper_payer_leg_left0"), globals.GetDraw(L"shopper_payer_leg_right0"), globals.GetDraw(L"shopper_payer_items0"), globals.GetDraw(L"lv1cabinet3_column1_0"), globals.GetDraw(L"cashiertable1"));
+	SPLv1.SetPosition(0);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
@@ -596,7 +596,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"shopper_payer_trolley0").transform.translate.Set(0,-3.5,4.25);
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
 	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
-	globals.GetDraw(L"shopper_payer_items0").transform.translate.Set(-3,3.9,-4.5);
+	globals.GetDraw(L"shopper_payer_items0").transform.translate.Set(0,1.5,0);
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -739,11 +739,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
+		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
 	}
 	else
 	{
-		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
+		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;

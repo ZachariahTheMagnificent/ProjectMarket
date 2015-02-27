@@ -13,6 +13,7 @@ private:
 	drawOrder* characterRightLeg;
 	drawOrder* item1;
 	drawOrder* cabinet;
+	drawOrder* cashierTable;
 	//viariables to store distance need to move in one direction
 	float distanceNeedToMoveInOneDir;
 	//viariables to store rotation of character body
@@ -29,14 +30,23 @@ private:
 	int targetPosNo;
 	//bool to check whether if character took item
 	bool tookItems;
+	//bool to check whether if character paid
+	bool paid;
+	//viariable to store distance tthe item to get paid
+	float payingdistance;
 	//bool to check moving forward
 	bool walkingForward;
-	//Walking state
-	bool walking;
 	//Default position
-	Vector3 defaultPoint;
-	float defaultCharBodyAngleRotate;
-	bool defaultTookItems;
+	int defaultPoint;
+
+	enum state
+	{
+		WALKING,
+		TAKING,
+		PAYING,
+	};
+	state currentState;
+
 public:
 	ShopperPayerLv1(void);
 	~ShopperPayerLv1(void);
@@ -48,10 +58,9 @@ public:
 	void Exit();
 	void Reset();
 	void CheckDisAndTargetPos(int No);
-	void takenItems();
+	void takingItems();
 	void returnItems();
-	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempCabinet);
-	void RotateChar(ShopperPayerLv1& OtherShopper);
-	Vector3 GetPos();
-	bool IsBlocking(ShopperPayerLv1& OtherShopper, float toTurn);
+	void paying(const double dt);
+	void putItemOntable();
+	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempCabinet, drawOrder& TempCashierTable);
 };
