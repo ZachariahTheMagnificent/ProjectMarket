@@ -14,11 +14,19 @@ public:
 	DoorInteraction(void);
 	~DoorInteraction(void);
 
-	void DrawIsEqualTo(drawOrder& OuterDoor1Left, drawOrder& OuterDoor1Right, drawOrder& OuterDoor2Left, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
-	void InteractWithDoors(void);
+	void DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right);
+	void CheckWithinRange(Vector3 TempPosition);
+	void InteractWithDoors(const double dt, const Vector3& PlayerPos);
 
 private:
 	
+	bool OuterDoor1isOpen;
+	bool OuterDoor2isOpen;
+	bool InnerDoor1isOpen;
+	bool InnerDoor2isOpen;
+	bool LiftDoor1isOpen;
+	bool LiftDoor2isOpen;
+
 	//drawOrder Pointer to doors
 	drawOrder* OuterDoor1Left;
 	drawOrder* OuterDoor1Right;
@@ -27,8 +35,8 @@ private:
 	drawOrder* InnerDoor1;
 	drawOrder* InnerDoor2;
 	drawOrder* LiftDoor1Left;
-	drawOrder* InnerDoor1Right;
+	drawOrder* LiftDoor1Right;
 	drawOrder* LiftDoor2Left;
-	drawOrder* InnerDoor2Right;
+	drawOrder* LiftDoor2Right;
 
 };
