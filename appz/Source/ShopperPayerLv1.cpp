@@ -225,26 +225,26 @@ void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 
 void ShopperPayerLv1::takenItems()
 {
-	items->SetParentAs(characterBody);
-	items->transform.translate = Vector3(0, -1.2, 4);
+	item1->SetParentAs(characterBody);
+	item1->transform.translate = Vector3(0, -1.2, 4);
 	tookItems = true;
 }
 
 void ShopperPayerLv1::returnItems()
 {
-	items->SetParentAs(main);
-	items->transform.translate = Vector3(-3.5,2,-42);
+	item1->SetParentAs(cabinet);
+	item1->transform.translate = Vector3(-3,3.9,-4.5);
 	tookItems = false;
 }
 
 
-void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempMain)
+void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet)
 {
 	characterBody = &TempCharacterBody;
 	characterLeftLeg = &TempCharacterLeftLeg;
 	characterRightLeg  = &TempCharacterRightLeg;
-	items = &TempItems;
-	main = &TempMain;
+	item1 = &TempItem1;
+	cabinet = &TempCabinet;
 }
 
 void ShopperPayerLv1::RotateChar(ShopperPayerLv1& OtherShopper)

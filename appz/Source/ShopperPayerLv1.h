@@ -11,8 +11,8 @@ private:
 	drawOrder* characterBody;
 	drawOrder* characterLeftLeg;
 	drawOrder* characterRightLeg;
-	drawOrder* items;
-	drawOrder* main;
+	drawOrder* item1;
+	drawOrder* cabinet;
 	//viariables to store distance need to move in one direction
 	float distanceNeedToMoveInOneDir;
 	//viariables to store rotation of character body
@@ -50,7 +50,7 @@ public:
 	void CheckDisAndTargetPos(int No);
 	void takenItems();
 	void returnItems();
-	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempMain);
+	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItems, drawOrder& TempCabinet);
 	void RotateChar(ShopperPayerLv1& OtherShopper);
 	Vector3 GetPos();
 	bool IsBlocking(ShopperPayerLv1& OtherShopper, float toTurn);
