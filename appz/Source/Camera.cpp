@@ -64,7 +64,7 @@ Rotation Camera::GetRotation() const
 
 void Camera::Rotate(const Rotation rotate)
 {
-	static const float Z_LookLimit = 89.9;
+	static const float Z_LookLimit = 70;
 	transform.rotate += rotate;
 	if(transform.rotate.z > Z_LookLimit)
 	{

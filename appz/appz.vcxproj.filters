@@ -102,9 +102,6 @@
     <ClCompile Include="Source\DrawOrder.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneMain.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Character.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
@@ -167,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="Source\VoxelLeaf.cpp">
       <Filter>Source Files\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMain.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

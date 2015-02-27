@@ -207,8 +207,9 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_arm_right").selfTransform.rotate.y = -10;
 	globals.GetDraw(L"player_body").selfTransform.rotate.y = 90;
 	globals.GetDraw(L"player_body").transform.translate.Set(10,4,0);
-	globals.GetDraw(L"player_body").SetTerminalVelocityTo(Vector3(60,60,60));
+	globals.GetDraw(L"player_body").SetTerminalVelocityTo(Vector3(500,500,500));
 	globals.GetDraw(L"player_body").staticFriction = 0.1;
+	globals.GetDraw(L"player_body").kineticFriction = 0;
 	globals.GetDraw(L"player_body").mass = 1;
 
 	//Draw Shopper Idler at level 1
@@ -736,7 +737,7 @@ void SceneMain::UpdateView()
 		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
-	float player_current_frame_rotationY = player_rotationY / 25;
+	float player_current_frame_rotationY = player_rotationY / 1.5;
 	globals.GetDraw(L"player_body").transform.rotate.y += player_current_frame_rotationY;
 	gfx.SetViewAt(camera);
 }
@@ -1001,6 +1002,7 @@ void SceneMain::DoUserInput()
 			jumpedHeight = 0;
 		}
 	}
+	playerAcceleration = playerAcceleration * 2;
 	playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
