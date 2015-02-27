@@ -564,21 +564,7 @@ void SceneMain::InnitDraws()
 	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
-	CreateItems(drawOrder(L"can1_cabinet1_",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can2_cabinet1_",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
-	CreateItems(drawOrder(L"can3_cabinet1_",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
 
-	CreateItems(drawOrder(L"packet1_cabinet2_column1_",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
-	CreateItems(drawOrder(L"packet3_cabinet2_column1_",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
-
-	CreateItems(drawOrder(L"can4_cabinet2_column2_",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
-	CreateItems(drawOrder(L"packet2_cabinet2_column2_",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
-
-	CreateItems(drawOrder(L"cereal1_cabinet3_",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-	CreateItems(drawOrder(L"cereal2_cabinet3_",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
-
-	CreateItems(drawOrder(L"cereal3_cabinet3_",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-	CreateItems(drawOrder(L"cereal4_cabinet3_",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	
 	//Draw ShopperPayer
 	globals.AddDraw(drawOrder(L"shopper_payer_body0",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -597,6 +583,30 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
 	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
 	globals.GetDraw(L"shopper_payer_items0").transform.translate.Set(-3,3.9,-4.5);
+
+	//CAN_1: 36 a bunch. 360cans total
+	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+	//CAN_2: 6 a bunch. 60cans total 
+	CreateItems(drawOrder(L"can2_cabinet1_%d",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
+	//CAN_3: 25 a bunch. 250cans total
+	CreateItems(drawOrder(L"can3_cabinet1_%d",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+	//Packet1: 3 a bunch. 36packet total
+	CreateItems(drawOrder(L"packet1_cabinet2_column1_%d",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
+	//Packet2: 3 a bunch. 36packet total
+	CreateItems(drawOrder(L"packet2_cabinet2_column2_%d",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
+	//Packet3: 4 a bunch. 48packet total
+	CreateItems(drawOrder(L"packet3_cabinet2_column1_%d",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
+	//CAN_4: 3 a bunch. 36cans total
+	CreateItems(drawOrder(L"can4_cabinet2_column2_%d",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
+	//Cereal1: 6 a bunch. 12cereals total
+	CreateItems(drawOrder(L"cereal1_cabinet3_%d",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	//Cereal1: 6 a bunch. 12cereals total
+	CreateItems(drawOrder(L"cereal2_cabinet3_%d",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
+	//Cereal1: 6 a bunch. 12cereals total
+	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	//Cereal1: 6 a bunch. 12cereals total
+	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -642,15 +652,17 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 
 				for(int i = 0; i < ItemPerColumn; ++i) //6 cans in one column
 				{
+		
 					drawOrder buffer(item);
-					std::wstring name(item.name);
-					name += item_count;
-					buffer.name = name;
+					wchar_t Namebuffer[64];
+					wsprintf(Namebuffer, item.name.c_str() , item_count);
+					buffer.name = Namebuffer;
 					buffer.transform.translate = offset;
 					buffer.transform.rotate = RotateItem;
 					globals.AddDraw(buffer);
 					offset+= Vector3(0,0,ItemDistanceZ);
 					globals.GetDraw(buffer.name).SetParentAs(&globals.GetDraw(parentname));
+
 					item_count++;
 				}
 			}

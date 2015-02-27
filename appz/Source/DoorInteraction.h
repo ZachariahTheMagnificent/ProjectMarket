@@ -14,6 +14,7 @@ public:
 	DoorInteraction(void);
 	~DoorInteraction(void);
 
+	void DrawIsEqualTo(drawOrder& OuterDoor1Left, drawOrder& OuterDoor1Right, drawOrder& OuterDoor2Left, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 	void InteractWithDoors(void);
 
 private:
