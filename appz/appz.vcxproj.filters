@@ -224,9 +224,6 @@
     <ClInclude Include="Source\DrawOrder.h">
       <Filter>Header Files\physics</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneMain.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Character.h">
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
@@ -292,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="Source\DoorInteraction.h">
       <Filter>Header Files\Interactions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMain.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

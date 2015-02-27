@@ -1,49 +1,172 @@
-﻿Build started 16-Feb-15 2:17:56 PM.
+﻿Build started 27-Feb-15 7:08:35 PM.
      1>Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\appz\appz.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Release\appz.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Release\appz.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Animations.cpp Source\Application.cpp Source\Camera.cpp Source\Contacts.cpp Source\ContactSolver.cpp Source\Directory.cpp Source\DrawObject.cpp Source\Force.cpp Source\GLMouse.cpp Source\Graphics.cpp Source\Keyboard.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\main.cpp Source\Mesh.cpp Source\MeshBuilder.cpp Source\ScenePhysics.cpp Source\shader.cpp Source\Voxel.cpp
-         Animations.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\mrlol\Documents\GitHub\ProjectMarket\\glew\include /IC:\Users\mrlol\Documents\GitHub\ProjectMarket\\glfw\include /IC:\Users\mrlol\Documents\GitHub\ProjectMarket\\nyeh\source /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\SceneMain.cpp
          Application.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Application.h(5): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
-         Camera.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Camera.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         Contacts.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         ContactSolver.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         Directory.cpp
-     1>Source\Directory.cpp(13): warning C4101: 'index' : unreferenced local variable
-     1>Source\Directory.cpp(57): warning C4101: 'index' : unreferenced local variable
-         DrawObject.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         Force.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\force.h(2): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         GLMouse.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\GLMouse.h(2): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
-         Graphics.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Graphics.h(5): fatal error C1083: Cannot open include file: 'MatrixStack.h': No such file or directory
-         Keyboard.cpp
-         LoadOBJ.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         LoadTGA.cpp
-     1>Source\LoadTGA.cpp(4): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
-         main.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Application.h(5): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
-         Mesh.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         MeshBuilder.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Vertex.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-         ScenePhysics.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\GLMouse.h(2): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
-         shader.cpp
-     1>Source\shader.cpp(12): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
-         Voxel.cpp
-     1>c:\users\mrlol\documents\github\projectmarket\appz\source\Voxel.h(2): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-     1>Done Building Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\appz\appz.vcxproj" (build target(s)) -- FAILED.
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\SceneMain.h(26): warning C4373: 'SceneMain::Update': virtual function overrides 'Scene::Update', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
+                 c:\users\mrlol\documents\github\projectmarket\appz\source\Scene.h(42) : see declaration of 'Scene::Update'
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\ScenePhysics.h(23): warning C4373: 'ScenePhysics::Update': virtual function overrides 'Scene::Update', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
+                 c:\users\mrlol\documents\github\projectmarket\appz\source\Scene.h(42) : see declaration of 'Scene::Update'
+         SceneMain.cpp
+     1>c:\users\mrlol\documents\github\projectmarket\appz\source\SceneMain.h(26): warning C4373: 'SceneMain::Update': virtual function overrides 'Scene::Update', previous versions of the compiler did not override when parameters only differed by const/volatile qualifiers
+                 c:\users\mrlol\documents\github\projectmarket\appz\source\Scene.h(42) : see declaration of 'Scene::Update'
+     1>Source\SceneMain.cpp(129): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(192): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(196): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(202): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(206): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(212): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(218): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(220): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(223): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(232): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(243): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(259): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(308): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(310): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(318): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(327): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(332): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(335): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(338): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(338): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(341): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(341): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(345): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(379): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(379): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(388): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(392): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(401): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(405): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(405): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(405): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(418): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(418): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(418): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(427): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(432): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(435): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(439): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(442): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(446): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(450): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(455): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(469): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(572): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(575): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(588): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(590): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(592): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(596): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(598): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(602): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(602): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(602): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(602): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(604): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(604): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(604): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(604): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(606): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(606): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(606): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(606): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(608): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(608): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(608): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(608): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Source\SceneMain.cpp(761): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>Source\SceneMain.cpp(866): warning C4244: 'initializing' : conversion from 'double' to 'const int', possible loss of data
+     1>Source\SceneMain.cpp(867): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(867): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(974): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(978): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(982): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(986): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(990): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(994): warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+     1>Source\SceneMain.cpp(1029): warning C4305: 'argument' : truncation from 'double' to 'float'
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\appz.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release /LIBPATH:C:\Users\mrlol\Documents\GitHub\ProjectMarket\\glew\lib /LIBPATH:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\\glfw\lib-msvc100" glew32.lib glfw3.lib opengl32.lib winmm.lib scrubs.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\appz.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\appz.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\appz.lib" /MACHINE:X86 Release\Application.obj
+         Release\Camera.obj
+         Release\Character.obj
+         Release\DoorInteraction.obj
+         Release\RobotCashier.obj
+         Release\Contacts.obj
+         Release\ContactSolver.obj
+         Release\Directory.obj
+         Release\DrawOrder.obj
+         Release\Force.obj
+         Release\GLMouse.obj
+         Release\GlobalList.obj
+         Release\Graphics.obj
+         Release\Keyboard.obj
+         Release\LoadOBJ.obj
+         Release\LoadTGA.obj
+         Release\main.obj
+         Release\Mesh.obj
+         Release\MeshBuilder.obj
+         Release\Player.obj
+         Release\PlayerFrog.obj
+         Release\PlayerHuman.obj
+         Release\Polygon.obj
+         Release\SceneMain.obj
+         Release\SceneMainMenu.obj
+         Release\ScenePhysics.obj
+         Release\shader.obj
+         Release\Shopper.obj
+         Release\ShopperPayerLv1.obj
+         Release\ShopperIdlerLv1.obj
+         Release\ShopperWandererLv2.obj
+         Release\Voxel.obj
+         Release\VoxelLeaf.obj
+         Release\VoxelOctree.obj
+         Release\WizardLv2.obj
+         Generating code
+         Finished generating code
+     1>scrubs.lib(Mtx44.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'scrubs.lib(Mtx44.obj)' or at 'C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\vc100.pdb'; linking object as if no debug info
+         appz.vcxproj -> C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\appz.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\mrlol\Documents\GitHub\ProjectMarket\Release\appz.exe;#1" /manifest Release\appz.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\appz.unsuccessfulbuild".
+         Touching "Release\appz.lastbuildstate".
+     1>Done Building Project "C:\Users\mrlol\Documents\GitHub\ProjectMarket\appz\appz.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:05.94
+Time Elapsed 00:00:08.96
