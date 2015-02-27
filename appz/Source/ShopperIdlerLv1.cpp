@@ -9,7 +9,7 @@ ShopperIdler::ShopperIdler(void)
 	leftArmRotateUp = true;
 	
 	int pointNo = 0;
-for(int disDiffZ = 0; disDiffZ <= 20; disDiffZ += 20 )
+for(int disDiffZ = 0; disDiffZ <= 17; disDiffZ += 17 )
 		{
 			points[pointNo] = Vector3(5,5,-37.5-disDiffZ);
 			++pointNo;
@@ -38,14 +38,7 @@ void ShopperIdler::Render()
 void ShopperIdler::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
-	if(No == 0 || No == 5)
-	{
-		characterBody->transform.rotate.y = 180;
-	}
-	else
-	{
-		characterBody->transform.rotate.y = 0;
-	}
+		characterBody->transform.rotate.y = 270;
 	defaultPoint = points[No];
 	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
 }
@@ -54,6 +47,7 @@ void ShopperIdler::Update(const double dt)
 {
 	if(idling == true)
 	{
+		characterBody->transform.rotate.y=270;
 		characterLeftArm->selfTransform.rotate.x = -5;
 		characterRightArm->selfTransform.rotate.x = -5;
 		charArmRotate = 30;
@@ -67,6 +61,14 @@ void ShopperIdler::Update(const double dt)
 			//continue walking
 			if(temp==0)
 			{
+			if(characterBody->transform.translate.z >= points[0].z-1)
+			{
+				characterBody->transform.rotate.y=180;
+			}
+			else if(characterBody->transform.translate.z <= points[1].z+1)
+			{
+				characterBody->transform.rotate.y=0;
+			}
 				idling=false;
 				walking=true;
 			}
@@ -76,43 +78,33 @@ void ShopperIdler::Update(const double dt)
 	else
 	{
 		if(charArmRotate > 60)
-				leftArmRotateUp = false;
-			else if(charArmRotate < 0)
-				leftArmRotateUp = true;
-			if(leftArmRotateUp == true)
-			{
-				characterLeftArm->selfTransform.rotate.x -= dt * 80;
-				characterRightArm->selfTransform.rotate.x += dt * 80;
-				charArmRotate += dt * 80;
-				characterLeftLeg->selfTransform.rotate.x += dt * 40;
-				characterRightLeg->selfTransform.rotate.x -= dt * 40;
-			}
-			else
-			{
-				characterLeftArm->selfTransform.rotate.x += dt * 80;
-				characterRightArm->selfTransform.rotate.x -= dt * 80;
-				charArmRotate -= dt * 80;
-				characterLeftLeg->selfTransform.rotate.x -= dt * 40;
-				characterRightLeg->selfTransform.rotate.x += dt * 40;
-			}
-		if(characterBody->transform.translate.z <= points[1].z)
+			leftArmRotateUp = false;
+		else if(charArmRotate < 0)
+			leftArmRotateUp = true;
+		if(leftArmRotateUp == true)
 		{
-			characterBody->transform.rotate.y=0;
+			characterLeftArm->selfTransform.rotate.x -= dt * 80;
+			characterRightArm->selfTransform.rotate.x += dt * 80;
+			charArmRotate += dt * 80;
+			characterLeftLeg->selfTransform.rotate.x += dt * 40;
+			characterRightLeg->selfTransform.rotate.x -= dt * 40;
 		}
-		else if(characterBody->transform.translate.z >= points[0].z)
+		else
 		{
-			characterBody->transform.rotate.y=180;
+			characterLeftArm->selfTransform.rotate.x += dt * 80;
+			characterRightArm->selfTransform.rotate.x -= dt * 80;
+			charArmRotate -= dt * 80;
+			characterLeftLeg->selfTransform.rotate.x -= dt * 40;
+			characterRightLeg->selfTransform.rotate.x += dt * 40;
 		}
-			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 5);
-			distanceMovedInOneDir += dt*5;
-			if(distanceMovedInOneDir>20)
-			{
-				walking=false;
-				idling=true;
-				characterBody->transform.rotate.y=270;
-				distanceMovedInOneDir=0;
-			}
-
+		characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 5);
+		distanceMovedInOneDir += dt*5;
+		if(distanceMovedInOneDir>17)
+		{
+			walking=false;
+			idling=true;
+			distanceMovedInOneDir=0;
+		}
 	}
 }
 

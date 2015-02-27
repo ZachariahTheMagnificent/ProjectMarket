@@ -29,6 +29,7 @@ private:
 	float timeWalking;
 	//Idling state
 	bool idling;
+	bool startwalking;
 	//Time spent idling
 	float timeIdling;
 	//Default position
