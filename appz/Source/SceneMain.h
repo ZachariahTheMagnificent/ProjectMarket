@@ -41,6 +41,7 @@ private:
 	double jumpedHeight;
 	bool isFrog;
 	bool UpdateLv2;
+	bool UpdateLv1;
 
 	//print fps
 	double deltaTime;

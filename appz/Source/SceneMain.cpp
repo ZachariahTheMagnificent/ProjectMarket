@@ -35,6 +35,7 @@ void SceneMain::Init()
 	jumpedHeight = 0;
 	isFrog = false;
 	UpdateLv2 = false;
+	UpdateLv1=true;
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
@@ -709,6 +710,10 @@ bool SceneMain::Update(const double dt)
 				j++;
 			}
 		}
+	}
+		if(UpdateLv1 ==true)
+	{
+		SILv1.Update(dt);
 	}
 	return false;
 }

@@ -9,9 +9,9 @@ ShopperIdler::ShopperIdler(void)
 	leftArmRotateUp = true;
 	
 	int pointNo = 0;
-		for(int disDiffZ = 0; disDiffZ <= 7; disDiffZ += 7 )
+for(int disDiffZ = 0; disDiffZ <= 20; disDiffZ += 20 )
 		{
-			points[pointNo] = Vector3(-8.5,15,-37.5-disDiffZ);
+			points[pointNo] = Vector3(5,5,-37.5-disDiffZ);
 			++pointNo;
 		}
 	idling = true;
@@ -60,12 +60,12 @@ void ShopperIdler::Update(const double dt)
 		characterLeftLeg->selfTransform.rotate.x = 0;
 		characterRightLeg->selfTransform.rotate.x = 0;
 		timeIdling += dt;
-		if(timeIdling > 5)
+		if(timeIdling > 2)
 		{
 			timeIdling = 0;
 			int temp = rand() % 2;
 			//continue walking
-			if(temp =0)
+			if(temp==0)
 			{
 				idling=false;
 				walking=true;
@@ -75,8 +75,43 @@ void ShopperIdler::Update(const double dt)
 	}
 	else
 	{
+		if(charArmRotate > 60)
+				leftArmRotateUp = false;
+			else if(charArmRotate < 0)
+				leftArmRotateUp = true;
+			if(leftArmRotateUp == true)
+			{
+				characterLeftArm->selfTransform.rotate.x -= dt * 80;
+				characterRightArm->selfTransform.rotate.x += dt * 80;
+				charArmRotate += dt * 80;
+				characterLeftLeg->selfTransform.rotate.x += dt * 40;
+				characterRightLeg->selfTransform.rotate.x -= dt * 40;
+			}
+			else
+			{
+				characterLeftArm->selfTransform.rotate.x += dt * 80;
+				characterRightArm->selfTransform.rotate.x -= dt * 80;
+				charArmRotate -= dt * 80;
+				characterLeftLeg->selfTransform.rotate.x -= dt * 40;
+				characterRightLeg->selfTransform.rotate.x += dt * 40;
+			}
+		if(characterBody->transform.translate.z <= points[1].z)
+		{
+			characterBody->transform.rotate.y=0;
+		}
+		else if(characterBody->transform.translate.z >= points[0].z)
+		{
 			characterBody->transform.rotate.y=180;
-			characterBody->transform.translate.z+=dt;
+		}
+			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 5);
+			distanceMovedInOneDir += dt*5;
+			if(distanceMovedInOneDir>20)
+			{
+				walking=false;
+				idling=true;
+				characterBody->transform.rotate.y=270;
+				distanceMovedInOneDir=0;
+			}
 
 	}
 }
