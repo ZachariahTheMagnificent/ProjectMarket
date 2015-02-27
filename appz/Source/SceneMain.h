@@ -14,6 +14,7 @@
 #include "ShopperWandererLv2.h"
 #include "WizardLv2.h"
 #include "ShopperPayerLv1.h"
+#include "ItemInteraction.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -42,6 +43,7 @@ private:
 	bool isFrog;
 	bool UpdateLv2;
 	bool UpdateLv1;
+	ItemInteraction item[862];
 
 	//print fps
 	double deltaTime;

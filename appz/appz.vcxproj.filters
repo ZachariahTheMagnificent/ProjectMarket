@@ -177,6 +177,9 @@
     <ClCompile Include="Source\DoorInteraction.cpp">
       <Filter>Source Files\Interactions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ItemInteraction.cpp">
+      <Filter>Source Files\Interactions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Contacts.h">
@@ -292,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneMain.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemInteraction.h">
+      <Filter>Header Files\Interactions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

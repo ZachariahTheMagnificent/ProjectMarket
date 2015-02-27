@@ -45,6 +45,75 @@ void SceneMain::Init()
 	SPLv1.SetPosition(0);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
+	for(int i = 0; i < 862; ++i)
+	{
+		if(i < 360)// CAN_1
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 420)// CAN_2
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 670)// CAN_3
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 706)// Packet1
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 742)// Packet2
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 790)// Packet3
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 826)// Can_4
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-790);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 838)// Cereal1
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-826);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 850)// Cereal2
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-838);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 862)// Cereal3
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-850);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+		else if(i < 874)// Cereal4
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-862);
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+		}
+	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
 	gfx.InitText(L"Image//kitten_bri.tga");
@@ -867,7 +936,14 @@ void SceneMain::DoUserInput()
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
 	double movingSpeed = 5;
-
+	
+	if(keyboard.isKeyPressed('F'))
+	{
+		for(int i = 0; i < 862; ++i)
+		{
+			item[i].InteractWithItem(camera.ReturnTarget());
+		}
+	}
 	if(keyboard.isKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
