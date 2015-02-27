@@ -152,6 +152,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can2", L"OBJ//can2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can3", L"OBJ//can3.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"can4", L"OBJ//can4.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereallump", L"OBJ//cerealLump.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal1", L"OBJ//cereal1.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal2", L"OBJ//cereal2.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cereal3", L"OBJ//cereal3.obj"));
@@ -327,7 +328,7 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"shopper_payer_trolley0",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"shopper_payer_body0"), true));
 	globals.GetDraw(L"shopper_payer_trolley0").transform.translate.Set(0,-3.5,4.25);
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
-	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"shopper_payer_items0").transform.translate.Set(-3.5,2,-42);
 
 	//Draw Lift
