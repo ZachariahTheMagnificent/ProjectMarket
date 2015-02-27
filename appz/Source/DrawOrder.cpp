@@ -33,6 +33,11 @@ drawOrder::~drawOrder()
 	}
 }
 
+Vector3 drawOrder::GetGlobalPosition() const
+{
+	return GetTranslationMatrix() * Vector3(0,0,0);
+}
+
 void drawOrder::Copy(drawOrder& original)
 {
 	name = original.name;
