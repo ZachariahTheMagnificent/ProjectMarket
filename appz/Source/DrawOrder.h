@@ -141,6 +141,7 @@ public:
 	float GetMaxZ() const;
 	float GetMinZ() const;
 	float GetMass() const;
+	Vector3 GetGlobalPosition() const;
 	unsigned GetTexture() const;
 	float GetKinetic();
 	bool IsLightEnabled();
