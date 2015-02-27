@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Container">
       <UniqueIdentifier>{29cdbdb3-95e9-4da1-b8da-e56c166cf240}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Interactions">
+      <UniqueIdentifier>{06bf6f00-4135-4fb1-92cd-fd9f93a2ee30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interactions">
+      <UniqueIdentifier>{27673c83-6dcc-40d3-813d-a7ee2dc2d72d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Force.cpp">
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="Source\SceneMain.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DoorInteraction.cpp">
+      <Filter>Source Files\Interactions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="Source\VoxelLeaf.h">
       <Filter>Header Files\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DoorInteraction.h">
+      <Filter>Header Files\Interactions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
