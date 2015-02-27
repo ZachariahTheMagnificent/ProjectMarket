@@ -44,6 +44,7 @@ void ScenePhysics::InnitSounds()
 	snd.loadWave("didact", "sound//didact.wav");
 	snd.loadWave("sneaky", "sound//sneaky.wav");
 	snd.loadWave("pure", "sound//pure.wav");
+	snd.loadWave("assistance", "sound//assistance.wav");
 }
 
 void ScenePhysics::InnitLogic()
@@ -73,13 +74,13 @@ void ScenePhysics::InnitTextures()
 void ScenePhysics::InnitMaterials()
 {
 	globals.AddMaterial(Material(L"skybox",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"skybox")));
-	globals.AddMaterial(Material(L"didact",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"didact")));
+	globals.AddMaterial(Material(L"didact",Component(1,1,1),Component(1,1,1),Component(1,1,1),200,globals.GetTexture(L"didact")));
 	globals.AddMaterial(Material(L"stone",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"door")));
 	globals.AddMaterial(Material(L"corrupted",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"electronic_circuit")));
 	globals.AddMaterial(Material(L"football field",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"football_field")));
 	globals.AddMaterial(Material(L"kittenbri",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"kitten_bri")));
 	globals.AddMaterial(Material(L"forerunner plate",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"large_forerunner_floor_plate")));
-	globals.AddMaterial(Material(L"metal floor",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"metalplatefloorfull")));
+	globals.AddMaterial(Material(L"metal floor",Component(1,1,1),Component(1,1,1),Component(1,1,1),200,globals.GetTexture(L"metalplatefloorfull")));
 	globals.AddMaterial(Material(L"metal tile",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"metal_tile")));
 	globals.AddMaterial(Material(L"plate metal",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"plate_metal")));
 	globals.AddMaterial(Material(L"rock",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"ring")));
@@ -140,55 +141,57 @@ void ScenePhysics::InnitDraws()
 	globals.AddDraw(drawOrder(L"skybox", globals.GetMesh(L"skybox"), &globals.GetMaterial(L"skybox"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"skybox").transform.scale.Set(10000,10000,10000);
 
-	globals.AddDraw(drawOrder(L"player", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), false));
-	globals.GetDraw(L"player").transform.translate.Set(21.7, 5, 68.3);
+	globals.AddDraw(drawOrder(L"player", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"player").transform.translate.Set(21.7, 1, 68.3);
 	globals.GetDraw(L"player").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"player").mass = 75;
 	globals.GetDraw(L"player").bounce = 0.5;
 	globals.GetDraw(L"player").staticFriction = 0.03;
 	
-	globals.AddDraw(drawOrder(L"left lift", globals.GetMesh(L"lift"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"left lift", globals.GetMesh(L"lift"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"left lift").transform.translate.Set(0, 100, 0);
 	globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"left lift").mass = 100;
 	
-	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
 	globals.GetDraw(L"nirvana").kineticFriction = 0.25;
 	
-	globals.AddDraw(drawOrder(L"football field", globals.GetMesh(L"football field"), &globals.GetMaterial(L"football field"), &globals.GetDraw(L"nirvana"), false));
+	globals.AddDraw(drawOrder(L"football field", globals.GetMesh(L"football field"), &globals.GetMaterial(L"football field"), &globals.GetDraw(L"nirvana"), true));
 	globals.GetDraw(L"football field").SetTerminalVelocityTo(Vector3(60,60,60));
 	
 	globals.AddDraw(drawOrder(L"summoning place", globals.GetMesh(L"ring"), &globals.GetMaterial(L"rock"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"summoning place").transform.translate.Set(-1000,0,0);
 	globals.GetDraw(L"summoning place").SetTerminalVelocityTo(Vector3(60,60,60));
 	
-	globals.AddDraw(drawOrder(L"currupted sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"corrupted"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"currupted sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"corrupted"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"currupted sentinel").transform.translate.Set(-23.3,3.7,69.9);
 	
-	globals.AddDraw(drawOrder(L"rock sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"rock"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"rock sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"rock"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"rock sentinel").transform.translate.Set(-1000,0,0);
 	
-	globals.AddDraw(drawOrder(L"stone sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"stone"), &globals.GetDraw(L"main"), false));
-	//globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
+	globals.AddDraw(drawOrder(L"stone sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"stone"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
 	
-	globals.AddDraw(drawOrder(L"wise sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"plate metal"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"wise sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"plate metal"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"wise sentinel").transform.translate.Set(-1000,0,0);
 	
-	globals.AddDraw(drawOrder(L"sneaky sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"sneaky sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"sneaky sentinel").transform.translate.Set(-1000,0,0);
 	
-	globals.AddDraw(drawOrder(L"pure sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"plate metal"), &globals.GetDraw(L"main"), false));
+	globals.AddDraw(drawOrder(L"pure sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"plate metal"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"pure sentinel").transform.translate.Set(-23.2, 4.25, -69.8);
 }
 
 void ScenePhysics::InnitVoxels()
 {
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
-	{
-		draw->second->GenerateVoxels();
-	}
-	collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
+	//{
+	//	draw->second->GenerateVoxels();
+	//}
+	//globals.GetDraw(L"nirvana").GenerateVoxels();
+	//globals.GetDraw(L"player").GenerateVoxels();
+	//collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
 	//globals.GetDraw(L"nirvana").GenerateVoxels();
 	//globals.GetDraw(L"player").GenerateVoxels();
 }
@@ -200,7 +203,7 @@ void ScenePhysics::InnitForces()
 	//Vector3 accelerationDueToGravity(0, 0, 0);
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
 	{
-		draw->second->AddForce(accelerationDueToGravity * draw->second->GetMass());
+		//draw->second->AddForce(accelerationDueToGravity * draw->second->GetMass());
 	}
 }
 
@@ -232,6 +235,7 @@ bool ScenePhysics::Update(const double dt)
 		globals.GetDraw(L"summoning place").transform.rotate.y += rotationspeed * deltaTime;
 	}
 	DoUserInput();
+	UpdateLogic();
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
@@ -240,6 +244,30 @@ bool ScenePhysics::Update(const double dt)
 
 void ScenePhysics::UpdateLogic()
 {
+	Vector3 playerPosition = globals.GetDraw(L"player").GetTranslationMatrix() * Vector3(0,0,0);
+	Range<int> rangeX(-10000,0);
+	Range<int> rangeY(-30,30);
+	Range<int> rangeZ(-4,4);
+	if(rangeX.IsInRange(playerPosition.x) && rangeY.IsInRange(playerPosition.y) && rangeZ.IsInRange(playerPosition.z))
+	{
+		if(globals.GetDraw(L"summoning place").geometry == globals.GetMesh(L"ring"))
+		{
+			snd.playSound("assistance");
+		}
+
+		globals.GetDraw(L"summoning place").geometry = globals.GetMesh(L"didact");
+		globals.GetDraw(L"summoning place").material = &globals.GetMaterial(L"didact");
+		globals.GetDraw(L"summoning place").transform.rotate.y = 0;
+		globals.GetDraw(L"rock sentinel").transform.translate.Set(-17.2, 5.25, -6.6);
+		globals.GetDraw(L"stone sentinel").transform.translate.Set(-17.2, 5.25, 6.6);
+	}
+	else
+	{
+		globals.GetDraw(L"summoning place").geometry = globals.GetMesh(L"ring");
+		globals.GetDraw(L"summoning place").material = &globals.GetMaterial(L"rock");
+		globals.GetDraw(L"rock sentinel").transform.translate.Set(-1000,0,0);
+		globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
+	}
 }
 
 void ScenePhysics::UpdateDidact()
@@ -310,12 +338,39 @@ void ScenePhysics::Render()
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
 
-	char buffer[126];
-	sprintf(buffer,"fps:%f",1.0/deltaTime);
+	char buffer1[126];
+	char buffer2[126];
+	Vector3 position = globals.GetDraw(L"player").GetTranslationMatrix() * Vector3(0,0,0);
+	sprintf(buffer1,"fps:%.3f",1.0/deltaTime);
+	sprintf(buffer2,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
 
-	globals.GetDraw(L"main").Execute(gfx);
-	gfx.RenderTextOnScreen(buffer,Color(1,0,0),1,30,30);
-
+	if(drawVoxels)
+	{
+		Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+		drawOrder draw_cube(L"cube", globals.GetMesh(L"Cube"), &material, NULL, true);
+		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+		{
+			Mtx44 matrix(draw->second->GetMatrix());
+			for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
+			{
+				voxel->ApplyToMatrix(matrix);
+				Mtx44 translate;
+				translate.SetToTranslation(voxel->GetPosition());
+				gfx.RenderMesh(draw_cube, translate);
+			}
+		}
+	}
+	else
+	{
+		globals.GetDraw(L"main").Execute(gfx);
+	}
+	gfx.RenderTextOnScreen(buffer1,Color(1,0,0),30,30,650);
+	gfx.RenderTextOnScreen(buffer2,Color(1,0,0),30,30,600);
+	MS matrixStack;
+	matrixStack.Translate(200,100,0);
+	matrixStack.Scale(50,50,50);
+	matrixStack.MultMatrix(globals.GetDraw(L"player").GetRotationMatrix());
+	gfx.RenderMeshOnScreen(globals.GetDraw(L"player"), matrixStack.Top());
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -425,5 +480,5 @@ void ScenePhysics::DoUserInput()
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
 	playerForce.SetVector(playerAcceleration);
-	globals.GetDraw(L"Player").AddForce(playerForce);
+	globals.GetDraw(L"player").AddForce(playerForce);
 }

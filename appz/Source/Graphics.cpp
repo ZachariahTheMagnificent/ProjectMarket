@@ -306,3 +306,46 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
+
+void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix)
+{
+	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
+	{
+		return;
+	}
+
+	//glDisable(GL_DEPTH_TEST);
+
+	Mtx44 ortho;
+	int screenX, screenY;
+	glfwGetWindowSize(m_window, &screenX, &screenY);
+	ortho.SetToOrtho(0, screenX, 0, screenY, -1000, 1000);
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(matrix);
+
+
+	Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+	if(object.material->GetTexture() > 0)
+	{
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+		glActiveTexture(GL_TEXTURE0);
+		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+	}
+	object.Render();
+
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	//glEnable(GL_DEPTH_TEST);
+}
