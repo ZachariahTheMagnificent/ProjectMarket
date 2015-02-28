@@ -51,67 +51,67 @@ void SceneMain::Init()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 420)// CAN_2
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 670)// CAN_3
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 706)// Packet1
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 742)// Packet2
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 790)// Packet3
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 826)// Can_4
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-790);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 838)// Cereal1
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-826);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 850)// Cereal2
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-838);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 862)// Cereal3
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-850);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 		else if(i < 874)// Cereal4
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-862);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"player_body"));
+			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
@@ -820,11 +820,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
+		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
 	}
 	else
 	{
-		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
+		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;

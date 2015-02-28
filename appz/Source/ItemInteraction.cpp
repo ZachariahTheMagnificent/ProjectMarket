@@ -9,10 +9,10 @@ ItemInteraction::~ItemInteraction(void)
 {
 }
 
-void ItemInteraction::DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempPlayer)
+void ItemInteraction::DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempTrolley)
 {
 	item = &TempItem;
-	player = &TempPlayer;
+	trolley = &TempTrolley;
 	defaultTranslation = item->transform.translate;
 	defaultRotation = item->transform.rotate;
 	taken = false;
@@ -20,13 +20,15 @@ void ItemInteraction::DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempPlayer)
 
 void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos)
 {
-	if(item->transform.translate.x - 100 <= PlayerTargetPos.x && item->transform.translate.x + 2 >= PlayerTargetPos.x && item->transform.translate.y - 2 <= PlayerTargetPos.y && item->transform.translate.y + 2 >= PlayerTargetPos.y && item->transform.translate.z - 2 <= PlayerTargetPos.z && item->transform.translate.z + 2 >= PlayerTargetPos.z)
+	/*if(item->transform.translate.x - 2 <= PlayerTargetPos.x && item->transform.translate.x + 2 >= PlayerTargetPos.x && item->transform.translate.y - 2 <= PlayerTargetPos.y && item->transform.translate.y + 2 >= PlayerTargetPos.y && item->transform.translate.z - 2 <= PlayerTargetPos.z && item->transform.translate.z + 2 >= PlayerTargetPos.z)
 	{
 		if(taken == false)
-		{
-			item->SetParentAs(player);
-			item->selfTransform.translate = Vector3(0,10,0);
+		{*/
+			item->SetParentAs(trolley);
+			item->transform.rotate.Set(0,0,0);
+			item->selfTransform.translate.Set(0,0,0);
+			item->transform.translate.Set(0,5,0);
 			taken = true;
-		}
-	}
+		/*}
+	}*/
 }

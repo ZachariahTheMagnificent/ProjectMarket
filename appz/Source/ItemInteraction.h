@@ -8,7 +8,7 @@ public:
 	ItemInteraction(void);
 	~ItemInteraction(void);
 
-	void DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempPlayer);
+	void DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempTrolley);
 	void InteractWithItem(const Vector3& PlayerPos);
 
 private:
@@ -17,7 +17,7 @@ private:
 	Vector3 defaultTranslation;
 	Rotation defaultRotation;
 
-	//drawOrder Pointer to item and player
+	//drawOrder Pointer to item and trolley
 	drawOrder* item;
-	drawOrder* player;
+	drawOrder* trolley;
 };
