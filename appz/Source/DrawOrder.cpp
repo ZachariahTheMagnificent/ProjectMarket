@@ -35,21 +35,7 @@ drawOrder::~drawOrder()
 
 Vector3 drawOrder::GetGlobalPosition() const
 {
-	return GetTranslationMatrix() * Vector3(0,0,0);
-}
-
-void drawOrder::Copy(drawOrder& original)
-{
-	name = original.name;
-	geometry = original.geometry;
-	material = original.material;
-	enableLight = original.enableLight;
-	mass = original.mass;
-	bounce = original.bounce;
-	staticFriction = original.staticFriction;
-	kineticFriction = original.kineticFriction;
-	SetParentAs(original.parent);
-	drawMode = original.drawMode;
+	return GetMatrix() * Vector3(0,0,0);
 }
 
 const std::wstring& drawOrder::GetName() const

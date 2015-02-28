@@ -153,7 +153,6 @@ public:
 	void SetVelocityTo(Vector3 newVelocity);
 	void SetMomentumTo(Vector3 momentum);
 	void SetParentAs(drawOrder* parent);
-	void Copy(drawOrder& original);
 	void CapVelocityToTerminal();
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
