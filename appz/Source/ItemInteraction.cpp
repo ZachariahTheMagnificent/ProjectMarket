@@ -20,15 +20,19 @@ void ItemInteraction::DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempTrolley)
 
 void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos)
 {
-	/*if(item->transform.translate.x - 2 <= PlayerTargetPos.x && item->transform.translate.x + 2 >= PlayerTargetPos.x && item->transform.translate.y - 2 <= PlayerTargetPos.y && item->transform.translate.y + 2 >= PlayerTargetPos.y && item->transform.translate.z - 2 <= PlayerTargetPos.z && item->transform.translate.z + 2 >= PlayerTargetPos.z)
+	Range<int> ItemRangeX(item->GetGlobalPosition().x - 10,item->GetGlobalPosition().x + 10);
+	Range<int> ItemRangeY(item->GetGlobalPosition().y - 10,item->GetGlobalPosition().y + 10);
+	Range<int> ItemRangeZ(item->GetGlobalPosition().z - 10,item->GetGlobalPosition().z + 10);
+
+	if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeX.IsInRange(PlayerTargetPos.y) && ItemRangeX.IsInRange(PlayerTargetPos.z))
 	{
 		if(taken == false)
-		{*/
+		{
 			item->SetParentAs(trolley);
 			item->transform.rotate.Set(0,0,0);
 			item->selfTransform.translate.Set(0,0,0);
 			item->transform.translate.Set(0,5,0);
 			taken = true;
-		/*}
-	}*/
+		}
+	}
 }

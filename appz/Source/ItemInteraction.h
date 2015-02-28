@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DrawOrder.h"
+#include "Range.h"
 
 class ItemInteraction
 {
