@@ -45,72 +45,72 @@ void SceneMain::Init()
 	SPLv1.SetPosition(0);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
-	for(int i = 0; i < 862; ++i)
+	for(int i = 0; i < 1246; ++i)
 	{
-		if(i < 360)// CAN_1
+		if(i < 360)// CAN_1 360
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 420)// CAN_2
+		else if(i < 420)// CAN_2 60
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 670)// CAN_3
+		else if(i < 670)// CAN_3 250
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 706)// Packet1
+		else if(i < 706)// Packet1 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 742)// Packet2
+		else if(i < 742)// Packet2 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 790)// Packet3
+		else if(i < 934)// Packet3 192
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 826)// Can_4
+		else if(i < 1114)// Can_4 180
 		{
 			wchar_t Namebuffer[64];
-			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-790);
+			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 838)// Cereal1
+		else if(i < 1150)// Cereal1 36
 		{
 			wchar_t Namebuffer[64];
-			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-826);
+			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 850)// Cereal2
+		else if(i < 1174)// Cereal2 24
 		{
 			wchar_t Namebuffer[64];
-			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-838);
+			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 862)// Cereal3
+		else if(i < 1210)// Cereal3 36
 		{
 			wchar_t Namebuffer[64];
-			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-850);
+			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
-		else if(i < 874)// Cereal4
+		else if(i < 1246)// Cereal4 36
 		{
 			wchar_t Namebuffer[64];
-			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-862);
+			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
 			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
 		}
 	}
@@ -663,17 +663,17 @@ void SceneMain::InnitDraws()
 	CreateItems(drawOrder(L"packet1_cabinet2_column1_%d",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
 	//Packet2: 3 a bunch. 36packet total
 	CreateItems(drawOrder(L"packet2_cabinet2_column2_%d",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
-	//Packet3: 4 a bunch. 48packet total
+	//Packet3: 16 a bunch. 192packet total
 	CreateItems(drawOrder(L"packet3_cabinet2_column1_%d",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
-	//CAN_4: 3 a bunch. 36cans total
+	//CAN_4: 15 a bunch. 180cans total
 	CreateItems(drawOrder(L"can4_cabinet2_column2_%d",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
-	//Cereal1: 6 a bunch. 12cereals total
+	//Cereal1: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal1_cabinet3_%d",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-	//Cereal1: 6 a bunch. 12cereals total
+	//Cereal2: 12 a bunch. 24cereals total
 	CreateItems(drawOrder(L"cereal2_cabinet3_%d",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
-	//Cereal1: 6 a bunch. 12cereals total
+	//Cereal3: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-	//Cereal1: 6 a bunch. 12cereals total
+	//Cereal4: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 
 }
@@ -939,7 +939,7 @@ void SceneMain::DoUserInput()
 	
 	if(keyboard.isKeyPressed('F'))
 	{
-		for(int i = 0; i < 862; ++i)
+		for(int i = 0; i < 1246; ++i)
 		{
 			item[i].InteractWithItem(camera.ReturnTarget());
 		}

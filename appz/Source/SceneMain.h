@@ -43,7 +43,7 @@ private:
 	bool isFrog;
 	bool UpdateLv2;
 	bool UpdateLv1;
-	ItemInteraction item[862];
+	ItemInteraction item[1246];
 
 	//print fps
 	double deltaTime;
