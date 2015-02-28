@@ -36,6 +36,7 @@ void SceneMain::Init()
 	isFrog = false;
 	UpdateLv2 = false;
 	UpdateLv1=true;
+	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
@@ -780,6 +781,7 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
+	UpdateLogic();
 	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
@@ -811,6 +813,7 @@ bool SceneMain::Update(const double dt)
 
 void SceneMain::UpdateLogic()
 {
+	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
 }
 
 void SceneMain::UpdateView()

@@ -14,6 +14,7 @@
 #include "ShopperWandererLv2.h"
 #include "WizardLv2.h"
 #include "ShopperPayerLv1.h"
+#include "DoorInteraction.h"
 #include "ItemInteraction.h"
 #include <vector>
 
@@ -37,6 +38,7 @@ private:
 	WizardLv2 wizard;
 	ShopperIdler SILv1;
 	ShopperPayerLv1 SPLv1;
+	DoorInteraction InteractDoor;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
