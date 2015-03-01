@@ -117,7 +117,7 @@ void SceneMain::Init()
 	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
-	gfx.InitText(L"Image//kitten_bri.tga");
+	gfx.InitText(L"Image//CourierNew.tga");
 }
 
 void SceneMain::InnitSounds()
@@ -814,6 +814,7 @@ bool SceneMain::Update(const double dt)
 void SceneMain::UpdateLogic()
 {
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
+	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
 }
 
 void SceneMain::UpdateView()
@@ -823,11 +824,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
+		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
 	}
 	else
 	{
-		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
+		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;
@@ -919,6 +920,11 @@ void SceneMain::Render()
 	{
 		globals.GetDraw(L"main").Execute(gfx);
 	}
+
+	char buffer1[126];
+	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
+	sprintf(buffer1,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
+	gfx.RenderTextOnScreen(buffer1,Color(0,1,0),20,1,1);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
