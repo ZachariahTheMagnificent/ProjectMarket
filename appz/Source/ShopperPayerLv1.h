@@ -39,18 +39,19 @@ private:
 	//Default position
 	int defaultPoint;
 
-	enum state
+
+
+public:
+	ShopperPayerLv1(void);
+	~ShopperPayerLv1(void);
+	
+		enum state
 	{
 		WALKING,
 		TAKING,
 		PAYING,
 	};
 	state currentState;
-
-public:
-	ShopperPayerLv1(void);
-	~ShopperPayerLv1(void);
-	
 	void Init();
 	void Render();
 	void SetPosition(int No);

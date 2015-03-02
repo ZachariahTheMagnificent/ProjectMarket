@@ -30,12 +30,14 @@ void SceneMain::Init()
 	InnitForces();
 	InnitLogic();
 	player = new PlayerHuman;
+	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
 	UpdateLv2 = false;
 	UpdateLv1=true;
+	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
@@ -46,6 +48,8 @@ void SceneMain::Init()
 	SPLv1.SetPosition(0);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
+	RLv1[0].DrawIsEqualTo(globals.GetDraw(L"robotbody0"), globals.GetDraw(L"robotarm_left0"), globals.GetDraw(L"robotarm_right0"));
+	RLv1[1].DrawIsEqualTo(globals.GetDraw(L"robotbody1"), globals.GetDraw(L"robotarm_left1"), globals.GetDraw(L"robotarm_right1"));
 	for(int i = 0; i < 1246; ++i)
 	{
 		if(i < 360)// CAN_1 360
@@ -117,7 +121,7 @@ void SceneMain::Init()
 	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
-	gfx.InitText(L"Image//kitten_bri.tga");
+	gfx.InitText(L"Image//CourierNew.tga");
 }
 
 void SceneMain::InnitSounds()
@@ -160,6 +164,14 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"trolleytexture", L"Image//TrolleyTexture.tga");
 	globals.AddTexture(L"character1", L"Image//character1.tga");
 	globals.AddTexture(L"robot", L"Image//robot_texture.tga");
+	globals.AddTexture(L"Quad1",L"Image//Quad1.tga");
+	globals.AddTexture(L"Quad2",L"Image//Quad2.tga");
+	globals.AddTexture(L"Quad3",L"Image//Quad3.tga");
+	globals.AddTexture(L"Quad4",L"Image//Quad4.tga");
+	globals.AddTexture(L"BG",L"Image//BG.tga");
+	globals.AddTexture(L"incredits",L"Image//incredits.tga");
+	globals.AddTexture(L"inexit",L"Image//inexit.tga");
+	globals.AddTexture(L"instructions",L"Image//instructions.tga");
 }
 
 void SceneMain::InnitMaterials()
@@ -189,6 +201,14 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"trolleytexture")));
 	globals.AddMaterial(Material(L"character1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
 	globals.AddMaterial(Material(L"robot",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"robot")));
+	globals.AddMaterial(Material(L"Quad1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad1")));
+	globals.AddMaterial(Material(L"Quad2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
+	globals.AddMaterial(Material(L"Quad3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad3")));
+	globals.AddMaterial(Material(L"Quad4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad4")));
+	globals.AddMaterial(Material(L"BG",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"BG")));
+	globals.AddMaterial(Material(L"incredits",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
+	globals.AddMaterial(Material(L"inexit",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
+	globals.AddMaterial(Material(L"instructions",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
 }
 
 void SceneMain::InnitLight()
@@ -212,6 +232,11 @@ void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"inexit", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"instructions", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cube", L"OBJ//cubey.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
@@ -246,7 +271,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
 }
-
+	//Draw main menu
 void SceneMain::InnitDraws()
 {
 	//main will be the main draw order that all other draw orders are children of
@@ -399,15 +424,19 @@ void SceneMain::InnitDraws()
 
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_1_left").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_1_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_1_right").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_2_left").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_2_right").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6);
 
 	//Draw Cashier Table
@@ -444,6 +473,26 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"robotarm_right1",globals.GetMesh(L"robotarm"), &globals.GetMaterial(L"robot"), &globals.GetDraw(L"robotbody1"), true));
 	globals.GetDraw(L"robotarm_right1").transform.translate.Set(1,1,0);
 
+	//Draw main menu
+	globals.AddDraw(drawOrder(L"Quad1",globals.GetMesh(L"Quad1"), &globals.GetMaterial(L"Quad1"),NULL, true));
+	globals.GetDraw(L"Quad1").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"Quad2",globals.GetMesh(L"Quad1"), &globals.GetMaterial(L"Quad2"), NULL, true));
+	globals.GetDraw(L"Quad2").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"Quad3",globals.GetMesh(L"Quad1"), &globals.GetMaterial(L"Quad3"), NULL, true));
+	globals.GetDraw(L"Quad3").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"Quad4",globals.GetMesh(L"Quad1"), &globals.GetMaterial(L"Quad4"), NULL, true));
+	globals.GetDraw(L"Quad4").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"BG",globals.GetMesh(L"BG"), &globals.GetMaterial(L"BG"), NULL, true));
+	globals.GetDraw(L"BG").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"incredits",globals.GetMesh(L"incredits"), &globals.GetMaterial(L"incredits"), NULL, true));
+	globals.GetDraw(L"incredits").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"inexit",globals.GetMesh(L"inexit"), &globals.GetMaterial(L"inexit"), NULL, true));
+	globals.GetDraw(L"inexit").transform.translate.Set(1,4,-4);
+	globals.AddDraw(drawOrder(L"instructions",globals.GetMesh(L"instructions"), &globals.GetMaterial(L"instructions"), NULL, true));
+	globals.GetDraw(L"instructions").transform.translate.Set(1,4,-4);
+
+	
+
 	//Draw Travelator Support
 	drawOrder travelatorsupport(L"travelatorsupport",globals.GetMesh(L"travelatorsupport"), &globals.GetMaterial(L"dullwhite"), &globals.GetDraw(L"main"), true);
 	Vector3 travelatorsupportTranslate(-2,7.1,-21.6);
@@ -459,7 +508,7 @@ void SceneMain::InnitDraws()
 	}
 	//Draw Travelator Slope
 	drawOrder travelatorslope(L"travelatorslope",globals.GetMesh(L"travelatorslope"), &globals.GetMaterial(L"travelatorslope"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorslopeTranslate(-2,5.91,-21.5);
+	Vector3 travelatorslopeTranslate(-2,5.91,-21.6);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(travelatorslope);
@@ -468,7 +517,7 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = travelatorslopeTranslate;
 		globals.AddDraw(buffer);
-		travelatorslopeTranslate+= Vector3(0,0,-3.05);
+		travelatorslopeTranslate+= Vector3(0,0,-3.1);
 	}
 	//Draw Travelator Handle 1 AND 2
 	drawOrder travelatorhandle(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), &globals.GetDraw(L"main"), true);
@@ -499,18 +548,24 @@ void SceneMain::InnitDraws()
 
 	//Draw Outer Door
 	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.6);
+	globals.GetDraw(L"outer_door_1_right").transform.scale.Set(1,1,0.9);
+	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.5829);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.6);
-	globals.GetDraw(L"outer_door_1_left").transform.rotate.Set(0,180,0);
+	globals.GetDraw(L"outer_door_1_left").transform.scale.Set(1,1,0.9);
+	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.5829);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
-	globals.GetDraw(L"outer_door_2_left").transform.rotate.Set(0,180,0);
+	
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
@@ -783,7 +838,14 @@ bool SceneMain::Update(const double dt)
 	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
+		
 		wizard.Update(dt);
+		if(wizard.castingDone == true && isFrog == false)
+		{
+			player = new PlayerFrog;
+			isFrog = true;
+			wizard.castingDone = false;
+		}
 		for(int i = 0; i < 2; ++i)
 		{
 			SWLv2[i].Update(dt);
@@ -805,13 +867,71 @@ bool SceneMain::Update(const double dt)
 		if(UpdateLv1 ==true)
 	{
 		SILv1.Update(dt);
+		RLv1[0].Update(dt);
+		RLv1[1].Update(dt);
 	}
 	return false;
 }
 
 void SceneMain::UpdateLogic()
 {
+	if(state==START)
+	{
+		gameQuit=false;
+	}
+	else if(state==INST)
+	{
+		gameQuit=false;
+	}
+	else if(state==CREDITS)
+	{
+		gameQuit=false;
+	}
+	else if(state==CHOOSETOEXIT)
+	{
+		gameQuit=false;
+	}
+	else if(state==MAINMENU)
+		gameQuit=false;
+	if(option==1)
+	{
+		state=START;
+	}
+	else if(option==2)
+	{
+		state=INST;
+	}
+	else if(option==3)
+	{
+		state=CREDITS;
+	}
+	else if(option==4)
+	{
+		state=CHOOSETOEXIT;
+		state=START;
+	}
+	else if(option==2)
+	{
+		state=INST;
+	}
+	else if(option==3)
+	{
+		state=CREDITS;
+	}
+	else if(option==4)
+	{
+		state=CHOOSETOEXIT;
+	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
+	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	
+	if(keyboard.isKeyPressed('E'))
+	{
+		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	}
+
+
 }
 
 void SceneMain::UpdateView()
@@ -821,11 +941,11 @@ void SceneMain::UpdateView()
 
 	if(isFrog == false)
 	{
-		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
+		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, 2.5, 0));
 	}
 	else
 	{
-		//camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
+		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;
@@ -887,6 +1007,57 @@ void SceneMain::Render()
 	//{
 		globals.GetDraw(L"main").Execute(gfx);
 	//}
+	}
+		Mtx44 BG;
+		BG.SetToRotation(180,0,1,0);
+		BG.SetToTranslation(Vector3(30,30,30));
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+	if(state==MAINMENU)
+	{
+		Mtx44 Quad1;
+		Mtx44 Quad2;
+		Mtx44 Quad3;
+		Mtx44 Quad4;
+		Quad1.SetToTranslation(Vector3(30,30,30));
+		Quad2.SetToTranslation(Vector3(30,30,30));
+		Quad3.SetToTranslation(Vector3(30,30,30));
+		Quad4.SetToTranslation(Vector3(30,30,30));
+		Quad1.SetToRotation(180,0,1,0);
+		Quad2.SetToRotation(180,0,1,0);
+		Quad3.SetToRotation(180,0,1,0);
+		Quad4.SetToRotation(180,0,1,0);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4);
+	}
+	else if(state==START)
+	{
+
+	}
+	else if(state==INST)
+	{
+		Mtx44 instructions;
+		instructions.SetToTranslation(Vector3(30,30,30));
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
+	}
+	else if(state==CREDITS)
+	{
+		Mtx44 incredits;
+		incredits.SetToTranslation(Vector3(30,30,30));
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"incredits"),incredits);
+	}
+	else if(state==CHOOSETOEXIT)
+	{
+		Mtx44 inexit;
+		inexit.SetToTranslation(Vector3(30,30,30));
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
+	}
+
+	char buffer1[126];
+	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
+	sprintf(buffer1,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
+	gfx.RenderTextOnScreen(buffer1,Color(0,1,0),20,1,1);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -906,7 +1077,7 @@ void SceneMain::DoUserInput()
 	const int CAMERA_SPEED = 2.5;
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
-	double movingSpeed = 5;
+	double movingSpeed = 30;
 	
 	if(keyboard.isKeyPressed('F'))
 	{
@@ -914,6 +1085,18 @@ void SceneMain::DoUserInput()
 		{
 			item[i].InteractWithItem(camera.ReturnTarget());
 		}
+	}
+	if(keyboard.isKeyPressed('E'))
+	{
+		player->TakingTrolley(camera.ReturnTarget());
+	}
+	if(keyboard.isKeyPressed('R'))
+	{
+		player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
+	}
+	if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
+	{
+		wizard.casting = true;
 	}
 	if(keyboard.isKeyPressed('1'))
 	{
@@ -961,6 +1144,10 @@ void SceneMain::DoUserInput()
 	{
 		UpdateLv2 = true;
 	}
+	if (keyboard.isKeyHold(VK_SHIFT))
+	{
+		movingSpeed *= 3 ;
+	}
 	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
 	{
 		if (keyboard.isKeyHold('W'))
@@ -1001,6 +1188,7 @@ void SceneMain::DoUserInput()
 		tempVector.Set(0, -50, 0);
 		playerAcceleration += tempVector;
 	}
+
 	//
 	//if (keyboard.isKeyHold('O'))
 	//{	
@@ -1070,7 +1258,7 @@ void SceneMain::DoUserInput()
 			jumpedHeight = 0;
 		}
 	}
-	playerAcceleration = playerAcceleration * 2;
+	playerAcceleration = playerAcceleration;
 	playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);

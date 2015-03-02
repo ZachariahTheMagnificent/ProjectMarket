@@ -2,6 +2,7 @@
 
 #include "Character.h"
 #include "DrawOrder.h"
+#include "Range.h"
 
 class WizardLv2 :
 	public Character
@@ -15,15 +16,17 @@ private:
 	drawOrder* characterRightLeg;
 	//viariables to store rotation of character arm
 	float charArmRotate;
-	//viariables to check whether the character arms are rotating upward
-	bool ArmsRotateUp;
 public:
 	WizardLv2(void);
 	~WizardLv2(void);
 	
+	bool casting;
+	bool castingDone;
+	
 	void Init();
 	void Render();
 	void Update(const double dt);
+	bool checkInteract(const Vector3& PlayerTargetPos);
 	void Exit();
 	void Reset();
 	void Set(Vector3 TempPos);

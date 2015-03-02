@@ -77,7 +77,7 @@
 //	textures[TEXTURE_TRAVELATORSLOPE] = LoadTGA(L"Image//travelatorslope_texture.tga");
 //	textures[TEXTURE_TRAVELATORHANDLE] = LoadTGA(L"Image//travelatorhandle_texture.tga");
 //	textures[TEXTURE_LARGE_FORERUNNER_FLOOR_PLATE] = LoadTGA(L"Image//large_forerunner_floor_plate.tga");
-
+//
 //	textures[TEXTURE_PLAYBUTTON] = LoadTGA(L"Image//Quad1.tga");
 //	textures[TEXTURE_INSTBUTTON] = LoadTGA(L"Image//Quad2.tga");
 //	textures[TEXTURE_CREDITSBUTTON] = LoadTGA(L"Quad3.tga");

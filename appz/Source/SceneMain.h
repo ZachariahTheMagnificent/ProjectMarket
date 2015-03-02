@@ -14,6 +14,7 @@
 #include "ShopperWandererLv2.h"
 #include "WizardLv2.h"
 #include "ShopperPayerLv1.h"
+#include "RobotCashier.h"
 #include "DoorInteraction.h"
 #include "ItemInteraction.h"
 #include <vector>
@@ -29,7 +30,14 @@ public:
 	virtual void Render();
 	virtual void Exit();
 private:
-
+		enum MAIN_MENU
+	{
+		MAINMENU,
+		START,
+		INST,
+		CREDITS,
+		CHOOSETOEXIT,
+	};
 	GlobalList globals;
 	Light light[1];
 	Camera camera;
@@ -37,6 +45,7 @@ private:
 	ShopperWandererLv2 SWLv2[2];
 	WizardLv2 wizard;
 	ShopperIdler SILv1;
+	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;
 	DoorInteraction InteractDoor;
 	bool isJumping;
@@ -73,6 +82,8 @@ private:
 	void InnitLogic();
 	void InnitSounds();
 	void InnitMaterials();
+	unsigned state;
+	unsigned option;
 
 	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
 
