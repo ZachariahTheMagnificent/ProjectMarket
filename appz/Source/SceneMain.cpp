@@ -1082,6 +1082,7 @@ void SceneMain::Render()
 		instructions.SetToTranslation(Vector3(360,245,0));
 		/*instructions.SetToScale(1,1,0);*/
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
+
 	}
 	else if(state==CREDITS)
 	{
@@ -1120,213 +1121,218 @@ void SceneMain::DoUserInput()
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
 	double movingSpeed = 30;
-	if(keyboard.isKeyPressed('1'))
-	{
-		state=START;
-	}
-	if(keyboard.isKeyPressed('2'))
-	{
-		state=INST;	
-	}
-	if(keyboard.isKeyPressed('3'))
-	{
-		state=CREDITS;
-	}
-	if(keyboard.isKeyPressed('4'))
-	{
-		state=CHOOSETOEXIT;
-	}
-	if(keyboard.isKeyPressed('Y'))
-	{
-		
-	}
-	if(keyboard.isKeyPressed('N'))
-	{
-		state=MAINMENU;
-	}
-	if(keyboard.isKeyPressed('F'))
-	{
-		for(int i = 0; i < 1246; ++i)
+	if(keyboard.isKeyPressed('Z'))
 		{
-			item[i].InteractWithItem(camera.ReturnTarget());
+			glEnable(GL_CULL_FACE);
 		}
-	}
-	if(keyboard.isKeyPressed('E'))
-	{
-		player->TakingTrolley(camera.ReturnTarget());
-	}
-	if(keyboard.isKeyPressed('R'))
-	{
-		player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
-	}
-	if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
-	{
-		wizard.casting = true;
-	}
-	if(keyboard.isKeyPressed('z'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if(keyboard.isKeyPressed('x'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-	if(keyboard.isKeyPressed('c'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if(keyboard.isKeyPressed('v'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	if(keyboard.isKeyPressed('5'))
-	{
-		drawVoxels = !drawVoxels;
-	}
-	if (keyboard.isKeyPressed('I'))
-	{
-		if(isFrog == false)
+		if(keyboard.isKeyPressed('X'))
 		{
-			player = new PlayerFrog;
-			isFrog = true;
+			glDisable(GL_CULL_FACE);
 		}
-		else
+		if(keyboard.isKeyPressed('C'))
 		{
-			player = new PlayerHuman;
-			isFrog = false;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-	}
-	if (keyboard.isKeyPressed('Y'))
+		if(keyboard.isKeyPressed('V'))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		if(keyboard.isKeyPressed('5'))
+		{
+			drawVoxels = !drawVoxels;
+		}
+	if(state == START)
 	{
-		for(int i = 0; i < 2; ++i)
+		if(keyboard.isKeyPressed('N'))
 		{
-			SWLv2[i].Reset();
+			state=MAINMENU;
 		}
-		wizard.Reset();
-		UpdateLv2 = false;
-	}
-	if (keyboard.isKeyPressed('U'))
-	{
-		UpdateLv2 = true;
-	}
-	if (keyboard.isKeyHold(VK_SHIFT))
-	{
-		movingSpeed *= 3 ;
-	}
-	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
-	{
-		if (keyboard.isKeyHold('W'))
+		if(keyboard.isKeyPressed('F'))
 		{
-			playerAcceleration += player->MoveForward(camera, movingSpeed);
+			for(int i = 0; i < 1246; ++i)
+			{
+				item[i].InteractWithItem(camera.ReturnTarget());
+			}
 		}
-		if (keyboard.isKeyHold('S'))
+		if(keyboard.isKeyPressed('E'))
 		{
-			playerAcceleration += player->MoveBackward(camera, movingSpeed);
+			player->TakingTrolley(camera.ReturnTarget());
 		}
-		if (keyboard.isKeyHold('A'))
+		if(keyboard.isKeyPressed('R'))
 		{
-			playerAcceleration += player->MoveLeft(camera, movingSpeed);
+			player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
 		}
-		if (keyboard.isKeyHold('D'))
+		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
 		{
-			playerAcceleration += player->MoveRight(camera, movingSpeed);
+			wizard.casting = true;
 		}
-		if(isFrog == true && isJumping == false && isFalling == false)
+		if (keyboard.isKeyPressed('I'))
+		{
+			if(isFrog == false)
+			{
+				player = new PlayerFrog;
+				isFrog = true;
+			}
+			else
+			{
+				player = new PlayerHuman;
+				isFrog = false;
+			}
+		}
+		if (keyboard.isKeyPressed('Y'))
+		{
+			for(int i = 0; i < 2; ++i)
+			{
+				SWLv2[i].Reset();
+			}
+			wizard.Reset();
+			UpdateLv2 = false;
+		}
+		if (keyboard.isKeyPressed('U'))
+		{
+			UpdateLv2 = true;
+		}
+		if (keyboard.isKeyHold(VK_SHIFT))
+		{
+			movingSpeed *= 3 ;
+		}
+		if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
+		{
+			if (keyboard.isKeyHold('W'))
+			{
+				playerAcceleration += player->MoveForward(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('S'))
+			{
+				playerAcceleration += player->MoveBackward(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('A'))
+			{
+				playerAcceleration += player->MoveLeft(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('D'))
+			{
+				playerAcceleration += player->MoveRight(camera, movingSpeed);
+			}
+			if(isFrog == true && isJumping == false && isFalling == false)
+			{
+				isJumping = true;
+			}
+		}
+		//Jump
+		if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
 		{
 			isJumping = true;
 		}
-	}
-	//Jump
-	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
-	{
-		isJumping = true;
-	}
-	if (keyboard.isKeyHold('O'))
-	{	
-		Vector3 tempVector;
-		tempVector.Set(0, 50, 0);
-		playerAcceleration += tempVector;
-	}
-	if (keyboard.isKeyHold('P'))
-	{
-		Vector3 tempVector;
-		tempVector.Set(0, -50, 0);
-		playerAcceleration += tempVector;
-	}
-
-	//
-	//if (keyboard.isKeyHold('O'))
-	//{	
-	//	Vector3 tempVector;
-	//	tempVector.Set(0, 50, 0);
-	//	playerAcceleration += tempVector;
-	//}
-	//if (keyboard.isKeyHold('P'))
-	//{
-	//	Vector3 tempVector;
-	//	tempVector.Set(0, -50, 0);
-	//	playerAcceleration += tempVector;
-	//}
-	//
-	//Ignore
-	if (keyboard.isKeyHold(VK_UP))
-	{
-		camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold(VK_LEFT))
-	{
-		camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold(VK_DOWN))
-	{
-		camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold(VK_RIGHT))
-	{
-		camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold(VK_SPACE))
-	{
-		camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
-	}
-	if (keyboard.isKeyHold(VK_CONTROL))
-	{
-		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
-	}
-
-	//Jump
-	if(isJumping == true)
-	{
-		if(jumpedHeight < 700 && isFalling == false)
+		if (keyboard.isKeyHold('O'))
+		{	
+			Vector3 tempVector;
+			tempVector.Set(0, 50, 0);
+			playerAcceleration += tempVector;
+		}
+		if (keyboard.isKeyHold('P'))
 		{
 			Vector3 tempVector;
-			tempVector.Set(0, 100, 0);
+			tempVector.Set(0, -50, 0);
 			playerAcceleration += tempVector;
-			jumpedHeight += 100 - 50;
 		}
-		else
+
+		//
+		//if (keyboard.isKeyHold('O'))
+		//{	
+		//	Vector3 tempVector;
+		//	tempVector.Set(0, 50, 0);
+		//	playerAcceleration += tempVector;
+		//}
+		//if (keyboard.isKeyHold('P'))
+		//{
+		//	Vector3 tempVector;
+		//	tempVector.Set(0, -50, 0);
+		//	playerAcceleration += tempVector;
+		//}
+		//
+		//Ignore
+		if (keyboard.isKeyHold(VK_UP))
 		{
-			isJumping = false;
-			isFalling = true;
-			jumpedHeight = 700;
+			camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
 		}
+		if (keyboard.isKeyHold(VK_LEFT))
+		{
+			camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
+		}
+		if (keyboard.isKeyHold(VK_DOWN))
+		{
+			camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+		}
+		if (keyboard.isKeyHold(VK_RIGHT))
+		{
+			camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
+		}
+		if (keyboard.isKeyHold(VK_SPACE))
+		{
+			camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
+		}
+		if (keyboard.isKeyHold(VK_CONTROL))
+		{
+			camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
+		}
+
+		//Jump
+		if(isJumping == true)
+		{
+			if(jumpedHeight < 700 && isFalling == false)
+			{
+				Vector3 tempVector;
+				tempVector.Set(0, 100, 0);
+				playerAcceleration += tempVector;
+				jumpedHeight += 100 - 50;
+			}
+			else
+			{
+				isJumping = false;
+				isFalling = true;
+				jumpedHeight = 700;
+			}
+		}
+		if(isFalling == true)
+		{
+			if(jumpedHeight > 0)
+			{
+				jumpedHeight -= 20;
+			}
+			else
+			{
+				isFalling = false;
+				jumpedHeight = 0;
+			}
+		}
+		playerAcceleration = playerAcceleration;
+		playerAcceleration += player->Update(camera);
+		Force playerForce;
+		playerForce.SetLifespanTo(0.0001);
+		playerForce.SetVector(playerAcceleration);
+		globals.GetDraw(L"player_body").AddForce(playerForce);
 	}
-	if(isFalling == true)
+	else
 	{
-		if(jumpedHeight > 0)
+		if(keyboard.isKeyPressed('1'))
 		{
-			jumpedHeight -= 20;
+			state=START;
 		}
-		else
+		if(keyboard.isKeyPressed('2'))
 		{
-			isFalling = false;
-			jumpedHeight = 0;
+			state=INST;	
+		}
+		if(keyboard.isKeyPressed('3'))
+		{
+			state=CREDITS;
+		}
+		if(keyboard.isKeyPressed('4'))
+		{
+			state=CHOOSETOEXIT;
 		}
 	}
-	playerAcceleration = playerAcceleration;
-	playerAcceleration += player->Update(camera);
-	Force playerForce;
-	playerForce.SetLifespanTo(0.0001);
-	playerForce.SetVector(playerAcceleration);
-	globals.GetDraw(L"player_body").AddForce(playerForce);
+
+
+
 }
