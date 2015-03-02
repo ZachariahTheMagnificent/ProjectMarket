@@ -845,6 +845,8 @@ bool SceneMain::Update(const double dt)
 		wizard.Update(dt);
 		if(wizard.castingDone == true && isFrog == false)
 		{
+			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+			delete player;
 			player = new PlayerFrog;
 			isFrog = true;
 			wizard.castingDone = false;
@@ -1158,13 +1160,13 @@ void SceneMain::DoUserInput()
 				item[i].InteractWithItem(camera.ReturnTarget());
 			}
 		}
-		if(keyboard.isKeyPressed('E'))
+		if(keyboard.isKeyPressed('E') && isFrog == false)
 		{
 			player->TakingTrolley(camera.ReturnTarget());
 		}
 		if(keyboard.isKeyPressed('R'))
 		{
-			player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
+			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 		}
 		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
 		{
@@ -1174,12 +1176,16 @@ void SceneMain::DoUserInput()
 		{
 			if(isFrog == false)
 			{
+				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+				delete player;
 				player = new PlayerFrog;
 				isFrog = true;
 			}
 			else
 			{
+				delete player;
 				player = new PlayerHuman;
+				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 				isFrog = false;
 			}
 		}

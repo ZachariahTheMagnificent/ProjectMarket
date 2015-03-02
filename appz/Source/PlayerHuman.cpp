@@ -68,13 +68,13 @@ Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 
 void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
 {
-	Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 5,trolley->GetGlobalPosition().x + 5);
-	Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 5,trolley->GetGlobalPosition().y + 5);
-	Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 5,trolley->GetGlobalPosition().z + 5);
-
-	if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
+	if(isHoldingTrolley == false)
 	{
-		if(isHoldingTrolley == false)
+		Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 5,trolley->GetGlobalPosition().x + 5);
+		Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 5,trolley->GetGlobalPosition().y + 5);
+		Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 5,trolley->GetGlobalPosition().z + 5);
+
+		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
 		{
 			trolley->SetParentAs(body);
 			trolley->transform.rotate.Set(0,0,0);
@@ -94,7 +94,7 @@ void PlayerHuman::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
 		trolley->selfTransform.translate.Set(0,0,0);
 		trolley->transform.translate.Set(0,0,0);
 		trolley->transform.rotate.y = body->transform.rotate.y;
-		trolley->transform.translate += TrolleyCurrentPos + body->transform.rotate.MatrixY() * Vector3(5,-3,0);
+		trolley->transform.translate += TrolleyCurrentPos;
 
 		isHoldingTrolley = false;
 	}
