@@ -507,7 +507,7 @@ void SceneMain::InnitDraws()
 	}
 	//Draw Travelator Slope
 	drawOrder travelatorslope(L"travelatorslope",globals.GetMesh(L"travelatorslope"), &globals.GetMaterial(L"travelatorslope"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorslopeTranslate(-2,5.91,-21.5);
+	Vector3 travelatorslopeTranslate(-2,5.91,-21.6);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(travelatorslope);
@@ -516,7 +516,7 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = travelatorslopeTranslate;
 		globals.AddDraw(buffer);
-		travelatorslopeTranslate+= Vector3(0,0,-3.05);
+		travelatorslopeTranslate+= Vector3(0,0,-3.1);
 	}
 	//Draw Travelator Handle 1 AND 2
 	drawOrder travelatorhandle(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), &globals.GetDraw(L"main"), true);
@@ -925,6 +925,7 @@ void SceneMain::UpdateLogic()
 	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
 	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	
 	if(keyboard.isKeyPressed('E'))
 	{

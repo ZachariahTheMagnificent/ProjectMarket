@@ -19,6 +19,7 @@ public:
 	void InteractWithDoors(const double dt, const Vector3& PlayerPos);
 	void InteractWithLifts(const double dt, Vector3& PlayerPos);
 	void TeleportWithLifts(const double dt, Vector3& PlayerPos);
+	void InteractWithTravelator(const double dt, Vector3& PlayerPos);
 
 
 private:

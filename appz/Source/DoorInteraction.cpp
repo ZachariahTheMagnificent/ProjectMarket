@@ -39,8 +39,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor1Left->transform.translate.x >= -6)
 		{
-			OuterDoor1Left-> transform.translate.x += -2.5 * dt;
-			OuterDoor1Right-> transform.translate.x += 2.5 * dt;
+			OuterDoor1Left-> transform.translate.x += -3 * dt;
+			OuterDoor1Right-> transform.translate.x += 3 * dt;
 		}
 	}
 
@@ -48,8 +48,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor1Left->transform.translate.x < -2)
 		{
-			OuterDoor1Left-> transform.translate.x += 2.5 * dt;
-			OuterDoor1Right-> transform.translate.x += -2.5 * dt;
+			OuterDoor1Left-> transform.translate.x += 3 * dt;
+			OuterDoor1Right-> transform.translate.x += -3 * dt;
 		}
 	}
 
@@ -70,7 +70,7 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(InnerDoor1 -> transform.translate.x > -17.5)
 		{
-			InnerDoor1-> transform.translate.x += -2.5 * dt;
+			InnerDoor1-> transform.translate.x += -3 * dt;
 		}
 	}
 
@@ -83,8 +83,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor2Left->transform.translate.x >= -17.2)
 		{
-			OuterDoor2Left-> transform.translate.x += -2.5 * dt;
-			OuterDoor2Right-> transform.translate.x += 2.5 * dt;
+			OuterDoor2Left-> transform.translate.x += -3 * dt;
+			OuterDoor2Right-> transform.translate.x += 3 * dt;
 		}
 	}
 
@@ -92,8 +92,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor2Left->transform.translate.x < -13)
 		{
-			OuterDoor2Left-> transform.translate.x += 2.5 * dt;
-			OuterDoor2Right-> transform.translate.x += -2.5 * dt;
+			OuterDoor2Left-> transform.translate.x += 3 * dt;
+			OuterDoor2Right-> transform.translate.x += -3 * dt;
 		}
 	}
 }
@@ -162,3 +162,22 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)
 	}	
 }
 
+void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos)	
+{
+	Range<int> TravelatorRangeX(-14,10.716);
+	Range<int> TravelatorRangeY(0,14);
+	Range<int> TravelatorLeftUpRangeZ(-21.638,-20.788);
+	Range<int> TravelatorRightDownRangeZ(-24.337,-23.234);
+
+	if(TravelatorRangeX.IsInRange(PlayerPos.x) && TravelatorRangeY.IsInRange(PlayerPos.y) && TravelatorRightDownRangeZ.IsInRange(PlayerPos.z))
+	{
+		PlayerPos.x += 2.5 * dt;
+		PlayerPos.y += -1 * dt;
+	}
+
+	if(TravelatorRangeX.IsInRange(PlayerPos.x) && TravelatorRangeY.IsInRange(PlayerPos.y) && TravelatorLeftUpRangeZ.IsInRange(PlayerPos.z))
+	{
+		PlayerPos.x += -2.5 * dt;
+		PlayerPos.y += 1 * dt;
+	}
+}
