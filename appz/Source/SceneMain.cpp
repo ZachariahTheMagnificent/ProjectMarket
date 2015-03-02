@@ -791,7 +791,14 @@ bool SceneMain::Update(const double dt)
 	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
+		
 		wizard.Update(dt);
+		if(wizard.castingDone == true && isFrog == false)
+		{
+			player = new PlayerFrog;
+			isFrog = true;
+			wizard.castingDone = false;
+		}
 		for(int i = 0; i < 2; ++i)
 		{
 			SWLv2[i].Update(dt);
@@ -958,6 +965,10 @@ void SceneMain::DoUserInput()
 		{
 			item[i].InteractWithItem(camera.ReturnTarget());
 		}
+	}
+	if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
+	{
+		wizard.casting = true;
 	}
 	if(keyboard.isKeyPressed('1'))
 	{
