@@ -233,6 +233,7 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
@@ -291,6 +292,9 @@ void SceneMain::InnitDraws()
 	//Draw Building
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
+	
+	//Draw player target
+	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -839,6 +843,7 @@ bool SceneMain::Update(const double dt)
 	UpdateLight();
 	UpdateLogic();
 	SPLv1.Update(dt);
+	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
 	if(UpdateLv2 == true)
 	{
 		
@@ -963,6 +968,7 @@ void SceneMain::UpdateView()
 	{
 		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
+	
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;
 	globals.GetDraw(L"player_body").transform.rotate.y += player_current_frame_rotationY;
@@ -1157,7 +1163,7 @@ void SceneMain::DoUserInput()
 		{
 			for(int i = 0; i < 1246; ++i)
 			{
-				item[i].InteractWithItem(camera.ReturnTarget());
+				item[i].InteractWithItem(camera.ReturnTarget(), item[i].defaultGlobalPosition);
 			}
 		}
 		if(keyboard.isKeyPressed('E') && isFrog == false)

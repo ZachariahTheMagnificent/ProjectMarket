@@ -70,9 +70,9 @@ void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
 {
 	if(isHoldingTrolley == false)
 	{
-		Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 5,trolley->GetGlobalPosition().x + 5);
-		Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 5,trolley->GetGlobalPosition().y + 5);
-		Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 5,trolley->GetGlobalPosition().z + 5);
+		Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 2,trolley->GetGlobalPosition().x + 2);
+		Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 2,trolley->GetGlobalPosition().y + 2);
+		Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 2,trolley->GetGlobalPosition().z + 2);
 
 		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
 		{
