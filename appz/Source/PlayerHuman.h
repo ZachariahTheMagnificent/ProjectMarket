@@ -13,6 +13,8 @@ public:
 	Vector3 Update(Camera camera);
 	void Render();
 	void Exit();
+	void takeItems();
+	void returnItems();
 	
 	//movement
 	Vector3 MoveForward(Camera camera, double movingSpeed);

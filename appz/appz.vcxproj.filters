@@ -31,9 +31,6 @@
     <Filter Include="Header Files\Mesh">
       <UniqueIdentifier>{95fecb1b-b8f7-457d-9ef5-a3112f6f0099}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Mesh">
-      <UniqueIdentifier>{7d4625b8-08c3-4e27-9273-e26349655b0d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{d4ecd343-a87a-4cbf-9aef-5cd924bc621d}</UniqueIdentifier>
     </Filter>
@@ -58,9 +55,6 @@
     <Filter Include="Source Files\Application">
       <UniqueIdentifier>{e7334c94-1d2f-468a-8648-e9d22a7ae9f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Container">
-      <UniqueIdentifier>{bf26d489-e20b-4cc0-a400-1ef97c3ac4f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Container">
       <UniqueIdentifier>{29cdbdb3-95e9-4da1-b8da-e56c166cf240}</UniqueIdentifier>
     </Filter>
@@ -69,6 +63,12 @@
     </Filter>
     <Filter Include="Header Files\Interactions">
       <UniqueIdentifier>{27673c83-6dcc-40d3-813d-a7ee2dc2d72d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters\Container">
+      <UniqueIdentifier>{bf26d489-e20b-4cc0-a400-1ef97c3ac4f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics\Mesh">
+      <UniqueIdentifier>{7d4625b8-08c3-4e27-9273-e26349655b0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,7 +82,7 @@
       <Filter>Source Files\physics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Source Files\Mesh</Filter>
+      <Filter>Source Files\physics\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Source\GLMouse.cpp">
       <Filter>Source Files\Input</Filter>
@@ -91,7 +91,7 @@
       <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\MeshBuilder.cpp">
-      <Filter>Source Files\Mesh</Filter>
+      <Filter>Source Files\physics\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Source\shader.cpp">
       <Filter>Source Files\Rendering</Filter>
@@ -127,7 +127,7 @@
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
     <ClCompile Include="Source\Polygon.cpp">
-      <Filter>Source Files\Mesh</Filter>
+      <Filter>Source Files\physics\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Source Files\Application</Filter>
@@ -148,7 +148,7 @@
       <Filter>Source Files\Container</Filter>
     </ClCompile>
     <ClCompile Include="Source\LoadOBJ.cpp">
-      <Filter>Source Files\Mesh</Filter>
+      <Filter>Source Files\physics\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Source\LoadTGA.cpp">
       <Filter>Source Files\Rendering</Filter>
@@ -258,13 +258,13 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Source\GlobalList.h">
-      <Filter>Header Files\Container</Filter>
+      <Filter>Header Files\Characters\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\VoxelOctree.h">
-      <Filter>Header Files\Container</Filter>
+      <Filter>Header Files\Characters\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\Directory.h">
-      <Filter>Header Files\Container</Filter>
+      <Filter>Header Files\Characters\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\LoadOBJ.h">
       <Filter>Header Files\Mesh</Filter>
@@ -288,7 +288,7 @@
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\VoxelLeaf.h">
-      <Filter>Header Files\Container</Filter>
+      <Filter>Header Files\Characters\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\DoorInteraction.h">
       <Filter>Header Files\Interactions</Filter>
