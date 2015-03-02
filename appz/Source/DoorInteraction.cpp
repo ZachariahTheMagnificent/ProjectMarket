@@ -98,14 +98,15 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	}
 }
 
-void DoorInteraction::InteractWithLifts(const double dt, const Vector3& PlayerPos)	
+void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)	
 {
-	//LiftDoor1
-	Range<int> LiftDoor1RangeX(13,18);
+	//LiftDoor1 > door interaction
+	Range<int> LiftDoor1and2RangeX(13,18);
 	Range<int> LiftDoor1RangeY(0,5);
-	Range<int> LiftDoor1RangeZ(-96,-93);
+	Range<int> LiftDoor2RangeY(10,15);
+	Range<int> LiftDoor1and2RangeZ(-96,-93);
 
-	if(LiftDoor1RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1RangeZ.IsInRange(PlayerPos.z))
+	if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
 	{
 		if(LiftDoor1Left->transform.translate.x >= 11)
 		{
@@ -122,4 +123,42 @@ void DoorInteraction::InteractWithLifts(const double dt, const Vector3& PlayerPo
 			LiftDoor1Right-> transform.translate.x += -2.5 * dt;
 		}
 	}
+
+		if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
+	{
+		if(LiftDoor2Left->transform.translate.x >= 11)
+		{
+			LiftDoor2Left-> transform.translate.x += -2.5 * dt;
+			LiftDoor2Right-> transform.translate.x += 2.5 * dt;
+		}
+	}
+
+	else
+	{
+		if(LiftDoor2Left->transform.translate.x < 14)
+		{
+			LiftDoor2Left-> transform.translate.x += 2.5 * dt;
+			LiftDoor2Right-> transform.translate.x += -2.5 * dt;
+		}
+	}
 }
+
+void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)	
+{
+	//Lift > Lift translation
+	Range<int> Lift0and1RangeX(12,18);
+	Range<int> Lift0RangeY(0,5);
+	Range<int> Lift1RangeY(10,15);
+	Range<int> Lift0and1RangeZ(-105,-100);
+
+	if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift0RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
+	{
+		PlayerPos.y = 10.902;
+	}	
+
+	else if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift1RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
+	{
+		PlayerPos.y = 0.931;
+	}	
+}
+

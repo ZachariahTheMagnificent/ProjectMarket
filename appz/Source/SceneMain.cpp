@@ -399,15 +399,19 @@ void SceneMain::InnitDraws()
 
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_1_left").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_1_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_1_right").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_2_left").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-98.6);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"liftdoor_2_right").transform.scale.Set(1,1,0.8);
 	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6);
 
 	//Draw Cashier Table
@@ -827,7 +831,14 @@ bool SceneMain::Update(const double dt)
 void SceneMain::UpdateLogic()
 {
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
-	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
+	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	
+	if(keyboard.isKeyPressed('E'))
+	{
+		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	}
+
+
 }
 
 void SceneMain::UpdateView()
