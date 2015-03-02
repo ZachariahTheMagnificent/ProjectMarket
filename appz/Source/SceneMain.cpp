@@ -1098,10 +1098,14 @@ void SceneMain::Render()
 	}
 
 	char buffer1[126];
+	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
 	sprintf(buffer1,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
 	gfx.RenderTextOnScreen(buffer1,Color(0,1,0),20,1,1);
-
+	currentFPS = 1 / deltaTime;
+	sprintf(buffer2,"FPS:%.3f", currentFPS);
+	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,460);
+	
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
