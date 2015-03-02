@@ -4,12 +4,12 @@ appz/Debug/
 nyeh/Debug/
 appz/Release/
 nyeh/Release/
-appz/Release\
-nyeh/Release\
 Debug/appz.exe
+Debug/scrubs.lib
 Debug/appz.ilk
 Debug/appz.pdb
 Release/appz.exe
+Release/scrubs.lib
 Release/appz.pdb
 *.opensdf
 *.sdf
