@@ -48,6 +48,7 @@ private:
 	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;
 	DoorInteraction InteractDoor;
+	bool OpenLiftDoor;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;

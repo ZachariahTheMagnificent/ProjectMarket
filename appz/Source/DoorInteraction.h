@@ -24,10 +24,6 @@ public:
 
 private:
 	
-	bool OuterDoor1isOpen;
-	bool OuterDoor2isOpen;
-	bool InnerDoor1isOpen;
-	bool InnerDoor2isOpen;
 	bool LiftDoor1isOpen;
 	bool LiftDoor2isOpen;
 

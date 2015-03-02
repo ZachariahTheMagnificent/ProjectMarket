@@ -31,6 +31,7 @@ void SceneMain::Init()
 	InnitLogic();
 	player = new PlayerHuman;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+	OpenLiftDoor = false;
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
@@ -938,15 +939,13 @@ void SceneMain::UpdateLogic()
 		state=CHOOSETOEXIT;
 	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
-	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	
 	if(keyboard.isKeyPressed('E'))
-	{
+	{	
 		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	}
-
-
 }
 
 void SceneMain::UpdateView()

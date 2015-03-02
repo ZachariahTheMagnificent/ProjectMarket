@@ -2,10 +2,6 @@
 
 DoorInteraction::DoorInteraction(void)
 {
-	 OuterDoor1isOpen = false;
-	 OuterDoor2isOpen = false;
-	 InnerDoor1isOpen = false;
-	 InnerDoor2isOpen = false;
 	 LiftDoor1isOpen = false;
 	 LiftDoor2isOpen = false;
 }
@@ -122,7 +118,7 @@ void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)
 	Range<int> LiftDoor1and2RangeZ(-96,-93);
 
 	if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
-	{
+	{		
 		if(LiftDoor1Left->transform.translate.x >= 11)
 		{
 			LiftDoor1Left-> transform.translate.x += -2.5 * dt;
