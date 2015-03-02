@@ -271,12 +271,12 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
 }
-	//Draw main menu
+
 void SceneMain::InnitDraws()
 {
 	//main will be the main draw order that all other draw orders are children of
 	globals.AddDraw(drawOrder(L"main"));
-
+	//Draw main menu
 	//Draw SkyBox
 	globals.AddDraw(drawOrder(L"skybox",globals.GetMesh(L"skybox"), &globals.GetMaterial(L"skybox"), &globals.GetDraw(L"main")));
 	globals.GetDraw(L"skybox").transform.translate.Set(0,0,0);
