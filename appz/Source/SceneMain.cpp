@@ -1007,7 +1007,7 @@ void SceneMain::Render()
 	//{
 		globals.GetDraw(L"main").Execute(gfx);
 	//}
-	}
+	//}
 		Mtx44 BG;
 		BG.SetToRotation(180,0,1,0);
 		BG.SetToTranslation(Vector3(30,30,30));
