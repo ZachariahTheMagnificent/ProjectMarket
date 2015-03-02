@@ -3,6 +3,7 @@
 
 PlayerFrog::PlayerFrog(void)
 {
+	isHoldingTrolley = false;
 }
 
 
@@ -63,4 +64,8 @@ Vector3 PlayerFrog::MoveLeft(Camera camera, double movingSpeed)
 	tempVector.Set(0, 0, -movingSpeed);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
+}
+
+void PlayerFrog::TakingTrolley(const Vector3& PlayerTargetPos)
+{
 }

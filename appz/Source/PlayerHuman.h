@@ -1,6 +1,7 @@
 #pragma once
 
 #include "player.h"
+#include "Range.h"
 
 class PlayerHuman :
 	public Player
@@ -21,5 +22,6 @@ public:
 	Vector3 MoveBackward(Camera camera, double movingSpeed);
 	Vector3 MoveRight(Camera camera, double movingSpeed);
 	Vector3 MoveLeft(Camera camera, double movingSpeed);
+	void TakingTrolley(const Vector3& PlayerTargetPos);
 };
 
