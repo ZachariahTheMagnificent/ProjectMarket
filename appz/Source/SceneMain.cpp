@@ -835,6 +835,7 @@ bool SceneMain::Update(const double dt)
 	UpdateDraws();
 	UpdateView();
 	UpdateLight();
+	UpdateLogic();
 	SPLv1.Update(dt);
 	if(UpdateLv2 == true)
 	{
