@@ -141,6 +141,7 @@ public:
 	float GetMaxZ() const;
 	float GetMinZ() const;
 	float GetMass() const;
+	Vector3 GetGlobalPosition() const;
 	unsigned GetTexture() const;
 	float GetKinetic();
 	bool IsLightEnabled();
@@ -152,7 +153,6 @@ public:
 	void SetVelocityTo(Vector3 newVelocity);
 	void SetMomentumTo(Vector3 momentum);
 	void SetParentAs(drawOrder* parent);
-	void Copy(drawOrder& original);
 	void CapVelocityToTerminal();
 	void AddForce(Vector3 force);
 	void AddForce(Force force);

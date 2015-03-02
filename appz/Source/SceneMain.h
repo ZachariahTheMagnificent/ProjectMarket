@@ -15,6 +15,8 @@
 #include "WizardLv2.h"
 #include "ShopperPayerLv1.h"
 #include "RobotCashier.h"
+#include "DoorInteraction.h"
+#include "ItemInteraction.h"
 #include <vector>
 
 class SceneMain : public Scene
@@ -45,12 +47,14 @@ private:
 	ShopperIdler SILv1;
 	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;
+	DoorInteraction InteractDoor;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
 	bool isFrog;
 	bool UpdateLv2;
 	bool UpdateLv1;
+	ItemInteraction item[1246];
 
 	//print fps
 	double deltaTime;

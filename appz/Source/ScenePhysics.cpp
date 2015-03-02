@@ -185,15 +185,16 @@ void ScenePhysics::InnitDraws()
 
 void ScenePhysics::InnitVoxels()
 {
-	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
-	//{
-	//	draw->second->GenerateVoxels();
-	//}
-	//globals.GetDraw(L"nirvana").GenerateVoxels();
-	//globals.GetDraw(L"player").GenerateVoxels();
-	//collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
-	//globals.GetDraw(L"nirvana").GenerateVoxels();
-	//globals.GetDraw(L"player").GenerateVoxels();
+	globals.GetDraw(L"nirvana").GenerateVoxels();
+	globals.GetDraw(L"player").GenerateVoxels();
+	globals.GetDraw(L"currupted sentinel").GenerateVoxels();
+	globals.GetDraw(L"wise sentinel").GenerateVoxels();
+	globals.GetDraw(L"football field").GenerateVoxels();
+	globals.GetDraw(L"rock sentinel").GenerateVoxels();
+	globals.GetDraw(L"stone sentinel").GenerateVoxels();
+	globals.GetDraw(L"sneaky sentinel").GenerateVoxels();
+	globals.GetDraw(L"pure sentinel").GenerateVoxels();
+	collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
 }
 
 void ScenePhysics::InnitForces()

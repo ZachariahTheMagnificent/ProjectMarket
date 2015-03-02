@@ -177,6 +177,9 @@
     <ClCompile Include="Source\DoorInteraction.cpp">
       <Filter>Source Files\Interactions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ItemInteraction.cpp">
+      <Filter>Source Files\Interactions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Contacts.h">
@@ -223,9 +226,6 @@
     </ClInclude>
     <ClInclude Include="Source\DrawOrder.h">
       <Filter>Header Files\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneMain.h">
-      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Character.h">
       <Filter>Header Files\Characters</Filter>
@@ -291,6 +291,12 @@
       <Filter>Header Files\Characters\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\DoorInteraction.h">
+      <Filter>Header Files\Interactions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMain.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemInteraction.h">
       <Filter>Header Files\Interactions</Filter>
     </ClInclude>
   </ItemGroup>

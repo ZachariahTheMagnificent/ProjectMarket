@@ -7,18 +7,21 @@ ShopperPayerLv1::ShopperPayerLv1(void)
 	charBodyAngleRotate = 0;
 	charLegRotate = 15;
 	rightLegRotateUp = true;
-	points[0] = Vector3(-17.5,5,-10);// Behind inner entrance door, inside entrance room
-	points[1] = Vector3(-17.5,5,-51);// Position to rotate toward the two cabinets
+	points[0] = Vector3(-18,5,-10);// Behind inner entrance door, inside entrance room
+	points[1] = Vector3(-18,5,-51);// Position to rotate toward the two cabinets
 	points[2] = Vector3(-7.5,5,-51);// Between two cabinets
-	points[3] = Vector3(-17.5,5,-83);// Beside cashier table at side
-	points[4] = Vector3(-17.5,5,-95);// Position to rotate around the cashier table
+	points[3] = Vector3(-18,5,-83);// Beside cashier table at side
+	points[4] = Vector3(-18,5,-95);// Position to rotate around the cashier table
 	points[5] = Vector3(-11.5,5,-95);// Position to rotate toward exit door
 	points[6] = Vector3(-11.5,5,-110);// Behind outer exit door, outside
 	targetPosNo = 1;
-	defaultTookItems = false;
 	targetPosition = points[targetPosNo];
 	tookItems = false;
+	currentState = WALKING;
 	walkingForward = true;
+	paid = false;
+	defaultPoint = 0;
+	payingdistance = 0;
 }
 
 
@@ -40,117 +43,83 @@ void ShopperPayerLv1::SetPosition(int No)
 		No = 0;
 	characterBody->transform.translate = points[No];
 	CheckDisAndTargetPos(No);
-	defaultPoint = points[No];
-	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
+	defaultPoint = No;
 	if(No >= 2)
 	{
-		takenItems();
-		defaultTookItems = true;
+		takingItems();
 	}
+	if(No == 2)
+		currentState = TAKING;
+	else if(No == 3)
+		currentState = PAYING;
+	if(No >= 3)
+		paid = true;
+	else
+		paid = false;
 }
 
 void ShopperPayerLv1::Update(const double dt)
 {
-	if(distanceNeedToMoveInOneDir > 0)
+	if(currentState == WALKING) // Walking
 	{
-		if(walkingForward == true)
-			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 2);
-		else
-			characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, -dt * 2);
-		distanceNeedToMoveInOneDir -= dt * 2;
-		if(charLegRotate > 30)
-			rightLegRotateUp = false;
-		else if(charLegRotate < 0)
-			rightLegRotateUp = true;
-		if(rightLegRotateUp == true)
+		if(distanceNeedToMoveInOneDir > 0)
 		{
-			characterLeftLeg->selfTransform.rotate.x += dt * 40;
-			characterRightLeg->selfTransform.rotate.x -= dt * 40;
-			charLegRotate += dt * 40;
-		}
-		else
-		{
-			characterLeftLeg->selfTransform.rotate.x -= dt * 40;
-			characterRightLeg->selfTransform.rotate.x += dt * 40;
-			charLegRotate -= dt * 40;
-		}
-	}
-	else
-	{
-		if(targetPosNo == 2 && tookItems == false)
-		{
-			takenItems();
-		}
-		else
-		{
-			if(targetPosNo == 0)
+			if(walkingForward == true)
+				characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 2);
+			else
+				characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, -dt * 2);
+			distanceNeedToMoveInOneDir -= dt * 2;
+			if(charLegRotate > 30)
+				rightLegRotateUp = false;
+			else if(charLegRotate < 0)
+				rightLegRotateUp = true;
+			if(rightLegRotateUp == true)
 			{
-				SetPosition(0);
-				returnItems();
+				characterLeftLeg->selfTransform.rotate.x += dt * 40;
+				characterRightLeg->selfTransform.rotate.x -= dt * 40;
+				charLegRotate += dt * 40;
 			}
 			else
-				CheckDisAndTargetPos(targetPosNo);
+			{
+				characterLeftLeg->selfTransform.rotate.x -= dt * 40;
+				characterRightLeg->selfTransform.rotate.x += dt * 40;
+				charLegRotate -= dt * 40;
+			}
+		}
+		else
+		{
+			if(targetPosNo == 2 && tookItems == false)
+			{
+				currentState = TAKING;
+			}
+			else if(targetPosNo == 3 && tookItems == true)
+			{
+				currentState = PAYING;
+			}
+			else
+			{
+				if(targetPosNo == 0)
+				{
+					SetPosition(0);
+					returnItems();
+				}
+				else
+					CheckDisAndTargetPos(targetPosNo);
+			}
 		}
 	}
-	//if(idling == true)
-	//{
-	//	characterLeftArm->selfTransform.rotate.x = -5;
-	//	characterRightArm->selfTransform.rotate.x = -5;
-	//	charArmRotate = 30;
-	//	characterLeftLeg->selfTransform.rotate.x = 0;
-	//	characterRightLeg->selfTransform.rotate.x = 0;
-	//	timeIdling += dt;
-	//	if(timeIdling > 5)
-	//	{
-	//		timeIdling = 0;
-	//		idling = false;
-	//		walking = true;
-	//	}
-	//}
-	//else
-	//{
-	//	//If distance less than 15, character walking
-	//	if(distanceMovedInOneDir < 15)
-	//	{
-	//		characterBody->transform.translate += characterBody->transform.rotate.MatrixY() * Vector3(0, 0, dt * 2);
-	//		distanceMovedInOneDir += dt * 2;
-	//		if(charArmRotate > 60)
-	//			leftArmRotateUp = false;
-	//		else if(charArmRotate < 0)
-	//			leftArmRotateUp = true;
-	//		if(leftArmRotateUp == true)
-	//		{
-	//			characterLeftArm->selfTransform.rotate.x -= dt * 80;
-	//			characterRightArm->selfTransform.rotate.x += dt * 80;
-	//			charArmRotate += dt * 80;
-	//			characterLeftLeg->selfTransform.rotate.x += dt * 40;
-	//			characterRightLeg->selfTransform.rotate.x -= dt * 40;
-	//		}
-	//		else
-	//		{
-	//			characterLeftArm->selfTransform.rotate.x += dt * 80;
-	//			characterRightArm->selfTransform.rotate.x -= dt * 80;
-	//			charArmRotate -= dt * 80;
-	//			characterLeftLeg->selfTransform.rotate.x -= dt * 40;
-	//			characterRightLeg->selfTransform.rotate.x += dt * 40;
-	//		}
-	//	}
-	//	timeWalking += dt;
-	//	if(timeWalking > 10)
-	//	{
-	//		timeWalking = 0;
-	//		if(rand() % 2 == 0)
-	//		{
-	//			idling = false;
-	//			walking = true;
-	//		}
-	//		else
-	//		{
-	//			idling = true;
-	//			walking = false;
-	//		}
-	//	}
-	//}
+	else if(currentState == TAKING) //taking
+	{
+		takingItems();
+	}
+	else // Paying
+	{
+		if(tookItems == true)
+			putItemOntable();
+		paying(dt);
+		if(paid == true)
+			CheckDisAndTargetPos(3);
+	}
 }
 
 void ShopperPayerLv1::Exit()
@@ -159,18 +128,14 @@ void ShopperPayerLv1::Exit()
 
 void ShopperPayerLv1::Reset()
 {
-	characterBody->transform.translate = defaultPoint;
-	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
+	SetPosition(defaultPoint);
 	distanceNeedToMoveInOneDir = 0;
 	charBodyAngleRotate = 0;
 	charLegRotate = 15;
 	characterLeftLeg->selfTransform.rotate.x = 0;
 	characterRightLeg->selfTransform.rotate.x = 0;
 	rightLegRotateUp = true;
-	if(defaultTookItems == true)
-	{
-		takenItems();
-	}
+	payingdistance = 0;
 }
 
 void ShopperPayerLv1::CheckDisAndTargetPos(int No)
@@ -223,208 +188,61 @@ void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 	}
 }
 
-void ShopperPayerLv1::takenItems()
+void ShopperPayerLv1::takingItems()
 {
 	item1->SetParentAs(characterBody);
 	item1->transform.translate = Vector3(0, -1.2, 4);
 	tookItems = true;
+	currentState = WALKING;
 }
 
 void ShopperPayerLv1::returnItems()
 {
 	item1->SetParentAs(cabinet);
-	item1->transform.translate = Vector3(-3,3.9,-4.5);
+	item1->transform.translate = Vector3(0,1.5,0);
 	tookItems = false;
 }
 
+void ShopperPayerLv1::paying(const double dt)
+{
+	if(paid == false)
+	{
+		item1->transform.translate.z -= dt * 0.5;
+		payingdistance += dt * 0.5;
+		if(payingdistance > 6.5)
+		{
+			paid = true;
+			payingdistance = 0;
+		}
+		else if(payingdistance > 2.75)
+		{
+			item1->transform.translate.y = 4.9;
+		}
+		else if(payingdistance > 2.25)
+		{
+			item1->transform.translate.y -= dt * 0.5;
+		}
+	}
+	else
+	{
+		takingItems();
+		currentState = WALKING;
+	}
+}
 
-void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet)
+void ShopperPayerLv1::putItemOntable()
+{
+	tookItems = false;
+	item1->SetParentAs(cashierTable);
+	item1->transform.translate = Vector3(-4, 5.4, 0);
+}
+
+void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet, drawOrder& TempCashierTable)
 {
 	characterBody = &TempCharacterBody;
 	characterLeftLeg = &TempCharacterLeftLeg;
 	characterRightLeg  = &TempCharacterRightLeg;
 	item1 = &TempItem1;
 	cabinet = &TempCabinet;
-}
-
-void ShopperPayerLv1::RotateChar(ShopperPayerLv1& OtherShopper)
-{
-//	//If distance more than 15, character rotate
-//	if(distanceMovedInOneDir > 15)
-//	{
-//		if(characterBody->transform.translate.x <= points[0].x + 1)// Left side points
-//		{
-//			if(characterBody->transform.translate.z >= points[0].z - 1)// front point
-//			{
-//				int temp = rand() % 2;
-//				if(temp == 0 && IsBlocking(OtherShopper,180) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 180; // toward -z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,90) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 90; // toward +x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//			else if(characterBody->transform.translate.z <= points[9].z + 1)// back point
-//			{
-//				int temp = rand() % 2;
-//				if(temp == 0 && IsBlocking(OtherShopper,0) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 0; // toward +z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,90) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 90; // toward +x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//			else// middle points
-//			{
-//				int temp = rand() % 3;
-//				if(temp == 0 && IsBlocking(OtherShopper,180) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 180; // toward -z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,0) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 0; // toward +z
-//				}
-//				else if(temp == 2 && IsBlocking(OtherShopper,90) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 90; // toward +x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//		}
-//		else
-//		{
-//			if(characterBody->transform.translate.z >= points[0].z - 1)// front point
-//			{
-//				int temp = rand() % 2;
-//				if(temp == 0 && IsBlocking(OtherShopper,180) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 180; // toward -z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,270) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 270; // toward -x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//			else if(characterBody->transform.translate.z <= points[9].z + 1)// back point
-//			{
-//				int temp = rand() % 2;
-//				if(temp == 0 && IsBlocking(OtherShopper,0) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 0; // toward +z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,270) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 270; // toward -x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//			else// middle points
-//			{
-//				int temp = rand() % 3;
-//				if(temp == 0 && IsBlocking(OtherShopper,180) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 180; // toward -z
-//				}
-//				else if(temp == 1 && IsBlocking(OtherShopper,0) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 0; // toward +z
-//				}
-//				else if(temp == 2 && IsBlocking(OtherShopper,270) == false)
-//				{
-//					//reset disance moved in one direction
-//					distanceMovedInOneDir = 0;
-//					charBodyAngleRotate = 270; // toward -x
-//				}
-//				else
-//				{
-//					idling = true;
-//					walking = false;
-//					timeWalking = 0;
-//				}
-//			}
-//		}
-//		//rotate body
-//		characterBody->transform.rotate.y = charBodyAngleRotate;
-//	}
-}
-
-Vector3 ShopperPayerLv1::GetPos()
-{
-	return characterBody->transform.translate;
-}
-
-bool ShopperPayerLv1::IsBlocking(ShopperPayerLv1& OtherShopper, float toTurn)
-{/*
-	Vector3 target = characterBody->transform.translate;
-	if(toTurn == 0)
-		target += Vector3(0, 0, 15);
-	else if(toTurn == 90)
-		target += Vector3(15, 0, 0);
-	else if(toTurn == 180)
-		target += Vector3(0, 0, -15);
-	else
-		target += Vector3(-15, 0, 0);
-	if(target.x < OtherShopper.GetPos().x + 15 && target.x > OtherShopper.GetPos().x - 15 && target.y == OtherShopper.GetPos().y && target.z < OtherShopper.GetPos().z + 15 && target.z > OtherShopper.GetPos().z - 15)
-		return true;
-	else*/
-		return false;
+	cashierTable = &TempCashierTable;
 }
