@@ -34,7 +34,7 @@ Vector3 PlayerHuman::MoveForward(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
 	Vector3 tempVector;
-	tempVector.Set(5, 0, 0);
+	tempVector.Set(movingSpeed, 0, 0);
 	tempVector = rotationMatrix * tempVector;
 	return tempVector;
 }

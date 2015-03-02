@@ -499,18 +499,24 @@ void SceneMain::InnitDraws()
 
 	//Draw Outer Door
 	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.6);
+	globals.GetDraw(L"outer_door_1_right").transform.scale.Set(1,1,0.9);
+	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.5829);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.6);
-	globals.GetDraw(L"outer_door_1_left").transform.rotate.Set(0,180,0);
+	globals.GetDraw(L"outer_door_1_left").transform.scale.Set(1,1,0.9);
+	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.5829);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
-	globals.GetDraw(L"outer_door_2_left").transform.rotate.Set(0,180,0);
+	
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
@@ -944,7 +950,7 @@ void SceneMain::DoUserInput()
 	const int CAMERA_SPEED = 2.5;
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
-	double movingSpeed = 5;
+	double movingSpeed = 30;
 	
 	if(keyboard.isKeyPressed('F'))
 	{
@@ -999,6 +1005,10 @@ void SceneMain::DoUserInput()
 	{
 		UpdateLv2 = true;
 	}
+	if (keyboard.isKeyHold(VK_SHIFT))
+	{
+		movingSpeed *= 3 ;
+	}
 	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
 	{
 		if (keyboard.isKeyHold('W'))
@@ -1039,6 +1049,7 @@ void SceneMain::DoUserInput()
 		tempVector.Set(0, -50, 0);
 		playerAcceleration += tempVector;
 	}
+
 	//
 	//if (keyboard.isKeyHold('O'))
 	//{	
@@ -1108,7 +1119,7 @@ void SceneMain::DoUserInput()
 			jumpedHeight = 0;
 		}
 	}
-	playerAcceleration = playerAcceleration * 2;
+	playerAcceleration = playerAcceleration;
 	playerAcceleration += player->Update(camera);
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
