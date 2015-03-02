@@ -36,20 +36,20 @@ Mesh* MeshBuilder::GenerateQuad(const std::wstring &meshName, const Color color,
 	std::vector<Vertex> vertex_buffer_data;
 	vertex_buffer_data.resize(4);
 
-	vertex_buffer_data[0].pos.Set(lengthX/2,0,lengthY/2);
-	vertex_buffer_data[1].pos.Set(-lengthX/2,0,lengthY/2);
-	vertex_buffer_data[2].pos.Set(lengthX/2,0,-lengthY/2);
-	vertex_buffer_data[3].pos.Set(-lengthX/2,0,-lengthY/2);
+	vertex_buffer_data[0].pos.Set(lengthX/2,lengthY/2,0);
+	vertex_buffer_data[1].pos.Set(-lengthX/2,lengthY/2,0);
+	vertex_buffer_data[2].pos.Set(lengthX/2,-lengthY/2,0);
+	vertex_buffer_data[3].pos.Set(-lengthX/2,-lengthY/2,0);
 
-	vertex_buffer_data[0].normal.Set(0,1,0);
-	vertex_buffer_data[1].normal.Set(0,1,0);
-	vertex_buffer_data[2].normal.Set(0,1,0);
-	vertex_buffer_data[3].normal.Set(0,1,0);
+	vertex_buffer_data[0].normal.Set(0,0,1);
+	vertex_buffer_data[1].normal.Set(0,0,1);
+	vertex_buffer_data[2].normal.Set(0,0,1);
+	vertex_buffer_data[3].normal.Set(0,0,1);
 
-	vertex_buffer_data[3].texCoord.Set(1, 1);
+	vertex_buffer_data[0].texCoord.Set(1, 1);
 	vertex_buffer_data[1].texCoord.Set(0, 1);
 	vertex_buffer_data[2].texCoord.Set(1, 0);
-	vertex_buffer_data[0].texCoord.Set(0, 0);
+	vertex_buffer_data[3].texCoord.Set(0, 0);
 
 	for(std::vector<Vertex>::iterator vert = vertex_buffer_data.begin(); vert != vertex_buffer_data.end(); vert++)
 	{
@@ -59,11 +59,11 @@ Mesh* MeshBuilder::GenerateQuad(const std::wstring &meshName, const Color color,
 	std::vector<Vertex> actual_vertex_buffer;
 	actual_vertex_buffer.resize(6);
 	actual_vertex_buffer[0] = vertex_buffer_data[2];
-	actual_vertex_buffer[1] = vertex_buffer_data[1];
-	actual_vertex_buffer[2] = vertex_buffer_data[0];
+	actual_vertex_buffer[1] = vertex_buffer_data[0];
+	actual_vertex_buffer[2] = vertex_buffer_data[1];
 	actual_vertex_buffer[3] = vertex_buffer_data[3];
-	actual_vertex_buffer[4] = vertex_buffer_data[1];
-	actual_vertex_buffer[5] = vertex_buffer_data[2];
+	actual_vertex_buffer[4] = vertex_buffer_data[2];
+	actual_vertex_buffer[5] = vertex_buffer_data[1];
 
 	Mesh *mesh = new Mesh(meshName, actual_vertex_buffer);
 

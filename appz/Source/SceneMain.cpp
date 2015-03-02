@@ -31,12 +31,14 @@ void SceneMain::Init()
 	InnitLogic();
 	player = new PlayerHuman;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+	OpenLiftDoor = false;
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
 	isFrog = false;
 	UpdateLv2 = false;
 	UpdateLv1=true;
+	paying=false;
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
@@ -232,8 +234,8 @@ void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
-	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 500.f, 500.f));
-	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"inexit", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"instructions", Color(1, 1, 1), 500.f, 500.f));
@@ -569,11 +571,10 @@ void SceneMain::InnitDraws()
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
-	globals.GetDraw(L"inner_door_1").transform.rotate.Set(0,180,0);
 
 	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.6);
-	globals.GetDraw(L"inner_door_2").transform.rotate.Set(0,180,0);
+	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.7);
+	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.5);
 
 	//Draw Trolley First Row
 	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
@@ -825,7 +826,7 @@ bool SceneMain::Update(const double dt)
 		accumulatingDT -= undateInterval;
 		frameCounter = 0;
 	}
-	if(keyboard.isKeyPressed(VK_ESCAPE))
+	if(keyboard.isKeyPressed(VK_ESCAPE) || keyboard.isKeyPressed ('Y'))
 	{
 		return true;
 	}
@@ -870,6 +871,19 @@ bool SceneMain::Update(const double dt)
 		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
 	}
+		if(SPLv1.currentState==2)
+		{
+			paying=true;
+		}
+		else
+		{
+			paying=false;
+		}
+		if(paying=true)
+		{
+			RLv1[0].Update(dt);
+			RLv1[1].Update(dt);
+		}
 	return false;
 }
 
@@ -923,15 +937,13 @@ void SceneMain::UpdateLogic()
 		state=CHOOSETOEXIT;
 	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
-	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	
 	if(keyboard.isKeyPressed('E'))
-	{
+	{	
 		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	}
-
-
 }
 
 void SceneMain::UpdateView()
@@ -1012,53 +1024,81 @@ void SceneMain::Render()
 		BG.SetToRotation(180,0,1,0);
 		BG.SetToTranslation(Vector3(30,30,30));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+
 	if(state==MAINMENU)
 	{
-		Mtx44 Quad1;
-		Mtx44 Quad2;
-		Mtx44 Quad3;
-		Mtx44 Quad4;
-		Quad1.SetToTranslation(Vector3(30,30,30));
-		Quad2.SetToTranslation(Vector3(30,30,30));
-		Quad3.SetToTranslation(Vector3(30,30,30));
-		Quad4.SetToTranslation(Vector3(30,30,30));
-		Quad1.SetToRotation(180,0,1,0);
-		Quad2.SetToRotation(180,0,1,0);
-		Quad3.SetToRotation(180,0,1,0);
-		Quad4.SetToRotation(180,0,1,0);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4);
+		MS BG;
+		BG.Translate(360,245,-0.01);
+		BG.Scale(50,50,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top());
+		MS Quad1,Quad2,Quad3,Quad4;
+		Quad1.Scale(15,5,1);
+		Quad2.Scale(15,5,1);
+		Quad3.Scale(15,5,1);
+		Quad4.Scale(15,5,1);
+		Quad1.Translate(24,70,0);
+		Quad2.Translate(24,55,0);
+		Quad3.Translate(24,40,0);
+		Quad4.Translate(24,25,0);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top());
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top());
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top());
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top());
 	}
 	else if(state==START)
 	{
 
+		if(drawVoxels)
+		{
+			Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+			drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
+			for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+			{
+				Mtx44 matrix(draw->second->GetMatrix());
+				for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
+				{
+					voxel->ApplyToMatrix(matrix);
+					Mtx44 translate;
+					translate.SetToTranslation(voxel->GetPosition());
+					gfx.RenderMesh(draw_cube, translate);
+				}
+			}
+		}
+		else
+		{
+			globals.GetDraw(L"main").Execute(gfx);
+		}
 	}
 	else if(state==INST)
 	{
 		Mtx44 instructions;
-		instructions.SetToTranslation(Vector3(30,30,30));
+		instructions.SetToTranslation(Vector3(360,245,0));
+		/*instructions.SetToScale(1,1,0);*/
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
+
 	}
 	else if(state==CREDITS)
 	{
 		Mtx44 incredits;
-		incredits.SetToTranslation(Vector3(30,30,30));
+		incredits.SetToTranslation(Vector3(360,245,0));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"incredits"),incredits);
 	}
 	else if(state==CHOOSETOEXIT)
 	{
 		Mtx44 inexit;
-		inexit.SetToTranslation(Vector3(30,30,30));
+		inexit.SetToTranslation(Vector3(360,245,0));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
 	}
 
 	char buffer1[126];
+	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
 	sprintf(buffer1,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
 	gfx.RenderTextOnScreen(buffer1,Color(0,1,0),20,1,1);
-
+	currentFPS = 1 / deltaTime;
+	sprintf(buffer2,"FPS:%.3f", currentFPS);
+	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,460);
+	
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -1078,190 +1118,218 @@ void SceneMain::DoUserInput()
 	camera.Rotate(0, -mouseX, -mouseY);
 	playerAcceleration.SetZero();
 	double movingSpeed = 30;
-	
-	if(keyboard.isKeyPressed('F'))
-	{
-		for(int i = 0; i < 1246; ++i)
+	if(keyboard.isKeyPressed('Z'))
 		{
-			item[i].InteractWithItem(camera.ReturnTarget());
+			glEnable(GL_CULL_FACE);
 		}
-	}
-	if(keyboard.isKeyPressed('E'))
-	{
-		player->TakingTrolley(camera.ReturnTarget());
-	}
-	if(keyboard.isKeyPressed('R'))
-	{
-		player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
-	}
-	if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
-	{
-		wizard.casting = true;
-	}
-	if(keyboard.isKeyPressed('1'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if(keyboard.isKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-	if(keyboard.isKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if(keyboard.isKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	if(keyboard.isKeyPressed('5'))
-	{
-		drawVoxels = !drawVoxels;
-	}
-	if (keyboard.isKeyPressed('I'))
-	{
-		if(isFrog == false)
+		if(keyboard.isKeyPressed('X'))
 		{
-			player = new PlayerFrog;
-			isFrog = true;
+			glDisable(GL_CULL_FACE);
 		}
-		else
+		if(keyboard.isKeyPressed('C'))
 		{
-			player = new PlayerHuman;
-			isFrog = false;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-	}
-	if (keyboard.isKeyPressed('Y'))
+		if(keyboard.isKeyPressed('V'))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		if(keyboard.isKeyPressed('5'))
+		{
+			drawVoxels = !drawVoxels;
+		}
+	if(state == START)
 	{
-		for(int i = 0; i < 2; ++i)
+		if(keyboard.isKeyPressed('N'))
 		{
-			SWLv2[i].Reset();
+			state=MAINMENU;
 		}
-		wizard.Reset();
-		UpdateLv2 = false;
-	}
-	if (keyboard.isKeyPressed('U'))
-	{
-		UpdateLv2 = true;
-	}
-	if (keyboard.isKeyHold(VK_SHIFT))
-	{
-		movingSpeed *= 3 ;
-	}
-	if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
-	{
-		if (keyboard.isKeyHold('W'))
+		if(keyboard.isKeyPressed('F'))
 		{
-			playerAcceleration += player->MoveForward(camera, movingSpeed);
+			for(int i = 0; i < 1246; ++i)
+			{
+				item[i].InteractWithItem(camera.ReturnTarget());
+			}
 		}
-		if (keyboard.isKeyHold('S'))
+		if(keyboard.isKeyPressed('E'))
 		{
-			playerAcceleration += player->MoveBackward(camera, movingSpeed);
+			player->TakingTrolley(camera.ReturnTarget());
 		}
-		if (keyboard.isKeyHold('A'))
+		if(keyboard.isKeyPressed('R'))
 		{
-			playerAcceleration += player->MoveLeft(camera, movingSpeed);
+			player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
 		}
-		if (keyboard.isKeyHold('D'))
+		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
 		{
-			playerAcceleration += player->MoveRight(camera, movingSpeed);
+			wizard.casting = true;
 		}
-		if(isFrog == true && isJumping == false && isFalling == false)
+		if (keyboard.isKeyPressed('I'))
+		{
+			if(isFrog == false)
+			{
+				player = new PlayerFrog;
+				isFrog = true;
+			}
+			else
+			{
+				player = new PlayerHuman;
+				isFrog = false;
+			}
+		}
+		if (keyboard.isKeyPressed('Y'))
+		{
+			for(int i = 0; i < 2; ++i)
+			{
+				SWLv2[i].Reset();
+			}
+			wizard.Reset();
+			UpdateLv2 = false;
+		}
+		if (keyboard.isKeyPressed('U'))
+		{
+			UpdateLv2 = true;
+		}
+		if (keyboard.isKeyHold(VK_SHIFT))
+		{
+			movingSpeed *= 3 ;
+		}
+		if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
+		{
+			if (keyboard.isKeyHold('W'))
+			{
+				playerAcceleration += player->MoveForward(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('S'))
+			{
+				playerAcceleration += player->MoveBackward(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('A'))
+			{
+				playerAcceleration += player->MoveLeft(camera, movingSpeed);
+			}
+			if (keyboard.isKeyHold('D'))
+			{
+				playerAcceleration += player->MoveRight(camera, movingSpeed);
+			}
+			if(isFrog == true && isJumping == false && isFalling == false)
+			{
+				isJumping = true;
+			}
+		}
+		//Jump
+		if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
 		{
 			isJumping = true;
 		}
-	}
-	//Jump
-	if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
-	{
-		isJumping = true;
-	}
-	if (keyboard.isKeyHold('O'))
-	{	
-		Vector3 tempVector;
-		tempVector.Set(0, 50, 0);
-		playerAcceleration += tempVector;
-	}
-	if (keyboard.isKeyHold('P'))
-	{
-		Vector3 tempVector;
-		tempVector.Set(0, -50, 0);
-		playerAcceleration += tempVector;
-	}
-
-	//
-	//if (keyboard.isKeyHold('O'))
-	//{	
-	//	Vector3 tempVector;
-	//	tempVector.Set(0, 50, 0);
-	//	playerAcceleration += tempVector;
-	//}
-	//if (keyboard.isKeyHold('P'))
-	//{
-	//	Vector3 tempVector;
-	//	tempVector.Set(0, -50, 0);
-	//	playerAcceleration += tempVector;
-	//}
-	//
-	//Ignore
-	if (keyboard.isKeyHold(VK_UP))
-	{
-		camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold(VK_LEFT))
-	{
-		camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold(VK_DOWN))
-	{
-		camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
-	}
-	if (keyboard.isKeyHold(VK_RIGHT))
-	{
-		camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
-	}
-	if (keyboard.isKeyHold(VK_SPACE))
-	{
-		camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
-	}
-	if (keyboard.isKeyHold(VK_CONTROL))
-	{
-		camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
-	}
-
-	//Jump
-	if(isJumping == true)
-	{
-		if(jumpedHeight < 700 && isFalling == false)
+		if (keyboard.isKeyHold('O'))
+		{	
+			Vector3 tempVector;
+			tempVector.Set(0, 50, 0);
+			playerAcceleration += tempVector;
+		}
+		if (keyboard.isKeyHold('P'))
 		{
 			Vector3 tempVector;
-			tempVector.Set(0, 100, 0);
+			tempVector.Set(0, -50, 0);
 			playerAcceleration += tempVector;
-			jumpedHeight += 100 - 50;
 		}
-		else
+
+		//
+		//if (keyboard.isKeyHold('O'))
+		//{	
+		//	Vector3 tempVector;
+		//	tempVector.Set(0, 50, 0);
+		//	playerAcceleration += tempVector;
+		//}
+		//if (keyboard.isKeyHold('P'))
+		//{
+		//	Vector3 tempVector;
+		//	tempVector.Set(0, -50, 0);
+		//	playerAcceleration += tempVector;
+		//}
+		//
+		//Ignore
+		if (keyboard.isKeyHold(VK_UP))
 		{
-			isJumping = false;
-			isFalling = true;
-			jumpedHeight = 700;
+			camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
 		}
+		if (keyboard.isKeyHold(VK_LEFT))
+		{
+			camera.Move(0.0f, 0.0f, -10.0f * deltaTime * CAMERA_SPEED);
+		}
+		if (keyboard.isKeyHold(VK_DOWN))
+		{
+			camera.Move(-10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
+		}
+		if (keyboard.isKeyHold(VK_RIGHT))
+		{
+			camera.Move(0.0f, 0.0f, 10.0f * deltaTime * CAMERA_SPEED);
+		}
+		if (keyboard.isKeyHold(VK_SPACE))
+		{
+			camera.Move(0,10 * deltaTime * CAMERA_SPEED,0);
+		}
+		if (keyboard.isKeyHold(VK_CONTROL))
+		{
+			camera.Move(0,-10 * deltaTime * CAMERA_SPEED,0);
+		}
+
+		//Jump
+		if(isJumping == true)
+		{
+			if(jumpedHeight < 700 && isFalling == false)
+			{
+				Vector3 tempVector;
+				tempVector.Set(0, 100, 0);
+				playerAcceleration += tempVector;
+				jumpedHeight += 100 - 50;
+			}
+			else
+			{
+				isJumping = false;
+				isFalling = true;
+				jumpedHeight = 700;
+			}
+		}
+		if(isFalling == true)
+		{
+			if(jumpedHeight > 0)
+			{
+				jumpedHeight -= 20;
+			}
+			else
+			{
+				isFalling = false;
+				jumpedHeight = 0;
+			}
+		}
+		playerAcceleration = playerAcceleration;
+		playerAcceleration += player->Update(camera);
+		Force playerForce;
+		playerForce.SetLifespanTo(0.0001);
+		playerForce.SetVector(playerAcceleration);
+		globals.GetDraw(L"player_body").AddForce(playerForce);
 	}
-	if(isFalling == true)
+	else
 	{
-		if(jumpedHeight > 0)
+		if(keyboard.isKeyPressed('1'))
 		{
-			jumpedHeight -= 20;
+			state=START;
 		}
-		else
+		if(keyboard.isKeyPressed('2'))
 		{
-			isFalling = false;
-			jumpedHeight = 0;
+			state=INST;	
+		}
+		if(keyboard.isKeyPressed('3'))
+		{
+			state=CREDITS;
+		}
+		if(keyboard.isKeyPressed('4'))
+		{
+			state=CHOOSETOEXIT;
 		}
 	}
-	playerAcceleration = playerAcceleration;
-	playerAcceleration += player->Update(camera);
-	Force playerForce;
-	playerForce.SetLifespanTo(0.0001);
-	playerForce.SetVector(playerAcceleration);
-	globals.GetDraw(L"player_body").AddForce(playerForce);
+
+
+
 }

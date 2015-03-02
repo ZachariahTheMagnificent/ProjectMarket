@@ -2,10 +2,6 @@
 
 DoorInteraction::DoorInteraction(void)
 {
-	 OuterDoor1isOpen = false;
-	 OuterDoor2isOpen = false;
-	 InnerDoor1isOpen = false;
-	 InnerDoor2isOpen = false;
 	 LiftDoor1isOpen = false;
 	 LiftDoor2isOpen = false;
 }
@@ -53,24 +49,39 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 		}
 	}
 
-	//InnderDoor 1
-	Range<int> InnerDoor1RangeX(-18,-13);
+	//InnderDoor 1 & 2
+	Range<int> InnerDoorRangeX(-18,-13);
 	Range<int> InnerDoor1RangeY(0,5);
-	Range<int> InnerDoor1RangeZ(-28,-10);
+	Range<int> InnerDoor2RangeY(10,15);
+	Range<int> InnerDoorRangeZ(-28,-10);
 
-	if(InnerDoor1RangeX.IsInRange(PlayerPos.x) && InnerDoor1RangeY.IsInRange(PlayerPos.y) && InnerDoor1RangeZ.IsInRange(PlayerPos.z))
+	if(InnerDoorRangeX.IsInRange(PlayerPos.x) && InnerDoor1RangeY.IsInRange(PlayerPos.y) && InnerDoorRangeZ.IsInRange(PlayerPos.z))
 	{
 		if(InnerDoor1->transform.translate.x <= -12.5)
 		{
 			InnerDoor1-> transform.translate.x += 2.5 * dt;
 		}
 	}
-
 	else
 	{
 		if(InnerDoor1 -> transform.translate.x > -17.5)
 		{
 			InnerDoor1-> transform.translate.x += -3 * dt;
+		}
+	}
+
+	if(InnerDoorRangeX.IsInRange(PlayerPos.x) && InnerDoor2RangeY.IsInRange(PlayerPos.y) && InnerDoorRangeZ.IsInRange(PlayerPos.z))
+	{
+		if(InnerDoor2->transform.translate.x <= -12.5)
+		{
+			InnerDoor2-> transform.translate.x += 2.5 * dt;
+		}
+	}
+	else
+	{
+		if(InnerDoor2-> transform.translate.x > -17.5)
+		{
+			InnerDoor2-> transform.translate.x += -3 * dt;
 		}
 	}
 
@@ -107,7 +118,7 @@ void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)
 	Range<int> LiftDoor1and2RangeZ(-96,-93);
 
 	if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
-	{
+	{		
 		if(LiftDoor1Left->transform.translate.x >= 11)
 		{
 			LiftDoor1Left-> transform.translate.x += -2.5 * dt;

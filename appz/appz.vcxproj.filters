@@ -60,15 +60,11 @@
     <Filter Include="Header Files\Interactions">
       <UniqueIdentifier>{27673c83-6dcc-40d3-813d-a7ee2dc2d72d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Characters\Container">
+    <Filter Include="Header Files\Container">
       <UniqueIdentifier>{bf26d489-e20b-4cc0-a400-1ef97c3ac4f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Mesh">
       <UniqueIdentifier>{7d4625b8-08c3-4e27-9273-e26349655b0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scenes\Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,13 +254,13 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Source\GlobalList.h">
-      <Filter>Header Files\Characters\Container</Filter>
+      <Filter>Header Files\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\VoxelOctree.h">
-      <Filter>Header Files\Characters\Container</Filter>
+      <Filter>Header Files\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\Directory.h">
-      <Filter>Header Files\Characters\Container</Filter>
+      <Filter>Header Files\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\LoadOBJ.h">
       <Filter>Header Files\Mesh</Filter>
@@ -288,7 +284,7 @@
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="Source\VoxelLeaf.h">
-      <Filter>Header Files\Characters\Container</Filter>
+      <Filter>Header Files\Container</Filter>
     </ClInclude>
     <ClInclude Include="Source\DoorInteraction.h">
       <Filter>Header Files\Interactions</Filter>

@@ -48,12 +48,14 @@ private:
 	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;
 	DoorInteraction InteractDoor;
+	bool OpenLiftDoor;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
 	bool isFrog;
 	bool UpdateLv2;
 	bool UpdateLv1;
+	bool paying;
 	ItemInteraction item[1246];
 
 	//print fps
@@ -82,7 +84,7 @@ private:
 	void InnitLogic();
 	void InnitSounds();
 	void InnitMaterials();
-	unsigned state;
+	MAIN_MENU state;
 	unsigned option;
 
 	void CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset);
