@@ -1,5 +1,6 @@
 #pragma once
 #include "DrawOrder.h"
+#include "Voxel.h"
 
 class Contact
 {

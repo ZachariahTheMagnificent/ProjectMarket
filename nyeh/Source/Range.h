@@ -8,6 +8,7 @@ public:
 	~Range();
 	const type& Start() const;
 	const type& End() const;
+	const Range<type>& Set(const type& start, const type& end);
 	const type& Start(const type& newStart);
 	const type& End(const type& newEnd);
 	type Length() const;
@@ -68,11 +69,19 @@ const type& Range<type>::End(const type& newEnd)
 template<class type>
 type Range<type>::Length() const
 {
-	return end - start;
+	return abs(end - start) + 1;
 }
 
 template<class type>
 type Range<type>::MidPoint() const
 {
 	return start + Length()/2;
+}
+
+template<class type>
+const Range<type>& Range<type>::Set(const type& start, const type& end)
+{
+	this->start = start;
+	this->end = end;
+	return *this;
 }

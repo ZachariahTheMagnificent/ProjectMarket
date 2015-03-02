@@ -1,11 +1,10 @@
 #pragma once
-#include "Mesh.h"
 #include "MatrixStack.h"
-#include "Custom Functions.h"
-#include "Voxel.h"
 #include "Force.h"
 #include "Material.h"
+#include "VoxelOctree.h"
 
+class Mesh;
 class Graphics;
 
 struct Rotation
@@ -142,7 +141,9 @@ public:
 	float GetMinZ() const;
 	float GetMass() const;
 	Vector3 GetGlobalPosition() const;
+	const Vector3& GetVelocity() const;
 	unsigned GetTexture() const;
+	drawOrder* GetParent() const;
 	float GetKinetic();
 	bool IsLightEnabled();
 	bool IsCollidingWith(drawOrder& draw) const;
@@ -157,8 +158,6 @@ public:
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
 	void ApplyFriction();
-	void SetVoxelsToWorldPosition();
-	void SetVoxelsToOrgin();
 	void UpdateForcesTo(const double deltaTime);
 	void UpdateVelocity(const double deltaTime);
 	void UpdateTo(const double deltaTime);
@@ -170,24 +169,24 @@ public:
 	void RenderPartial(const unsigned offset, const unsigned count) const;
 private:
 	Mtx44 GetModelTransform() const;
+	VoxelOctree* voxels;
+	drawOrder* parent;
+	Vector3 velocity;
+	unsigned boundRadius;
+	unsigned drawMode;
+	std::vector<drawOrder*> children;
+	std::vector<Force> forces;
+	Vector3 terminalVelocity;
 public:
 	std::wstring name;
 	Mesh* geometry;
 	Material* material;
-	unsigned drawMode;
 	bool enableLight;
 	float mass;
 	float bounce;
 	float staticFriction;
 	float kineticFriction;
-	unsigned boundRadius;
 	Transformation transform;
 	//this transformation will only apply to the parent and not it's children
 	Transformation selfTransform;
-	drawOrder* parent;
-	std::vector<drawOrder*> children;
-	std::vector<Voxel> voxels;
-	std::vector<Force> forces;
-	Vector3 velocity;
-	Vector3 terminalVelocity;
 };

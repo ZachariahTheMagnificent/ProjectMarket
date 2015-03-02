@@ -20,7 +20,7 @@ parent(parent)
 	upperRangeZ.Start(fullRangeZ.MidPoint() + 1);
 	upperRangeZ.End(fullRangeZ.End());
 	leaves.resize(8, NULL);
-	voxels.resize(8, NULL);
+	voxels.resize(8);
 }
 
 VoxelLeaf::~VoxelLeaf()
@@ -39,19 +39,16 @@ void VoxelLeaf::AddVoxel(Voxel& voxel)
 {
 	unsigned index = GetIndex(voxel.GetPosition());
 	//if there is already a voxel there and we can still subdivide
-	if(voxels[index] && fullRangeX.Length() > 2)
+	if(voxels[index].GetSolidness() && fullRangeX.Length() > 2)
 	{
 		Subdivide();
-		std::vector<Voxel*>::iterator ourVoxel = voxels.begin(), end = voxels.end();
+		std::vector<Voxel>::iterator ourVoxel = voxels.begin(), end = voxels.end();
 		for(std::vector<VoxelLeaf*>::iterator leaf = leaves.begin(); ourVoxel != end; ++leaf, ++ourVoxel)
 		{
-			if(*ourVoxel)
-			{
-				(*leaf)->AddVoxel(**ourVoxel);
-			}
-			*ourVoxel = NULL;
+			(*leaf)->AddVoxel(*ourVoxel);
 		}
 		leaves[index]->AddVoxel(voxel);
+		voxels.clear();
 	}
 	else if(HasAlreadySubdivided())
 	{
@@ -59,7 +56,7 @@ void VoxelLeaf::AddVoxel(Voxel& voxel)
 	}
 	else
 	{
-		voxels[index] = &voxel;
+		voxels[index] = voxel;
 	}
 }
 
@@ -71,14 +68,14 @@ Voxel* VoxelLeaf::GetVoxel(const Vector3& position)
 	{
 		return leaves[index]->GetVoxel(position);
 	}
-	for(std::vector<Voxel*>::iterator voxel = voxels.begin(), end = voxels.end(); voxel != end; ++voxel)
+	for(std::vector<Voxel>::iterator voxel = voxels.begin(), end = voxels.end(); voxel != end; ++voxel)
 	{
-		if(*voxel)
+		if(voxel->GetSolidness())
 		{
-			Vector3 voxelPosition((int)(*voxel)->GetPosition().x, (int)(*voxel)->GetPosition().y, (int)(*voxel)->GetPosition().z);
+			Vector3 voxelPosition((int)voxel->GetPosition().x, (int)voxel->GetPosition().y, (int)voxel->GetPosition().z);
 			if(voxelPosition == testposition)
 			{
-				return *voxel;
+				return &*voxel;
 			}
 		}
 	}
@@ -113,7 +110,7 @@ bool VoxelLeaf::HasAlreadySubdivided() const
 
 bool VoxelLeaf::IsEmpty() const
 {
-	if(!voxels.front() && !HasAlreadySubdivided())
+	if(voxels.front().GetSolidness() == 0 && !HasAlreadySubdivided())
 	{
 		return true;
 	}
@@ -148,4 +145,9 @@ unsigned VoxelLeaf::GetIndex(const Vector3& position)
 		z = 1;
 	}
 	return x*4 + y*2 + z;
+}
+
+int VoxelLeaf::GetRadius() const
+{
+	return lowerRangeX.Length();
 }

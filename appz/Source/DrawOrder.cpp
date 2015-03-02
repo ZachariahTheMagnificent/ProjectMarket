@@ -1,5 +1,7 @@
 #include "DrawOrder.h"
 #include "Graphics.h"
+#include "Mesh.h"
+#include "Custom Functions.h"
 
 drawOrder::drawOrder(std::wstring name, Mesh* geometry, Material* material, drawOrder* parent, bool enableLight, float mass, float bounce, float staticFriction, float kineticFriction)
 	:
@@ -10,12 +12,12 @@ enableLight(enableLight),
 mass(mass),
 bounce(bounce),
 staticFriction(staticFriction),
-kineticFriction(kineticFriction)
+kineticFriction(kineticFriction),
+boundRadius(0),
+drawMode(GL_TRIANGLES)
 {
 	this->parent = NULL;
 	SetParentAs(parent);
-	boundRadius = 0;
-	drawMode = GL_TRIANGLES;
 }
 
 drawOrder::~drawOrder()
@@ -202,12 +204,22 @@ void drawOrder::UpdateTo(const double deltaTime)
 	ApplyFriction();
 }
 
+drawOrder* drawOrder::GetParent() const
+{
+	return parent;
+}
+
 void drawOrder::GainMomentumFrom(drawOrder* draw, Vector3 momentumGain)
 {
 	AddForce(momentumGain);
 	draw->AddForce(-momentumGain);
 	//velocity += momentumGain / mass;
 	//draw->velocity -= momentumGain / mass;
+}
+
+const Vector3& drawOrder::GetVelocity() const
+{
+	return velocity;
 }
 
 void drawOrder::LoseMomentumTo(drawOrder* draw, Vector3 momentumLost)
@@ -287,75 +299,10 @@ void drawOrder::GenerateVoxels()
 {
 	if(geometry)
 	{
-		voxels = geometry->GenerateVoxels();
+		voxels = geometry->GenerateVoxel();
 	}
-	float furtherstX = INT_MIN;
-	float furtherstY = INT_MIN;
-	float furtherstZ = INT_MIN;
-	float nearestX = INT_MAX;
-	float nearestY = INT_MAX;
-	float nearestZ = INT_MAX;
-	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
-	{
-		//the voxel is currently not bound to any draw so it should be at it's orgin
-		int x = voxel->GetPosition().x, y = voxel->GetPosition().y, z = voxel->GetPosition().z;
-		if(x < nearestX)
-		{
-			nearestX = x;
-		}
-		if(x > furtherstX)
-		{
-			furtherstX = x;
-		}
-		if(y < nearestY)
-		{
-			nearestY = y;
-		}
-		if(y > furtherstY)
-		{
-			furtherstY = y;
-		}
-		if(z < nearestZ)
-		{
-			nearestZ = z;
-		}
-		if(z > furtherstZ)
-		{
-			furtherstZ = z;
-		}
-		voxel->AssignTo(this);
-	}
-	float sizeX = abs(furtherstX - nearestX);
-	float sizeY = abs(furtherstY - nearestY);
-	float sizeZ = abs(furtherstZ - nearestZ);
-	if(sizeX > sizeY && sizeX > sizeZ)
-	{
-		boundRadius = sizeX * 0.5 + 0.5;
-	}
-	if(sizeY > sizeX && sizeY > sizeZ)
-	{
-		boundRadius = sizeY * 0.5 + 0.5;
-	}
-	else
-	{
-		boundRadius = sizeZ * 0.5 + 0.5;
-	}
-}
 
-void drawOrder::SetVoxelsToWorldPosition()
-{
-	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
-	{
-		voxel->ApplyCurrentMatrix();
-	}
-}
-
-void drawOrder::SetVoxelsToOrgin()
-{
-	for(std::vector<Voxel>::iterator voxel = voxels.begin(); voxel != voxels.end(); ++voxel)
-	{
-		voxel->ResetToOrgin();
-	}
+	boundRadius = voxels->GetRadius();
 }
 
 bool drawOrder::IsCollidingWith(drawOrder& draw) const

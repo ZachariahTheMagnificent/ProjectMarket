@@ -5,8 +5,8 @@
 #include <vector>
 #include "Mtx44.h"
 #include "GL\glew.h"
-#include "Voxel.h"
 #include "Polygon.h"
+#include "VoxelOctree.h"
 
 /******************************************************************************/
 /*!
@@ -24,7 +24,7 @@ public:
 	//a function made to render only parts of the mesh
 	void Render(unsigned offset, unsigned count, unsigned textureID, unsigned mode);
 	void SetColor(Color color);
-	std::vector<Voxel> GenerateVoxels();
+	VoxelOctree* GenerateVoxel();
 private:
 	const std::wstring name;
 	unsigned m_vertexBuffer;

@@ -16,6 +16,7 @@ public:
 	bool HasAlreadySubdivided() const;
 	Voxel* GetVoxel(const Vector3& position);
 	bool IsEmpty() const;
+	int GetRadius() const;
 private:
 	unsigned GetIndex(const Vector3& position);
 	Range<int> lowerRangeX;
@@ -29,5 +30,5 @@ private:
 	Range<int> fullRangeZ;
 	std::vector<VoxelLeaf*> leaves;
 	VoxelLeaf* parent;
-	std::vector<Voxel*> voxels;
+	std::vector<Voxel> voxels;
 };

@@ -1,4 +1,7 @@
 #include "GlobalList.h"
+#include "Mesh.h"
+#include "GL\glew.h"
+#include "LoadTGA.h"
 
 GlobalList::GlobalList()
 {
@@ -47,7 +50,7 @@ bool GlobalList::AddDraw(const drawOrder& draw)
 {
 	//make the parent's child pointer point to the draw in the vector instead of the draw we were passed with
 	draws.push_back(draw);
-	draws.back().SetParentAs(draw.parent);
+	draws.back().SetParentAs(draw.GetParent());
 	drawList[draw.GetName()] = &draws.back();
 	return true;
 }

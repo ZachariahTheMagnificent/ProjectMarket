@@ -185,16 +185,10 @@ void ScenePhysics::InnitDraws()
 
 void ScenePhysics::InnitVoxels()
 {
-	globals.GetDraw(L"nirvana").GenerateVoxels();
-	globals.GetDraw(L"player").GenerateVoxels();
-	globals.GetDraw(L"currupted sentinel").GenerateVoxels();
-	globals.GetDraw(L"wise sentinel").GenerateVoxels();
-	globals.GetDraw(L"football field").GenerateVoxels();
-	globals.GetDraw(L"rock sentinel").GenerateVoxels();
-	globals.GetDraw(L"stone sentinel").GenerateVoxels();
-	globals.GetDraw(L"sneaky sentinel").GenerateVoxels();
-	globals.GetDraw(L"pure sentinel").GenerateVoxels();
-	collisionEnvironment.AddVoxels(globals.GetDraw(L"nirvana"));
+	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	{
+		draw->second->GenerateVoxels();
+	}
 }
 
 void ScenePhysics::InnitForces()
@@ -308,20 +302,7 @@ void ScenePhysics::UpdateDraws()
 	}
 
 	//where we do collision
-	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
-	//{
-	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
-	//	for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
-	//	{
-	//		//if(draw1->IsCollidingWith(*draw2))
-	//		{
-	//			collisionSystem.CheckThisCollision(&*draw1, &*draw2, deltaTime);
-	//		}
-	//	}
-	//}
-	//collisionSystem.CheckThisCollision(&drawOrders[DRAW_GROUND],&drawOrders[DRAW_PLAYER],deltaTime);
-	//collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
-	collisionEnvironment.SolveCollisionFor(globals.GetDraw(L"player"));
+
 	//draws are finally updated after processing
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
 	{
@@ -345,26 +326,26 @@ void ScenePhysics::Render()
 	sprintf(buffer1,"fps:%.3f",1.0/deltaTime);
 	sprintf(buffer2,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
 
-	if(drawVoxels)
-	{
-		Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
-		drawOrder draw_cube(L"cube", globals.GetMesh(L"Cube"), &material, NULL, true);
-		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-		{
-			Mtx44 matrix(draw->second->GetMatrix());
-			for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
-			{
-				voxel->ApplyToMatrix(matrix);
-				Mtx44 translate;
-				translate.SetToTranslation(voxel->GetPosition());
-				gfx.RenderMesh(draw_cube, translate);
-			}
-		}
-	}
-	else
-	{
+	//if(drawVoxels)
+	//{
+	//	Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+	//	drawOrder draw_cube(L"cube", globals.GetMesh(L"Cube"), &material, NULL, true);
+	//	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	//	{
+	//		Mtx44 matrix(draw->second->GetMatrix());
+	//		for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
+	//		{
+	//			voxel->ApplyToMatrix(matrix);
+	//			Mtx44 translate;
+	//			translate.SetToTranslation(voxel->GetPosition());
+	//			gfx.RenderMesh(draw_cube, translate);
+	//		}
+	//	}
+	//}
+	//else
+	//{
 		globals.GetDraw(L"main").Execute(gfx);
-	}
+	//}
 	gfx.RenderTextOnScreen(buffer1,Color(1,0,0),30,30,650);
 	gfx.RenderTextOnScreen(buffer2,Color(1,0,0),30,30,600);
 	MS matrixStack;

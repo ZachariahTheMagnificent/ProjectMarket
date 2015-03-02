@@ -1,4 +1,3 @@
-
 #include "Mesh.h"
 #include "GL\glew.h"
 #include "LoadTGA.h"
@@ -31,11 +30,9 @@ const std::wstring& Mesh::GetName() const
 	return name;
 }
 
-std::vector<Voxel> Mesh::GenerateVoxels()
+VoxelOctree* Mesh::GenerateVoxel()
 {
-	std::vector<Voxel> voxels;
-	const int sizeOfVoxel = Voxel::GetSize();
-	std::vector<bool> VoxelGrid;
+	VoxelOctree* tree = new VoxelOctree;
 	int furthestLeft = INT_MAX;
 	int furthestRight = INT_MIN;
 	int furthestDown = INT_MAX;
@@ -76,12 +73,23 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 		}
 	}
 	//increase the range by 1 to accomadate for all vertices in the grid
-	int lengthX(furthestRight - furthestLeft + 1);
-	int lengthY(furthestUp - furthestDown + 1);
-	int lengthZ(furthestFront - furthestBack + 1);
-	VoxelGrid.resize(lengthX * lengthY * lengthZ);
+	Range<int> rangeX(furthestLeft, furthestRight);
+	Range<int> rangeY(furthestDown, furthestUp);
+	Range<int> rangeZ(furthestBack, furthestFront);
 	Vector3 voxelDisplacement(0 - furthestLeft, 0 - furthestDown, 0 - furthestBack);
-	int areaXY = lengthX * lengthY;
+	if(rangeX.Length() > rangeY.Length() && rangeX.Length() > rangeZ.Length())
+	{
+		tree->SetRangeTo(rangeX.Length(), voxelDisplacement);
+	}
+	else if(rangeY.Length() > rangeX.Length() && rangeY.Length() > rangeZ.Length())
+	{
+		tree->SetRangeTo(rangeY.Length(), voxelDisplacement);
+	}
+	else
+	{
+		tree->SetRangeTo(rangeZ.Length(), voxelDisplacement);
+	}
+	int areaXY = rangeX.Length() * rangeY.Length();
 	for(std::vector<Polygonn>::iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
 	{
 		//create the 5 polygons that the voxels will be checked against
@@ -117,21 +125,17 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 						voxelPosition.x = (int)(voxelPosition.x + 0.5);
 						voxelPosition.y = (int)(voxelPosition.y + 0.5);
 						voxelPosition.z = (int)(voxelPosition.z + 0.5);
-						int index = voxelPosition.x + voxelPosition.y * lengthX + voxelPosition.z * areaXY;
-						if(VoxelGrid[index] == false)
-						{
-							Voxel voxel;
-							voxel.SetPositionTo(temp.pos);
-							float red = rand();
-							red = red - (int)red;
-							float green = rand();
-							green = green - (int)green;
-							float blue = rand();
-							blue = blue - (int)blue;
-							voxel.SetColorTo(Color(red,green,blue));
-							voxels.push_back(voxel);
-							VoxelGrid[index] = true;
-						}
+						int index = voxelPosition.x + voxelPosition.y * rangeX.Length() + voxelPosition.z * areaXY;
+						Voxel voxel;
+						voxel.SetPositionTo(temp.pos);
+						float red = rand();
+						red = red - (int)red;
+						float green = rand();
+						green = green - (int)green;
+						float blue = rand();
+						blue = blue - (int)blue;
+						voxel.SetColorTo(Color(red,green,blue));
+						tree->AddVoxel(voxel);
 					}
 				}
 			}
@@ -197,7 +201,7 @@ std::vector<Voxel> Mesh::GenerateVoxels()
 	//		}
 	//	}
 	//}
-	return voxels;
+	return tree;
 }
 
 void Mesh::Render(unsigned textureID, unsigned mode)

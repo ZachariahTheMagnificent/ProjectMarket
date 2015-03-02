@@ -1,41 +1,25 @@
 #include "Voxel.h"
-#include "DrawOrder.h"
+#include "Custom Functions.h"
 
 Voxel::Voxel()
+	:
+solidness(0)
 {
-	draw = NULL;
 }
 
 Voxel::~Voxel()
 {
 }
 
-Voxel Voxel::At(const double time)
+const char& Voxel::GetSolidness() const
 {
-	Voxel temp = *this;
-	temp.SetPositionTo(position + GetVelocity() * time);
-	return temp;
+	return solidness;
 }
 
 Color Voxel::GetColor() const
 {
 	return color;
 }
-
-Mtx44 Voxel::GetRotationMatrix() const
-{
-	return draw->GetRotationMatrix();
-}
-
-void Voxel::ApplyCurrentMatrix()
-{
-	if(draw)
-	{
-		Mtx44 matrix = draw->GetMatrix();
-		displacement = matrix * position - position;
-	}
-}
-
 
 void Voxel::ApplyToMatrix(Mtx44 matrix)
 {
@@ -66,38 +50,6 @@ void Voxel::SetColorTo(const Color newColor)
 void Voxel::SetPositionTo(const Vector3 newPosition)
 {
 	position = newPosition;
-}
-
-void Voxel::AssignTo(drawOrder* newDraw)
-{
-	draw = newDraw;
-}
-
-bool Voxel::IsCollidingWith(const Voxel& voxel) const
-{
-	const float MinX = voxel.GetMinX();
-	const float MinY = voxel.GetMinY();
-	const float MinZ = voxel.GetMinZ();
-	const float MaxX = voxel.GetMaxX();
-	const float MaxY = voxel.GetMaxY();
-	const float MaxZ = voxel.GetMaxZ();
-
-	const float OurMinX = GetMinX();
-	const float OurMinY = GetMinY();
-	const float OurMinZ = GetMinZ();
-	const float OurMaxX = GetMaxX();
-	const float OurMaxY = GetMaxY();
-	const float OurMaxZ = GetMaxZ();
-	if((MinX < OurMaxX) && (MaxX > OurMinX) &&
-		(MinY < OurMaxY) && (MaxY > OurMinY) &&
-		(MinZ < OurMaxZ) && (MaxZ > OurMinZ))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 }
 
 bool Voxel::IsBehind(const Voxel& voxel) const
@@ -169,24 +121,6 @@ bool Voxel::IsBelow(const Voxel& voxel) const
 	else
 	{
 		return false;
-	}
-}
-
-Vector3 Voxel::GetVelocity() const
-{
-	return draw->velocity;
-}
-
-void Voxel::ChangeVelocityTo(const Vector3 newVelocity, Voxel* TransferMomentumToThisVoxel)
-{
-	if(TransferMomentumToThisVoxel)
-	{
-		Vector3 MomentumTransfer = (newVelocity - draw->velocity) * draw->mass;
-		draw->LoseMomentumTo(TransferMomentumToThisVoxel->draw, MomentumTransfer);
-	}
-	else
-	{
-		draw->SetVelocityTo(newVelocity);
 	}
 }
 

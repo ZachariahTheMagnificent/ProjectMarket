@@ -746,8 +746,6 @@ void SceneMain::InnitVoxels()
 	{
 		draw->second->GenerateVoxels();
 	}
-	collisionEnvironment.AddVoxels(globals.GetDraw(L"ground"));
-	collisionEnvironment.AddVoxels(globals.GetDraw(L"building"));
 }
 
 void SceneMain::InnitForces()
@@ -849,38 +847,8 @@ void SceneMain::UpdateDraws()
 		draw->second->UpdateVelocity(deltaTime);
 		draw->second->UpdateForcesTo(deltaTime);
 	}
-	Mtx44 matrix = globals.GetDraw(L"player_body").GetMatrix();
-	for(std::vector<Voxel>::iterator voxel = globals.GetDraw(L"player_body").voxels.begin(), end = globals.GetDraw(L"player_body").voxels.end(); voxel != end; ++voxel)
-	{
-		voxel->ApplyToMatrix(matrix);
-	}
-	collisionEnvironment.SolveCollisionFor(globals.GetDraw(L"player_body"));
-	
-	//where we do collision
-	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
-	//{
-	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
-	//	for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
-	//	{
-	//		if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
-	//		{
-	//			continue;
-	//		}
-	//		bool CollisionIsDone = false;
 
-	//		//check the individual voxel each object has. If one pair collides, collision is applied to the objects as a whole we break out of the loop
-	//		for(std::vector<Voxel>::iterator voxel1 = draw1->voxels.begin(); voxel1 != draw1->voxels.end(); voxel1++)
-	//		{
-	//			for(std::vector<Voxel>::iterator voxel2 = draw2->voxels.begin(); voxel2 != draw2->voxels.end(); voxel2++)
-	//			{
-	//				CollisionIsDone = collisionSystem.CheckThisCollision(&*voxel1, &*voxel2, deltaTime);
-	//			}
-	//		}
-	//	}
-	//}
-	//collisionSystem.CheckThisCollision(&globals.GetDraw(L"ground"), &globals.GetDraw(L"player_body"), deltaTime);
-	//collisionSystem.CheckThisCollision(&globals.GetDraw(L"building"), &globals.GetDraw(L"player_body"), deltaTime);
-	//collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
+	//where we do collision
 
 	//draws are finally updated after processing
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
@@ -899,26 +867,26 @@ void SceneMain::Render()
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
 
-	if(drawVoxels)
-	{
-		Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
-		drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
-		for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-		{
-			Mtx44 matrix(draw->second->GetMatrix());
-			for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
-			{
-				voxel->ApplyToMatrix(matrix);
-				Mtx44 translate;
-				translate.SetToTranslation(voxel->GetPosition());
-				gfx.RenderMesh(draw_cube, translate);
-			}
-		}
-	}
-	else
-	{
+	//if(drawVoxels)
+	//{
+	//	Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+	//	drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
+	//	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	//	{
+	//		Mtx44 matrix(draw->second->GetMatrix());
+	//		for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
+	//		{
+	//			voxel->ApplyToMatrix(matrix);
+	//			Mtx44 translate;
+	//			translate.SetToTranslation(voxel->GetPosition());
+	//			gfx.RenderMesh(draw_cube, translate);
+	//		}
+	//	}
+	//}
+	//else
+	//{
 		globals.GetDraw(L"main").Execute(gfx);
-	}
+	//}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
