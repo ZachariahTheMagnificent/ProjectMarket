@@ -5,6 +5,7 @@ RobotCashier::RobotCashier(void)
 	robotBodyAngleRotate = 0;
 	robotArmRotate=180;
 	rightArmRotateUp=true;
+	paying=false;
 }
 
 RobotCashier::~RobotCashier(void)

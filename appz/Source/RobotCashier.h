@@ -17,6 +17,7 @@ private:
 	float robotArmRotate;
 	//viariables to check whether the character right leg is rotating upward
 	bool rightArmRotateUp;
+	bool paying;
 	float defaultrobotBodyAngleRotate;
 public:
 	RobotCashier(void);
