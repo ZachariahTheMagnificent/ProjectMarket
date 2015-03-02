@@ -69,3 +69,7 @@ Vector3 PlayerFrog::MoveLeft(Camera camera, double movingSpeed)
 void PlayerFrog::TakingTrolley(const Vector3& PlayerTargetPos)
 {
 }
+
+void PlayerFrog::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
+{
+}

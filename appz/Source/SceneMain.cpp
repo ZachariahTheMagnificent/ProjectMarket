@@ -30,7 +30,7 @@ void SceneMain::Init()
 	InnitForces();
 	InnitLogic();
 	player = new PlayerHuman;
-	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"trolley5"));
+	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
@@ -1120,6 +1120,10 @@ void SceneMain::DoUserInput()
 	if(keyboard.isKeyPressed('E'))
 	{
 		player->TakingTrolley(camera.ReturnTarget());
+	}
+	if(keyboard.isKeyPressed('R'))
+	{
+		player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
 	}
 	if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
 	{

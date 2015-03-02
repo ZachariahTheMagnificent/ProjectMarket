@@ -84,3 +84,13 @@ void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
 		}
 	}
 }
+
+void PlayerHuman::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
+{
+	if(isHoldingTrolley == true)
+	{
+		trolley->SetParentAs(main);
+		trolley->transform.translate = TrolleyCurrentPos;
+		isHoldingTrolley = false;
+	}
+}
