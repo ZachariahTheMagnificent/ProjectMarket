@@ -828,7 +828,7 @@ bool SceneMain::Update(const double dt)
 		accumulatingDT -= undateInterval;
 		frameCounter = 0;
 	}
-	if(keyboard.isKeyPressed(VK_ESCAPE))
+	if(keyboard.isKeyPressed(VK_ESCAPE) || keyboard.isKeyPressed ('Y'))
 	{
 		return true;
 	}
@@ -1092,7 +1092,7 @@ void SceneMain::Render()
 	else if(state==CHOOSETOEXIT)
 	{
 		Mtx44 inexit;
-		inexit.SetToTranslation(Vector3(30,30,0));
+		inexit.SetToTranslation(Vector3(360,245,0));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
 	}
 
