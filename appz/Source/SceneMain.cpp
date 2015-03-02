@@ -570,11 +570,10 @@ void SceneMain::InnitDraws()
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
-	globals.GetDraw(L"inner_door_1").transform.rotate.Set(0,180,0);
 
 	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.6);
-	globals.GetDraw(L"inner_door_2").transform.rotate.Set(0,180,0);
+	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.7);
+	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.5);
 
 	//Draw Trolley First Row
 	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
