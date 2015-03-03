@@ -98,7 +98,7 @@ void ItemInteraction::PutItem(const Camera& camera, int noOfItemInTrolley)
 {
 	for(int i = 0; i < item.size(); ++i)
 	{
-		if(taken.at(i) == true)
+		if(taken.at(i))
 		{
 
 			if(camera.IsLookingAt(trolley.GetGlobalPosition(), 10, 4))

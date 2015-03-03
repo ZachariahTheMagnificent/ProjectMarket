@@ -1079,13 +1079,6 @@ void SceneMain::Render()
 	BG.SetToRotation(180,0,1,0);
 	BG.SetToTranslation(Vector3(30,30,30));
 	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
-	if(camera.IsLookingAt(Vector3(0,4,-6),30,500))
-	{
-		Mtx44 instructions;
-		instructions.SetToTranslation(Vector3(360,245,0));
-		/*instructions.SetToScale(1,1,0);*/
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
-	}
 	if(state==MAINMENU)
 	{
 		MS BG;
