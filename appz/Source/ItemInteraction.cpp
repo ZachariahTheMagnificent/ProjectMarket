@@ -23,9 +23,9 @@ void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos, const Vec
 {
 	if(taken == false)
 	{
-		Range<float> ItemRangeX(defaultGlobalPosition.x - 1,defaultGlobalPosition.x + 1);
-		Range<float> ItemRangeY(defaultGlobalPosition.y - 1,defaultGlobalPosition.y + 1);
-		Range<float> ItemRangeZ(defaultGlobalPosition.z - 0.5,defaultGlobalPosition.z + 0.5);
+		Range<float> ItemRangeX(defaultGlobalPosition.x - 0.25,defaultGlobalPosition.x + 0.25);
+		Range<float> ItemRangeY(defaultGlobalPosition.y,defaultGlobalPosition.y + 2);
+		Range<float> ItemRangeZ(defaultGlobalPosition.z - 0.25,defaultGlobalPosition.z + 0.25);
 
 		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
 		{
