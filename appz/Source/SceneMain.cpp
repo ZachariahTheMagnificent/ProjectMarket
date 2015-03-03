@@ -1157,7 +1157,7 @@ void SceneMain::Render()
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
 	}
 	Range<int>x(12,18);
-	Range<int>y(0.1,0.9);
+	Range<int>y(0,5);
 	Range<int>z(-104,-99);
 	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
 	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
@@ -1166,7 +1166,7 @@ void SceneMain::Render()
 	}
 
 	Range<int>a(12,18);
-	Range<int>b(9,12);
+	Range<int>b(9,15);
 	Range<int>c(-104,-99);
 	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
 	{
