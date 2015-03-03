@@ -191,7 +191,7 @@ void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 void ShopperPayerLv1::takingItems()
 {
 	item1->SetParentAs(characterBody);
-	item1->transform.translate = Vector3(0, -1.2, 4);
+	item1->transform.translate = Vector3(0, -2.4, 4);
 	tookItems = true;
 	currentState = WALKING;
 }
@@ -216,7 +216,7 @@ void ShopperPayerLv1::paying(const double dt)
 		}
 		else if(payingdistance > 2.75)
 		{
-			item1->transform.translate.y = 4.9;
+			item1->transform.translate.y = 4;
 		}
 		else if(payingdistance > 2.25)
 		{
@@ -234,7 +234,7 @@ void ShopperPayerLv1::putItemOntable()
 {
 	tookItems = false;
 	item1->SetParentAs(cashierTable);
-	item1->transform.translate = Vector3(-4, 5.4, 0);
+	item1->transform.translate = Vector3(-4, 4.5, 0);
 }
 
 void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet, drawOrder& TempCashierTable)

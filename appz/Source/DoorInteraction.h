@@ -21,12 +21,13 @@ public:
 	void TeleportWithLifts(const double dt, Vector3& PlayerPos);
 	void InteractWithTravelator(const double dt, Vector3& PlayerPos);
 
+	bool GetTravelatorInRange (void);
 
 private:
 	
 	bool LiftDoor1isOpen;
 	bool LiftDoor2isOpen;
-
+	bool TravelatorIsInrange;
 	//drawOrder Pointer to doors
 	drawOrder* OuterDoor1Left;
 	drawOrder* OuterDoor1Right;

@@ -4,6 +4,7 @@ DoorInteraction::DoorInteraction(void)
 {
 	 LiftDoor1isOpen = false;
 	 LiftDoor2isOpen = false;
+	 TravelatorIsInrange = false;
 }
 
 DoorInteraction::~DoorInteraction(void)
@@ -182,13 +183,26 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 
 	if(TravelatorRangeX.IsInRange(PlayerPos.x) && TravelatorRangeY.IsInRange(PlayerPos.y) && TravelatorRightDownRangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.x += 2.5 * dt;
-		PlayerPos.y += -1 * dt;
+		TravelatorIsInrange = true;
+		PlayerPos.x += 6 * dt;
+		PlayerPos.y += -2.2 * dt;
 	}
 
-	if(TravelatorRangeX.IsInRange(PlayerPos.x) && TravelatorRangeY.IsInRange(PlayerPos.y) && TravelatorLeftUpRangeZ.IsInRange(PlayerPos.z))
+
+	else if(TravelatorRangeX.IsInRange(PlayerPos.x) && TravelatorRangeY.IsInRange(PlayerPos.y) && TravelatorLeftUpRangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.x += -2.5 * dt;
-		PlayerPos.y += 1 * dt;
+		TravelatorIsInrange = true;
+		PlayerPos.x += -6 * dt;
+		PlayerPos.y += 2.2 * dt;
 	}
+
+	else
+	{
+		TravelatorIsInrange = false;
+	}
+}
+
+bool DoorInteraction::GetTravelatorInRange(void)
+{
+	return TravelatorIsInrange;
 }
