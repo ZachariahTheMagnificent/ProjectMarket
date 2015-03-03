@@ -10,7 +10,9 @@ public:
 	~ItemInteraction(void);
 
 	void DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempTrolley);
-	void InteractWithItem(const Vector3& PlayerPos);
+	void InteractWithItem(const Vector3& PlayerPos, const Vector3& itemPos);
+
+	Vector3 defaultGlobalPosition;
 
 private:
 	

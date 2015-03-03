@@ -3,7 +3,7 @@
 
 PlayerFrog::PlayerFrog(void)
 {
-	isHoldingTrolley = false;
+	//Vector3 TrolleyCurrentPos = trolley->GetGlobalPosition();
 }
 
 
@@ -72,4 +72,14 @@ void PlayerFrog::TakingTrolley(const Vector3& PlayerTargetPos)
 
 void PlayerFrog::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
 {
+	if(isHoldingTrolley == true)
+	{
+		trolley->SetParentAs(main);
+		trolley->transform.rotate.Set(0,0,0);
+		trolley->selfTransform.translate.Set(0,0,0);
+		trolley->transform.translate.Set(0,0,0);
+		trolley->transform.rotate.y = body->transform.rotate.y;
+		trolley->transform.translate += TrolleyCurrentPos + body->transform.rotate.MatrixY() * Vector3(5,-3,0);
+		isHoldingTrolley = false;
+	}
 }

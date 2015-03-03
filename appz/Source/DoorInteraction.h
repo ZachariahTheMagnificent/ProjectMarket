@@ -16,17 +16,20 @@ public:
 
 	void DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right);
 	void CheckWithinRange(Vector3 TempPosition);
-	void InteractWithDoors(const double dt, const Vector3& PlayerPos);
+	void InteractWithDoors(const double dt, const Vector3& PlayerPos, const Vector3& ShopperPos);
 	void InteractWithLifts(const double dt, Vector3& PlayerPos);
 	void TeleportWithLifts(const double dt, Vector3& PlayerPos);
 	void InteractWithTravelator(const double dt, Vector3& PlayerPos);
 
+	bool GetTravelatorInRange (void);
 
 private:
 	
+	float DoorSlidingSpeed;
+
 	bool LiftDoor1isOpen;
 	bool LiftDoor2isOpen;
-
+	bool TravelatorIsInrange;
 	//drawOrder Pointer to doors
 	drawOrder* OuterDoor1Left;
 	drawOrder* OuterDoor1Right;

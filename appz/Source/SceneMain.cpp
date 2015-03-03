@@ -233,6 +233,7 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
@@ -291,6 +292,9 @@ void SceneMain::InnitDraws()
 	//Draw Building
 	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
+
+	//Draw player target
+	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -493,37 +497,39 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"instructions",globals.GetMesh(L"instructions"), &globals.GetMaterial(L"instructions"), NULL, true));
 	globals.GetDraw(L"instructions").transform.translate.Set(1,4,-4);
 
-	
+
 
 	//Draw Travelator Support
 	drawOrder travelatorsupport(L"travelatorsupport",globals.GetMesh(L"travelatorsupport"), &globals.GetMaterial(L"dullwhite"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorsupportTranslate(-2,7.1,-21.6);
+	Vector3 travelatorsupportTranslate(-2,7.1,-21.7);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(travelatorsupport);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorsupport%d",i);
 		buffer.name = Namebuffer;
+		buffer.transform.scale.Set(1,1,1.12);
 		buffer.transform.translate = travelatorsupportTranslate;
 		globals.AddDraw(buffer);
-		travelatorsupportTranslate+= Vector3(0,0,-3.14);
+		travelatorsupportTranslate+= Vector3(0,0,-2.9);
 	}
 	//Draw Travelator Slope
 	drawOrder travelatorslope(L"travelatorslope",globals.GetMesh(L"travelatorslope"), &globals.GetMaterial(L"travelatorslope"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorslopeTranslate(-2,5.91,-21.6);
+	Vector3 travelatorslopeTranslate(-2,5.91,-21.7);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(travelatorslope);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorslope%d",i);
 		buffer.name = Namebuffer;
+		buffer.transform.scale.Set(1,1,1.12);
 		buffer.transform.translate = travelatorslopeTranslate;
 		globals.AddDraw(buffer);
-		travelatorslopeTranslate+= Vector3(0,0,-3.1);
+		travelatorslopeTranslate+= Vector3(0,0,-2.8);
 	}
 	//Draw Travelator Handle 1 AND 2
 	drawOrder travelatorhandle(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorhandleTranslate(-1.8,7.8,-20.4);
+	Vector3 travelatorhandleTranslate(-1.8,7.8,-20.37);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(travelatorhandle);
@@ -532,11 +538,11 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = travelatorhandleTranslate;
 		globals.AddDraw(buffer);
-		travelatorhandleTranslate+= Vector3(0,0,-2.25);
+		travelatorhandleTranslate+= Vector3(0,0,-2.46);
 	}
 	//Draw Travelator Handle 3 AND 4
 	drawOrder travelatorhandle2(L"travelatorhandle",globals.GetMesh(L"travelatorhandle"), &globals.GetMaterial(L"travelatorhandle"), &globals.GetDraw(L"main"), true);
-	Vector3 travelatorhandleTranslate2(-1.8,7.8,-23.6);
+	Vector3 travelatorhandleTranslate2(-1.8,7.8,-23.33);
 	for(int i = 3; i < 5; ++i)
 	{
 		drawOrder buffer(travelatorhandle2);
@@ -545,19 +551,19 @@ void SceneMain::InnitDraws()
 		buffer.name = Namebuffer;
 		buffer.transform.translate = travelatorhandleTranslate2;
 		globals.AddDraw(buffer);
-		travelatorhandleTranslate2+= Vector3(0,0,-2.10);
+		travelatorhandleTranslate2+= Vector3(0,0,-2.46);
 	}
 
 	//Draw Outer Door
 	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_1_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.5829);
-	
+
 
 	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_1_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.5829);
-	
+
 
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
@@ -573,12 +579,12 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
 
 	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.7);
+	globals.GetDraw(L"inner_door_2").transform.scale.Set(1,1,0.7);
 	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.5);
 
 	//Draw Trolley First Row
 	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate(16,1.2,-16);
+	Vector3 trolleyTranslate(16,4.65,-16);
 	for(int i = 0; i < 3; ++i)
 	{
 		drawOrder buffer(trolley);
@@ -592,7 +598,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Trolley Second Row
 	drawOrder trolley2(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate2(16,1.2,-12);
+	Vector3 trolleyTranslate2(16,4.65,-12);
 	for(int i = 3; i < 6; ++i)
 	{
 		drawOrder buffer(trolley2);
@@ -667,71 +673,71 @@ void SceneMain::InnitDraws()
 	Vector3 lv2cabinet4_hiddenroomTranslate(3,11,-16);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(lv2cabinet4_hiddenroom);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet4_hiddenroom_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv2cabinet4_hiddenroomTranslate; 
-	buffer.transform.rotate.y=90;
-	globals.AddDraw(buffer);
-	lv2cabinet4_hiddenroomTranslate+= Vector3(-14,0,0);
+		drawOrder buffer(lv2cabinet4_hiddenroom);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet4_hiddenroom_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv2cabinet4_hiddenroomTranslate; 
+		buffer.transform.rotate.y=90;
+		globals.AddDraw(buffer);
+		lv2cabinet4_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 	drawOrder lv2cabinet5_hiddenroom(L"lv2cabinet5_hiddenroom",globals.GetMesh(L"cabinet4"), &globals.GetMaterial(L"cabinet"), &globals.GetDraw(L"main"), true);
 	Vector3 lv2cabinet5_hiddenroomTranslate(10,11,-12);
 	for(int i = 0; i < 2; ++i)
 	{
-	drawOrder buffer(lv2cabinet5_hiddenroom);
-	wchar_t Namebuffer[64];
-	wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
-	buffer.name = Namebuffer;
-	buffer.transform.translate = lv2cabinet5_hiddenroomTranslate; 
-	buffer.transform.rotate.y=90;
-	globals.AddDraw(buffer);
-	lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
+		drawOrder buffer(lv2cabinet5_hiddenroom);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
+		buffer.name = Namebuffer;
+		buffer.transform.translate = lv2cabinet5_hiddenroomTranslate; 
+		buffer.transform.rotate.y=90;
+		globals.AddDraw(buffer);
+		lv2cabinet5_hiddenroomTranslate+= Vector3(-14,0,0);
 	}
 
 
-	
+
 	//Draw ShopperPayer
 	globals.AddDraw(drawOrder(L"shopper_payer_body0",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
 	globals.AddDraw(drawOrder(L"shopper_payer_arm_left0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
 	globals.GetDraw(L"shopper_payer_arm_left0").transform.translate.Set(1.25,0.6,0);
-	globals.GetDraw(L"shopper_payer_arm_left0").selfTransform.rotate.x = -75;
+	globals.GetDraw(L"shopper_payer_arm_left0").selfTransform.rotate.x = -70;
 	globals.AddDraw(drawOrder(L"shopper_payer_arm_right0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
 	globals.GetDraw(L"shopper_payer_arm_right0").transform.translate.Set(-1.25,0.6,0);
-	globals.GetDraw(L"shopper_payer_arm_right0").selfTransform.rotate.x = -75;
+	globals.GetDraw(L"shopper_payer_arm_right0").selfTransform.rotate.x = -70;
 	globals.AddDraw(drawOrder(L"shopper_payer_leg_left0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
 	globals.GetDraw(L"shopper_payer_leg_left0").transform.translate.Set(0.5,-1.5,0);
 	globals.AddDraw(drawOrder(L"shopper_payer_leg_right0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
 	globals.GetDraw(L"shopper_payer_leg_right0").transform.translate.Set(-0.5,-1.5,0);
 	globals.AddDraw(drawOrder(L"shopper_payer_trolley0",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_trolley0").transform.translate.Set(0,-3.5,4.25);
+	globals.GetDraw(L"shopper_payer_trolley0").transform.translate.Set(0,-0.4,2);
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
 	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
-	globals.GetDraw(L"shopper_payer_items0").transform.translate.Set(0,1.5,0);
 
     //CAN_1: 36 a bunch. 360cans total
-	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.5,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.25,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
+
 	//CAN_2: 6 a bunch. 60cans total 
-	CreateItems(drawOrder(L"can2_cabinet1_%d",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,3.2,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
+	CreateItems(drawOrder(L"can2_cabinet1_%d",globals.GetMesh(L"can2"), &globals.GetMaterial(L"can2"), NULL, true),Vector3(-3.25,2.8,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 2, 3, 0.45, 1.2, -0.9, 2, 5, Vector3(1.7,0,0), Vector3(6.5,0,0));
 	//CAN_3: 25 a bunch. 250cans total
-	CreateItems(drawOrder(L"can3_cabinet1_%d",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.4,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
+	CreateItems(drawOrder(L"can3_cabinet1_%d",globals.GetMesh(L"can3"), &globals.GetMaterial(L"can3"), NULL, true),Vector3(-3.2,0.3,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 5, 5, 1, 0.6, -0.5, 2, 5, Vector3(1.55,0,0), Vector3(6.65,0,0));
 	//Packet1: 3 a bunch. 36packet total
-	CreateItems(drawOrder(L"packet1_cabinet2_column1_%d",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.2,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
+	CreateItems(drawOrder(L"packet1_cabinet2_column1_%d",globals.GetMesh(L"packet1"), &globals.GetMaterial(L"packet1"), NULL, true),Vector3(3.15,6.3,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(-16,5.8,0));
 	//Packet2: 3 a bunch. 36packet total
-	CreateItems(drawOrder(L"packet2_cabinet2_column2_%d",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.35,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
+	CreateItems(drawOrder(L"packet2_cabinet2_column2_%d",globals.GetMesh(L"packet2"), &globals.GetMaterial(L"packet2"), NULL, true),Vector3(3.15,6.3,0.9), L"lv2cabinet2_column2_0", Rotation(0,0,0), 3, 1, 0.9, 0, -1, 3, 4, Vector3(0,-2.9,0), Vector3(16,5.8,0));
 	//Packet3: 16 a bunch. 192packet total
-	CreateItems(drawOrder(L"packet3_cabinet2_column1_%d",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,7,0.9), L"lv2cabinet2_column1_0", Rotation(90,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
+	CreateItems(drawOrder(L"packet3_cabinet2_column1_%d",globals.GetMesh(L"packet3"), &globals.GetMaterial(L"packet3"), NULL, true),Vector3(0.75,6.3,0.9), L"lv2cabinet2_column1_0", Rotation(0,0,0), 4, 4, 1, -1.3, -0.6, 3, 4, Vector3(3.95,-2.9,0), Vector3(-12.2,5.8,0));
 	//CAN_4: 15 a bunch. 180cans total
-	CreateItems(drawOrder(L"can4_cabinet2_column2_%d",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.25,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
+	CreateItems(drawOrder(L"can4_cabinet2_column2_%d",globals.GetMesh(L"can4"), &globals.GetMaterial(L"can4"), NULL, true),Vector3(0.9,6.3,1), L"lv2cabinet2_column2_0", Rotation(0,90,0), 3, 5, 1, -1, -0.8, 3, 4, Vector3(3.95,-2.9,0), Vector3(20.2,5.8,0));
 	//Cereal1: 18 a bunch. 36cereals total
-	CreateItems(drawOrder(L"cereal1_cabinet3_%d",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,2.95,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal1_cabinet3_%d",globals.GetMesh(L"cereal1"), &globals.GetMaterial(L"cereal1"), NULL, true),Vector3(-3.3,3,1.5), L"lv1cabinet3_column1_0", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	//Cereal2: 12 a bunch. 24cereals total
-	CreateItems(drawOrder(L"cereal2_cabinet3_%d",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3.9,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
+	CreateItems(drawOrder(L"cereal2_cabinet3_%d",globals.GetMesh(L"cereal2"), &globals.GetMaterial(L"cereal2"), NULL, true),Vector3(-3,3,-4.5), L"lv1cabinet3_column1_0", Rotation(0,180,0), 6, 2, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(4.2,0,0));
 	//Cereal3: 18 a bunch. 36cereals total
-	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3.95,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	//Cereal4: 18 a bunch. 36cereals total
-	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3.8,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
+	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 
 }
 
@@ -778,7 +784,7 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 
 				for(int i = 0; i < ItemPerColumn; ++i) //6 cans in one column
 				{
-		
+
 					drawOrder buffer(item);
 					wchar_t Namebuffer[64];
 					wsprintf(Namebuffer, item.name.c_str() , item_count);
@@ -837,12 +843,15 @@ bool SceneMain::Update(const double dt)
 	UpdateLight();
 	UpdateLogic();
 	SPLv1.Update(dt);
+	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
 	if(UpdateLv2 == true)
 	{
-		
+
 		wizard.Update(dt);
 		if(wizard.castingDone == true && isFrog == false)
 		{
+			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+			delete player;
 			player = new PlayerFrog;
 			isFrog = true;
 			wizard.castingDone = false;
@@ -865,12 +874,13 @@ bool SceneMain::Update(const double dt)
 			}
 		}
 	}
-		if(UpdateLv1 ==true)
+	if(UpdateLv1 ==true)
 	{
 		SILv1.Update(dt);
 		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
 	}
+
 		if(SPLv1.currentState==2)
 		{
 			paying=true;
@@ -879,10 +889,15 @@ bool SceneMain::Update(const double dt)
 		{
 			paying=false;
 		}
-		if(paying=true)
+		if(paying==true)
 		{
 			RLv1[0].Update(dt);
 			RLv1[1].Update(dt);
+		}
+		else
+		{
+			RLv1[0].Reset();
+			RLv1[1].Reset();
 		}
 	return false;
 }
@@ -936,10 +951,10 @@ void SceneMain::UpdateLogic()
 	{
 		state=CHOOSETOEXIT;
 	}
-	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
+	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body0").GetGlobalPosition() );
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
-	
+
 	if(keyboard.isKeyPressed('E'))
 	{	
 		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
@@ -959,6 +974,7 @@ void SceneMain::UpdateView()
 	{
 		camera.Translate(globals.GetDraw(L"player_body").transform.translate - camera.ReturnPosition() + Vector3(0, -1, 0));
 	}
+
 	float player_rotationY = camera.GetRotation().y - globals.GetDraw(L"player_body").transform.rotate.y;
 	float player_current_frame_rotationY = player_rotationY / 1.5;
 	globals.GetDraw(L"player_body").transform.rotate.y += player_current_frame_rotationY;
@@ -979,6 +995,17 @@ void SceneMain::UpdateDraws()
 		draw->second->UpdateVelocity(deltaTime);
 		draw->second->UpdateForcesTo(deltaTime);
 	}
+	//where we do collision
+	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
+	//{
+	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
+	//	for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
+	//	{
+	//		if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
+	//		{
+	//			continue;
+	//		}
+	//		bool CollisionIsDone = false;
 
 	//where we do collision
 
@@ -1098,7 +1125,7 @@ void SceneMain::Render()
 	currentFPS = 1 / deltaTime;
 	sprintf(buffer2,"FPS:%.3f", currentFPS);
 	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,460);
-	
+
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -1119,25 +1146,25 @@ void SceneMain::DoUserInput()
 	playerAcceleration.SetZero();
 	double movingSpeed = 30;
 	if(keyboard.isKeyPressed('Z'))
-		{
-			glEnable(GL_CULL_FACE);
-		}
-		if(keyboard.isKeyPressed('X'))
-		{
-			glDisable(GL_CULL_FACE);
-		}
-		if(keyboard.isKeyPressed('C'))
-		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-		if(keyboard.isKeyPressed('V'))
-		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		if(keyboard.isKeyPressed('5'))
-		{
-			drawVoxels = !drawVoxels;
-		}
+	{
+		glEnable(GL_CULL_FACE);
+	}
+	if(keyboard.isKeyPressed('X'))
+	{
+		glDisable(GL_CULL_FACE);
+	}
+	if(keyboard.isKeyPressed('C'))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	if(keyboard.isKeyPressed('V'))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	if(keyboard.isKeyPressed('5'))
+	{
+		drawVoxels = !drawVoxels;
+	}
 	if(state == START)
 	{
 		if(keyboard.isKeyPressed('N'))
@@ -1148,16 +1175,16 @@ void SceneMain::DoUserInput()
 		{
 			for(int i = 0; i < 1246; ++i)
 			{
-				item[i].InteractWithItem(camera.ReturnTarget());
+				item[i].InteractWithItem(camera.ReturnTarget(), item[i].defaultGlobalPosition);
 			}
 		}
-		if(keyboard.isKeyPressed('E'))
+		if(keyboard.isKeyPressed('E') && isFrog == false)
 		{
 			player->TakingTrolley(camera.ReturnTarget());
 		}
 		if(keyboard.isKeyPressed('R'))
 		{
-			player->ReleaseTrolley(globals.GetDraw(L"player_body").GetGlobalPosition());
+			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 		}
 		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
 		{
@@ -1167,12 +1194,16 @@ void SceneMain::DoUserInput()
 		{
 			if(isFrog == false)
 			{
+				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+				delete player;
 				player = new PlayerFrog;
 				isFrog = true;
 			}
 			else
 			{
+				delete player;
 				player = new PlayerHuman;
+				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 				isFrog = false;
 			}
 		}
@@ -1193,47 +1224,50 @@ void SceneMain::DoUserInput()
 		{
 			movingSpeed *= 3 ;
 		}
-		if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
+
+		if ( InteractDoor.GetTravelatorInRange() == false )
 		{
-			if (keyboard.isKeyHold('W'))
+			if(keyboard.isKeyHold('W') || keyboard.isKeyHold('S') || keyboard.isKeyHold('A') || keyboard.isKeyHold('D'))
 			{
-				playerAcceleration += player->MoveForward(camera, movingSpeed);
+				if (keyboard.isKeyHold('W'))
+				{
+					playerAcceleration += player->MoveForward(camera, movingSpeed);
+				}
+				if (keyboard.isKeyHold('S'))
+				{
+					playerAcceleration += player->MoveBackward(camera, movingSpeed);
+				}
+				if (keyboard.isKeyHold('A'))
+				{
+					playerAcceleration += player->MoveLeft(camera, movingSpeed);
+				}
+				if (keyboard.isKeyHold('D'))
+				{
+					playerAcceleration += player->MoveRight(camera, movingSpeed);
+				}
+				if(isFrog == true && isJumping == false && isFalling == false)
+				{
+					isJumping = true;
+				}
 			}
-			if (keyboard.isKeyHold('S'))
-			{
-				playerAcceleration += player->MoveBackward(camera, movingSpeed);
-			}
-			if (keyboard.isKeyHold('A'))
-			{
-				playerAcceleration += player->MoveLeft(camera, movingSpeed);
-			}
-			if (keyboard.isKeyHold('D'))
-			{
-				playerAcceleration += player->MoveRight(camera, movingSpeed);
-			}
-			if(isFrog == true && isJumping == false && isFalling == false)
+			//Jump
+			if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
 			{
 				isJumping = true;
 			}
+			if (keyboard.isKeyHold('O'))
+			{	
+				Vector3 tempVector;
+				tempVector.Set(0, 50, 0);
+				playerAcceleration += tempVector;
+			}
+			if (keyboard.isKeyHold('P'))
+			{
+				Vector3 tempVector;
+				tempVector.Set(0, -50, 0);
+				playerAcceleration += tempVector;
+			}
 		}
-		//Jump
-		if (keyboard.isKeyHold(VK_SPACE) && isJumping == false && isFalling == false && isFrog == false)
-		{
-			isJumping = true;
-		}
-		if (keyboard.isKeyHold('O'))
-		{	
-			Vector3 tempVector;
-			tempVector.Set(0, 50, 0);
-			playerAcceleration += tempVector;
-		}
-		if (keyboard.isKeyHold('P'))
-		{
-			Vector3 tempVector;
-			tempVector.Set(0, -50, 0);
-			playerAcceleration += tempVector;
-		}
-
 		//
 		//if (keyboard.isKeyHold('O'))
 		//{	
@@ -1329,7 +1363,4 @@ void SceneMain::DoUserInput()
 			state=CHOOSETOEXIT;
 		}
 	}
-
-
-
 }

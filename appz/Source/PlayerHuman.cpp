@@ -68,18 +68,18 @@ Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 
 void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
 {
-	Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 5,trolley->GetGlobalPosition().x + 5);
-	Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 5,trolley->GetGlobalPosition().y + 5);
-	Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 5,trolley->GetGlobalPosition().z + 5);
-
-	if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
+	if(isHoldingTrolley == false)
 	{
-		if(isHoldingTrolley == false)
+		Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 2,trolley->GetGlobalPosition().x + 2);
+		Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 2,trolley->GetGlobalPosition().y + 2);
+		Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 2,trolley->GetGlobalPosition().z + 2);
+
+		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
 		{
 			trolley->SetParentAs(body);
 			trolley->transform.rotate.Set(0,0,0);
 			trolley->selfTransform.translate.Set(0,0,0);
-			trolley->transform.translate.Set(5,-3,0);
+			trolley->transform.translate.Set(2,0.61,0);
 			isHoldingTrolley = true;
 		}
 	}
@@ -90,7 +90,12 @@ void PlayerHuman::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
 	if(isHoldingTrolley == true)
 	{
 		trolley->SetParentAs(main);
-		trolley->transform.translate = TrolleyCurrentPos;
+		trolley->transform.rotate.Set(0,0,0);
+		trolley->selfTransform.translate.Set(0,0,0);
+		trolley->transform.translate.Set(0,0,0);
+		trolley->transform.rotate.y = body->transform.rotate.y;
+		trolley->transform.translate += TrolleyCurrentPos;
+
 		isHoldingTrolley = false;
 	}
 }

@@ -31,7 +31,7 @@ const Vector3 Camera::ReturnPosition() const
 
 const Vector3 Camera::ReturnTarget() const
 {
-	Vector3 target(5, 0, 0);
+	Vector3 target(3, 0, 0);
 
 	target = transform.rotate.MatrixX() * transform.rotate.MatrixY() * transform.rotate.MatrixZ() * target;
 

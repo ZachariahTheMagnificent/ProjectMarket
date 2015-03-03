@@ -13,25 +13,26 @@ void ItemInteraction::DrawIsEqualTo(drawOrder& TempItem, drawOrder& TempTrolley)
 {
 	item = &TempItem;
 	trolley = &TempTrolley;
+	defaultGlobalPosition = item->GetGlobalPosition();
 	defaultTranslation = item->transform.translate;
 	defaultRotation = item->transform.rotate;
 	taken = false;
 }
 
-void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos)
+void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos, const Vector3& itemPos)
 {
-	Range<int> ItemRangeX(item->GetGlobalPosition().x - 10,item->GetGlobalPosition().x + 10);
-	Range<int> ItemRangeY(item->GetGlobalPosition().y - 10,item->GetGlobalPosition().y + 10);
-	Range<int> ItemRangeZ(item->GetGlobalPosition().z - 10,item->GetGlobalPosition().z + 10);
-
-	if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeX.IsInRange(PlayerTargetPos.y) && ItemRangeX.IsInRange(PlayerTargetPos.z))
+	if(taken == false)
 	{
-		if(taken == false)
+		Range<float> ItemRangeX(defaultGlobalPosition.x - 0.25,defaultGlobalPosition.x + 0.25);
+		Range<float> ItemRangeY(defaultGlobalPosition.y,defaultGlobalPosition.y + 2);
+		Range<float> ItemRangeZ(defaultGlobalPosition.z - 0.25,defaultGlobalPosition.z + 0.25);
+
+		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
 		{
 			item->SetParentAs(trolley);
 			item->transform.rotate.Set(0,0,0);
 			item->selfTransform.translate.Set(0,0,0);
-			item->transform.translate.Set(0,5,0);
+			item->transform.translate.Set(2,-1,0);
 			taken = true;
 		}
 	}
