@@ -41,14 +41,10 @@ void WizardLv2::Update(const double dt)
 	}
 }
 
-bool WizardLv2::checkInteract(const Vector3& PlayerTargetPos)
+bool WizardLv2::checkInteract(const Camera& camera)
 {
 	
-	Range<int> WizardRangeX(characterBody->GetGlobalPosition().x - 5,characterBody->GetGlobalPosition().x + 5);
-	Range<int> WizardRangeY(characterBody->GetGlobalPosition().y - 5,characterBody->GetGlobalPosition().y + 5);
-	Range<int> WizardRangeZ(characterBody->GetGlobalPosition().z - 5,characterBody->GetGlobalPosition().z + 5);
-
-	if(WizardRangeX.IsInRange(PlayerTargetPos.x) && WizardRangeY.IsInRange(PlayerTargetPos.y) && WizardRangeZ.IsInRange(PlayerTargetPos.z))
+	if(camera.IsLookingAt(characterBody->GetGlobalPosition(), 20, 10)) // if player looking at the wizard
 	{
 		return true;
 	}

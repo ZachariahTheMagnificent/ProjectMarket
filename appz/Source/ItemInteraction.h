@@ -17,6 +17,7 @@ public:
 	void DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlayerBody);
 	void InteractWithItem(const Camera& camera);
 	void PutItem(const Camera& camera, int totalNoOfItems);
+	void PayItem();
 
 	std::vector<bool> taken;
 	std::vector<bool> atTrolley;

@@ -243,7 +243,7 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.01f));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
@@ -304,7 +304,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
 	//Draw player target
-	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"BG"), &globals.GetDraw(L"main"), true));
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -866,8 +866,28 @@ bool SceneMain::Update(const double dt)
 	UpdateView();
 	UpdateLight();
 	UpdateLogic();
-	SPLv1.Update(dt);
 	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
+	if(globals.GetDraw(L"player_body").GetGlobalPosition().y <= 5)
+	{
+		SWLv2[0].Reset();
+		SWLv2[1].Reset();
+		UpdateLv1 = true;
+		UpdateLv2 = false;
+	}
+	else if(globals.GetDraw(L"player_body").GetGlobalPosition().y >= 13)
+	{
+		SILv1.Reset();
+		RLv1[0].Reset();
+		RLv1[1].Reset();
+		SPLv1.Reset();
+		UpdateLv1 = false;
+		UpdateLv2 = true;
+	}
+	else
+	{
+		UpdateLv1 = true;
+		UpdateLv2 = true;
+	}
 	if(UpdateLv2 == true)
 	{
 
@@ -903,6 +923,7 @@ bool SceneMain::Update(const double dt)
 	}
 	if(UpdateLv1 ==true)
 	{
+		SPLv1.Update(dt);
 		SILv1.Update(dt);
 		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
@@ -1217,7 +1238,7 @@ void SceneMain::DoUserInput()
 		{
 			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 		}
-		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
+		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true)
 		{
 			wizard.casting = true;
 		}

@@ -137,3 +137,7 @@ void ItemInteraction::PutItem(const Camera& camera, int noOfItemInTrolley)
 		}
 	}
 }
+
+void ItemInteraction::PayItem()
+{
+}
