@@ -882,19 +882,26 @@ bool SceneMain::Update(const double dt)
 		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
 	}
-	if(SPLv1.currentState==2)
-	{
-		paying=true;
-	}
-	else
-	{
-		paying=false;
-	}
-	if(paying=true)
-	{
-		RLv1[0].Update(dt);
-		RLv1[1].Update(dt);
-	}
+
+		if(SPLv1.currentState==2)
+		{
+			paying=true;
+		}
+		else
+		{
+			paying=false;
+		}
+		if(paying==true)
+		{
+			RLv1[0].Update(dt);
+			RLv1[1].Update(dt);
+		}
+		else
+		{
+			RLv1[0].Reset();
+			RLv1[1].Reset();
+		}
+>>>>>>> 8930c86d649d00fb09bfd91ed373002e3f95f33b
 	return false;
 }
 

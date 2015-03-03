@@ -3,7 +3,7 @@
 RobotCashier::RobotCashier(void)
 {
 	robotBodyAngleRotate = 0;
-	robotArmRotate=180;
+	robotArmRotate=89;
 	rightArmRotateUp=true;
 }
 
@@ -21,21 +21,21 @@ void RobotCashier::Render()
 
 void RobotCashier::Update(const double dt)
 {
-	if(robotArmRotate >90)
-			rightArmRotateUp = false;
-		else if(robotArmRotate < 45)
-			rightArmRotateUp = true;
-		if(rightArmRotateUp == true)
-		{
-			robotLeftArm->selfTransform.rotate.x += dt * 80;
-
-			robotArmRotate += dt * 80;
-		}
-		else
-		{
-			robotLeftArm->selfTransform.rotate.x -= dt * 80;
-			robotArmRotate -= dt * 80;
-		}
+	if(robotArmRotate >160)
+		rightArmRotateUp = false;
+	else if(robotArmRotate < 100)
+		rightArmRotateUp = true;
+	if(rightArmRotateUp == true)
+	{
+		robotLeftArm->selfTransform.rotate.x -= dt * 30;
+		robotArmRotate += dt * 30;
+	}
+	else
+	{
+		robotLeftArm->selfTransform.rotate.x +=dt*30;
+		robotArmRotate -= dt * 30;
+	}
+	
 }
 void RobotCashier::Exit()
 {
