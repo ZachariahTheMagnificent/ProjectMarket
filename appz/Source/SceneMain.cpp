@@ -815,7 +815,7 @@ void SceneMain::InnitForces()
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	{
-		draw->second->AddForce(accelerationDueToGravity * draw->second->mass);
+		//draw->second->AddForce(accelerationDueToGravity * draw->second->mass);
 	}
 }
 
@@ -1008,6 +1008,7 @@ void SceneMain::UpdateDraws()
 	//		bool CollisionIsDone = false;
 
 	//where we do collision
+
 
 	//draws are finally updated after processing
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
