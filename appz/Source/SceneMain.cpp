@@ -901,7 +901,6 @@ bool SceneMain::Update(const double dt)
 			RLv1[0].Reset();
 			RLv1[1].Reset();
 		}
->>>>>>> 8930c86d649d00fb09bfd91ed373002e3f95f33b
 	return false;
 }
 
