@@ -176,6 +176,9 @@
     <ClCompile Include="Source\ItemInteraction.cpp">
       <Filter>Source Files\Interactions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LostChild.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Contacts.h">
@@ -294,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="Source\ItemInteraction.h">
       <Filter>Header Files\Interactions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LostChild.h">
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

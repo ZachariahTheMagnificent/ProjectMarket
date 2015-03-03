@@ -15,6 +15,7 @@
 #include "WizardLv2.h"
 #include "ShopperPayerLv1.h"
 #include "RobotCashier.h"
+#include "LostChild.h"
 #include "DoorInteraction.h"
 #include "ItemInteraction.h"
 #include <vector>
@@ -44,6 +45,7 @@ private:
 	Player* player;
 	ShopperWandererLv2 SWLv2[2];
 	WizardLv2 wizard;
+	LostChild lostchild;
 	ShopperIdler SILv1;
 	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;

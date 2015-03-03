@@ -16,6 +16,7 @@
     <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\DoorInteraction.cpp" />
     <ClCompile Include="Source\ItemInteraction.cpp" />
+    <ClCompile Include="Source\LostChild.cpp" />
     <ClCompile Include="Source\RobotCashier.cpp" />
     <ClCompile Include="Source\Contacts.cpp" />
     <ClCompile Include="Source\ContactSolver.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Source\Character.h" />
     <ClInclude Include="Source\DoorInteraction.h" />
     <ClInclude Include="Source\ItemInteraction.h" />
+    <ClInclude Include="Source\LostChild.h" />
     <ClInclude Include="Source\RobotCashier.h" />
     <ClInclude Include="Source\Contacts.h" />
     <ClInclude Include="Source\ContactSolver.h" />
