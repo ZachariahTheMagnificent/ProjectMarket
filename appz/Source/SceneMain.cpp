@@ -979,7 +979,7 @@ void SceneMain::UpdateLogic()
 
 	if(keyboard.isKeyPressed('E'))
 	{	
-		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate,globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
 	}
 }
 

@@ -18,7 +18,7 @@ public:
 	void CheckWithinRange(Vector3 TempPosition);
 	void InteractWithDoors(const double dt, const Vector3& PlayerPos, const Vector3& ShopperPos);
 	void InteractWithLifts(const double dt, Vector3& PlayerPos);
-	void TeleportWithLifts(const double dt, Vector3& PlayerPos);
+	void TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley);
 	void InteractWithTravelator(const double dt, Vector3& PlayerPos);
 
 	bool GetTravelatorInRange (void);

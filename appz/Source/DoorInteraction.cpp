@@ -2,11 +2,11 @@
 
 DoorInteraction::DoorInteraction(void)
 {
-	 LiftDoor1isOpen = false;
-	 LiftDoor2isOpen = false;
-	 TravelatorIsInrange = false;
+	LiftDoor1isOpen = false;
+	LiftDoor2isOpen = false;
+	TravelatorIsInrange = false;
 
-	 DoorSlidingSpeed = 9;
+	DoorSlidingSpeed = 9;
 }
 
 DoorInteraction::~DoorInteraction(void)
@@ -16,7 +16,7 @@ DoorInteraction::~DoorInteraction(void)
 void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right)
 {
 	OuterDoor1Left = &TempOuterDoor1Left;
-    OuterDoor1Right = &TempOuterDoor1Right;
+	OuterDoor1Right = &TempOuterDoor1Right;
 	OuterDoor2Left = &TempOuterDoor2Left;
 	OuterDoor2Right = &TempOuterDoor2Right;
 	InnerDoor1 = &TempInnerDoor1;
@@ -138,7 +138,7 @@ void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)
 		}
 	}
 
-		if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
+	if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
 	{
 		if(LiftDoor2Left->transform.translate.x >= 11)
 		{
@@ -157,7 +157,7 @@ void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)
 	}
 }
 
-void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)	
+void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley)	
 {
 	//Lift > Lift translation
 	Range<int> Lift0and1RangeX(12,18);
@@ -167,12 +167,40 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)
 
 	if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift0RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.y = 10.902;
+		PlayerPos.y += 10;
+
+		if(Lift0and1RangeX.IsInRange(TrolleyPos.x) && Lift0RangeY.IsInRange(TrolleyPos.y) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
+		{
+
+			if (isTakingTrolley == false)
+			{
+				TrolleyPos.y += 10;
+			}
+
+			else if (isTakingTrolley == true)
+			{
+				TrolleyPos.y = 14;
+			}
+		}
 	}	
 
 	else if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift1RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.y = 0.931;
+		PlayerPos.y -= 10;
+
+		if(Lift0and1RangeX.IsInRange(TrolleyPos.x) && Lift1RangeY.IsInRange(TrolleyPos.y) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
+		{
+
+			if (isTakingTrolley == false)
+			{
+				TrolleyPos.y -= 10;
+			}
+
+			else if (isTakingTrolley == true)
+			{
+				TrolleyPos.y = 4;
+			}
+		}
 	}	
 }
 
