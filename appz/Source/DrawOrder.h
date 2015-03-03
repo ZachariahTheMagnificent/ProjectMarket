@@ -172,7 +172,6 @@ private:
 	VoxelOctree* voxels;
 	drawOrder* parent;
 	Vector3 velocity;
-	unsigned boundRadius;
 	unsigned drawMode;
 	std::vector<drawOrder*> children;
 	std::vector<Force> forces;

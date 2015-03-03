@@ -11,6 +11,7 @@ class VoxelLeaf
 public:
 	VoxelLeaf(const Range<int> rangeX = Range<int>(VoxelLeafMin, VoxelLeafMax), const Range<int> rangeY = Range<int>(VoxelLeafMin, VoxelLeafMax), const Range<int> rangeZ = Range<int>(VoxelLeafMin, VoxelLeafMax), VoxelLeaf *const parent = NULL);
 	~VoxelLeaf();
+	void SetRangeTo(const Range<int> rangeX, const Range<int> rangeY, const Range<int> rangeZ);
 	void AddVoxel(Voxel& voxel);
 	void Subdivide();
 	bool HasAlreadySubdivided() const;

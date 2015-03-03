@@ -29,11 +29,9 @@ public:
 	bool operator==(const Voxel& voxel) const;
 	void SetColorTo(const Color newColor);
 	void SetPositionTo(const Vector3 newPosition);
-	void ApplyToMatrix(Mtx44 matrix);
-	void ResetToOrgin();
+	void SetSolidityTo(const unsigned char solidity);
 private:
 	Vector3 position;
-	Vector3 displacement;
 	Color color;
-	char solidness;
+	unsigned char solidness;
 };

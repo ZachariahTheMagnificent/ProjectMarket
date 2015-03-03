@@ -13,7 +13,6 @@ mass(mass),
 bounce(bounce),
 staticFriction(staticFriction),
 kineticFriction(kineticFriction),
-boundRadius(0),
 drawMode(GL_TRIANGLES)
 {
 	this->parent = NULL;
@@ -302,7 +301,6 @@ void drawOrder::GenerateVoxels()
 		voxels = geometry->GenerateVoxel();
 	}
 
-	boundRadius = voxels->GetRadius();
 }
 
 bool drawOrder::IsCollidingWith(drawOrder& draw) const
@@ -350,30 +348,30 @@ void drawOrder::RenderPartial(const unsigned offset, const unsigned count) const
 
 float drawOrder::GetMaxX() const
 {
-	return (GetMatrix() * transform.translate).x + (float)boundRadius;
+	return (GetMatrix() * transform.translate).x + (float)voxels->GetRadius();
 }
 
 float drawOrder::GetMinX() const
 {
-	return (GetMatrix() * transform.translate).x - (float)boundRadius;
+	return (GetMatrix() * transform.translate).x - (float)voxels->GetRadius();
 }
 
 float drawOrder::GetMaxY() const
 {
-	return (GetMatrix() * transform.translate).y + (float)boundRadius;
+	return (GetMatrix() * transform.translate).y + (float)voxels->GetRadius();
 }
 
 float drawOrder::GetMinY() const
 {
-	return (GetMatrix() * transform.translate).y - (float)boundRadius;
+	return (GetMatrix() * transform.translate).y - (float)voxels->GetRadius();
 }
 
 float drawOrder::GetMaxZ() const
 {
-	return (GetMatrix() * transform.translate).z + (float)boundRadius;
+	return (GetMatrix() * transform.translate).z + (float)voxels->GetRadius();
 }
 
 float drawOrder::GetMinZ() const
 {
-	return (GetMatrix() * transform.translate).z - (float)boundRadius;
+	return (GetMatrix() * transform.translate).z - (float)voxels->GetRadius();
 }

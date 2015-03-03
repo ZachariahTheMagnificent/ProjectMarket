@@ -185,10 +185,12 @@ void ScenePhysics::InnitDraws()
 
 void ScenePhysics::InnitVoxels()
 {
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-	{
-		draw->second->GenerateVoxels();
-	}
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	//{
+	//	draw->second->GenerateVoxels();
+	//}
+	globals.GetDraw(L"nirvana").GenerateVoxels();
+	globals.GetDraw(L"player").GenerateVoxels();
 }
 
 void ScenePhysics::InnitForces()

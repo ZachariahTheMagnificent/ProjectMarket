@@ -21,19 +21,9 @@ Color Voxel::GetColor() const
 	return color;
 }
 
-void Voxel::ApplyToMatrix(Mtx44 matrix)
-{
-	displacement = matrix * position - position;
-}
-
-void Voxel::ResetToOrgin()
-{
-	displacement.SetZero();
-}
-
 Vector3 Voxel::GetPosition() const
 {
-	return displacement + position;
+	return position;
 }
 
 float Voxel::GetSize()
@@ -166,4 +156,9 @@ bool Voxel::operator==(const Voxel& voxel) const
 		return true;
 	}
 	return false;
+}
+
+void Voxel::SetSolidityTo(const unsigned char solidity)
+{
+	solidness = solidity;
 }

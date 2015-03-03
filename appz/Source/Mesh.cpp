@@ -76,7 +76,7 @@ VoxelOctree* Mesh::GenerateVoxel()
 	Range<int> rangeX(furthestLeft, furthestRight);
 	Range<int> rangeY(furthestDown, furthestUp);
 	Range<int> rangeZ(furthestBack, furthestFront);
-	Vector3 voxelDisplacement(0 - furthestLeft, 0 - furthestDown, 0 - furthestBack);
+	Vector3 voxelDisplacement(0 + furthestLeft, 0 + furthestDown, 0 + furthestBack);
 	if(rangeX.Length() > rangeY.Length() && rangeX.Length() > rangeZ.Length())
 	{
 		tree->SetRangeTo(rangeX.Length(), voxelDisplacement);
@@ -121,12 +121,8 @@ VoxelOctree* Mesh::GenerateVoxel()
 					temp.pos.Set(x,y,z);
 					if(polygon1.NormalIsFacing(temp) && polygon2.NormalIsFacing(temp) && polygon3.NormalIsFacing(temp) && polygon4.NormalIsFacing(temp) && polygon5.NormalIsFacing(temp))
 					{
-						Vector3 voxelPosition(voxelDisplacement + temp.pos);
-						voxelPosition.x = (int)(voxelPosition.x + 0.5);
-						voxelPosition.y = (int)(voxelPosition.y + 0.5);
-						voxelPosition.z = (int)(voxelPosition.z + 0.5);
-						int index = voxelPosition.x + voxelPosition.y * rangeX.Length() + voxelPosition.z * areaXY;
 						Voxel voxel;
+						voxel.SetSolidityTo(1);
 						voxel.SetPositionTo(temp.pos);
 						float red = rand();
 						red = red - (int)red;

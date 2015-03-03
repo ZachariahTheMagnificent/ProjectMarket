@@ -75,7 +75,7 @@ type Range<type>::Length() const
 template<class type>
 type Range<type>::MidPoint() const
 {
-	return start + Length()/2;
+	return start + (Length() - 1)/2;
 }
 
 template<class type>
