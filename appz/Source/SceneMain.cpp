@@ -165,6 +165,9 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"travelatorhandle texture", L"Image//travelatorhandle_texture.tga");
 	globals.AddTexture(L"trolleytexture", L"Image//TrolleyTexture.tga");
 	globals.AddTexture(L"character1", L"Image//character1.tga");
+	globals.AddTexture(L"character2", L"Image//character2.tga");
+	globals.AddTexture(L"character3", L"Image//character3.tga");
+	globals.AddTexture(L"character4", L"Image//character4.tga");
 	globals.AddTexture(L"robot", L"Image//robot_texture.tga");
 	globals.AddTexture(L"Quad1",L"Image//Quad1.tga");
 	globals.AddTexture(L"Quad2",L"Image//Quad2.tga");
@@ -202,6 +205,9 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"travelatorslope",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
 	globals.AddMaterial(Material(L"trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"trolleytexture")));
 	globals.AddMaterial(Material(L"character1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
+	globals.AddMaterial(Material(L"character2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character2")));
+	globals.AddMaterial(Material(L"character3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character3")));
+	globals.AddMaterial(Material(L"character4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character4")));
 	globals.AddMaterial(Material(L"robot",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"robot")));
 	globals.AddMaterial(Material(L"Quad1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad1")));
 	globals.AddMaterial(Material(L"Quad2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
@@ -313,6 +319,20 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_body").staticFriction = 0.1;
 	globals.GetDraw(L"player_body").kineticFriction = 0;
 	globals.GetDraw(L"player_body").mass = 1;
+
+	//Draw Lost Child
+	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"lost_child_body").transform.translate.Set(10,0.1,0);
+	globals.AddDraw(drawOrder(L"lost_child_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.GetDraw(L"lost_child_arm_left").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"lost_child_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.GetDraw(L"lost_child_arm_right").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"lost_child_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"lost_child_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 	//Draw Shopper Idler at level 1
 	globals.AddDraw(drawOrder(L"shopper_idler_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
