@@ -77,11 +77,11 @@ VoxelOctree* Mesh::GenerateVoxel()
 	Range<int> rangeY(furthestDown, furthestUp);
 	Range<int> rangeZ(furthestBack, furthestFront);
 	Vector3 voxelDisplacement(0 + furthestLeft, 0 + furthestDown, 0 + furthestBack);
-	if(rangeX.Length() > rangeY.Length() && rangeX.Length() > rangeZ.Length())
+	if(rangeX.Length() >= rangeY.Length() && rangeX.Length() >= rangeZ.Length())
 	{
 		tree->SetRangeTo(rangeX.Length(), voxelDisplacement);
 	}
-	else if(rangeY.Length() > rangeX.Length() && rangeY.Length() > rangeZ.Length())
+	else if(rangeY.Length() >= rangeX.Length() && rangeY.Length() >= rangeZ.Length())
 	{
 		tree->SetRangeTo(rangeY.Length(), voxelDisplacement);
 	}
