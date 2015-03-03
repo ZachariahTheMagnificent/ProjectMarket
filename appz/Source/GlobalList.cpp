@@ -27,7 +27,7 @@ GlobalList::~GlobalList()
 	}
 }
 
-bool GlobalList::AddMesh(Mesh* mesh)
+bool GlobalList::AddMesh(Mesh*const mesh)
 {
 	meshList[mesh->GetName()] = mesh;
 	return true;

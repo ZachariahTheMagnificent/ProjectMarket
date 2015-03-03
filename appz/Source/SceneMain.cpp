@@ -1050,19 +1050,19 @@ void SceneMain::Render()
 
 		if(drawVoxels)
 		{
-			Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
-			drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
-			for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-			{
-				Mtx44 matrix(draw->second->GetMatrix());
-				for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
-				{
-					voxel->ApplyToMatrix(matrix);
-					Mtx44 translate;
-					translate.SetToTranslation(voxel->GetPosition());
-					gfx.RenderMesh(draw_cube, translate);
-				}
-			}
+			//Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+			//drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
+			//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+			//{
+			//	Mtx44 matrix(draw->second->GetMatrix());
+			//	for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
+			//	{
+			//		voxel->ApplyToMatrix(matrix);
+			//		Mtx44 translate;
+			//		translate.SetToTranslation(voxel->GetPosition());
+			//		gfx.RenderMesh(draw_cube, translate);
+			//	}
+			//}
 		}
 		else
 		{
