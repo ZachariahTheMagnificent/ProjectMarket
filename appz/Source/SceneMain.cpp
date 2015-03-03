@@ -568,18 +568,18 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
-
+	
 
 	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
-
+	
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
 
 	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.7);
+	globals.GetDraw(L"inner_door_2").transform.scale.Set(1,1,0.7);
 	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.5);
 
 	//Draw Trolley First Row
@@ -947,7 +947,7 @@ void SceneMain::UpdateLogic()
 	{
 		state=CHOOSETOEXIT;
 	}
-	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition());
+	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body0").GetGlobalPosition() );
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 

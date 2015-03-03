@@ -5,6 +5,8 @@ DoorInteraction::DoorInteraction(void)
 	 LiftDoor1isOpen = false;
 	 LiftDoor2isOpen = false;
 	 TravelatorIsInrange = false;
+
+	 DoorSlidingSpeed = 9;
 }
 
 DoorInteraction::~DoorInteraction(void)
@@ -25,19 +27,19 @@ void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& Te
 	LiftDoor2Right = &TempLiftDoor2Right;
 }
 
-void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPos)
+void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPos, const Vector3& ShopperPos)
 {
 	//OuterDoor1
 	Range<int> OuterDoor1RangeX(-7,7);
 	Range<int> OuterDoor1RangeY(0,5);
 	Range<int> OuterDoor1RangeZ(-18,1.732);
 
-	if(OuterDoor1RangeX.IsInRange(PlayerPos.x) && OuterDoor1RangeY.IsInRange(PlayerPos.y) && OuterDoor1RangeZ.IsInRange(PlayerPos.z))
+	if( (OuterDoor1RangeX.IsInRange(PlayerPos.x) && OuterDoor1RangeY.IsInRange(PlayerPos.y) && OuterDoor1RangeZ.IsInRange(PlayerPos.z) ) || (OuterDoor1RangeX.IsInRange(ShopperPos.x) && OuterDoor1RangeY.IsInRange(ShopperPos.y) && OuterDoor1RangeZ.IsInRange(ShopperPos.z)) )
 	{
 		if(OuterDoor1Left->transform.translate.x >= -6)
 		{
-			OuterDoor1Left-> transform.translate.x += -3 * dt;
-			OuterDoor1Right-> transform.translate.x += 3 * dt;
+			OuterDoor1Left-> transform.translate.x += -DoorSlidingSpeed * dt;
+			OuterDoor1Right-> transform.translate.x += DoorSlidingSpeed * dt;
 		}
 	}
 
@@ -45,8 +47,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor1Left->transform.translate.x < -2)
 		{
-			OuterDoor1Left-> transform.translate.x += 3 * dt;
-			OuterDoor1Right-> transform.translate.x += -3 * dt;
+			OuterDoor1Left-> transform.translate.x += DoorSlidingSpeed * dt;
+			OuterDoor1Right-> transform.translate.x += -DoorSlidingSpeed * dt;
 		}
 	}
 
@@ -56,18 +58,18 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	Range<int> InnerDoor2RangeY(10,15);
 	Range<int> InnerDoorRangeZ(-28,-10);
 
-	if(InnerDoorRangeX.IsInRange(PlayerPos.x) && InnerDoor1RangeY.IsInRange(PlayerPos.y) && InnerDoorRangeZ.IsInRange(PlayerPos.z))
+	if((InnerDoorRangeX.IsInRange(PlayerPos.x) && InnerDoor1RangeY.IsInRange(PlayerPos.y) && InnerDoorRangeZ.IsInRange(PlayerPos.z)) || (InnerDoorRangeX.IsInRange(ShopperPos.x) && InnerDoor1RangeY.IsInRange(ShopperPos.y) && InnerDoorRangeZ.IsInRange(ShopperPos.z)))
 	{
 		if(InnerDoor1->transform.translate.x <= -12.5)
 		{
-			InnerDoor1-> transform.translate.x += 2.5 * dt;
+			InnerDoor1-> transform.translate.x += DoorSlidingSpeed * dt;
 		}
 	}
 	else
 	{
 		if(InnerDoor1 -> transform.translate.x > -17.5)
 		{
-			InnerDoor1-> transform.translate.x += -3 * dt;
+			InnerDoor1-> transform.translate.x += -DoorSlidingSpeed * dt;
 		}
 	}
 
@@ -75,14 +77,14 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(InnerDoor2->transform.translate.x <= -12.5)
 		{
-			InnerDoor2-> transform.translate.x += 2.5 * dt;
+			InnerDoor2-> transform.translate.x += DoorSlidingSpeed * dt;
 		}
 	}
 	else
 	{
 		if(InnerDoor2-> transform.translate.x > -17.5)
 		{
-			InnerDoor2-> transform.translate.x += -3 * dt;
+			InnerDoor2-> transform.translate.x += -DoorSlidingSpeed * dt;
 		}
 	}
 
@@ -91,12 +93,12 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	Range<int> OuterDoor2RangeY(0,5);
 	Range<int> OuterDoor2RangeZ(-116,-93.7);
 
-	if(OuterDoor2RangeX.IsInRange(PlayerPos.x) && OuterDoor2RangeY.IsInRange(PlayerPos.y) && OuterDoor2RangeZ.IsInRange(PlayerPos.z))
+	if((OuterDoor2RangeX.IsInRange(PlayerPos.x) && OuterDoor2RangeY.IsInRange(PlayerPos.y) && OuterDoor2RangeZ.IsInRange(PlayerPos.z)) || (OuterDoor2RangeX.IsInRange(ShopperPos.x) && OuterDoor2RangeY.IsInRange(ShopperPos.y) && OuterDoor2RangeZ.IsInRange(ShopperPos.z)) )
 	{
 		if(OuterDoor2Left->transform.translate.x >= -17.2)
 		{
-			OuterDoor2Left-> transform.translate.x += -3 * dt;
-			OuterDoor2Right-> transform.translate.x += 3 * dt;
+			OuterDoor2Left-> transform.translate.x += -DoorSlidingSpeed * dt;
+			OuterDoor2Right-> transform.translate.x += DoorSlidingSpeed * dt;
 		}
 	}
 
@@ -104,8 +106,8 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 	{
 		if(OuterDoor2Left->transform.translate.x < -13)
 		{
-			OuterDoor2Left-> transform.translate.x += 3 * dt;
-			OuterDoor2Right-> transform.translate.x += -3 * dt;
+			OuterDoor2Left-> transform.translate.x += DoorSlidingSpeed * dt;
+			OuterDoor2Right-> transform.translate.x += -DoorSlidingSpeed * dt;
 		}
 	}
 }
