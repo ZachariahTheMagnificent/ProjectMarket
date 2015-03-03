@@ -32,7 +32,7 @@ void ItemInteraction::InteractWithItem(const Vector3& PlayerTargetPos, const Vec
 			item->SetParentAs(trolley);
 			item->transform.rotate.Set(0,0,0);
 			item->selfTransform.translate.Set(0,0,0);
-			item->transform.translate.Set(0,5,0);
+			item->transform.translate.Set(2,-1,0);
 			taken = true;
 		}
 	}

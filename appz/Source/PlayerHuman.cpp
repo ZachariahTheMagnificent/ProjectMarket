@@ -79,7 +79,7 @@ void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
 			trolley->SetParentAs(body);
 			trolley->transform.rotate.Set(0,0,0);
 			trolley->selfTransform.translate.Set(0,0,0);
-			trolley->transform.translate.Set(5,-3,0);
+			trolley->transform.translate.Set(2,0.61,0);
 			isHoldingTrolley = true;
 		}
 	}
