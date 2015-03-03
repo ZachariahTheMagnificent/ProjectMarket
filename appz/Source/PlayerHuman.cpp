@@ -67,15 +67,11 @@ Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
-void PlayerHuman::TakingTrolley(const Vector3& PlayerTargetPos)
+void PlayerHuman::TakingTrolley(const Camera& camera)
 {
 	if(isHoldingTrolley == false)
 	{
-		Range<int> ItemRangeX(trolley->GetGlobalPosition().x - 2,trolley->GetGlobalPosition().x + 2);
-		Range<int> ItemRangeY(trolley->GetGlobalPosition().y - 2,trolley->GetGlobalPosition().y + 2);
-		Range<int> ItemRangeZ(trolley->GetGlobalPosition().z - 2,trolley->GetGlobalPosition().z + 2);
-
-		if(ItemRangeX.IsInRange(PlayerTargetPos.x) && ItemRangeY.IsInRange(PlayerTargetPos.y) && ItemRangeZ.IsInRange(PlayerTargetPos.z))
+		if(camera.IsLookingAt(trolley->GetGlobalPosition(), 20, 5))
 		{
 			trolley->SetParentAs(body);
 			trolley->transform.rotate.Set(0,0,0);

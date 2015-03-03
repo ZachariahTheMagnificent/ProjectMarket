@@ -15,7 +15,7 @@ public:
 	void PlayerIsEqualTo(Player* TempPlayer);
 	void TrolleyIsEqualTo(Trolley& TempTrolley);
 	void DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlayerBody);
-	void InteractWithItem(const Vector3& PlayerPos);
+	void InteractWithItem(const Camera& camera);
 	void PutItem(const Camera& camera, int totalNoOfItems);
 
 	std::vector<bool> taken;
@@ -25,10 +25,12 @@ private:
 	
 	std::vector<Vector3> defaultTranslation;
 	std::vector<Rotation> defaultRotation;
+	std::vector<Vector3> defaultGlobalPosition;
+	std::vector<drawOrder*> defaultParent;
 
 	//drawOrder Pointer to item and trolley
 	std::vector<drawOrder*>  item;
-	drawOrder trolley;
+	drawOrder* trolley;
 	drawOrder* playerBody;
 	
 	Player* player;

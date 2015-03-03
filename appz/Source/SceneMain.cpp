@@ -984,7 +984,7 @@ void SceneMain::UpdateLogic()
 
 	if(keyboard.isKeyPressed('E'))
 	{	
-		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+		//InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	}
 }
 
@@ -1202,7 +1202,7 @@ void SceneMain::DoUserInput()
 		{
 			if(player->isHoldingTrolley == false && player->isHoldingItem == false) // Take item
 			{
-				item.InteractWithItem(camera.ReturnTarget());
+				item.InteractWithItem(camera);
 			}
 			else if(player->noOfItemInTrolley < 3 && player->isHoldingTrolley == false && player->isHoldingItem == true) // put item into ttrolley item
 			{
@@ -1211,7 +1211,7 @@ void SceneMain::DoUserInput()
 		}
 		if(keyboard.isKeyPressed('E') && isFrog == false)
 		{
-			player->TakingTrolley(camera.ReturnTarget());
+			player->TakingTrolley(camera);
 		}
 		if(keyboard.isKeyPressed('R'))
 		{

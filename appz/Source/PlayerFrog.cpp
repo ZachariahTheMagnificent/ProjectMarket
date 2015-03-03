@@ -67,7 +67,7 @@ Vector3 PlayerFrog::MoveLeft(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
-void PlayerFrog::TakingTrolley(const Vector3& PlayerTargetPos)
+void PlayerFrog::TakingTrolley(const Camera& camera)
 {
 }
 
