@@ -178,6 +178,8 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"incredits",L"Image//incredits.tga");
 	globals.AddTexture(L"inexit",L"Image//inexit.tga");
 	globals.AddTexture(L"instructions",L"Image//instructions.tga");
+	globals.AddTexture(L"liftlevel1",L"Image//liftlevel1.tga");
+	globals.AddTexture(L"liftlevel2",L"Image//liftlevel2.tga");
 }
 
 void SceneMain::InnitMaterials()
@@ -218,6 +220,8 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"incredits",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
 	globals.AddMaterial(Material(L"inexit",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
 	globals.AddMaterial(Material(L"instructions",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
+	globals.AddMaterial(Material(L"liftlevel1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel1")));
+	globals.AddMaterial(Material(L"liftlevel2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel2")));
 }
 
 void SceneMain::InnitLight()
@@ -247,6 +251,8 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"inexit", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"instructions", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"liftlevel1",Color(1,1,1),3.f,0.5f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"liftlevel2", Color(1, 1, 1), 3.f, 0.5f));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cube", L"OBJ//cubey.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
@@ -449,6 +455,15 @@ void SceneMain::InnitDraws()
 		globals.AddDraw(buffer);
 		liftTranslate+= Vector3(0,10.1,0);
 	}
+	//Draw Lift Directories level1
+	globals.AddDraw(drawOrder(L"liftlevel1",globals.GetMesh(L"liftlevel1"), &globals.GetMaterial(L"liftlevel1"),&globals.GetDraw(L"main"),true));
+	globals.GetDraw(L"liftlevel1").transform.translate.Set(15.0,8.5,-99.2);
+	globals.GetDraw(L"liftlevel1").transform.rotate.Set(0,180,0);
+
+	//Draw Lift Directories level2
+	globals.AddDraw(drawOrder(L"liftlevel2",globals.GetMesh(L"liftlevel2"), &globals.GetMaterial(L"liftlevel2"),&globals.GetDraw(L"main"),true));
+	globals.GetDraw(L"liftlevel2").transform.translate.Set(15.0,18.6,-99.2);
+	globals.GetDraw(L"liftlevel2").transform.rotate.Set(0,180,0);
 
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
@@ -575,6 +590,7 @@ void SceneMain::InnitDraws()
 		globals.AddDraw(buffer);
 		travelatorhandleTranslate2+= Vector3(0,0,-2.46);
 	}
+	
 
 	//Draw Outer Door
 	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
@@ -921,6 +937,7 @@ bool SceneMain::Update(const double dt)
 			RLv1[0].Reset();
 			RLv1[1].Reset();
 		}
+
 	return false;
 }
 
@@ -1139,7 +1156,22 @@ void SceneMain::Render()
 		inexit.SetToTranslation(Vector3(360,245,0));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
 	}
+	Range<int>x(12,18);
+	Range<int>y(0.1,0.9);
+	Range<int>z(-104,-99);
+	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
+	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
+	{
+		gfx.RenderTextOnScreen("Press E to move to level 2!",Color(1,1,1),27,9,300);
+	}
 
+	Range<int>a(12,18);
+	Range<int>b(9,12);
+	Range<int>c(-104,-99);
+	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
+	{
+		gfx.RenderTextOnScreen("Press E to move to level 1!",Color(1,1,1),27,9,300);
+	}
 	char buffer1[126];
 	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
@@ -1148,7 +1180,6 @@ void SceneMain::Render()
 	currentFPS = 1 / deltaTime;
 	sprintf(buffer2,"FPS:%.3f", currentFPS);
 	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,460);
-
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
