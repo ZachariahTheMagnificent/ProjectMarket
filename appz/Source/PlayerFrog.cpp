@@ -3,7 +3,8 @@
 
 PlayerFrog::PlayerFrog(void)
 {
-	//Vector3 TrolleyCurrentPos = trolley->GetGlobalPosition();
+	isHoldingTrolley = false;
+	isHoldingItem = false;
 }
 
 

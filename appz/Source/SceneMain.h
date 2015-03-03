@@ -56,7 +56,8 @@ private:
 	bool UpdateLv2;
 	bool UpdateLv1;
 	bool paying;
-	ItemInteraction item[1246];
+	ItemInteraction item;
+	Trolley trolley;
 
 	//print fps
 	double deltaTime;

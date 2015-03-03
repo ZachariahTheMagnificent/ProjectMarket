@@ -16,8 +16,10 @@ protected:
 public:
 	Player(void);
 	~Player(void);
-
+	
 	bool isHoldingTrolley;
+	bool isHoldingItem;
+	int noOfItemInTrolley;
 	
 	virtual void Init() = 0;
 	virtual Vector3 Update(Camera camera) = 0;

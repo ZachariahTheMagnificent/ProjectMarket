@@ -30,6 +30,7 @@ void SceneMain::Init()
 	InnitForces();
 	InnitLogic();
 	player = new PlayerHuman;
+	player->noOfItemInTrolley = 0;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 	OpenLiftDoor = false;
 	isJumping = false;
@@ -52,73 +53,76 @@ void SceneMain::Init()
 	SILv1.SetPosition(0);
 	RLv1[0].DrawIsEqualTo(globals.GetDraw(L"robotbody0"), globals.GetDraw(L"robotarm_left0"), globals.GetDraw(L"robotarm_right0"));
 	RLv1[1].DrawIsEqualTo(globals.GetDraw(L"robotbody1"), globals.GetDraw(L"robotarm_left1"), globals.GetDraw(L"robotarm_right1"));
+	item.DrawIsEqualTo(globals.GetDraw(L"trolley5"), globals.GetDraw(L"player_body"));
+	item.PlayerIsEqualTo(player);
+	item.TrolleyIsEqualTo(trolley);
 	for(int i = 0; i < 1246; ++i)
 	{
 		if(i < 360)// CAN_1 360
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 420)// CAN_2 60
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 670)// CAN_3 250
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 706)// Packet1 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 742)// Packet2 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 934)// Packet3 192
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1114)// Can_4 180
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1150)// Cereal1 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1174)// Cereal2 24
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1210)// Cereal3 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1246)// Cereal4 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
@@ -873,6 +877,9 @@ bool SceneMain::Update(const double dt)
 			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			delete player;
 			player = new PlayerFrog;
+			player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+			globals.GetDraw(L"player_arm_left").geometry = NULL;
+			globals.GetDraw(L"player_arm_right").geometry = NULL;
 			isFrog = true;
 			wizard.castingDone = false;
 		}
@@ -1068,11 +1075,17 @@ void SceneMain::Render()
 		globals.GetDraw(L"main").Execute(gfx);
 	//}
 	//}
-		Mtx44 BG;
-		BG.SetToRotation(180,0,1,0);
-		BG.SetToTranslation(Vector3(30,30,30));
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
-
+	Mtx44 BG;
+	BG.SetToRotation(180,0,1,0);
+	BG.SetToTranslation(Vector3(30,30,30));
+	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+	if(camera.IsLookingAt(Vector3(0,4,-6),30,500))
+	{
+		Mtx44 instructions;
+		instructions.SetToTranslation(Vector3(360,245,0));
+		/*instructions.SetToScale(1,1,0);*/
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
+	}
 	if(state==MAINMENU)
 	{
 		MS BG;
@@ -1194,9 +1207,13 @@ void SceneMain::DoUserInput()
 		}
 		if(keyboard.isKeyPressed('F'))
 		{
-			for(int i = 0; i < 1246; ++i)
+			if(player->isHoldingTrolley == false && player->isHoldingItem == false) // Take item
 			{
-				item[i].InteractWithItem(camera.ReturnTarget(), item[i].defaultGlobalPosition);
+				item.InteractWithItem(camera.ReturnTarget());
+			}
+			else if(player->noOfItemInTrolley < 3 && player->isHoldingTrolley == false && player->isHoldingItem == true) // put item into ttrolley item
+			{
+				item.PutItem(camera, player->noOfItemInTrolley);
 			}
 		}
 		if(keyboard.isKeyPressed('E') && isFrog == false)
@@ -1218,6 +1235,9 @@ void SceneMain::DoUserInput()
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 				delete player;
 				player = new PlayerFrog;
+				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+				globals.GetDraw(L"player_arm_left").geometry = NULL;
+				globals.GetDraw(L"player_arm_right").geometry = NULL;
 				isFrog = true;
 			}
 			else
@@ -1225,6 +1245,8 @@ void SceneMain::DoUserInput()
 				delete player;
 				player = new PlayerHuman;
 				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+				globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
+				globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
 				isFrog = false;
 			}
 		}
