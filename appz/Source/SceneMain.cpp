@@ -604,7 +604,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Trolley First Row
 	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate(16,4.65,-16);
+	Vector3 trolleyTranslate(14,4.65,-16);
 	for(int i = 0; i < 3; ++i)
 	{
 		drawOrder buffer(trolley);
@@ -618,7 +618,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Trolley Second Row
 	drawOrder trolley2(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate2(16,4.65,-12);
+	Vector3 trolleyTranslate2(14,4.65,-12);
 	for(int i = 3; i < 6; ++i)
 	{
 		drawOrder buffer(trolley2);

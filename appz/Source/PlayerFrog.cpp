@@ -18,7 +18,7 @@ void PlayerFrog::Init()
 Vector3 PlayerFrog::Update(Camera camera)
 {
 	Vector3 tempVector;
-	tempVector.Set(0, -50, 0);
+	tempVector.Set(0, 0, 0);
 	return tempVector;
 }
 
