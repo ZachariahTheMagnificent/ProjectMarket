@@ -14,6 +14,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Character.cpp" />
+    <ClCompile Include="Source\CollisionBody.cpp" />
     <ClCompile Include="Source\DoorInteraction.cpp" />
     <ClCompile Include="Source\ItemInteraction.cpp" />
     <ClCompile Include="Source\RobotCashier.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Character.h" />
+    <ClInclude Include="Source\CollisionBody.h" />
     <ClInclude Include="Source\DoorInteraction.h" />
     <ClInclude Include="Source\ItemInteraction.h" />
     <ClInclude Include="Source\RobotCashier.h" />

@@ -144,18 +144,17 @@ void ScenePhysics::InnitDraws()
 	globals.AddDraw(drawOrder(L"player", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"player").transform.translate.Set(21.7, 1, 68.3);
 	globals.GetDraw(L"player").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"player").mass = 75;
-	globals.GetDraw(L"player").bounce = 0.5;
-	globals.GetDraw(L"player").staticFriction = 0.03;
+	globals.GetDraw(L"player").SetMassTo(0.5);
+	globals.GetDraw(L"player").SetFrictionTo(0.1,0);
 	
 	globals.AddDraw(drawOrder(L"left lift", globals.GetMesh(L"lift"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"left lift").transform.translate.Set(0, 100, 0);
 	globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"left lift").mass = 100;
+	globals.GetDraw(L"left lift").SetMassTo(100);
 	
 	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"nirvana").kineticFriction = 0.25;
+	globals.GetDraw(L"nirvana").SetFrictionTo(0, 0.5);
 	
 	globals.AddDraw(drawOrder(L"football field", globals.GetMesh(L"football field"), &globals.GetMaterial(L"football field"), &globals.GetDraw(L"nirvana"), true));
 	globals.GetDraw(L"football field").SetTerminalVelocityTo(Vector3(60,60,60));

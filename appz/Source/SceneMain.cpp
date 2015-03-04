@@ -310,9 +310,8 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_body").selfTransform.rotate.y = 90;
 	globals.GetDraw(L"player_body").transform.translate.Set(10,4,0);
 	globals.GetDraw(L"player_body").SetTerminalVelocityTo(Vector3(500,500,500));
-	globals.GetDraw(L"player_body").staticFriction = 0.1;
-	globals.GetDraw(L"player_body").kineticFriction = 0;
-	globals.GetDraw(L"player_body").mass = 1;
+	globals.GetDraw(L"player_body").SetFrictionTo(0.1, 0);
+	globals.GetDraw(L"player_body").SetMassTo(1);
 
 	//Draw Shopper Idler at level 1
 	globals.AddDraw(drawOrder(L"shopper_idler_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -996,6 +995,8 @@ void SceneMain::UpdateDraws()
 		draw->second->UpdateForcesTo(deltaTime);
 	}
 	//where we do collision
+	
+
 	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
 	//{
 	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
@@ -1006,9 +1007,8 @@ void SceneMain::UpdateDraws()
 	//			continue;
 	//		}
 	//		bool CollisionIsDone = false;
-
-	//where we do collision
-
+	//	}
+	//}
 
 	//draws are finally updated after processing
 	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)

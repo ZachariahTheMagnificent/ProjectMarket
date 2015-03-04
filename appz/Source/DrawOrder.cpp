@@ -294,6 +294,17 @@ Mtx44 drawOrder::GetRotationMatrix() const
 	return transform.rotate.MatrixX() * transform.rotate.MatrixY() * transform.rotate.MatrixZ();
 }
 
+void drawOrder::SetMassTo(const float mass)
+{
+	this->mass = mass;
+}
+
+void drawOrder::SetFrictionTo(const float staticz, const float kineticz)
+{
+	staticFriction = staticz;
+	kineticFriction = kineticz;
+}
+
 void drawOrder::GenerateVoxels()
 {
 	if(geometry)

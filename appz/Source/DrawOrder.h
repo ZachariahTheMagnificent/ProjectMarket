@@ -3,6 +3,7 @@
 #include "Force.h"
 #include "Material.h"
 #include "VoxelOctree.h"
+#include "CollisionBody.h"
 
 class Mesh;
 class Graphics;
@@ -154,6 +155,8 @@ public:
 	void SetVelocityTo(Vector3 newVelocity);
 	void SetMomentumTo(Vector3 momentum);
 	void SetParentAs(drawOrder* parent);
+	void SetMassTo(const float mass);
+	void SetFrictionTo(const float staticz, const float kineticz);
 	void CapVelocityToTerminal();
 	void AddForce(Vector3 force);
 	void AddForce(Force force);
@@ -169,22 +172,23 @@ public:
 	void RenderPartial(const unsigned offset, const unsigned count) const;
 private:
 	Mtx44 GetModelTransform() const;
-	VoxelOctree* voxels;
 	drawOrder* parent;
-	Vector3 velocity;
-	unsigned drawMode;
 	std::vector<drawOrder*> children;
+	unsigned drawMode;
+
+	VoxelOctree* voxels;
+	Vector3 velocity;
 	std::vector<Force> forces;
 	Vector3 terminalVelocity;
+	float mass;
+	float bounce;
+	float staticFriction;
+	float kineticFriction;
 public:
 	std::wstring name;
 	Mesh* geometry;
 	Material* material;
 	bool enableLight;
-	float mass;
-	float bounce;
-	float staticFriction;
-	float kineticFriction;
 	Transformation transform;
 	//this transformation will only apply to the parent and not it's children
 	Transformation selfTransform;
