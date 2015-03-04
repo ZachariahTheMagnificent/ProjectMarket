@@ -118,7 +118,7 @@ void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos,
 	Range<int> LiftDoor1and2RangeX(13,18);
 	Range<int> LiftDoor1RangeY(0,5);
 	Range<int> LiftDoor2RangeY(10,15);
-	Range<int> LiftDoor1and2RangeZ(-104,-93);
+	Range<int> LiftDoor1and2RangeZ(-104,-83);
 
 	if(OpenLiftDoorInput == true)
 	{
@@ -154,7 +154,7 @@ void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos
 	Range<int> LiftDoor1and2RangeX(13,18);
 	Range<int> LiftDoor1RangeY(0,5);
 	Range<int> LiftDoor2RangeY(10,15);
-	Range<int> LiftDoor1and2RangeZ(-104,-93);
+	Range<int> LiftDoor1and2RangeZ(-104,-83);
 
 	if(OpenLiftDoorInput == false)
 	{
@@ -200,10 +200,10 @@ void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos
 void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley)	
 {
 	//Lift > Lift translation
-	Range<int> Lift0and1RangeX(12,18);
+	Range<int> Lift0and1RangeX(12,19);
 	Range<int> Lift0RangeY(0,5);
 	Range<int> Lift1RangeY(10,15);
-	Range<int> Lift0and1RangeZ(-105,-100);
+	Range<int> Lift0and1RangeZ(-101,-92);
 
 	if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift0RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
 	{
@@ -246,10 +246,10 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vec
 
 void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos)	
 {
-	Range<int> Lift0and1RangeX(12,18);
+	Range<int> Lift0and1RangeX(12,19);
 	Range<int> Lift0RangeY(0,5);
 	Range<int> Lift1RangeY(10,15);
-	Range<int> Lift0and1RangeZ(-105,-100);
+	Range<int> Lift0and1RangeZ(-101,-92);
 
 	if (Lift0and1RangeX.IsInRange(TrolleyPos.x) && (Lift0RangeY.IsInRange(TrolleyPos.y) || Lift1RangeY.IsInRange(TrolleyPos.y)) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
 	{

@@ -17,6 +17,7 @@ public:
 	Player(void);
 	~Player(void);
 	
+	bool isHoldingChild;
 	bool isHoldingTrolley;
 	bool isHoldingItem;
 	bool paying;
