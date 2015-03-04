@@ -63,7 +63,7 @@ private:
 	void InnitGeometry();
 	void InnitDraws();
 	void InnitForces();
-	void InnitVoxels();
+	void InnitCollisions();
 	void InnitLogic();
 	void InnitSounds();
 

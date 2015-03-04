@@ -1,9 +1,7 @@
 #pragma once
+#include <vector>
 #include "MatrixStack.h"
-#include "Force.h"
 #include "Material.h"
-#include "VoxelOctree.h"
-#include "CollisionBody.h"
 
 class Mesh;
 class Graphics;
@@ -123,73 +121,38 @@ struct Transformation
 class drawOrder
 {
 public:
-	drawOrder(std::wstring name = std::wstring(), Mesh* geometry = NULL, Material* material = NULL, drawOrder* parent = NULL, bool enableLight = false, float mass = 0, float bounce = 0, float staticFriction = 0, float kineticFriction = 0);
+	drawOrder(std::wstring name = std::wstring(), Mesh* geometry = NULL, Material* material = NULL, drawOrder* parent = NULL, bool enableLight = false);
 	~drawOrder();
 	const std::wstring& GetName() const;
-	Vector3 GetAcceleration();
-	Vector3 GetMomentum();
 	Mtx44 GetMatrix() const;
 	Mtx44 GetTranslationMatrix() const;
 	Mtx44 GetRotationMatrix() const;
-	Mesh* GetMesh();
-	const drawOrder* GetChildren(const unsigned index) const;
-	Material GetMaterial();
-	unsigned GetDrawMode();
-	float GetMaxX() const;
-	float GetMinX() const;
-	float GetMaxY() const;
-	float GetMinY() const;
-	float GetMaxZ() const;
-	float GetMinZ() const;
-	float GetMass() const;
 	Vector3 GetGlobalPosition() const;
-	const Vector3& GetVelocity() const;
+	const drawOrder* GetChildren(const unsigned index) const;
+	Mesh* GetMesh() const;
+	Material* GetMaterial() const;
+	unsigned GetDrawMode() const;
 	unsigned GetTexture() const;
 	drawOrder* GetParent() const;
-	float GetKinetic();
-	bool IsLightEnabled();
-	bool IsCollidingWith(drawOrder& draw) const;
+	bool IsLightEnabled() const;
 	void SetNameAs(const std::wstring name);
+	void SetMeshTo(Mesh*const mesh);
 	void SetTextureTo(unsigned textureID);
-	void SetTerminalVelocityTo(Vector3 vector);
-	void SetMaterial(Material* mat);
-	void SetVelocityTo(Vector3 newVelocity);
-	void SetMomentumTo(Vector3 momentum);
+	void SetMaterialTo(Material* mat);
 	void SetParentAs(drawOrder* parent);
-	void SetMassTo(const float mass);
-	void SetFrictionTo(const float staticz, const float kineticz);
-	void CapVelocityToTerminal();
-	void AddForce(Vector3 force);
-	void AddForce(Force force);
-	void ApplyFriction();
-	void UpdateForcesTo(const double deltaTime);
-	void UpdateVelocity(const double deltaTime);
-	void UpdateTo(const double deltaTime);
-	void GainMomentumFrom(drawOrder* draw, Vector3 momentumGain);
-	void LoseMomentumTo(drawOrder* draw, Vector3 momentumLost);
 	void Execute(Graphics& gfx);
 	void Render() const;
-	void GenerateVoxels();
 	void RenderPartial(const unsigned offset, const unsigned count) const;
 private:
 	Mtx44 GetModelTransform() const;
 	drawOrder* parent;
 	std::vector<drawOrder*> children;
 	unsigned drawMode;
-
-	VoxelOctree* voxels;
-	Vector3 velocity;
-	std::vector<Force> forces;
-	Vector3 terminalVelocity;
-	float mass;
-	float bounce;
-	float staticFriction;
-	float kineticFriction;
-public:
+	bool enableLight;
 	std::wstring name;
 	Mesh* geometry;
 	Material* material;
-	bool enableLight;
+public:
 	Transformation transform;
 	//this transformation will only apply to the parent and not it's children
 	Transformation selfTransform;

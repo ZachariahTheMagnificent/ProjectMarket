@@ -7,6 +7,7 @@ GlobalList::GlobalList()
 {
 	draws.reserve(100000);
 	materials.reserve(100000);
+	collisionBodies.reserve(100000);
 }
 
 GlobalList::~GlobalList()
@@ -46,6 +47,13 @@ bool GlobalList::AddMaterial(const Material& material)
 	return true;
 }
 
+bool GlobalList::AddCollisionBody(const CollisionBody& collisionBody)
+{
+	collisionBodies.push_back(collisionBody);
+	collisionBodiesList[collisionBody.GetName()] = &collisionBodies.back();
+	return true;
+}
+
 bool GlobalList::AddDraw(const drawOrder& draw)
 {
 	//make the parent's child pointer point to the draw in the vector instead of the draw we were passed with
@@ -70,6 +78,11 @@ Material& GlobalList::GetMaterial(const std::wstring materialName)
 	return *materialList.find(materialName)->second;
 }
 
+CollisionBody& GlobalList::GetCollisionBody(const std::wstring collisionBodyName)
+{
+	return *collisionBodiesList.find(collisionBodyName)->second;
+}
+
 unsigned GlobalList::GetTexture(const std::wstring textureName) const
 {
 	return textureList.find(textureName)->second;
@@ -88,6 +101,11 @@ std::map<std::wstring, drawOrder*>& GlobalList::GetDrawList()
 std::map<std::wstring, Material*>& GlobalList::GetMaterialList()
 {
 	return materialList;
+}
+
+std::map<std::wstring, CollisionBody*>& GlobalList::GetCollisionBodiesList()
+{
+	return collisionBodiesList;
 }
 
 std::map<std::wstring, unsigned>& GlobalList::GetTextureList()

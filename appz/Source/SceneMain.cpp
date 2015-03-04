@@ -7,6 +7,7 @@
 #include "PlayerHuman.h"
 #include "PlayerFrog.h"
 #include "Polygon.h"
+#include "CollisionBody.h"
 
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
 	:
@@ -26,7 +27,7 @@ void SceneMain::Init()
 	InnitSounds();
 	InnitGeometry();
 	InnitDraws();
-	InnitVoxels();
+	InnitCollisions();
 	InnitForces();
 	InnitLogic();
 	player = new PlayerHuman;
@@ -132,7 +133,7 @@ void SceneMain::Init()
 
 void SceneMain::InnitSounds()
 {
-	//snd.loadWave("pure", "sound//pure.wav");
+	snd.loadWave("pure", "sound//pure.wav");
 }
 
 void SceneMain::InnitLogic()
@@ -328,9 +329,6 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_arm_right").selfTransform.rotate.y = -10;
 	globals.GetDraw(L"player_body").selfTransform.rotate.y = 90;
 	globals.GetDraw(L"player_body").transform.translate.Set(10,4,0);
-	globals.GetDraw(L"player_body").SetTerminalVelocityTo(Vector3(500,500,500));
-	globals.GetDraw(L"player_body").SetFrictionTo(0.1, 0);
-	globals.GetDraw(L"player_body").SetMassTo(1);
 
 	//Draw Lost Child
 	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
@@ -370,7 +368,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(shopperwandererbody);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"shopper_wanderer_body%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = shopperwandererbodyTranslate;
 		globals.AddDraw(buffer);
 	}
@@ -382,7 +380,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(shopperwandererarmleft);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"shopper_wanderer_arm_left%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		wchar_t SWParentNamebuffer[64];
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
@@ -398,7 +396,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(shopperwandererarmright);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"shopper_wanderer_arm_right%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		wchar_t SWParentNamebuffer[64];
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
@@ -413,7 +411,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(shopperwandererlegleft);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"shopper_wanderer_leg_left%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		wchar_t SWParentNamebuffer[64];
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
@@ -427,7 +425,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(shopperwandererlegright);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"shopper_wanderer_leg_right%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		wchar_t SWParentNamebuffer[64];
 		wsprintf(SWParentNamebuffer,L"shopper_wanderer_body%d",i);
 		buffer.SetParentAs(&globals.GetDraw(SWParentNamebuffer));
@@ -456,7 +454,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lift);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lift%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = liftTranslate;
 		globals.AddDraw(buffer);
 		liftTranslate+= Vector3(0,10.1,0);
@@ -496,7 +494,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(cashiertable);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"cashiertable%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = cashiertableTranslate;
 		globals.AddDraw(buffer);
 		cashiertableTranslate+= Vector3(-15,0,0);
@@ -550,7 +548,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(travelatorsupport);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorsupport%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.scale.Set(1,1,1.12);
 		buffer.transform.translate = travelatorsupportTranslate;
 		globals.AddDraw(buffer);
@@ -564,7 +562,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(travelatorslope);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorslope%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.scale.Set(1,1,1.12);
 		buffer.transform.translate = travelatorslopeTranslate;
 		globals.AddDraw(buffer);
@@ -578,7 +576,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(travelatorhandle);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorhandle%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = travelatorhandleTranslate;
 		globals.AddDraw(buffer);
 		travelatorhandleTranslate+= Vector3(0,0,-2.46);
@@ -591,7 +589,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(travelatorhandle2);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"travelatorhandle%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = travelatorhandleTranslate2;
 		globals.AddDraw(buffer);
 		travelatorhandleTranslate2+= Vector3(0,0,-2.46);
@@ -633,7 +631,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(trolley);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"trolley%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = trolleyTranslate;
 		globals.AddDraw(buffer);
 		trolleyTranslate+= Vector3(-1.5,0,0);
@@ -647,7 +645,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(trolley2);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"trolley%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = trolleyTranslate2;
 		globals.AddDraw(buffer);
 		trolleyTranslate2+= Vector3(-1.5,0,0);
@@ -661,7 +659,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv1cabinet3_column1);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv1cabinet3_column1_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv1cabinet3_column1Translate; 
 		globals.AddDraw(buffer);
 		lv1cabinet3_column1Translate+= Vector3(0,0,-18);
@@ -675,7 +673,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv2cabinet1_column1);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet1_column1_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv2cabinet1_column1Translate; 
 		buffer.transform.rotate.Set(0,90,0);
 		globals.AddDraw(buffer);
@@ -690,7 +688,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv2cabinet2_column1);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet2_column1_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv2cabinet2_column1Translate; 
 		buffer.transform.rotate.Set(0,-90,0);
 		globals.AddDraw(buffer);
@@ -705,7 +703,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv2cabinet2_column2);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet2_column2_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv2cabinet2_column2Translate; 
 		buffer.transform.rotate.Set(0,90,0);
 		globals.AddDraw(buffer);
@@ -719,7 +717,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv2cabinet4_hiddenroom);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet4_hiddenroom_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv2cabinet4_hiddenroomTranslate; 
 		buffer.transform.rotate.y=90;
 		globals.AddDraw(buffer);
@@ -732,7 +730,7 @@ void SceneMain::InnitDraws()
 		drawOrder buffer(lv2cabinet5_hiddenroom);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = lv2cabinet5_hiddenroomTranslate; 
 		buffer.transform.rotate.y=90;
 		globals.AddDraw(buffer);
@@ -796,7 +794,7 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 		drawOrder buffer(basedraw);
 		wchar_t Namebuffer[64];
 		wsprintf(Namebuffer,L"lv2cabinet5_hiddenroom_%d",i);
-		buffer.name = Namebuffer;
+		buffer.SetNameAs(Namebuffer);
 		buffer.transform.translate = individualOffset; 
 		buffer.transform.rotate.y=90;
 		globals.AddDraw(buffer);
@@ -834,13 +832,13 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 
 					drawOrder buffer(item);
 					wchar_t Namebuffer[64];
-					wsprintf(Namebuffer, item.name.c_str() , item_count);
-					buffer.name = Namebuffer;
+					wsprintf(Namebuffer, item.GetName().c_str() , item_count);
+					buffer.SetNameAs(Namebuffer);
 					buffer.transform.translate = offset;
 					buffer.transform.rotate = RotateItem;
 					globals.AddDraw(buffer);
 					offset+= Vector3(0,0,ItemDistanceZ);
-					globals.GetDraw(buffer.name).SetParentAs(&globals.GetDraw(parentname));
+					globals.GetDraw(buffer.GetName()).SetParentAs(&globals.GetDraw(parentname));
 
 					item_count++;
 				}
@@ -849,20 +847,22 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 	}
 }
 
-void SceneMain::InnitVoxels()
+void SceneMain::InnitCollisions()
 {
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-	{
-		draw->second->GenerateVoxels();
-	}
+	globals.AddCollisionBody(CollisionBody(L"player", &globals.GetDraw(L"player_body"), 1, 1, 0.1, 0.1));
+	globals.GetCollisionBody(L"player").SetTerminalVelocityTo(Vector3(500,500,500));
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	//{
+	//	draw->second->GenerateVoxels();
+	//}
 }
 
 void SceneMain::InnitForces()
 {
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
-		//draw->second->AddForce(accelerationDueToGravity * draw->second->mass);
+		body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
 	}
 }
 
@@ -925,8 +925,8 @@ bool SceneMain::Update(const double dt)
 			delete player;
 			player = new PlayerFrog;
 			player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-			globals.GetDraw(L"player_arm_left").geometry = NULL;
-			globals.GetDraw(L"player_arm_right").geometry = NULL;
+			globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
+			globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
 			isFrog = true;
 			wizard.castingDone = false;
 		}
@@ -950,11 +950,11 @@ bool SceneMain::Update(const double dt)
 	}
 	if(isFrog == true)
 	{
-		globals.GetDraw(L"lollipop").geometry = globals.GetMesh(L"lollipop");
+		globals.GetDraw(L"lollipop").SetMeshTo(globals.GetMesh(L"lollipop"));
 	}
 	else
 	{
-		globals.GetDraw(L"lollipop").geometry = NULL;
+		globals.GetDraw(L"lollipop").SetMeshTo(NULL);
 	}
 	if(UpdateLv1 ==true)
 	{
@@ -1067,7 +1067,7 @@ void SceneMain::UpdateLogic()
 
 void SceneMain::UpdateView()
 {
-	//positions are offset a little from their proper position because of floating point error
+	//the skybox is moved according to the camera position
 	globals.GetDraw(L"skybox").transform.translate = Vector3(0,0,0) + camera.ReturnPosition();
 
 	if(isFrog == false)
@@ -1093,32 +1093,20 @@ void SceneMain::UpdateLight()
 void SceneMain::UpdateDraws()
 {
 	//where forces are applied
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
 		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-		draw->second->UpdateVelocity(deltaTime);
-		draw->second->UpdateForcesTo(deltaTime);
+		body->second->UpdateVelocity(deltaTime);
+		body->second->UpdateForcesTo(deltaTime);
 	}
-	//where we do collision
-	
 
-	//for(std::vector<drawOrder>::iterator draw1 = drawOrders.begin(); draw1 != drawOrders.end(); draw1++)
-	//{
-	//	//check the object with every other object after it. Objects that came before are skipped to prevent checking collision twice with the same object
-	//	for(std::vector<drawOrder>::iterator draw2 = draw1 + 1; draw2 != drawOrders.end(); draw2++)
-	//	{
-	//		if(draw1->velocity.IsZero() && draw2->velocity.IsZero())
-	//		{
-	//			continue;
-	//		}
-	//		bool CollisionIsDone = false;
-	//	}
-	//}
+	//where we do collision
+	//collisionSystem.CheckThisCollision(
 
 	//draws are finally updated after processing
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
+	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
-		draw->second->UpdateTo(deltaTime);
+		body->second->UpdateTo(deltaTime);
 	}
 }
 
@@ -1132,27 +1120,6 @@ void SceneMain::Render()
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
 
-	//if(drawVoxels)
-	//{
-	//	Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
-	//	drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
-	//	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-	//	{
-	//		Mtx44 matrix(draw->second->GetMatrix());
-	//		for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
-	//		{
-	//			voxel->ApplyToMatrix(matrix);
-	//			Mtx44 translate;
-	//			translate.SetToTranslation(voxel->GetPosition());
-	//			gfx.RenderMesh(draw_cube, translate);
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	globals.GetDraw(L"main").Execute(gfx);
-	//}
-	//}
 	Mtx44 BG;
 	BG.SetToRotation(180,0,1,0);
 	BG.SetToTranslation(Vector3(30,30,30));
@@ -1206,7 +1173,6 @@ void SceneMain::Render()
 	{
 		Mtx44 instructions;
 		instructions.SetToTranslation(Vector3(360,245,0));
-		/*instructions.SetToScale(1,1,0);*/
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
 
 	}
@@ -1353,8 +1319,8 @@ void SceneMain::DoUserInput()
 					delete player;
 					player = new PlayerFrog;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").geometry = NULL;
-					globals.GetDraw(L"player_arm_right").geometry = NULL;
+					globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
+					globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
 					isFrog = true;
 				}
 				else
@@ -1362,8 +1328,8 @@ void SceneMain::DoUserInput()
 					delete player;
 					player = new PlayerHuman;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
-					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
 					isFrog = false;
 				}
 			}
@@ -1377,8 +1343,8 @@ void SceneMain::DoUserInput()
 					delete player;
 					player = new PlayerHuman;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
-					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
 					isFrog = false;
 				}
 			}
@@ -1431,21 +1397,6 @@ void SceneMain::DoUserInput()
 				playerAcceleration += tempVector;
 			}
 		}
-		//
-		//if (keyboard.isKeyHold('O'))
-		//{	
-		//	Vector3 tempVector;
-		//	tempVector.Set(0, 50, 0);
-		//	playerAcceleration += tempVector;
-		//}
-		//if (keyboard.isKeyHold('P'))
-		//{
-		//	Vector3 tempVector;
-		//	tempVector.Set(0, -50, 0);
-		//	playerAcceleration += tempVector;
-		//}
-		//
-		//Ignore
 		if (keyboard.isKeyHold(VK_UP))
 		{
 			camera.Move(10.0f * deltaTime * CAMERA_SPEED, 0.0f, 0.0f);
@@ -1505,7 +1456,7 @@ void SceneMain::DoUserInput()
 		Force playerForce;
 		playerForce.SetLifespanTo(0.0001);
 		playerForce.SetVector(playerAcceleration);
-		globals.GetDraw(L"player_body").AddForce(playerForce);
+		globals.GetCollisionBody(L"player").AddForce(playerForce);
 	}
 	else
 	{

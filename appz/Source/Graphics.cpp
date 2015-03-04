@@ -11,9 +11,9 @@ meshText(L"text")
 
 Graphics::~Graphics()
 {
-	if(meshText.geometry)
+	if(meshText.GetMesh())
 	{
-		delete meshText.geometry;
+		delete meshText.GetMesh();
 	}
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
@@ -105,9 +105,9 @@ void Graphics::Init(GLFWwindow* window)
 
 void Graphics::InitText(std::wstring filepath)
 {
-	meshText.geometry = MeshBuilder::GenerateText(filepath,16,16);
+	meshText.SetMeshTo(MeshBuilder::GenerateText(filepath,16,16));
 	textMaterial = Material(L"mat", Component(1,1,1), Component(1,1,1), Component(1,1,1), 20,LoadTGA(filepath));
-	meshText.SetMaterial(&textMaterial);
+	meshText.SetMaterialTo(&textMaterial);
 }
 
 void Graphics::SetViewAt(const Camera& camera)
@@ -188,7 +188,7 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	
-	if(object.enableLight)
+	if(object.IsLightEnabled())
 	{
 		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
 		modelView = viewStack.Top() * modelStack.Top();
@@ -197,21 +197,21 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
 
 		//load material
-		Component kAmbient = object.material->GetAmbient();
-		Component kDiffuse = object.material->GetDiffuse();
-		Component kSpecular = object.material->GetSpecular();
+		Component kAmbient = object.GetMaterial()->GetAmbient();
+		Component kDiffuse = object.GetMaterial()->GetDiffuse();
+		Component kSpecular = object.GetMaterial()->GetSpecular();
 
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.material->GetShininess());
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], object.GetMaterial()->GetShininess());
 	}
 	else
 	{	
 		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	}
 
-	if(object.material->GetTexture() > 0)
+	if(object.GetMaterial()->GetTexture() > 0)
 	{
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 		glActiveTexture(GL_TEXTURE0);
@@ -227,7 +227,7 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 
 void Graphics::RenderText(const std::string text, const Color color)
 {
-	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
+	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
@@ -251,7 +251,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		
 		const unsigned numofverts = 6;
-		meshText.geometry->Render((unsigned)text[i] * numofverts, numofverts);
+		meshText.GetMesh()->Render((unsigned)text[i] * numofverts, numofverts);
 	}
 	
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
@@ -260,7 +260,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 
 void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y)
 {
-	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
+	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
@@ -309,7 +309,7 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 
 void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix)
 {
-	if(!meshText.geometry || meshText.material->GetTexture() <= 0) //Proper error check
+	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
@@ -331,7 +331,7 @@ void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix)
 	Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	if(object.material->GetTexture() > 0)
+	if(object.GetMaterial()->GetTexture() > 0)
 	{
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 		glActiveTexture(GL_TEXTURE0);

@@ -23,7 +23,7 @@ void ScenePhysics::Init()
 	InnitSounds();
 	InnitGeometry();
 	InnitDraws();
-	InnitVoxels();
+	InnitCollisions();
 	InnitForces();
 	InnitLogic();
 
@@ -143,25 +143,25 @@ void ScenePhysics::InnitDraws()
 
 	globals.AddDraw(drawOrder(L"player", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"player").transform.translate.Set(21.7, 1, 68.3);
-	globals.GetDraw(L"player").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"player").SetMassTo(0.5);
-	globals.GetDraw(L"player").SetFrictionTo(0.1,0);
+	//globals.GetDraw(L"player").SetTerminalVelocityTo(Vector3(60,60,60));
+	//globals.GetDraw(L"player").SetMassTo(0.5);
+	//globals.GetDraw(L"player").SetFrictionTo(0.1,0);
 	
 	globals.AddDraw(drawOrder(L"left lift", globals.GetMesh(L"lift"), &globals.GetMaterial(L"forerunner plate"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"left lift").transform.translate.Set(0, 100, 0);
-	globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"left lift").SetMassTo(100);
+	//globals.GetDraw(L"left lift").SetTerminalVelocityTo(Vector3(60,60,60));
+	//globals.GetDraw(L"left lift").SetMassTo(100);
 	
 	globals.AddDraw(drawOrder(L"nirvana", globals.GetMesh(L"nirvana"), &globals.GetMaterial(L"metal floor"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
-	globals.GetDraw(L"nirvana").SetFrictionTo(0, 0.5);
+	//globals.GetDraw(L"nirvana").SetTerminalVelocityTo(Vector3(60,60,60));
+	//globals.GetDraw(L"nirvana").SetFrictionTo(0, 0.5);
 	
 	globals.AddDraw(drawOrder(L"football field", globals.GetMesh(L"football field"), &globals.GetMaterial(L"football field"), &globals.GetDraw(L"nirvana"), true));
-	globals.GetDraw(L"football field").SetTerminalVelocityTo(Vector3(60,60,60));
+	//globals.GetDraw(L"football field").SetTerminalVelocityTo(Vector3(60,60,60));
 	
 	globals.AddDraw(drawOrder(L"summoning place", globals.GetMesh(L"ring"), &globals.GetMaterial(L"rock"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"summoning place").transform.translate.Set(-1000,0,0);
-	globals.GetDraw(L"summoning place").SetTerminalVelocityTo(Vector3(60,60,60));
+	//globals.GetDraw(L"summoning place").SetTerminalVelocityTo(Vector3(60,60,60));
 	
 	globals.AddDraw(drawOrder(L"currupted sentinel", globals.GetMesh(L"sentinel"), &globals.GetMaterial(L"corrupted"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"currupted sentinel").transform.translate.Set(-23.3,3.7,69.9);
@@ -182,14 +182,14 @@ void ScenePhysics::InnitDraws()
 	globals.GetDraw(L"pure sentinel").transform.translate.Set(-23.2, 4.25, -69.8);
 }
 
-void ScenePhysics::InnitVoxels()
+void ScenePhysics::InnitCollisions()
 {
 	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
 	//{
 	//	draw->second->GenerateVoxels();
 	//}
-	globals.GetDraw(L"nirvana").GenerateVoxels();
-	globals.GetDraw(L"player").GenerateVoxels();
+	//globals.GetDraw(L"nirvana").GenerateVoxels();
+	//globals.GetDraw(L"player").GenerateVoxels();
 }
 
 void ScenePhysics::InnitForces()
@@ -197,10 +197,10 @@ void ScenePhysics::InnitForces()
 	//Vector3 accelerationDueToGravity(0, -.8f, 0);
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
 	//Vector3 accelerationDueToGravity(0, 0, 0);
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
-	{
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
+	//{
 		//draw->second->AddForce(accelerationDueToGravity * draw->second->GetMass());
-	}
+	//}
 }
 
 bool ScenePhysics::Update(const double dt)
@@ -223,7 +223,7 @@ bool ScenePhysics::Update(const double dt)
 
 	if(didactIsSummoned)
 	{
-		globals.GetDraw(L"summoning place").geometry = globals.GetMesh(L"ring");
+		globals.GetDraw(L"summoning place").SetMeshTo(globals.GetMesh(L"ring"));
 		globals.GetDraw(L"summoning place").transform.rotate.y = 0;
 	}
 	else
@@ -246,21 +246,21 @@ void ScenePhysics::UpdateLogic()
 	Range<int> rangeZ(-4,4);
 	if(rangeX.IsInRange(playerPosition.x) && rangeY.IsInRange(playerPosition.y) && rangeZ.IsInRange(playerPosition.z))
 	{
-		if(globals.GetDraw(L"summoning place").geometry == globals.GetMesh(L"ring"))
+		if(globals.GetDraw(L"summoning place").GetMesh() == globals.GetMesh(L"ring"))
 		{
 			snd.playSound("assistance");
 		}
 
-		globals.GetDraw(L"summoning place").geometry = globals.GetMesh(L"didact");
-		globals.GetDraw(L"summoning place").material = &globals.GetMaterial(L"didact");
+		globals.GetDraw(L"summoning place").SetMeshTo(globals.GetMesh(L"didact"));
+		globals.GetDraw(L"summoning place").SetMaterialTo(&globals.GetMaterial(L"didact"));
 		globals.GetDraw(L"summoning place").transform.rotate.y = 0;
 		globals.GetDraw(L"rock sentinel").transform.translate.Set(-17.2, 5.25, -6.6);
 		globals.GetDraw(L"stone sentinel").transform.translate.Set(-17.2, 5.25, 6.6);
 	}
 	else
 	{
-		globals.GetDraw(L"summoning place").geometry = globals.GetMesh(L"ring");
-		globals.GetDraw(L"summoning place").material = &globals.GetMaterial(L"rock");
+		globals.GetDraw(L"summoning place").SetMeshTo(globals.GetMesh(L"ring"));
+		globals.GetDraw(L"summoning place").SetMaterialTo(&globals.GetMaterial(L"rock"));
 		globals.GetDraw(L"rock sentinel").transform.translate.Set(-1000,0,0);
 		globals.GetDraw(L"stone sentinel").transform.translate.Set(-1000,0,0);
 	}
@@ -295,20 +295,20 @@ void ScenePhysics::UpdateLight()
 void ScenePhysics::UpdateDraws()
 {
 	//where forces are applied
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
-	{
-		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-		draw->second->UpdateVelocity(deltaTime);
-		draw->second->UpdateForcesTo(deltaTime);
-	}
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
+	//{
+	//	//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
+	//	draw->second->UpdateVelocity(deltaTime);
+	//	draw->second->UpdateForcesTo(deltaTime);
+	//}
 
 	//where we do collision
 
 	//draws are finally updated after processing
-	for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
-	{
-		draw->second->UpdateTo(deltaTime);
-	}
+	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(), end = globals.GetDrawList().end(); draw != end; ++draw)
+	//{
+	//	draw->second->UpdateTo(deltaTime);
+	//}
 }
 
 void ScenePhysics::Render()
@@ -463,5 +463,5 @@ void ScenePhysics::DoUserInput()
 	Force playerForce;
 	playerForce.SetLifespanTo(0.0001);
 	playerForce.SetVector(playerAcceleration);
-	globals.GetDraw(L"player").AddForce(playerForce);
+	//globals.GetDraw(L"player").AddForce(playerForce);
 }
