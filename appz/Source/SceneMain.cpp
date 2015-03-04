@@ -862,7 +862,7 @@ void SceneMain::InnitForces()
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
 	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
-		body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
+		//body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
 	}
 }
 
