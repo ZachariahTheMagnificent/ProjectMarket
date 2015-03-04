@@ -86,14 +86,14 @@ void ItemInteraction::InteractWithItem(const Camera& camera)
 	}
 }
 
-void ItemInteraction::PutItem(const Camera& camera, int noOfItemInTrolley)
+void ItemInteraction::PutItem(const Camera& camera)
 {
 	for(int i = 0; i < item.size(); ++i)
 	{
 		if(taken[i]) // if item[i] is being taken, player holding
 		{
 
-			if(camera.IsLookingAt(trolley->GetGlobalPosition(), 20, 5)) // if player looking at trolley
+			if(player->noOfItemInTrolley < 3 && camera.IsLookingAt(trolley->GetGlobalPosition(), 20, 5)) // if player looking at trolley
 			{
 				// place item at trolley
 				item[i]->SetParentAs(trolley);
@@ -128,7 +128,7 @@ void ItemInteraction::PutItem(const Camera& camera, int noOfItemInTrolley)
 			else if(camera.IsLookingAt(defaultGlobalPosition[i], 20, 5)) // if player looking at the item original position
 			{
 				// place item at back to 
-				item[i]->SetParentAs(playerBody);
+				item[i]->SetParentAs(defaultParent[i]);
 				item[i]->transform.translate = defaultTranslation[i];
 				item[i]->transform.rotate = defaultRotation[i];
 				taken[i] = false; // taken by player became false

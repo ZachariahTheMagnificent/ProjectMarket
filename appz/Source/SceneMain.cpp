@@ -1005,7 +1005,7 @@ void SceneMain::UpdateLogic()
 
 	if(keyboard.isKeyPressed('E'))
 	{	
-		//InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
 	}
 }
 
@@ -1225,9 +1225,9 @@ void SceneMain::DoUserInput()
 			{
 				item.InteractWithItem(camera);
 			}
-			else if(player->noOfItemInTrolley < 3 && player->isHoldingTrolley == false && player->isHoldingItem == true) // put item into ttrolley item
+			else if(player->isHoldingItem == true) // put item
 			{
-				item.PutItem(camera, player->noOfItemInTrolley);
+				item.PutItem(camera);
 			}
 		}
 		if(keyboard.isKeyPressed('E') && isFrog == false)
