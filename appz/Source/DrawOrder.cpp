@@ -90,7 +90,7 @@ void drawOrder::SetParentAs(drawOrder* parent)
 
 Mtx44 drawOrder::GetModelTransform() const
 {
-	if(parent && parent->GetName() != L"main")
+	if(parent)
 	{
 		return parent->GetModelTransform() * transform.TranslationMatrix() * transform.RotationMatrix() * transform.ScalationMatrix();
 	}
