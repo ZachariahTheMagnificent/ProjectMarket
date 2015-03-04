@@ -19,6 +19,7 @@ public:
 	
 	bool isHoldingTrolley;
 	bool isHoldingItem;
+	bool paying;
 	int noOfItemInTrolley;
 	
 	virtual void Init() = 0;

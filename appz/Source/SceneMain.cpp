@@ -911,6 +911,10 @@ bool SceneMain::Update(const double dt)
 		UpdateLv1 = true;
 		UpdateLv2 = true;
 	}
+	if(player->paying == true)
+	{
+		item.PayItem(globals.GetDraw(L"player_body").GetGlobalPosition(), &globals.GetDraw(L"cashiertable0"), dt);
+	}
 	if(UpdateLv2 == true)
 	{
 
@@ -1325,7 +1329,11 @@ void SceneMain::DoUserInput()
 					item.PutItem(camera);
 				}
 			}
-			if(keyboard.isKeyPressed('E'))
+			if(keyboard.isKeyPressed('G') && paying == false && player->isHoldingTrolley == true)
+			{
+				player->paying = true;
+			}
+			if(keyboard.isKeyPressed('E') && player->isHoldingItem == false)
 			{
 				player->TakingTrolley(camera);
 			}
@@ -1333,7 +1341,7 @@ void SceneMain::DoUserInput()
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			}
-			if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true)
+			if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true && player->isHoldingItem == false)
 			{
 				wizard.casting = true;
 			}

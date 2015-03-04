@@ -2,6 +2,7 @@
 
 ItemInteraction::ItemInteraction(void)
 {
+	payingdistance = 0;
 }
 
 ItemInteraction::~ItemInteraction(void)
@@ -18,6 +19,7 @@ void ItemInteraction::AddItem(drawOrder& TempItem)
 	taken.push_back(false);
 	atTrolley.push_back(false);
 	posTaking.push_back(-1);
+	paying.push_back(false);
 	paid.push_back(false);
 }
 
@@ -125,7 +127,7 @@ void ItemInteraction::PutItem(const Camera& camera)
 				atTrolley[i] = true; // at trolley became true
 				++player->noOfItemInTrolley; // number of item in trolley increases
 			}
-			else if(camera.IsLookingAt(defaultGlobalPosition[i], 20, 5) ) // if player looking at the item original position
+			else if(camera.IsLookingAt(defaultGlobalPosition[i], 20, 5)) // if player looking at the item original position
 			{
 				// place item at back to 
 				item[i]->SetParentAs(defaultParent[i]);
@@ -138,8 +140,88 @@ void ItemInteraction::PutItem(const Camera& camera)
 	}
 }
 
-void ItemInteraction::PayItem()
+void ItemInteraction::PayItem(const Vector3& playerPos, drawOrder* CashierTable, const double dt)
 {
+	//check range
+	Range<int> PayingRangeX(-100,100);
+	Range<int> PayingRangeY(-100,100);
+	Range<int> PayingRangeZ(-100,100);
+	if(PayingRangeX.IsInRange(playerPos.x) && PayingRangeY.IsInRange(playerPos.y) && PayingRangeZ.IsInRange(playerPos.z)) // if in range
+	{
+		int i = 0;
+		for(i = 0; i < item.size(); ++i)
+		{
+			if(paid[i] == false && paying[i]  == false) // if taken by player or in trolley and not paid and not paying
+			{
+				if(atTrolley[i] == true || taken[i] == true)
+				{
+					//place on cashier table
+					item[i]->SetParentAs(CashierTable);
+					item[i]->transform.rotate.Set(0,0,0);
+					item[i]->selfTransform.translate.Set(0,0,0);
+					item[i]->transform.translate = Vector3(-4, 4.5, 0);
+					paying[i] = true; // start paying
+				}
+			}
+			if(paying[i]  == true) // if it is paying
+			{
+				if(paid[i] == false) // if not paid
+				{
+					//moving item
+					item[i]->transform.translate.z -= dt * 0.5;
+					payingdistance += dt * 0.5;
+					if(payingdistance > 6.5) // finish paying
+					{
+						if(atTrolley[i] == true)
+						{
+							// back to trolley
+							item[i]->SetParentAs(trolley);
+							item[i]->transform.rotate.Set(0,0,0);
+							item[i]->selfTransform.translate.Set(0,0,0);
+							if(posTaking[i] == 0)// check if item belong to position 1 at trolley
+							{
+								// place item at position 0
+								item[i]->transform.translate.Set(1.75,-2,-0.5);
+							}
+							else if(posTaking[i] == 1)// check if item belong to position 1 at trolley
+							{
+								// place item at position 1
+								item[i]->transform.translate.Set(1.75,-2,0.5);
+							}
+							else // else back to last position
+							{
+								// place item at position 2
+								item[i]->transform.translate.Set(3.25,-2,0);
+							}
+						}
+						else if(taken[i] == true)
+						{
+							// back to player hand
+							item[i]->SetParentAs(playerBody);
+							item[i]->transform.rotate.Set(0,0,0);
+							item[i]->selfTransform.translate.Set(0,0,0);
+							item[i]->transform.translate.Set(2.5,0.5,0);
+						}
+						player->paying = false;
+						paying[i] = false;
+						paid[i] = true; // beacame paid
+						payingdistance = 0; // reset paying distance of item moved
+					}
+					else if(payingdistance > 2.75) // finish slope
+					{
+						item[i]->transform.translate.y = 4;
+					}
+					else if(payingdistance > 2.25) // reach slope
+					{
+						item[i]->transform.translate.y -= dt * 0.5;
+					}
+				}
+				break; // break if paying
+			}
+		}
+		if(i == item.size()-1 && paying[i] == false)
+			player->paying = false;
+	}
 }
 
 bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopPos)

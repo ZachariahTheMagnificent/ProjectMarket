@@ -17,7 +17,7 @@ public:
 	void DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlayerBody);
 	void InteractWithItem(const Camera& camera);
 	void PutItem(const Camera& camera);
-	void PayItem();
+	void PayItem(const Vector3& playerPos, drawOrder* CashierTable, const double dt);
 	bool EatLollipop(const Camera& camera, const Vector3& lollipopPos);
 
 	std::vector<bool> taken;
@@ -39,5 +39,7 @@ private:
 	Trolley* trolleypos;
 	
 	std::vector<int> posTaking;
+	std::vector<bool> paying;
 	std::vector<bool> paid;
+	float payingdistance;
 };

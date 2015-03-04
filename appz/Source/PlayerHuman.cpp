@@ -5,6 +5,7 @@ PlayerHuman::PlayerHuman(void)
 {
 	isHoldingTrolley = false;
 	isHoldingItem = false;
+	paying = false;
 }
 
 

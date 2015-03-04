@@ -16,9 +16,6 @@ bool Camera::IsLookingAt(const Vector3& point, const float halfAngle, const floa
 	pointFromCamera.Normalize();
 	Vector3 target = GetTarget();
 	float actualHalfAngle = abs(acos(pointFromCamera.Dot(target)));
-	char buffer[128];
-	sprintf(buffer, "%.3f, %.3f, %.3f, %.3f\n", pointFromCamera.x, pointFromCamera.y, pointFromCamera.z, length);
-	std::cout << buffer << actualHalfAngle << std::endl;
 	if(actualHalfAngle <= Math::DegreeToRadian(halfAngle) && length <= cutoffDistance)
 	{
 		return true;
