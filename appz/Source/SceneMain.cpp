@@ -181,6 +181,7 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"incredits",L"Image//incredits.tga");
 	globals.AddTexture(L"inexit",L"Image//inexit.tga");
 	globals.AddTexture(L"instructions",L"Image//instructions.tga");
+	globals.AddTexture(L"lollipop",L"Image//lollipop_texture.tga");
 }
 
 void SceneMain::InnitMaterials()
@@ -221,6 +222,7 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"incredits",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
 	globals.AddMaterial(Material(L"inexit",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
 	globals.AddMaterial(Material(L"instructions",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
+	globals.AddMaterial(Material(L"lollipop",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lollipop")));
 }
 
 void SceneMain::InnitLight()
@@ -283,6 +285,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"wizardbody", L"OBJ//characterwizardbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"lollipop", L"OBJ//lollipop.obj"));
 }
 
 void SceneMain::InnitDraws()
@@ -762,7 +765,11 @@ void SceneMain::InnitDraws()
 	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	//Cereal4: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-
+	
+	//Draw Lollipop
+	globals.AddDraw(drawOrder(L"lollipop",globals.GetMesh(L"lollipop"), &globals.GetMaterial(L"lollipop"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"lollipop").transform.rotate.Set(85,0,-45);
+	globals.GetDraw(L"lollipop").transform.translate.Set(18,11.25,-21);
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -920,6 +927,14 @@ bool SceneMain::Update(const double dt)
 				j++;
 			}
 		}
+	}
+	if(isFrog == true)
+	{
+		globals.GetDraw(L"lollipop").geometry = globals.GetMesh(L"lollipop");
+	}
+	else
+	{
+		globals.GetDraw(L"lollipop").geometry = NULL;
 	}
 	if(UpdateLv1 ==true)
 	{
@@ -1219,63 +1234,68 @@ void SceneMain::DoUserInput()
 		{
 			state=MAINMENU;
 		}
-		if(keyboard.isKeyPressed('F'))
+		if(isFrog == false)
 		{
-			if(player->isHoldingTrolley == false && player->isHoldingItem == false) // Take item
+			if(keyboard.isKeyPressed('F'))
 			{
-				item.InteractWithItem(camera);
+				if(player->isHoldingTrolley == false && player->isHoldingItem == false) // Take item
+				{
+					item.InteractWithItem(camera);
+				}
+				else if(player->isHoldingItem == true) // put item
+				{
+					item.PutItem(camera);
+				}
 			}
-			else if(player->isHoldingItem == true) // put item
+			if(keyboard.isKeyPressed('E'))
 			{
-				item.PutItem(camera);
+				player->TakingTrolley(camera);
 			}
-		}
-		if(keyboard.isKeyPressed('E') && isFrog == false)
-		{
-			player->TakingTrolley(camera);
-		}
-		if(keyboard.isKeyPressed('R'))
-		{
-			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-		}
-		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true)
-		{
-			wizard.casting = true;
-		}
-		if (keyboard.isKeyPressed('I'))
-		{
-			if(isFrog == false)
+			if(keyboard.isKeyPressed('R'))
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-				delete player;
-				player = new PlayerFrog;
-				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-				globals.GetDraw(L"player_arm_left").geometry = NULL;
-				globals.GetDraw(L"player_arm_right").geometry = NULL;
-				isFrog = true;
 			}
-			else
+			if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true)
 			{
-				delete player;
-				player = new PlayerHuman;
-				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-				globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
-				globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
-				isFrog = false;
+				wizard.casting = true;
+			}
+			if (keyboard.isKeyPressed('I'))
+			{
+				if(isFrog == false)
+				{
+					player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+					delete player;
+					player = new PlayerFrog;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = NULL;
+					globals.GetDraw(L"player_arm_right").geometry = NULL;
+					isFrog = true;
+				}
+				else
+				{
+					delete player;
+					player = new PlayerHuman;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					isFrog = false;
+				}
 			}
 		}
-		if (keyboard.isKeyPressed('Y'))
+		else
 		{
-			for(int i = 0; i < 2; ++i)
+			if(keyboard.isKeyPressed('F'))
 			{
-				SWLv2[i].Reset();
+				if(item.EatLollipop(camera, globals.GetDraw(L"lollipop").GetGlobalPosition()))
+				{
+					delete player;
+					player = new PlayerHuman;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					isFrog = false;
+				}
 			}
-			wizard.Reset();
-			UpdateLv2 = false;
-		}
-		if (keyboard.isKeyPressed('U'))
-		{
-			UpdateLv2 = true;
 		}
 		if (keyboard.isKeyHold(VK_SHIFT))
 		{

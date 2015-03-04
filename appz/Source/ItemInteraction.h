@@ -18,6 +18,7 @@ public:
 	void InteractWithItem(const Camera& camera);
 	void PutItem(const Camera& camera);
 	void PayItem();
+	bool EatLollipop(const Camera& camera, const Vector3& lollipopPos);
 
 	std::vector<bool> taken;
 	std::vector<bool> atTrolley;

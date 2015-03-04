@@ -141,3 +141,12 @@ void ItemInteraction::PutItem(const Camera& camera)
 void ItemInteraction::PayItem()
 {
 }
+
+bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopPos)
+{
+	if(camera.IsLookingAt(lollipopPos, 40, 5))
+	{
+		return true;
+	}
+	return false;
+}
