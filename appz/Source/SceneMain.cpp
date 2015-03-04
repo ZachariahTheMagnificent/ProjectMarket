@@ -1052,6 +1052,11 @@ void SceneMain::UpdateLogic()
 		}
 	}
 
+	else
+	{
+		OpenLiftDoorInput = false;
+	}
+
 }
 
 void SceneMain::UpdateView()

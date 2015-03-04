@@ -144,7 +144,7 @@ void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos,
 		else 
 		{
 			LiftDoorInRange = false;
-			OpenLiftDoorInput = false;
+			//OpenLiftDoorInput = false;
 		}
 	}
 }
@@ -179,6 +179,20 @@ void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos
 		else
 		{
 			LiftDoorInRange = false;
+		}
+
+		if(LiftDoorInRange == false)
+		{
+			if(LiftDoor1Left->transform.translate.x < 14)
+			{
+				LiftDoor1Left-> transform.translate.x += 2.5 * dt;
+				LiftDoor1Right-> transform.translate.x += -2.5 * dt;
+			}
+				if(LiftDoor2Left->transform.translate.x < 14)
+			{
+				LiftDoor2Left-> transform.translate.x += 2.5 * dt;
+				LiftDoor2Right-> transform.translate.x += -2.5 * dt;
+			}
 		}
 	}
 }
