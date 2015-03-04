@@ -92,25 +92,23 @@ Mtx44 drawOrder::GetModelTransform() const
 {
 	if(parent)
 	{
-		return transform.TranslationMatrix() * transform.ScalationMatrix() * parent->GetModelTransform();
+		return parent->GetModelTransform() * transform.TranslationMatrix() * transform.RotationMatrix() * transform.ScalationMatrix();
 	}
-	return transform.RotationMatrix() * transform.TranslationMatrix() * transform.ScalationMatrix();
+	return transform.TranslationMatrix() * transform.RotationMatrix() * transform.ScalationMatrix();
 }
- 
+
 Mtx44 drawOrder::GetMatrix() const
 {
-	Mtx44 parentModel, parentRotation;
+	Mtx44 modelTransform;
 	if(parent)
 	{
-		parentModel = parent->GetModelTransform();
-		parentRotation = parent->GetRotationMatrix();
+		modelTransform = parent->GetModelTransform();
 	}
 	else
 	{
-		parentModel.SetToIdentity();
-		parentRotation.SetToIdentity();
+		modelTransform.SetToIdentity();
 	}
-	return parentModel * parentRotation * transform.Matrix() * selfTransform.Matrix();
+	return modelTransform * transform.TranslationMatrix() * selfTransform.TranslationMatrix() * transform.RotationMatrix() * selfTransform.RotationMatrix() * transform.ScalationMatrix() * selfTransform.ScalationMatrix();
 }
 
 drawOrder* drawOrder::GetParent() const
@@ -135,12 +133,28 @@ void drawOrder::SetTextureTo(unsigned textureID)
 
 Mtx44 drawOrder::GetTranslationMatrix() const
 {
-	return transform.TranslationMatrix();
+	Mtx44 translationMatrix;
+	translationMatrix.SetToTranslation(GetGlobalPosition());
+	return translationMatrix;
 }
 
 Mtx44 drawOrder::GetRotationMatrix() const
 {
 	return transform.rotate.MatrixX() * transform.rotate.MatrixY() * transform.rotate.MatrixZ();
+}
+
+Mtx44 drawOrder::GetScaleMatrix() const
+{
+	Mtx44 parentScale;
+	if(parent)
+	{
+		parentScale = parent->GetScaleMatrix();
+	}
+	else
+	{
+		parentScale.SetToIdentity();
+	}
+	return transform.ScalationMatrix() * parentScale;
 }
 
 void drawOrder::Render() const
