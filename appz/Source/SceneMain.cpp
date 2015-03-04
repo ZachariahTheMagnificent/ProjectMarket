@@ -466,7 +466,8 @@ void SceneMain::InnitDraws()
 
 	//Draw Lift
 	drawOrder lift(L"lift",globals.GetMesh(L"lift"), &globals.GetMaterial(L"lift"), &globals.GetDraw(L"main"), true);
-	Vector3 liftTranslate(15.0,5.5,-101.6);
+	//Vector3 liftTranslate(15.0,5.5,-101.6); orignal
+	Vector3 liftTranslate(15.0,5.5,-97.6);
 	for(int i = 0; i < 2; ++i)
 	{
 		drawOrder buffer(lift);
@@ -479,30 +480,36 @@ void SceneMain::InnitDraws()
 	}
 	//Draw Lift Directories level1
 	globals.AddDraw(drawOrder(L"liftlevel1",globals.GetMesh(L"liftlevel1"), &globals.GetMaterial(L"liftlevel1"),&globals.GetDraw(L"main"),true));
-	globals.GetDraw(L"liftlevel1").transform.translate.Set(15.0,8.5,-99.2);
+	//globals.GetDraw(L"liftlevel1").transform.translate.Set(15.0,8.5,-99.2); orignal
+	globals.GetDraw(L"liftlevel1").transform.translate.Set(15.0,8.5,-92.65);
 	globals.GetDraw(L"liftlevel1").transform.rotate.Set(0,180,0);
 
 	//Draw Lift Directories level2
 	globals.AddDraw(drawOrder(L"liftlevel2",globals.GetMesh(L"liftlevel2"), &globals.GetMaterial(L"liftlevel2"),&globals.GetDraw(L"main"),true));
-	globals.GetDraw(L"liftlevel2").transform.translate.Set(15.0,18.6,-99.2);
+	//globals.GetDraw(L"liftlevel2").transform.translate.Set(15.0,18.6,-99.2); orignal
+	globals.GetDraw(L"liftlevel2").transform.translate.Set(15.0,18.6,-92.65);
 	globals.GetDraw(L"liftlevel2").transform.rotate.Set(0,180,0);
 
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	//globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-98.6); orignal
 	globals.GetDraw(L"liftdoor_1_left").transform.scale.Set(1,1,0.8);
-	globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-98.6);
+	globals.GetDraw(L"liftdoor_1_left").transform.translate.Set(14.0,5,-91.05);
 
 	globals.AddDraw(drawOrder(L"liftdoor_1_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	//globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-98.6); orignal
 	globals.GetDraw(L"liftdoor_1_right").transform.scale.Set(1,1,0.8);
-	globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-98.6);
+	globals.GetDraw(L"liftdoor_1_right").transform.translate.Set(16.0,5,-91.05);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	//globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-98.6); orignal
 	globals.GetDraw(L"liftdoor_2_left").transform.scale.Set(1,1,0.8);
-	globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-98.6);
+	globals.GetDraw(L"liftdoor_2_left").transform.translate.Set(14.0,15.1,-91.05);
 
 	globals.AddDraw(drawOrder(L"liftdoor_2_right",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
+	//globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6); orignal
 	globals.GetDraw(L"liftdoor_2_right").transform.scale.Set(1,1,0.8);
-	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-98.6);
+	globals.GetDraw(L"liftdoor_2_right").transform.translate.Set(16.0,15.1,-91.05);
 
 	//Draw Cashier Table
 	drawOrder cashiertable(L"cashiertable",globals.GetMesh(L"cashiertable"), &globals.GetMaterial(L"cashiertable"), &globals.GetDraw(L"main"), true);
