@@ -14,12 +14,13 @@ class LostChild :
 	
 	void Init();
 	void Render();
-	void SetPosition(int No);
 	void Update(const double dt);
 	void Exit();
 	void Reset();
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 	Vector3 GetPos();
+	//Set rotation
+	void SetRandPos(void);
 
 	private:
 	//drawOrder Pointer to character body, arms and legs
@@ -32,4 +33,8 @@ class LostChild :
 	Vector3 points[5];
 	//Default position
 	Vector3 defaultPoint;
+	//check time
+	float timeIdling;
+	
+
 };
