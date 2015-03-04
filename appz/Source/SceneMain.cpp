@@ -1227,7 +1227,120 @@ void SceneMain::Render()
 		}
 	}
 
+	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10))
+	{
+		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),25,9,300);
+	}
+	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5))
+	{
+		gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),25,9,300);
+	}
+	for(int i = 0; i < 1246; ++i)
+	{
 
+		if(i < 360)// CAN_1  360
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),1,1))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		
+		else if(i < 420)// CAN_2 60
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 670)// CAN_3 250
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 706)// Packet1 36
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 742)// Packet2 36
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 934)// Packet3 192
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 1114)// Can_4 180
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 1150)// Cereal1 36
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+
+		}
+		else if(i < 1174)// Cereal2 24
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 1210)// Cereal3 36
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+		else if(i < 1246)// Cereal4 36
+		{
+			wchar_t Namebuffer[64];
+			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			{
+				gfx.RenderTextOnScreen("Press F to pick up",Color(1,1,1),25,9,300);
+			}
+		}
+	}
+	
 	char buffer1[126];
 	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
