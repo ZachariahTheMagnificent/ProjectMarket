@@ -1270,11 +1270,11 @@ void SceneMain::Render()
 		}
 	}
 
-	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10))
+	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && wizard.casting==false && isFrog == false)
 	{
-		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),25,9,300);
+		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),20,9,300);
 	}
-	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5))
+	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5) && player->isHoldingTrolley==false)
 	{
 		gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),25,9,300);
 	}
@@ -1285,7 +1285,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),1,1))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),20,5) && item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1295,7 +1295,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1304,7 +1304,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1313,7 +1313,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1322,7 +1322,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1331,7 +1331,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1340,7 +1340,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1349,7 +1349,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1359,7 +1359,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1368,7 +1368,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1377,7 +1377,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5))
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
