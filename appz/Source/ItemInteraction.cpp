@@ -2,7 +2,6 @@
 
 ItemInteraction::ItemInteraction(void)
 {
-	
 }
 
 ItemInteraction::~ItemInteraction(void)
@@ -19,6 +18,7 @@ void ItemInteraction::AddItem(drawOrder& TempItem)
 	taken.push_back(false);
 	atTrolley.push_back(false);
 	posTaking.push_back(-1);
+	paid.push_back(false);
 }
 
 void ItemInteraction::PlayerIsEqualTo(Player* TempPlayer)
@@ -46,7 +46,7 @@ void ItemInteraction::InteractWithItem(const Camera& camera)
 		{
 			if(atTrolley[i] == true) // if item at trolley
 			{
-				if(camera.IsLookingAt(item[i]->GetGlobalPosition(), 5, 5)) // if player looking at the item
+				if(camera.IsLookingAt(item[i]->GetGlobalPosition(), 7.5, 5)) // if player looking at the item
 				{
 					// player take item
 					item[i]->SetParentAs(playerBody);
@@ -125,7 +125,7 @@ void ItemInteraction::PutItem(const Camera& camera)
 				atTrolley[i] = true; // at trolley became true
 				++player->noOfItemInTrolley; // number of item in trolley increases
 			}
-			else if(camera.IsLookingAt(defaultGlobalPosition[i], 20, 5)) // if player looking at the item original position
+			else if(camera.IsLookingAt(defaultGlobalPosition[i], 20, 5) ) // if player looking at the item original position
 			{
 				// place item at back to 
 				item[i]->SetParentAs(defaultParent[i]);
@@ -144,7 +144,7 @@ void ItemInteraction::PayItem()
 
 bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopPos)
 {
-	if(camera.IsLookingAt(lollipopPos, 40, 5))
+	if(camera.IsLookingAt(lollipopPos, 90, 5))
 	{
 		return true;
 	}

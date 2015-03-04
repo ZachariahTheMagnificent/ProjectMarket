@@ -37,6 +37,7 @@ private:
 	
 	Player* player;
 	Trolley* trolleypos;
-
+	
 	std::vector<int> posTaking;
+	std::vector<bool> paid;
 };
