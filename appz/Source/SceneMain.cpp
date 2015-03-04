@@ -452,16 +452,16 @@ void SceneMain::InnitDraws()
 	}
 
 	//Draw Wizard
-	globals.AddDraw(drawOrder(L"wizard_body",globals.GetMesh(L"wizardbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"wizard_body",globals.GetMesh(L"wizardbody"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"wizard_body").transform.translate.Set(-18,15,-102);
 	globals.GetDraw(L"wizard_body").transform.rotate.y = 90;
-	globals.AddDraw(drawOrder(L"wizard_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.AddDraw(drawOrder(L"wizard_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"wizard_body"), true));
 	globals.GetDraw(L"wizard_arm_left").transform.translate.Set(1.25,0.6,0);
-	globals.AddDraw(drawOrder(L"wizard_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.AddDraw(drawOrder(L"wizard_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"wizard_body"), true));
 	globals.GetDraw(L"wizard_arm_right").transform.translate.Set(-1.25,0.6,0);
-	globals.AddDraw(drawOrder(L"wizard_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.AddDraw(drawOrder(L"wizard_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"wizard_body"), true));
 	globals.GetDraw(L"wizard_leg_left").transform.translate.Set(0.5,-1.5,0);
-	globals.AddDraw(drawOrder(L"wizard_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"wizard_body"), true));
+	globals.AddDraw(drawOrder(L"wizard_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"wizard_body"), true));
 	globals.GetDraw(L"wizard_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 	//Draw Lift
@@ -915,14 +915,14 @@ bool SceneMain::Update(const double dt)
 	UpdateLight();
 	UpdateLogic();
 	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
-	if(globals.GetDraw(L"player_body").GetGlobalPosition().y <= 5)
+	if(globals.GetDraw(L"player_body").GetGlobalPosition().y <= 7)
 	{
 		SWLv2[0].Reset();
 		SWLv2[1].Reset();
 		UpdateLv1 = true;
 		UpdateLv2 = false;
 	}
-	else if(globals.GetDraw(L"player_body").GetGlobalPosition().y >= 13)
+	else if(globals.GetDraw(L"player_body").GetGlobalPosition().y >= 10)
 	{
 		SILv1.Reset();
 		RLv1[0].Reset();

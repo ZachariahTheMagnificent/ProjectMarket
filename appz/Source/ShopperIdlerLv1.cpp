@@ -7,18 +7,17 @@ ShopperIdler::ShopperIdler(void)
 	charBodyAngleRotate = 0;
 	charArmRotate = 30;
 	leftArmRotateUp = true;
-	
+
 	int pointNo = 0;
-for(int disDiffZ = 0; disDiffZ <= 17; disDiffZ += 17 )
-		{
-			points[pointNo] = Vector3(5,5,-37.5-disDiffZ);
-			++pointNo;
-		}
+	for(int disDiffZ = 0; disDiffZ <= 17; disDiffZ += 17 )
+	{
+		points[pointNo] = Vector3(5,5,-37.5-disDiffZ);
+		++pointNo;
+	}
 	idling = true;
 	walking = false;
 	timeIdling = 0;
 	timeWalking = 0;
-
 }
 
 
@@ -114,11 +113,10 @@ void ShopperIdler::Exit()
 
 void ShopperIdler::Reset()
 {
-	characterBody->transform.translate = defaultPoint;
-	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
-	idling = false;
-	walking = true;
+	idling = true;
+	walking = false;
 	timeIdling = 0;
+	timeWalking = 0;
 	//timeWalking = 0;
 	distanceMovedInOneDir = 0;
 	charBodyAngleRotate = 0;
@@ -128,6 +126,8 @@ void ShopperIdler::Reset()
 	characterLeftLeg->selfTransform.rotate.x = 0;
 	characterRightLeg->selfTransform.rotate.x = 0;
 	leftArmRotateUp = true;
+	characterBody->transform.translate = defaultPoint;
+	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
 }
 
 void ShopperIdler::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

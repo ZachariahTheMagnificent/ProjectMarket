@@ -14,13 +14,13 @@ ShopperPayerLv1::ShopperPayerLv1(void)
 	points[4] = Vector3(-18,5,-95);// Position to rotate around the cashier table
 	points[5] = Vector3(-11.5,5,-95);// Position to rotate toward exit door
 	points[6] = Vector3(-11.5,5,-110);// Behind outer exit door, outside
-	targetPosNo = 1;
+	targetPosNo = 0;
 	targetPosition = points[targetPosNo];
 	tookItems = false;
 	currentState = WALKING;
 	walkingForward = true;
 	paid = false;
-	defaultPoint = 0;
+	defaultPoint = 6;
 	payingdistance = 0;
 }
 
@@ -39,7 +39,7 @@ void ShopperPayerLv1::Render()
 
 void ShopperPayerLv1::SetPosition(int No)
 {
-	if(No == 9)
+	if(No == 6)
 		No = 0;
 	characterBody->transform.translate = points[No];
 	CheckDisAndTargetPos(No);
@@ -128,7 +128,9 @@ void ShopperPayerLv1::Exit()
 
 void ShopperPayerLv1::Reset()
 {
-	SetPosition(defaultPoint);
+	takingItems();
+	if(tookItems == true)
+		returnItems();
 	distanceNeedToMoveInOneDir = 0;
 	charBodyAngleRotate = 0;
 	charLegRotate = 15;
@@ -136,6 +138,13 @@ void ShopperPayerLv1::Reset()
 	characterRightLeg->selfTransform.rotate.x = 0;
 	rightLegRotateUp = true;
 	payingdistance = 0;
+	targetPosNo = 0;
+	targetPosition = points[targetPosNo];
+	tookItems = false;
+	currentState = WALKING;
+	walkingForward = true;
+	paid = true;
+	SetPosition(defaultPoint);
 }
 
 void ShopperPayerLv1::CheckDisAndTargetPos(int No)
