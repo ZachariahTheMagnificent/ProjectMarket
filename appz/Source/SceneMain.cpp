@@ -1218,16 +1218,38 @@ void SceneMain::Render()
 	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
 	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
 	{
-		gfx.RenderTextOnScreen("Press E to move to level 2!",Color(1,1,1),27,9,300);
+		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),27,9,400);
+		gfx.RenderTextOnScreen("2.Press E to move to level 2",Color(1,1,1),25,9,300);
 	}
 
 	Range<int>a(12,18);
-	Range<int>b(9,12);
+	Range<int>b(9,14);
 	Range<int>c(-104,-99);
 	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
 	{
-		gfx.RenderTextOnScreen("Press E to move to level 1!",Color(1,1,1),27,9,300);
+		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),27,9,400);
+		gfx.RenderTextOnScreen("2.Press E to move to level 1!",Color(1,1,1),25,9,300);
 	}
+
+	Range<int>d(12,18);
+	Range<int>e(0.1,5);
+	Range<int>f(-95,-92);
+	if(d.IsInRange(Lift.x)&&e.IsInRange(Lift.y)&&f.IsInRange(Lift.z))
+	{
+		{
+			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),27,9,300);
+		}
+	}
+	Range<int>g(12,18);
+	Range<int>h(9,14);
+	Range<int>i(-95,-92);
+	if(g.IsInRange(Lift.x)&&h.IsInRange(Lift.y)&&i.IsInRange(Lift.z))
+	{
+		{
+			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),27,9,300);
+		}
+	}
+
 
 	char buffer1[126];
 	char buffer2[126];
