@@ -45,6 +45,7 @@ void SceneMain::Init()
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	lostchild.DrawIsEqualTo(globals.GetDraw(L"lost_child_body"), globals.GetDraw(L"lost_child_arm_left"), globals.GetDraw(L"lost_child_arm_right"), globals.GetDraw(L"lost_child_leg_left"), globals.GetDraw(L"lost_child_leg_right"));
+	father.DrawIsEqualTo(globals.GetDraw(L"father_body"), globals.GetDraw(L"father_arm_left"), globals.GetDraw(L"father_arm_right"), globals.GetDraw(L"father_leg_left"), globals.GetDraw(L"father_leg_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
 	SWLv2[0].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body0"), globals.GetDraw(L"shopper_wanderer_arm_left0"), globals.GetDraw(L"shopper_wanderer_arm_right0"), globals.GetDraw(L"shopper_wanderer_leg_left0"), globals.GetDraw(L"shopper_wanderer_leg_right0"));
 	SWLv2[0].SetPosition(9);
@@ -331,10 +332,11 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_arm_right").selfTransform.rotate.y = -10;
 	globals.GetDraw(L"player_body").selfTransform.rotate.y = 90;
 	globals.GetDraw(L"player_body").transform.translate.Set(10,4,0);
-
+	
 	//Draw Lost Child
 	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"lost_child_body").transform.scale.Set(0.45,0.45,0.45);
+	globals.GetDraw(L"lost_child_body").transform.translate.Set(3,2.9,-27);
 	globals.AddDraw(drawOrder(L"lost_child_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
 	globals.GetDraw(L"lost_child_arm_left").transform.translate.Set(1.25,0.6,0);
 	globals.GetDraw(L"lost_child_arm_left").transform.rotate.x = -5;
@@ -345,6 +347,22 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"lost_child_leg_left").transform.translate.Set(0.5,-1.5,0);
 	globals.AddDraw(drawOrder(L"lost_child_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
 	globals.GetDraw(L"lost_child_leg_right").transform.translate.Set(-0.5,-1.5,0);
+
+	//Draw Father
+	globals.AddDraw(drawOrder(L"father_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"father_body").transform.scale.Set(0.45,0.45,0.45);
+	globals.GetDraw(L"father_body").transform.translate.Set(3,2.9,-27);
+	globals.AddDraw(drawOrder(L"father_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.GetDraw(L"father_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.GetDraw(L"father_arm_left").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"father_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.GetDraw(L"father_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.GetDraw(L"father_arm_right").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"father_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.GetDraw(L"father_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"father_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.GetDraw(L"father_leg_right").transform.translate.Set(-0.5,-1.5,0);
+
 
 	//Draw Shopper Idler at level 1
 	globals.AddDraw(drawOrder(L"shopper_idler_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
