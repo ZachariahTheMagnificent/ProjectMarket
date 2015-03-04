@@ -36,6 +36,7 @@ void SceneMain::Init()
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
+	player->tempNoItemNeedToPay = 0;
 	isFrog = false;
 	UpdateLv2 = false;
 	UpdateLv1=true;
@@ -911,9 +912,27 @@ bool SceneMain::Update(const double dt)
 		UpdateLv1 = true;
 		UpdateLv2 = true;
 	}
-	if(player->paying == true)
+	if(player->pay == true)
 	{
-		item.PayItem(globals.GetDraw(L"player_body").GetGlobalPosition(), &globals.GetDraw(L"cashiertable0"), dt);
+		player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+		RLv1[0].Update(dt);
+		if(player->tempNoItemNeedToPay > 0)
+		{
+			player->paying = true;
+		}
+		else if(player->tempNoItemNeedToPay == 0)
+		{
+			player->pay = false;
+			player->TakingTrolley(camera);
+		}
+		if(player->paying == true)
+		{
+			item.PayItem(globals.GetDraw(L"player_body").GetGlobalPosition(), &globals.GetDraw(L"cashiertable0"), dt);
+		}
+	}
+	else
+	{
+		RLv1[0].Reset();
 	}
 	if(UpdateLv2 == true)
 	{
@@ -921,9 +940,13 @@ bool SceneMain::Update(const double dt)
 		wizard.Update(dt);
 		if(wizard.castingDone == true && isFrog == false)
 		{
+			int temp = player->tempNoItemNeedToPay;
+			int temp2 = player->noOfItemInTrolley;
 			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			delete player;
 			player = new PlayerFrog;
+			player->tempNoItemNeedToPay = temp;
+			player->noOfItemInTrolley = temp2;
 			player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 			globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
 			globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
@@ -974,12 +997,10 @@ bool SceneMain::Update(const double dt)
 	}
 	if(paying==true)
 	{
-		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
 	}
 	else
 	{
-		RLv1[0].Reset();
 		RLv1[1].Reset();
 	}
 	return false;
@@ -1389,7 +1410,7 @@ void SceneMain::DoUserInput()
 	{
 		drawVoxels = !drawVoxels;
 	}
-	if(state == START)
+	if(state == START && player->pay == false)
 	{
 		if(keyboard.isKeyPressed('N'))
 		{
@@ -1408,9 +1429,16 @@ void SceneMain::DoUserInput()
 					item.PutItem(camera);
 				}
 			}
-			if(keyboard.isKeyPressed('G') && paying == false && player->isHoldingTrolley == true)
+			if(keyboard.isKeyPressed('G') && paying == false && player->isHoldingTrolley == true && player->isHoldingItem == false && player->noOfItemInTrolley > 0 && player->pay == false)
 			{
-				player->paying = true;
+				//check range
+				Range<int> PayingRangeX(-3.5,2.3);
+				Range<int> PayingRangeY(0,4);
+				Range<int> PayingRangeZ(-85, -78);
+				if(PayingRangeX.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().x) && PayingRangeY.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().y) && PayingRangeZ.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().z)) // if in range
+				{
+					player->pay = true;
+				}
 			}
 			if(keyboard.isKeyPressed('E') && player->isHoldingItem == false)
 			{
@@ -1428,9 +1456,13 @@ void SceneMain::DoUserInput()
 			{
 				if(isFrog == false)
 				{
+					int temp = player->tempNoItemNeedToPay;
+					int temp2 = player->noOfItemInTrolley;
 					player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 					delete player;
 					player = new PlayerFrog;
+					player->tempNoItemNeedToPay = temp;
+					player->noOfItemInTrolley = temp2;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 					globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
 					globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
@@ -1438,8 +1470,12 @@ void SceneMain::DoUserInput()
 				}
 				else
 				{
+					int temp = player->tempNoItemNeedToPay;
+					int temp2 = player->noOfItemInTrolley;
 					delete player;
 					player = new PlayerHuman;
+					player->tempNoItemNeedToPay = temp;
+					player->noOfItemInTrolley = temp2;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
 					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
@@ -1453,8 +1489,12 @@ void SceneMain::DoUserInput()
 			{
 				if(item.EatLollipop(camera, globals.GetDraw(L"lollipop").GetGlobalPosition()))
 				{
+					int temp = player->tempNoItemNeedToPay;
+					int temp2 = player->noOfItemInTrolley;
 					delete player;
 					player = new PlayerHuman;
+					player->tempNoItemNeedToPay = temp;
+					player->noOfItemInTrolley = temp2;
 					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
 					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));

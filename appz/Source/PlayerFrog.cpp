@@ -6,6 +6,7 @@ PlayerFrog::PlayerFrog(void)
 	isHoldingTrolley = false;
 	isHoldingItem = false;
 	paying = false;
+	pay = false;
 }
 
 
