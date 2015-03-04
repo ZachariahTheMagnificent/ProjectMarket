@@ -17,6 +17,7 @@
     <ClCompile Include="Source\CollisionBody.cpp" />
     <ClCompile Include="Source\DoorInteraction.cpp" />
     <ClCompile Include="Source\ItemInteraction.cpp" />
+    <ClCompile Include="Source\LostChild.cpp" />
     <ClCompile Include="Source\RobotCashier.cpp" />
     <ClCompile Include="Source\Contacts.cpp" />
     <ClCompile Include="Source\ContactSolver.cpp" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Source\ShopperPayerLv1.cpp" />
     <ClCompile Include="Source\ShopperIdlerLv1.cpp" />
     <ClCompile Include="Source\ShopperWandererLv2.cpp" />
+    <ClCompile Include="Source\Trolley.cpp" />
     <ClCompile Include="Source\Voxel.cpp" />
     <ClCompile Include="Source\VoxelLeaf.cpp" />
     <ClCompile Include="Source\VoxelOctree.cpp" />
@@ -56,6 +58,7 @@
     <ClInclude Include="Source\CollisionBody.h" />
     <ClInclude Include="Source\DoorInteraction.h" />
     <ClInclude Include="Source\ItemInteraction.h" />
+    <ClInclude Include="Source\LostChild.h" />
     <ClInclude Include="Source\RobotCashier.h" />
     <ClInclude Include="Source\Contacts.h" />
     <ClInclude Include="Source\ContactSolver.h" />
@@ -85,6 +88,7 @@
     <ClInclude Include="Source\ShopperPayerLv1.h" />
     <ClInclude Include="Source\ShopperIdlerLv1.h" />
     <ClInclude Include="Source\ShopperWandererLv2.h" />
+    <ClInclude Include="Source\Trolley.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Voxel.h" />
     <ClInclude Include="Source\VoxelLeaf.h" />

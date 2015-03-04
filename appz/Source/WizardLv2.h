@@ -2,7 +2,7 @@
 
 #include "Character.h"
 #include "DrawOrder.h"
-#include "Range.h"
+#include "Camera.h"
 
 class WizardLv2 :
 	public Character
@@ -26,7 +26,7 @@ public:
 	void Init();
 	void Render();
 	void Update(const double dt);
-	bool checkInteract(const Vector3& PlayerTargetPos);
+	bool checkInteract(const Camera& camera);
 	void Exit();
 	void Reset();
 	void Set(Vector3 TempPos);

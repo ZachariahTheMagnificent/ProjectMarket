@@ -132,6 +132,7 @@ public:
 	Mtx44 GetTranslationMatrix() const;
 	Mtx44 GetRotationMatrix() const;
 	Mesh* GetMesh();
+	const drawOrder* GetChildren(const unsigned index) const;
 	Material GetMaterial();
 	unsigned GetDrawMode();
 	float GetMaxX() const;

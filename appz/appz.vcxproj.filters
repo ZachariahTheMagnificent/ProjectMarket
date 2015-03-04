@@ -178,6 +178,10 @@
     </ClCompile>
     <ClCompile Include="Source\CollisionBody.cpp">
       <Filter>Source Files\physics</Filter>
+    <ClCompile Include="Source\Trolley.cpp">
+      <Filter>Source Files\Interactions</Filter>
+    <ClCompile Include="Source\LostChild.cpp">
+      <Filter>Source Files\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +304,10 @@
     </ClInclude>
     <ClInclude Include="Source\CollisionBody.h">
       <Filter>Header Files\physics</Filter>
+    <ClInclude Include="Source\Trolley.h">
+      <Filter>Header Files\Interactions</Filter>
+    <ClInclude Include="Source\LostChild.h">
+      <Filter>Header Files\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

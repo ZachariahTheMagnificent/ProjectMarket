@@ -9,6 +9,23 @@ Camera::~Camera()
 {
 }
 
+bool Camera::IsLookingAt(const Vector3& point, const float halfAngle, const float cutoffDistance) const
+{
+	Vector3 pointFromCamera = point - ReturnPosition();
+	float length = pointFromCamera.Length();
+	pointFromCamera.Normalize();
+	Vector3 target = GetTarget();
+	float actualHalfAngle = abs(acos(pointFromCamera.Dot(target)));
+	char buffer[128];
+	sprintf(buffer, "%.3f, %.3f, %.3f, %.3f\n", pointFromCamera.x, pointFromCamera.y, pointFromCamera.z, length);
+	std::cout << buffer << actualHalfAngle << std::endl;
+	if(actualHalfAngle <= Math::DegreeToRadian(halfAngle) && length <= cutoffDistance)
+	{
+		return true;
+	}
+	return false;
+}
+
 void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
 	transform.translate = pos;
@@ -24,16 +41,22 @@ const Vector3 Camera::ReturnUp() const
 	return up;
 }
 
-const Vector3 Camera::ReturnPosition() const
+const Vector3& Camera::ReturnPosition() const
 {
 	return transform.translate;
 }
 
-const Vector3 Camera::ReturnTarget() const
+Vector3 Camera::GetTarget() const
 {
 	Vector3 target(3, 0, 0);
 
 	target = transform.rotate.MatrixX() * transform.rotate.MatrixY() * transform.rotate.MatrixZ() * target;
+	return target.Normalized();
+}
+
+const Vector3 Camera::ReturnTarget() const
+{
+	Vector3 target(GetTarget());
 
 	target += ReturnPosition();
 	return target;

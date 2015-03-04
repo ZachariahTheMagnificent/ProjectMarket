@@ -44,6 +44,11 @@ const std::wstring& drawOrder::GetName() const
 	return name;
 }
 
+const drawOrder* drawOrder::GetChildren(const unsigned index) const
+{
+	return children[index];
+}
+
 void drawOrder::Execute(Graphics& gfx)
 {
 	for(std::vector<drawOrder*>::iterator child = children.begin(); child != children.end(); child++)

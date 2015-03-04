@@ -30,8 +30,8 @@ void SceneMain::Init()
 	InnitForces();
 	InnitLogic();
 	player = new PlayerHuman;
+	player->noOfItemInTrolley = 0;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-	OpenLiftDoor = false;
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
@@ -39,6 +39,7 @@ void SceneMain::Init()
 	UpdateLv2 = false;
 	UpdateLv1=true;
 	paying=false;
+	OpenLiftDoorInput = false;
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
@@ -52,73 +53,76 @@ void SceneMain::Init()
 	SILv1.SetPosition(0);
 	RLv1[0].DrawIsEqualTo(globals.GetDraw(L"robotbody0"), globals.GetDraw(L"robotarm_left0"), globals.GetDraw(L"robotarm_right0"));
 	RLv1[1].DrawIsEqualTo(globals.GetDraw(L"robotbody1"), globals.GetDraw(L"robotarm_left1"), globals.GetDraw(L"robotarm_right1"));
+	item.DrawIsEqualTo(globals.GetDraw(L"trolley5"), globals.GetDraw(L"player_body"));
+	item.PlayerIsEqualTo(player);
+	item.TrolleyIsEqualTo(trolley);
 	for(int i = 0; i < 1246; ++i)
 	{
 		if(i < 360)// CAN_1 360
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 420)// CAN_2 60
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 670)// CAN_3 250
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 706)// Packet1 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 742)// Packet2 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 934)// Packet3 192
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1114)// Can_4 180
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1150)// Cereal1 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1174)// Cereal2 24
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1210)// Cereal3 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 		else if(i < 1246)// Cereal4 36
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
-			item[i].DrawIsEqualTo(globals.GetDraw(Namebuffer), globals.GetDraw(L"trolley5"));
+			item.AddItem(globals.GetDraw(Namebuffer));
 		}
 	}
 	camera.Init(Vector3(0, 7, 5), Vector3(1, 0, 0), Vector3(0, 1, 0));
@@ -165,6 +169,9 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"travelatorhandle texture", L"Image//travelatorhandle_texture.tga");
 	globals.AddTexture(L"trolleytexture", L"Image//TrolleyTexture.tga");
 	globals.AddTexture(L"character1", L"Image//character1.tga");
+	globals.AddTexture(L"character2", L"Image//character2.tga");
+	globals.AddTexture(L"character3", L"Image//character3.tga");
+	globals.AddTexture(L"character4", L"Image//character4.tga");
 	globals.AddTexture(L"robot", L"Image//robot_texture.tga");
 	globals.AddTexture(L"Quad1",L"Image//Quad1.tga");
 	globals.AddTexture(L"Quad2",L"Image//Quad2.tga");
@@ -174,6 +181,9 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"incredits",L"Image//incredits.tga");
 	globals.AddTexture(L"inexit",L"Image//inexit.tga");
 	globals.AddTexture(L"instructions",L"Image//instructions.tga");
+	globals.AddTexture(L"liftlevel1",L"Image//liftlevel1.tga");
+	globals.AddTexture(L"liftlevel2",L"Image//liftlevel2.tga");
+	globals.AddTexture(L"lollipop",L"Image//lollipop_texture.tga");
 }
 
 void SceneMain::InnitMaterials()
@@ -202,6 +212,9 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"travelatorslope",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
 	globals.AddMaterial(Material(L"trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"trolleytexture")));
 	globals.AddMaterial(Material(L"character1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
+	globals.AddMaterial(Material(L"character2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character2")));
+	globals.AddMaterial(Material(L"character3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character3")));
+	globals.AddMaterial(Material(L"character4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character4")));
 	globals.AddMaterial(Material(L"robot",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"robot")));
 	globals.AddMaterial(Material(L"Quad1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad1")));
 	globals.AddMaterial(Material(L"Quad2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
@@ -211,6 +224,9 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"incredits",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
 	globals.AddMaterial(Material(L"inexit",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
 	globals.AddMaterial(Material(L"instructions",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
+	globals.AddMaterial(Material(L"liftlevel1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel1")));
+	globals.AddMaterial(Material(L"liftlevel2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel2")));
+	globals.AddMaterial(Material(L"lollipop",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lollipop")));
 }
 
 void SceneMain::InnitLight()
@@ -233,13 +249,15 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.01f));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"incredits", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"inexit", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"instructions", Color(1, 1, 1), 500.f, 500.f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"liftlevel1",Color(1,1,1),3.f,0.5f));
+	globals.AddMesh(MeshBuilder::GenerateQuad(L"liftlevel2", Color(1, 1, 1), 3.f, 0.5f));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cube", L"OBJ//cubey.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cashiertable", L"OBJ//cashiertable.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"cabinet1", L"OBJ//Cabinet1.obj"));
@@ -273,6 +291,7 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"wizardbody", L"OBJ//characterwizardbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotbody", L"OBJ//robotbody.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"lollipop", L"OBJ//lollipop.obj"));
 }
 
 void SceneMain::InnitDraws()
@@ -294,7 +313,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
 	//Draw player target
-	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"ground"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"BG"), &globals.GetDraw(L"main"), true));
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -312,6 +331,20 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_body").SetTerminalVelocityTo(Vector3(500,500,500));
 	globals.GetDraw(L"player_body").SetFrictionTo(0.1, 0);
 	globals.GetDraw(L"player_body").SetMassTo(1);
+
+	//Draw Lost Child
+	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"lost_child_body").transform.translate.Set(10,0.1,0);
+	globals.AddDraw(drawOrder(L"lost_child_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.GetDraw(L"lost_child_arm_left").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"lost_child_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.GetDraw(L"lost_child_arm_right").transform.rotate.x = -5;
+	globals.AddDraw(drawOrder(L"lost_child_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"lost_child_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
+	globals.GetDraw(L"lost_child_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 	//Draw Shopper Idler at level 1
 	globals.AddDraw(drawOrder(L"shopper_idler_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -426,6 +459,15 @@ void SceneMain::InnitDraws()
 		globals.AddDraw(buffer);
 		liftTranslate+= Vector3(0,10.1,0);
 	}
+	//Draw Lift Directories level1
+	globals.AddDraw(drawOrder(L"liftlevel1",globals.GetMesh(L"liftlevel1"), &globals.GetMaterial(L"liftlevel1"),&globals.GetDraw(L"main"),true));
+	globals.GetDraw(L"liftlevel1").transform.translate.Set(15.0,8.5,-99.2);
+	globals.GetDraw(L"liftlevel1").transform.rotate.Set(0,180,0);
+
+	//Draw Lift Directories level2
+	globals.AddDraw(drawOrder(L"liftlevel2",globals.GetMesh(L"liftlevel2"), &globals.GetMaterial(L"liftlevel2"),&globals.GetDraw(L"main"),true));
+	globals.GetDraw(L"liftlevel2").transform.translate.Set(15.0,18.6,-99.2);
+	globals.GetDraw(L"liftlevel2").transform.rotate.Set(0,180,0);
 
 	//Draw liftdoor
 	globals.AddDraw(drawOrder(L"liftdoor_1_left",globals.GetMesh(L"liftdoor"), &globals.GetMaterial(L"liftdoor"), &globals.GetDraw(L"main"), true));
@@ -567,12 +609,12 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
-	
+
 
 	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
-	
+
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
@@ -583,7 +625,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Trolley First Row
 	drawOrder trolley(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate(16,4.65,-16);
+	Vector3 trolleyTranslate(14,4.65,-16);
 	for(int i = 0; i < 3; ++i)
 	{
 		drawOrder buffer(trolley);
@@ -597,7 +639,7 @@ void SceneMain::InnitDraws()
 
 	//Draw Trolley Second Row
 	drawOrder trolley2(L"trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"main"), true);
-	Vector3 trolleyTranslate2(16,4.65,-12);
+	Vector3 trolleyTranslate2(14,4.65,-12);
 	for(int i = 3; i < 6; ++i)
 	{
 		drawOrder buffer(trolley2);
@@ -714,7 +756,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
 	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
 
-    //CAN_1: 36 a bunch. 360cans total
+	//CAN_1: 36 a bunch. 360cans total
 	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.25,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
 
 	//CAN_2: 6 a bunch. 60cans total 
@@ -737,7 +779,11 @@ void SceneMain::InnitDraws()
 	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	//Cereal4: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-
+	
+	//Draw Lollipop
+	globals.AddDraw(drawOrder(L"lollipop",globals.GetMesh(L"lollipop"), &globals.GetMaterial(L"lollipop"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"lollipop").transform.rotate.Set(85,0,-45);
+	globals.GetDraw(L"lollipop").transform.translate.Set(18,11.25,-21);
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -841,8 +887,28 @@ bool SceneMain::Update(const double dt)
 	UpdateView();
 	UpdateLight();
 	UpdateLogic();
-	SPLv1.Update(dt);
 	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
+	if(globals.GetDraw(L"player_body").GetGlobalPosition().y <= 5)
+	{
+		SWLv2[0].Reset();
+		SWLv2[1].Reset();
+		UpdateLv1 = true;
+		UpdateLv2 = false;
+	}
+	else if(globals.GetDraw(L"player_body").GetGlobalPosition().y >= 13)
+	{
+		SILv1.Reset();
+		RLv1[0].Reset();
+		RLv1[1].Reset();
+		SPLv1.Reset();
+		UpdateLv1 = false;
+		UpdateLv2 = true;
+	}
+	else
+	{
+		UpdateLv1 = true;
+		UpdateLv2 = true;
+	}
 	if(UpdateLv2 == true)
 	{
 
@@ -852,6 +918,9 @@ bool SceneMain::Update(const double dt)
 			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			delete player;
 			player = new PlayerFrog;
+			player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+			globals.GetDraw(L"player_arm_left").geometry = NULL;
+			globals.GetDraw(L"player_arm_right").geometry = NULL;
 			isFrog = true;
 			wizard.castingDone = false;
 		}
@@ -873,31 +942,40 @@ bool SceneMain::Update(const double dt)
 			}
 		}
 	}
+	if(isFrog == true)
+	{
+		globals.GetDraw(L"lollipop").geometry = globals.GetMesh(L"lollipop");
+	}
+	else
+	{
+		globals.GetDraw(L"lollipop").geometry = NULL;
+	}
 	if(UpdateLv1 ==true)
 	{
+		SPLv1.Update(dt);
 		SILv1.Update(dt);
 		RLv1[0].Update(dt);
 		RLv1[1].Update(dt);
 	}
 
-		if(SPLv1.currentState==2)
-		{
-			paying=true;
-		}
-		else
-		{
-			paying=false;
-		}
-		if(paying==true)
-		{
-			RLv1[0].Update(dt);
-			RLv1[1].Update(dt);
-		}
-		else
-		{
-			RLv1[0].Reset();
-			RLv1[1].Reset();
-		}
+	if(SPLv1.currentState==2)
+	{
+		paying=true;
+	}
+	else
+	{
+		paying=false;
+	}
+	if(paying==true)
+	{
+		RLv1[0].Update(dt);
+		RLv1[1].Update(dt);
+	}
+	else
+	{
+		RLv1[0].Reset();
+		RLv1[1].Reset();
+	}
 	return false;
 }
 
@@ -952,12 +1030,28 @@ void SceneMain::UpdateLogic()
 	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body0").GetGlobalPosition() );
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
-	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithLiftsOPEN(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput); 
+	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
+	InteractDoor.TrolleyTeleportWithoutPlayer(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate);
 
-	if(keyboard.isKeyPressed('E'))
-	{	
-		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	if (InteractDoor.GetLiftDoorInRange() == true)
+	{
+		if(keyboard.isKeyPressed('E'))
+		{
+			if(OpenLiftDoorInput == false)
+			{
+				InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate,globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
+			}
+
+			OpenLiftDoorInput = true;
+		}
+
+		else if(keyboard.isKeyPressed('Q'))
+		{	
+			OpenLiftDoorInput = false;
+		}
 	}
+
 }
 
 void SceneMain::UpdateView()
@@ -1045,13 +1139,13 @@ void SceneMain::Render()
 	//}
 	//else
 	//{
-		globals.GetDraw(L"main").Execute(gfx);
+	globals.GetDraw(L"main").Execute(gfx);
 	//}
 	//}
-		Mtx44 BG;
-		BG.SetToRotation(180,0,1,0);
-		BG.SetToTranslation(Vector3(30,30,30));
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+	Mtx44 BG;
+	BG.SetToRotation(180,0,1,0);
+	BG.SetToTranslation(Vector3(30,30,30));
+	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
 
 	if(state==MAINMENU)
 	{
@@ -1118,6 +1212,23 @@ void SceneMain::Render()
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
 	}
 
+	Range<int>x(12,18);
+	Range<int>y(0.1,5);
+	Range<int>z(-104,-99);
+	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
+	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
+	{
+		gfx.RenderTextOnScreen("Press E to move to level 2!",Color(1,1,1),27,9,300);
+	}
+
+	Range<int>a(12,18);
+	Range<int>b(9,12);
+	Range<int>c(-104,-99);
+	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
+	{
+		gfx.RenderTextOnScreen("Press E to move to level 1!",Color(1,1,1),27,9,300);
+	}
+
 	char buffer1[126];
 	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
@@ -1172,54 +1283,68 @@ void SceneMain::DoUserInput()
 		{
 			state=MAINMENU;
 		}
-		if(keyboard.isKeyPressed('F'))
+		if(isFrog == false)
 		{
-			for(int i = 0; i < 1246; ++i)
+			if(keyboard.isKeyPressed('F'))
 			{
-				item[i].InteractWithItem(camera.ReturnTarget(), item[i].defaultGlobalPosition);
+				if(player->isHoldingTrolley == false && player->isHoldingItem == false) // Take item
+				{
+					item.InteractWithItem(camera);
+				}
+				else if(player->isHoldingItem == true) // put item
+				{
+					item.PutItem(camera);
+				}
 			}
-		}
-		if(keyboard.isKeyPressed('E') && isFrog == false)
-		{
-			player->TakingTrolley(camera.ReturnTarget());
-		}
-		if(keyboard.isKeyPressed('R'))
-		{
-			player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-		}
-		if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera.ReturnTarget()) == true)
-		{
-			wizard.casting = true;
-		}
-		if (keyboard.isKeyPressed('I'))
-		{
-			if(isFrog == false)
+			if(keyboard.isKeyPressed('E'))
+			{
+				player->TakingTrolley(camera);
+			}
+			if(keyboard.isKeyPressed('R'))
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-				delete player;
-				player = new PlayerFrog;
-				isFrog = true;
 			}
-			else
+			if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true)
 			{
-				delete player;
-				player = new PlayerHuman;
-				player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-				isFrog = false;
+				wizard.casting = true;
+			}
+			if (keyboard.isKeyPressed('I'))
+			{
+				if(isFrog == false)
+				{
+					player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
+					delete player;
+					player = new PlayerFrog;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = NULL;
+					globals.GetDraw(L"player_arm_right").geometry = NULL;
+					isFrog = true;
+				}
+				else
+				{
+					delete player;
+					player = new PlayerHuman;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					isFrog = false;
+				}
 			}
 		}
-		if (keyboard.isKeyPressed('Y'))
+		else
 		{
-			for(int i = 0; i < 2; ++i)
+			if(keyboard.isKeyPressed('F'))
 			{
-				SWLv2[i].Reset();
+				if(item.EatLollipop(camera, globals.GetDraw(L"lollipop").GetGlobalPosition()))
+				{
+					delete player;
+					player = new PlayerHuman;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").geometry = globals.GetMesh(L"characterarm");
+					globals.GetDraw(L"player_arm_right").geometry = globals.GetMesh(L"characterarm");
+					isFrog = false;
+				}
 			}
-			wizard.Reset();
-			UpdateLv2 = false;
-		}
-		if (keyboard.isKeyPressed('U'))
-		{
-			UpdateLv2 = true;
 		}
 		if (keyboard.isKeyHold(VK_SHIFT))
 		{

@@ -22,7 +22,7 @@ public:
 	Vector3 MoveBackward(Camera camera, double movingSpeed);
 	Vector3 MoveRight(Camera camera, double movingSpeed);
 	Vector3 MoveLeft(Camera camera, double movingSpeed);
-	void TakingTrolley(const Vector3& PlayerTargetPos);
+	void TakingTrolley(const Camera& camera);
 	void ReleaseTrolley(const Vector3& TrolleyCurrentPos);
 };
 

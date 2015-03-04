@@ -2,11 +2,11 @@
 
 DoorInteraction::DoorInteraction(void)
 {
-	 LiftDoor1isOpen = false;
-	 LiftDoor2isOpen = false;
-	 TravelatorIsInrange = false;
-
-	 DoorSlidingSpeed = 9;
+	// Ranges set for bool update in main
+	TravelatorIsInrange = false;
+	LiftDoorInRange = false;
+	//door speed
+	DoorSlidingSpeed = 9;
 }
 
 DoorInteraction::~DoorInteraction(void)
@@ -15,8 +15,9 @@ DoorInteraction::~DoorInteraction(void)
 
 void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right)
 {
+	//passing in of drawOrder
 	OuterDoor1Left = &TempOuterDoor1Left;
-    OuterDoor1Right = &TempOuterDoor1Right;
+	OuterDoor1Right = &TempOuterDoor1Right;
 	OuterDoor2Left = &TempOuterDoor2Left;
 	OuterDoor2Right = &TempOuterDoor2Right;
 	InnerDoor1 = &TempInnerDoor1;
@@ -111,53 +112,78 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 		}
 	}
 }
-
-void DoorInteraction::InteractWithLifts(const double dt, Vector3& PlayerPos)	
+// E to open
+void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
 {
-	//LiftDoor1 > door interaction
 	Range<int> LiftDoor1and2RangeX(13,18);
 	Range<int> LiftDoor1RangeY(0,5);
 	Range<int> LiftDoor2RangeY(10,15);
-	Range<int> LiftDoor1and2RangeZ(-96,-93);
+	Range<int> LiftDoor1and2RangeZ(-104,-93);
 
-	if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
-	{		
-		if(LiftDoor1Left->transform.translate.x >= 11)
-		{
-			LiftDoor1Left-> transform.translate.x += -2.5 * dt;
-			LiftDoor1Right-> transform.translate.x += 2.5 * dt;
-		}
-	}
-
-	else
+	if(OpenLiftDoorInput == true)
 	{
-		if(LiftDoor1Left->transform.translate.x < 14)
-		{
-			LiftDoor1Left-> transform.translate.x += 2.5 * dt;
-			LiftDoor1Right-> transform.translate.x += -2.5 * dt;
+		if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
+		{		
+			LiftDoorInRange = true;
+			if(LiftDoor1Left->transform.translate.x >= 11.2)
+			{
+				LiftDoor1Left-> transform.translate.x += -2.5 * dt;
+				LiftDoor1Right-> transform.translate.x += 2.5 * dt;
+			}
 		}
-	}
 
-		if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
-	{
-		if(LiftDoor2Left->transform.translate.x >= 11)
+		else if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
 		{
-			LiftDoor2Left-> transform.translate.x += -2.5 * dt;
-			LiftDoor2Right-> transform.translate.x += 2.5 * dt;
+			LiftDoorInRange = true;
+			if(LiftDoor2Left->transform.translate.x >= 11.2)
+			{
+				LiftDoor2Left-> transform.translate.x += -2.5 * dt;
+				LiftDoor2Right-> transform.translate.x += 2.5 * dt;
+			}
 		}
-	}
-
-	else
-	{
-		if(LiftDoor2Left->transform.translate.x < 14)
+		else 
 		{
-			LiftDoor2Left-> transform.translate.x += 2.5 * dt;
-			LiftDoor2Right-> transform.translate.x += -2.5 * dt;
+			LiftDoorInRange = false;
+			OpenLiftDoorInput = false;
 		}
 	}
 }
+// Q to close
+void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
+{
+	Range<int> LiftDoor1and2RangeX(13,18);
+	Range<int> LiftDoor1RangeY(0,5);
+	Range<int> LiftDoor2RangeY(10,15);
+	Range<int> LiftDoor1and2RangeZ(-104,-93);
 
-void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)	
+	if(OpenLiftDoorInput == false)
+	{
+		if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor1RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
+		{
+			LiftDoorInRange = true;
+			if(LiftDoor1Left->transform.translate.x < 14)
+			{
+				LiftDoor1Left-> transform.translate.x += 2.5 * dt;
+				LiftDoor1Right-> transform.translate.x += -2.5 * dt;
+			}
+		}
+		else if(LiftDoor1and2RangeX.IsInRange(PlayerPos.x) && LiftDoor2RangeY.IsInRange(PlayerPos.y) && LiftDoor1and2RangeZ.IsInRange(PlayerPos.z))
+		{
+			LiftDoorInRange = true;
+			if(LiftDoor2Left->transform.translate.x < 14)
+			{
+				LiftDoor2Left-> transform.translate.x += 2.5 * dt;
+				LiftDoor2Right-> transform.translate.x += -2.5 * dt;
+			}
+		}
+		else
+		{
+			LiftDoorInRange = false;
+		}
+	}
+}
+// Move with lift and trolley
+void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley)	
 {
 	//Lift > Lift translation
 	Range<int> Lift0and1RangeX(12,18);
@@ -167,13 +193,62 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos)
 
 	if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift0RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.y = 10.902;
+		PlayerPos.y += 10;
+
+		if(Lift0and1RangeX.IsInRange(TrolleyPos.x) && Lift0RangeY.IsInRange(TrolleyPos.y) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
+		{
+
+			if (isTakingTrolley == false)
+			{
+				TrolleyPos.y += 10;
+			}
+
+			else if (isTakingTrolley == true)
+			{
+				TrolleyPos.y = 14;
+			}
+		}
 	}	
 
 	else if(Lift0and1RangeX.IsInRange(PlayerPos.x) && Lift1RangeY.IsInRange(PlayerPos.y) && Lift0and1RangeZ.IsInRange(PlayerPos.z))
 	{
-		PlayerPos.y = 0.931;
+		PlayerPos.y -= 10;
+
+		if(Lift0and1RangeX.IsInRange(TrolleyPos.x) && Lift1RangeY.IsInRange(TrolleyPos.y) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
+		{
+
+			if (isTakingTrolley == false)
+			{
+				TrolleyPos.y -= 10;
+			}
+
+			else if (isTakingTrolley == true)
+			{
+				TrolleyPos.y = 4;
+			}
+		}
 	}	
+}
+
+void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos)	
+{
+	Range<int> Lift0and1RangeX(12,18);
+	Range<int> Lift0RangeY(0,5);
+	Range<int> Lift1RangeY(10,15);
+	Range<int> Lift0and1RangeZ(-105,-100);
+
+	if (Lift0and1RangeX.IsInRange(TrolleyPos.x) && (Lift0RangeY.IsInRange(TrolleyPos.y) || Lift1RangeY.IsInRange(TrolleyPos.y)) && Lift0and1RangeZ.IsInRange(TrolleyPos.z))
+	{
+		if (TrolleyPos.y < 6 && PlayerPos.y > 6)
+		{
+			TrolleyPos.y += 10;
+		}
+
+		else if (TrolleyPos.y > 6 && PlayerPos.y < 6)
+		{
+			TrolleyPos.y -= 10;
+		}
+	}
 }
 
 void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos)	
@@ -207,4 +282,9 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 bool DoorInteraction::GetTravelatorInRange(void)
 {
 	return TravelatorIsInrange;
+}
+
+bool DoorInteraction::GetLiftDoorInRange(void)
+{
+	return LiftDoorInRange;
 }
