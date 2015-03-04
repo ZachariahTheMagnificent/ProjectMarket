@@ -8,7 +8,7 @@ ContactSolver::~ContactSolver()
 {
 }
 
-bool ContactSolver::CheckThisCollision(drawOrder* draw1, drawOrder* draw2, const double deltaTime)
+bool ContactSolver::CheckThisCollision(CollisionBody* draw1, CollisionBody* draw2, const double deltaTime)
 {
 	//VoxelOctree myTree;
 	//myTree.SetUpFor(draw1, draw2, deltaTime);
