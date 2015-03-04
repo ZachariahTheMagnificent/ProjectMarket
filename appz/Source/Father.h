@@ -14,15 +14,12 @@ private:
 	drawOrder* characterRightArm;
 	drawOrder* characterLeftLeg;
 	drawOrder* characterRightLeg;
-	//viariables to store rotation of character arm
-	float charArmRotate;
 public:
 	Father(void);
 	~Father(void);
 	
-	bool casting;
-	bool castingDone;
-	
+	bool interacted;
+
 	void Init();
 	void Render();
 	void Update(const double dt);

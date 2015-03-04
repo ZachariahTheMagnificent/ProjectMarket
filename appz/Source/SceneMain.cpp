@@ -349,18 +349,18 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"lost_child_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 	//Draw Father
-	globals.AddDraw(drawOrder(L"father_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"father_body").transform.scale.Set(0.45,0.45,0.45);
-	globals.GetDraw(L"father_body").transform.translate.Set(3,2.9,-27);
-	globals.AddDraw(drawOrder(L"father_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.AddDraw(drawOrder(L"father_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"father_body").transform.translate.Set(18,5,-69);
+	globals.GetDraw(L"father_body").transform.rotate.y = -90;
+	globals.AddDraw(drawOrder(L"father_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"father_body"), true));
 	globals.GetDraw(L"father_arm_left").transform.translate.Set(1.25,0.6,0);
 	globals.GetDraw(L"father_arm_left").transform.rotate.x = -5;
-	globals.AddDraw(drawOrder(L"father_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.AddDraw(drawOrder(L"father_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"father_body"), true));
 	globals.GetDraw(L"father_arm_right").transform.translate.Set(-1.25,0.6,0);
 	globals.GetDraw(L"father_arm_right").transform.rotate.x = -5;
-	globals.AddDraw(drawOrder(L"father_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.AddDraw(drawOrder(L"father_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"father_body"), true));
 	globals.GetDraw(L"father_leg_left").transform.translate.Set(0.5,-1.5,0);
-	globals.AddDraw(drawOrder(L"father_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character4"), &globals.GetDraw(L"father_body"), true));
+	globals.AddDraw(drawOrder(L"father_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"father_body"), true));
 	globals.GetDraw(L"father_leg_right").transform.translate.Set(-0.5,-1.5,0);
 
 
@@ -1028,8 +1028,23 @@ bool SceneMain::Update(const double dt)
 		RLv1[1].Reset();
 	}
 
-	lostchild.Update(dt);
-	
+	if(father.interacted == true)
+	{
+		globals.GetDraw(L"lost_child_body").SetMeshTo(globals.GetMesh(L"characterbody"));
+		globals.GetDraw(L"lost_child_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+		globals.GetDraw(L"lost_child_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
+		globals.GetDraw(L"lost_child_leg_left").SetMeshTo(globals.GetMesh(L"characterleg"));
+		globals.GetDraw(L"lost_child_leg_right").SetMeshTo(globals.GetMesh(L"characterleg"));
+		lostchild.Update(dt);
+	}
+	else
+	{
+		globals.GetDraw(L"lost_child_body").SetMeshTo(NULL);
+		globals.GetDraw(L"lost_child_arm_left").SetMeshTo(NULL);
+		globals.GetDraw(L"lost_child_arm_right").SetMeshTo(NULL);
+		globals.GetDraw(L"lost_child_leg_left").SetMeshTo(NULL);
+		globals.GetDraw(L"lost_child_leg_right").SetMeshTo(NULL);
+	}
 	return false;
 
 
@@ -1276,10 +1291,30 @@ void SceneMain::Render()
 			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),27,9,300);
 		}
 	}
-
+	//wizard
 	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && wizard.casting==false && isFrog == false)
 	{
 		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),20,9,300);
+	}
+	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && wizard.casting==true)
+	{
+		gfx.RenderTextOnScreen("MUHALABAJATA",Color(1,1,1),50,50,300);
+	}
+	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && isFrog==true)
+	{
+		gfx.RenderTextOnScreen("Opps, you had been turned into a",Color(1,1,1),20,20,300);
+		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),20,20,280);
+		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),20,70,260);
+	}
+	//Father
+	if(camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == false)
+	{
+		gfx.RenderTextOnScreen("Press E to interact with him",Color(1,1,1),20,85,300);
+	}
+	if(camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == true)
+	{
+		gfx.RenderTextOnScreen("I had lost my son!",Color(1,1,1),20,150,300);
+		gfx.RenderTextOnScreen("Please help me find him.",Color(1,1,1),20,110,280);
 	}
 	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5) && player->isHoldingTrolley==false)
 	{
@@ -1472,14 +1507,18 @@ void SceneMain::DoUserInput()
 			if(keyboard.isKeyPressed('E') && player->isHoldingItem == false)
 			{
 				player->TakingTrolley(camera);
+				if(wizard.checkInteract(camera) == true)
+				{
+					wizard.casting = true;
+				}
+				if(father.checkInteract(camera) == true)
+				{
+					father.interacted = true;
+				}
 			}
 			if(keyboard.isKeyPressed('R'))
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-			}
-			if(keyboard.isKeyPressed('E') && wizard.checkInteract(camera) == true && player->isHoldingItem == false)
-			{
-				wizard.casting = true;
 			}
 			if (keyboard.isKeyPressed('I'))
 			{
