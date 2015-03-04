@@ -127,6 +127,7 @@ public:
 	Mtx44 GetMatrix() const;
 	Mtx44 GetTranslationMatrix() const;
 	Mtx44 GetRotationMatrix() const;
+	Mtx44 GetScaleMatrix() const;
 	Vector3 GetGlobalPosition() const;
 	const drawOrder* GetChildren(const unsigned index) const;
 	Mesh* GetMesh() const;

@@ -240,7 +240,7 @@ bool ScenePhysics::Update(const double dt)
 
 void ScenePhysics::UpdateLogic()
 {
-	Vector3 playerPosition = globals.GetDraw(L"player").GetTranslationMatrix() * Vector3(0,0,0);
+	Vector3 playerPosition = globals.GetDraw(L"player").GetGlobalPosition();
 	Range<int> rangeX(-10000,0);
 	Range<int> rangeY(-30,30);
 	Range<int> rangeZ(-4,4);
@@ -323,7 +323,7 @@ void ScenePhysics::Render()
 
 	char buffer1[126];
 	char buffer2[126];
-	Vector3 position = globals.GetDraw(L"player").GetTranslationMatrix() * Vector3(0,0,0);
+	Vector3 position = globals.GetDraw(L"player").GetGlobalPosition();
 	sprintf(buffer1,"fps:%.3f",1.0/deltaTime);
 	sprintf(buffer2,"position:%.3f, %.3f, %.3f",position.x, position.y, position.z);
 
