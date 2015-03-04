@@ -2,15 +2,11 @@
 
 LostChild::LostChild(void)
 {
-	distanceMovedInOneDir = 0;
-	charBodyAngleRotate = 0;
-	charArmRotate = 30;
-	leftArmRotateUp = true;
-
-	idling = false;
-	walking = true;
-	timeIdling = 0;
-	timeWalking = 0;
+	points[0] = (3,2.9,-27);
+	points[1] = (0,0,0);
+	points[2] = (0,0,0);
+	points[3] = (0,0,0);
+	points[4] = (0,0,0);
 }
 
 LostChild::~LostChild(void)
@@ -48,11 +44,6 @@ void LostChild::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempChara
 }
 
 void LostChild::SetPosition(int No)
-{
-
-}
-
-void LostChild::RotateChar(LostChild& OtherShopper)
 {
 
 }

@@ -334,7 +334,9 @@ void SceneMain::InnitDraws()
 
 	//Draw Lost Child
 	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"lost_child_body").transform.translate.Set(10,3,-30);
+	globals.GetDraw(L"lost_child_body").transform.scale.Set(0.45,0.45,0.45);
+	globals.GetDraw(L"lost_child_body").transform.rotate.Set(0,180,0);
+	globals.GetDraw(L"lost_child_body").transform.translate.Set(3,2.9,-27);
 	globals.AddDraw(drawOrder(L"lost_child_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"lost_child_body"), true));
 	globals.GetDraw(L"lost_child_arm_left").transform.translate.Set(1.25,0.6,0);
 	globals.GetDraw(L"lost_child_arm_left").transform.rotate.x = -5;
