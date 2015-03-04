@@ -55,7 +55,6 @@ private:
 	RobotCashier RLv1[2];
 	ShopperPayerLv1 SPLv1;
 	DoorInteraction InteractDoor;
-	bool OpenLiftDoor;
 	bool isJumping;
 	bool isFalling;
 	double jumpedHeight;
@@ -65,6 +64,7 @@ private:
 	bool paying;
 	ItemInteraction item;
 	Trolley trolley;
+	bool OpenLiftDoorInput;
 
 	//print fps
 	double deltaTime;

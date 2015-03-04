@@ -32,7 +32,6 @@ void SceneMain::Init()
 	player = new PlayerHuman;
 	player->noOfItemInTrolley = 0;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-	OpenLiftDoor = false;
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
@@ -40,6 +39,7 @@ void SceneMain::Init()
 	UpdateLv2 = false;
 	UpdateLv1=true;
 	paying=false;
+	OpenLiftDoorInput = false;
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	wizard.DrawIsEqualTo(globals.GetDraw(L"wizard_body"), globals.GetDraw(L"wizard_arm_left"), globals.GetDraw(L"wizard_arm_right"), globals.GetDraw(L"wizard_leg_left"), globals.GetDraw(L"wizard_leg_right"));
@@ -610,12 +610,12 @@ void SceneMain::InnitDraws()
 	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
-	
+
 
 	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
-	
+
 
 	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
@@ -757,7 +757,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
 	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
 
-    //CAN_1: 36 a bunch. 360cans total
+	//CAN_1: 36 a bunch. 360cans total
 	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.25,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
 
 	//CAN_2: 6 a bunch. 60cans total 
@@ -959,24 +959,24 @@ bool SceneMain::Update(const double dt)
 		RLv1[1].Update(dt);
 	}
 
-		if(SPLv1.currentState==2)
-		{
-			paying=true;
-		}
-		else
-		{
-			paying=false;
-		}
-		if(paying==true)
-		{
-			RLv1[0].Update(dt);
-			RLv1[1].Update(dt);
-		}
-		else
-		{
-			RLv1[0].Reset();
-			RLv1[1].Reset();
-		}
+	if(SPLv1.currentState==2)
+	{
+		paying=true;
+	}
+	else
+	{
+		paying=false;
+	}
+	if(paying==true)
+	{
+		RLv1[0].Update(dt);
+		RLv1[1].Update(dt);
+	}
+	else
+	{
+		RLv1[0].Reset();
+		RLv1[1].Reset();
+	}
 	return false;
 }
 
@@ -1031,12 +1031,28 @@ void SceneMain::UpdateLogic()
 	}
 	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body0").GetGlobalPosition() );
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
-	InteractDoor.InteractWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate);
+	InteractDoor.InteractWithLiftsOPEN(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput); 
+	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
+	InteractDoor.TrolleyTeleportWithoutPlayer(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate);
 
-	if(keyboard.isKeyPressed('E'))
-	{	
-		InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
+	if (InteractDoor.GetLiftDoorInRange() == true)
+	{
+		if(keyboard.isKeyPressed('E'))
+		{
+			if(OpenLiftDoorInput == false)
+			{
+				InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate,globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
+			}
+
+			OpenLiftDoorInput = true;
+		}
+
+		else if(keyboard.isKeyPressed('Q'))
+		{	
+			OpenLiftDoorInput = false;
+		}
 	}
+
 }
 
 void SceneMain::UpdateView()
@@ -1123,13 +1139,14 @@ void SceneMain::Render()
 	//}
 	//else
 	//{
-		globals.GetDraw(L"main").Execute(gfx);
+	globals.GetDraw(L"main").Execute(gfx);
 	//}
 	//}
 	Mtx44 BG;
 	BG.SetToRotation(180,0,1,0);
 	BG.SetToTranslation(Vector3(30,30,30));
 	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+
 	if(state==MAINMENU)
 	{
 		MS BG;
