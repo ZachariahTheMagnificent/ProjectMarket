@@ -81,8 +81,8 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 
 	Vector3 firsts_newVelocity = firstBody->GetVelocity();
 	Vector3 seconds_newVelocity = secondBody->GetVelocity();
-	Vector3 firsts_distanceTravelled = FirstVoxelAtCollision.GetPosition() - firstVoxel->GetPosition();
-	Vector3 seconds_distanaceTravelled = SecondVoxelAtCollision.GetPosition() - secondVoxel->GetPosition();
+	Vector3 firsts_distanceTravelled = firstBody->GetVelocity() * timeOfImpact;
+	Vector3 seconds_distanaceTravelled = secondBody->GetVelocity() * timeOfImpact;
 
 	//Find the side where the collision happened and change the coresponding vector component(by transfering momentum) to prevent it
 	if(penetrationX < penetrationY && penetrationX < penetrationZ)
