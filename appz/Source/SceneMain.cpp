@@ -144,6 +144,7 @@ void SceneMain::InnitSounds()
 	snd.loadWave("elevator","sound//elevator.wav");
 	snd.loadWave("robot","sound//robot.wav");
 	snd.loadWave("halot","sound//halot.wav");
+	snd.loadWave("robot2","sound//robot2.wav");
 }
 
 void SceneMain::InnitLogic()
@@ -1803,6 +1804,7 @@ void SceneMain::DoUserInput()
 	{
 		if(keyboard.isKeyPressed('1'))
 		{
+			snd.playSound("robot2",true);
 			state=START;
 		}
 		if(keyboard.isKeyPressed('2'))
