@@ -51,7 +51,7 @@ void SceneMain::Init()
 	SWLv2[0].SetPosition(9);
 	SWLv2[1].DrawIsEqualTo(globals.GetDraw(L"shopper_wanderer_body1"), globals.GetDraw(L"shopper_wanderer_arm_left1"), globals.GetDraw(L"shopper_wanderer_arm_right1"), globals.GetDraw(L"shopper_wanderer_leg_left1"), globals.GetDraw(L"shopper_wanderer_leg_right1"));
 	SWLv2[1].SetPosition(0);
-	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body0"), globals.GetDraw(L"shopper_payer_leg_left0"), globals.GetDraw(L"shopper_payer_leg_right0"), globals.GetDraw(L"shopper_payer_items0"), globals.GetDraw(L"lv1cabinet3_column1_0"), globals.GetDraw(L"cashiertable1"));
+	SPLv1.DrawIsEqualTo(globals.GetDraw(L"shopper_payer_body"), globals.GetDraw(L"shopper_payer_leg_left"), globals.GetDraw(L"shopper_payer_leg_right"), globals.GetDraw(L"shopper_payer_items"), globals.GetDraw(L"lv1cabinet3_column1_0"), globals.GetDraw(L"cashiertable1"));
 	SPLv1.SetPosition(0);
 	SILv1.DrawIsEqualTo(globals.GetDraw(L"shopper_idler_body"), globals.GetDraw(L"shopper_idler_arm_left"), globals.GetDraw(L"shopper_idler_arm_right"), globals.GetDraw(L"shopper_idler_leg_left"), globals.GetDraw(L"shopper_idler_leg_right"));
 	SILv1.SetPosition(0);
@@ -767,21 +767,21 @@ void SceneMain::InnitDraws()
 
 
 	//Draw ShopperPayer
-	globals.AddDraw(drawOrder(L"shopper_payer_body0",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
-	globals.AddDraw(drawOrder(L"shopper_payer_arm_left0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_arm_left0").transform.translate.Set(1.25,0.6,0);
-	globals.GetDraw(L"shopper_payer_arm_left0").selfTransform.rotate.x = -70;
-	globals.AddDraw(drawOrder(L"shopper_payer_arm_right0",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_arm_right0").transform.translate.Set(-1.25,0.6,0);
-	globals.GetDraw(L"shopper_payer_arm_right0").selfTransform.rotate.x = -70;
-	globals.AddDraw(drawOrder(L"shopper_payer_leg_left0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_leg_left0").transform.translate.Set(0.5,-1.5,0);
-	globals.AddDraw(drawOrder(L"shopper_payer_leg_right0",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_leg_right0").transform.translate.Set(-0.5,-1.5,0);
-	globals.AddDraw(drawOrder(L"shopper_payer_trolley0",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"shopper_payer_body0"), true));
-	globals.GetDraw(L"shopper_payer_trolley0").transform.translate.Set(0,-0.4,2);
-	globals.GetDraw(L"shopper_payer_trolley0").selfTransform.rotate.y = -90;
-	globals.AddDraw(drawOrder(L"shopper_payer_items0",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
+	globals.AddDraw(drawOrder(L"shopper_payer_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"shopper_payer_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body"), true));
+	globals.GetDraw(L"shopper_payer_arm_left").transform.translate.Set(1.25,0.6,0);
+	globals.GetDraw(L"shopper_payer_arm_left").selfTransform.rotate.x = -70;
+	globals.AddDraw(drawOrder(L"shopper_payer_arm_right",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body"), true));
+	globals.GetDraw(L"shopper_payer_arm_right").transform.translate.Set(-1.25,0.6,0);
+	globals.GetDraw(L"shopper_payer_arm_right").selfTransform.rotate.x = -70;
+	globals.AddDraw(drawOrder(L"shopper_payer_leg_left",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body"), true));
+	globals.GetDraw(L"shopper_payer_leg_left").transform.translate.Set(0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"shopper_payer_leg_right",globals.GetMesh(L"characterleg"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"shopper_payer_body"), true));
+	globals.GetDraw(L"shopper_payer_leg_right").transform.translate.Set(-0.5,-1.5,0);
+	globals.AddDraw(drawOrder(L"shopper_payer_trolley",globals.GetMesh(L"trolley"), &globals.GetMaterial(L"trolley"), &globals.GetDraw(L"shopper_payer_body"), true));
+	globals.GetDraw(L"shopper_payer_trolley").transform.translate.Set(0,-0.4,2);
+	globals.GetDraw(L"shopper_payer_trolley").selfTransform.rotate.y = -90;
+	globals.AddDraw(drawOrder(L"shopper_payer_items",globals.GetMesh(L"cereallump"), &globals.GetMaterial(L"cereal2"), &globals.GetDraw(L"lv1cabinet3_column1_0"), true));
 
 	//CAN_1: 36 a bunch. 360cans total
 	CreateItems(drawOrder(L"can1_cabinet1_%d",globals.GetMesh(L"can1"), &globals.GetMaterial(L"can1"), NULL, true),Vector3(-3.25,5.25,1), L"lv2cabinet1_column1_0", Rotation(0,0,0), 6, 6, 1, 0.5, -0.4, 2, 5, Vector3(1.5,0,0), Vector3(6.5,0,0));
@@ -1105,7 +1105,7 @@ void SceneMain::UpdateLogic()
 	{
 		state=CHOOSETOEXIT;
 	}
-	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body0").GetGlobalPosition() );
+	InteractDoor.InteractWithDoors(deltaTime,globals.GetDraw(L"player_body").GetGlobalPosition(), globals.GetDraw(L"shopper_payer_body").GetGlobalPosition() );
 	InteractDoor.InteractWithTravelator(deltaTime,globals.GetDraw(L"player_body").transform.translate);
 	InteractDoor.InteractWithLiftsOPEN(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput); 
 	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
@@ -1302,7 +1302,7 @@ void SceneMain::Render()
 	{
 		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),20,9,300);
 	}
-	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && wizard.casting==true)
+	if(wizard.casting==true)
 	{
 		gfx.RenderTextOnScreen("MUHALABAJATA",Color(1,1,1),50,50,300);
 	}
@@ -1311,6 +1311,11 @@ void SceneMain::Render()
 		gfx.RenderTextOnScreen("Opps, you had been turned into a",Color(1,1,1),20,20,300);
 		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),20,20,280);
 		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),20,70,260);
+	}
+	//lollipop
+	if(camera.IsLookingAt(globals.GetDraw(L"lollipop").GetGlobalPosition(), 90, 5) && isFrog==true)
+	{
+		gfx.RenderTextOnScreen("Press F to eat and turn back to human",Color(1,1,1),20,1,300);
 	}
 	//Father
 	if(camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == false)
@@ -1326,11 +1331,40 @@ void SceneMain::Render()
 	{
 		gfx.RenderTextOnScreen("OMG my son! Thankyou :')",Color(1,1,1),20,150,300);
 	}
-	
-	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5) && player->isHoldingTrolley==false)
+	//trolley takeable
+	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5))
 	{
-		gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),25,9,300);
+		if(player->isHoldingTrolley==false && player->isHoldingItem == false && player->isHoldingChild == false)
+			gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),25,9,300);
+		else if(player->isHoldingItem==true)
+			gfx.RenderTextOnScreen("Press F to put item",Color(1,1,1),25,150,300);
 	}
+	//trolley untakeable
+	if(player->isHoldingTrolley==false)
+	{
+		if(camera.IsLookingAt(globals.GetDraw(L"trolley0").GetGlobalPosition(), 20, 2.5))
+			gfx.RenderTextOnScreen("*struck*",Color(1,1,1),25,250,300);
+		if(camera.IsLookingAt(globals.GetDraw(L"trolley1").GetGlobalPosition(), 20, 2.5))
+			gfx.RenderTextOnScreen("*struck*",Color(1,1,1),25,250,300);
+		if(camera.IsLookingAt(globals.GetDraw(L"trolley2").GetGlobalPosition(), 20, 2.5))
+			gfx.RenderTextOnScreen("*struck*",Color(1,1,1),25,250,300);
+		if(camera.IsLookingAt(globals.GetDraw(L"trolley3").GetGlobalPosition(), 20, 2.5))
+			gfx.RenderTextOnScreen("*struck*",Color(1,1,1),25,250,300);
+		if(camera.IsLookingAt(globals.GetDraw(L"trolley4").GetGlobalPosition(), 20, 2.5))
+			gfx.RenderTextOnScreen("*struck*",Color(1,1,1),25,250,300);
+	}
+	//robot
+	if(camera.IsLookingAt(globals.GetDraw(L"robotbody0").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"robotbody1").GetGlobalPosition(), 20, 10))
+	{
+		gfx.RenderTextOnScreen("*Nice Robot*",Color(1,1,1),25,225,300);
+	}
+	//shopper npc
+	if(camera.IsLookingAt(globals.GetDraw(L"shopper_wanderer_body0").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_wanderer_body1").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_payer_body").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_idler_body").GetGlobalPosition(), 20, 10))
+	{
+		gfx.RenderTextOnScreen("Hello!",Color(1,1,1),25,250,300);
+	}
+
+	//item
 	for(int i = 0; i < 1246; ++i)
 	{
 
@@ -1338,7 +1372,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),20,5) && item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),7.5, 5) && item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1348,7 +1382,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1357,7 +1391,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1366,7 +1400,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1375,7 +1409,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1384,7 +1418,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1393,7 +1427,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1402,7 +1436,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1412,7 +1446,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1430,7 +1464,7 @@ void SceneMain::Render()
 		{
 			wchar_t Namebuffer[64];
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
-			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
+			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
 			}
@@ -1485,7 +1519,7 @@ void SceneMain::DoUserInput()
 	{
 		drawVoxels = !drawVoxels;
 	}
-	if(state == START && player->pay == false)
+	if(state == START && player->pay == false && wizard.casting == false)
 	{
 		if(keyboard.isKeyPressed('N'))
 		{
@@ -1503,7 +1537,7 @@ void SceneMain::DoUserInput()
 				{
 					item.PutItem(camera);
 				}
-				if(player->isHoldingChild == false)
+				if(player->isHoldingChild == false && father.interacted == true)
 				{
 					lostchild.PickUpChild(camera);
 				}
