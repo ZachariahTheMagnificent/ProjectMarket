@@ -33,8 +33,8 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 {
 	Voxel FirstVoxelAtCollision = *firstVoxel;
 	Voxel SecondVoxelAtCollision = *secondVoxel;
-	FirstVoxelAtCollision.SetPositionTo(firstVoxel->GetPosition() + firstBody->GetVelocity() * timeOfImpact);
-	SecondVoxelAtCollision.SetPositionTo(firstVoxel->GetPosition() + secondBody->GetVelocity() * timeOfImpact);
+	FirstVoxelAtCollision.SetPositionTo(firstBody->GetMatrix() * firstVoxel->GetPosition() + firstBody->GetVelocity() * timeOfImpact);
+	SecondVoxelAtCollision.SetPositionTo(secondBody->GetMatrix() * secondVoxel->GetPosition() + secondBody->GetVelocity() * timeOfImpact);
 
 	const float firsts_MinX = FirstVoxelAtCollision.GetMinX();
 	const float firsts_MinY = FirstVoxelAtCollision.GetMinY();
@@ -81,8 +81,8 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 
 	Vector3 firsts_newVelocity = firstBody->GetVelocity();
 	Vector3 seconds_newVelocity = secondBody->GetVelocity();
-	Vector3 firsts_distanceTravelled = firstBody->GetVelocity() * timeOfImpact;
-	Vector3 seconds_distanaceTravelled = secondBody->GetVelocity() * timeOfImpact;
+	Vector3 firsts_distanceTravelled = FirstVoxelAtCollision.GetPosition() - firstVoxel->GetPosition();
+	Vector3 seconds_distanaceTravelled = SecondVoxelAtCollision.GetPosition() - secondVoxel->GetPosition();
 
 	//Find the side where the collision happened and change the coresponding vector component(by transfering momentum) to prevent it
 	if(penetrationX < penetrationY && penetrationX < penetrationZ)
@@ -90,13 +90,11 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 		if((FirstVoxelAtCollision.IsToTheLeftOf(SecondVoxelAtCollision) && !isNegative(firstBody->GetVelocity().x) && firstBody->GetVelocity().x != 0) ||
 			(FirstVoxelAtCollision.IsToTheRightOf(SecondVoxelAtCollision) && isNegative(firstBody->GetVelocity().x) && firstBody->GetVelocity().x != 0))
 		{
-			firsts_newVelocity.y += abs(firstBody->GetVelocity().x) * deltaTime;
 			firsts_newVelocity.x = firsts_distanceTravelled.x / deltaTime;
 		}
 		if((SecondVoxelAtCollision.IsToTheLeftOf(FirstVoxelAtCollision) && !isNegative(secondBody->GetVelocity().x) && secondBody->GetVelocity().x != 0) ||
 			(SecondVoxelAtCollision.IsToTheRightOf(FirstVoxelAtCollision) && isNegative(secondBody->GetVelocity().x) && secondBody->GetVelocity().x != 0))
 		{
-			seconds_newVelocity.y += abs(secondBody->GetVelocity().x) * deltaTime;
 			seconds_newVelocity.x = seconds_distanaceTravelled.x / deltaTime;
 		}
 		firstBody->SetVelocityTo(firsts_newVelocity);
@@ -122,13 +120,11 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 		if((FirstVoxelAtCollision.IsBehind(SecondVoxelAtCollision) && !isNegative(firstBody->GetVelocity().z) && firstBody->GetVelocity().z != 0) ||
 			(FirstVoxelAtCollision.IsInFrontOf(SecondVoxelAtCollision) && isNegative(firstBody->GetVelocity().z) && firstBody->GetVelocity().z != 0))
 		{
-			firsts_newVelocity.y += abs(firstBody->GetVelocity().z) * deltaTime;
 			firsts_newVelocity.z = firsts_distanceTravelled.z / deltaTime;
 		}
 		if((SecondVoxelAtCollision.IsBehind(FirstVoxelAtCollision) && !isNegative(secondBody->GetVelocity().z) && secondBody->GetVelocity().z != 0) ||
 			(SecondVoxelAtCollision.IsInFrontOf(FirstVoxelAtCollision) && isNegative(secondBody->GetVelocity().z) && secondBody->GetVelocity().z != 0))
 		{
-			seconds_newVelocity.y += abs(secondBody->GetVelocity().z) * deltaTime;
 			seconds_newVelocity.z = seconds_distanaceTravelled.z / deltaTime;
 		}
 		firstBody->SetVelocityTo(firsts_newVelocity);
