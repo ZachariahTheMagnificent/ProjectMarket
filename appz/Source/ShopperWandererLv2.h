@@ -1,8 +1,23 @@
+/******************************************************************************/
+/*!
+\file	ShopperWandererLv2.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Class to store ShopperWandererLv2
+*/
+/******************************************************************************/
 #pragma once
 
 #include "Shopper.h"
 #include "DrawOrder.h"
 
+/******************************************************************************/
+/*!
+		Class ShopperWandererLv2:
+\brief	Defines a ShopperWandererLv2 class
+*/
+/******************************************************************************/
 class ShopperWandererLv2 :
 	public Shopper
 {

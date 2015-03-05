@@ -1,6 +1,21 @@
+/******************************************************************************/
+/*!
+\file	PlayerHuman.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define PlayerHuman Class functions
+*/
+/******************************************************************************/
 #include "PlayerHuman.h"
 
 
+/******************************************************************************/
+/*!
+\brief
+Constructor to initialise variables
+*/
+/******************************************************************************/
 PlayerHuman::PlayerHuman(void)
 {
 	isHoldingTrolley = false;
@@ -11,17 +26,27 @@ PlayerHuman::PlayerHuman(void)
 }
 
 
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 PlayerHuman::~PlayerHuman(void)
 {
 }
 
-Vector3 PlayerHuman::Update(Camera camera)
-{
-	Vector3 tempVector;
-	tempVector.Set(0, 0, 0);
-	return tempVector;
-}
-
+/******************************************************************************/
+/*!
+\brief
+Move player forward
+\parm rhs
+   Camera
+   moving speed that store as double
+\return
+   A Vector3 that will move the player
+*/
+/******************************************************************************/
 Vector3 PlayerHuman::MoveForward(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
@@ -31,6 +56,17 @@ Vector3 PlayerHuman::MoveForward(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Move player backward
+\parm rhs
+   Camera
+   moving speed that store as double
+\return
+   A Vector3 that will move the player
+*/
+/******************************************************************************/
 Vector3 PlayerHuman::MoveBackward(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
@@ -40,6 +76,17 @@ Vector3 PlayerHuman::MoveBackward(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Move player to the right
+\parm rhs
+   Camera
+   moving speed that store as double
+\return
+   A Vector3 that will move the player
+*/
+/******************************************************************************/
 Vector3 PlayerHuman::MoveRight(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
@@ -49,6 +96,17 @@ Vector3 PlayerHuman::MoveRight(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Move player to the left
+\parm rhs
+   Camera
+   moving speed that store as double
+\return
+   A Vector3 that will move the player
+*/
+/******************************************************************************/
 Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 {
 	Mtx44 rotationMatrix = camera.GetRotationMatrix(false, true, false);
@@ -58,6 +116,14 @@ Vector3 PlayerHuman::MoveLeft(Camera camera, double movingSpeed)
 	return tempVector;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Take trolley
+\parm rhs
+   Point to camera
+*/
+/******************************************************************************/
 void PlayerHuman::TakingTrolley(const Camera& camera)
 {
 	if(isHoldingTrolley == false)
@@ -73,6 +139,14 @@ void PlayerHuman::TakingTrolley(const Camera& camera)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Release trolley
+\parm rhs
+   Point to trolley actual current postion
+*/
+/******************************************************************************/
 void PlayerHuman::ReleaseTrolley(const Vector3& TrolleyCurrentPos)
 {
 	if(isHoldingTrolley == true)

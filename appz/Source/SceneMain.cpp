@@ -1788,7 +1788,6 @@ void SceneMain::DoUserInput()
 			}
 		}
 		playerAcceleration = playerAcceleration;
-		playerAcceleration += player->Update(camera);
 		Force playerForce;
 		playerForce.SetLifespanTo(0.0001);
 		playerForce.SetVector(playerAcceleration);

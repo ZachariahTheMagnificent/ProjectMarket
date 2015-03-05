@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	ItemInteraction.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Class to store ItemInteraction
+*/
+/******************************************************************************/
 #pragma once
 
 #include "DrawOrder.h"
@@ -5,6 +14,12 @@
 #include "Trolley.h"
 #include "Player.h"
 
+/******************************************************************************/
+/*!
+		Class ItemInteraction:
+\brief	Defines a ItemInteraction class
+*/
+/******************************************************************************/
 class ItemInteraction
 {
 public:

@@ -1,6 +1,21 @@
+/******************************************************************************/
+/*!
+\file	ShopperPayerLv1.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define ShopperPayerLv1 Class functions
+*/
+/******************************************************************************/
 #include "ShopperPayerLv1.h"
 
 
+/******************************************************************************/
+/*!
+\brief
+Constructor to initialise variables
+*/
+/******************************************************************************/
 ShopperPayerLv1::ShopperPayerLv1(void)
 {
 	distanceNeedToMoveInOneDir = 0;
@@ -24,11 +39,24 @@ ShopperPayerLv1::ShopperPayerLv1(void)
 	payingdistance = 0;
 }
 
-
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 ShopperPayerLv1::~ShopperPayerLv1(void)
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Set position of payer
+\param rhs
+   the position to set payer
+*/
+/******************************************************************************/
 void ShopperPayerLv1::SetPosition(int No)
 {
 	if(No == 6)
@@ -50,6 +78,14 @@ void ShopperPayerLv1::SetPosition(int No)
 		paid = false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Update
+\param rhs
+   double delta time
+*/
+/******************************************************************************/
 void ShopperPayerLv1::Update(const double dt)
 {
 	if(currentState == WALKING) // Walking
@@ -114,6 +150,12 @@ void ShopperPayerLv1::Update(const double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Reset everything for payer
+*/
+/******************************************************************************/
 void ShopperPayerLv1::Reset()
 {
 	takingItems();
@@ -135,6 +177,14 @@ void ShopperPayerLv1::Reset()
 	SetPosition(defaultPoint);
 }
 
+/******************************************************************************/
+/*!
+\brief
+check distance and the target postion
+\param rhs
+   current position
+*/
+/******************************************************************************/
 void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 {
 	//Facing
@@ -185,6 +235,12 @@ void ShopperPayerLv1::CheckDisAndTargetPos(int No)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+taking items
+*/
+/******************************************************************************/
 void ShopperPayerLv1::takingItems()
 {
 	item1->SetParentAs(characterBody);
@@ -193,6 +249,12 @@ void ShopperPayerLv1::takingItems()
 	currentState = WALKING;
 }
 
+/******************************************************************************/
+/*!
+\brief
+return items
+*/
+/******************************************************************************/
 void ShopperPayerLv1::returnItems()
 {
 	item1->SetParentAs(cabinet);
@@ -200,6 +262,14 @@ void ShopperPayerLv1::returnItems()
 	tookItems = false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+paying
+\parm rhs
+   double delta time
+*/
+/******************************************************************************/
 void ShopperPayerLv1::paying(const double dt)
 {
 	if(paid == false)
@@ -227,6 +297,12 @@ void ShopperPayerLv1::paying(const double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Put item on table
+*/
+/******************************************************************************/
 void ShopperPayerLv1::putItemOntable()
 {
 	tookItems = false;
@@ -234,6 +310,19 @@ void ShopperPayerLv1::putItemOntable()
 	item1->transform.translate = Vector3(-4, 4.5, 0);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point drawOrder pointers to actual drawOrders
+\parm rhs
+   point to character body
+   point to character left arm
+   point to character right arm
+   point to character item1
+   point to character cabinet
+   point to character cashier table
+*/
+/******************************************************************************/
 void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet, drawOrder& TempCashierTable)
 {
 	characterBody = &TempCharacterBody;

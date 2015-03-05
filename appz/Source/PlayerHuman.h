@@ -1,8 +1,23 @@
+/******************************************************************************/
+/*!
+\file	PlayerHuman.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Class to store Human player
+*/
+/******************************************************************************/
 #pragma once
 
 #include "player.h"
 #include "Range.h"
 
+/******************************************************************************/
+/*!
+		Class PlayerHuman:
+\brief	Defines a PlayerHuman class
+*/
+/******************************************************************************/
 class PlayerHuman :
 	public Player
 {
@@ -10,7 +25,6 @@ public:
 	PlayerHuman(void);
 	~PlayerHuman(void);
 	
-	Vector3 Update(Camera camera);
 	void takeItems();
 	void returnItems();
 	

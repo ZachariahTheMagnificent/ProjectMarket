@@ -1,6 +1,21 @@
+/******************************************************************************/
+/*!
+\file	WizardLv2.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define WizardLv2 Class functions
+*/
+/******************************************************************************/
 #include "WizardLv2.h"
 
 
+/******************************************************************************/
+/*!
+\brief
+Constructor to initialise variables
+*/
+/******************************************************************************/
 WizardLv2::WizardLv2(void)
 {
 	charArmRotate = 0;
@@ -8,11 +23,24 @@ WizardLv2::WizardLv2(void)
 	castingDone = false;
 }
 
-
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 WizardLv2::~WizardLv2(void)
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Update the wizard
+\parm rhs
+   double delta time
+*/
+/******************************************************************************/
 void WizardLv2::Update(const double dt)
 {
 	if(casting == true) // Start casting
@@ -35,6 +63,16 @@ void WizardLv2::Update(const double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Update the wizard
+\parm rhs
+   point to camera
+\return
+   bool check if interacted
+*/
+/******************************************************************************/
 bool WizardLv2::checkInteract(const Camera& camera)
 {
 	//Check if player looking at wizard
@@ -50,6 +88,12 @@ bool WizardLv2::checkInteract(const Camera& camera)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Reset the wizard
+*/
+/******************************************************************************/
 void WizardLv2::Reset()
 {
 	// Reset wizard
@@ -59,6 +103,18 @@ void WizardLv2::Reset()
 	characterRightArm->selfTransform.rotate.Set(0,0,0);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point drawOrder pointers to actual drawOrders
+\parm rhs
+   point to character body
+   point to character left arm
+   point to character right arm
+   point to character left leg
+   point to character right leg
+*/
+/******************************************************************************/
 void WizardLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
 {
 	// point to actual draworders
