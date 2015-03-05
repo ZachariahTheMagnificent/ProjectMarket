@@ -14,23 +14,11 @@ PlayerFrog::~PlayerFrog(void)
 {
 }
 
-void PlayerFrog::Init()
-{
-}
-
 Vector3 PlayerFrog::Update(Camera camera)
 {
 	Vector3 tempVector;
 	tempVector.Set(0, 0, 0);
 	return tempVector;
-}
-
-void PlayerFrog::Render()
-{
-}
-
-void PlayerFrog::Exit()
-{
 }
 
 Vector3 PlayerFrog::MoveForward(Camera camera, double movingSpeed)

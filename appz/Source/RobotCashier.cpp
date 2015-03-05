@@ -11,14 +11,6 @@ RobotCashier::~RobotCashier(void)
 {
 }
 
-void RobotCashier::Init()
-{
-}
-
-void RobotCashier::Render()
-{
-}
-
 void RobotCashier::Update(const double dt)
 {
 	if(robotArmRotate >160)
@@ -36,10 +28,6 @@ void RobotCashier::Update(const double dt)
 		robotArmRotate -= dt * 30;
 	}
 	
-}
-void RobotCashier::Exit()
-{
-
 }
 
 

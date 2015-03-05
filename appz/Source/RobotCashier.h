@@ -22,10 +22,7 @@ public:
 	RobotCashier(void);
 	~RobotCashier(void);
 	
-	void Init();
-	void Render();
 	void Update(const double dt);
-	void Exit();
 	void Reset();
 	void CheckDisAndTargetPos(int No);
 	void takenItems();

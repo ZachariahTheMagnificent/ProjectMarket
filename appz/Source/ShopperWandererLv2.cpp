@@ -3,6 +3,7 @@
 
 ShopperWandererLv2::ShopperWandererLv2(void)
 {
+	// initialise all variables
 	distanceMovedInOneDir = 0;
 	charBodyAngleRotate = 0;
 	charArmRotate = 30;
@@ -25,14 +26,6 @@ ShopperWandererLv2::ShopperWandererLv2(void)
 
 
 ShopperWandererLv2::~ShopperWandererLv2(void)
-{
-}
-
-void ShopperWandererLv2::Init()
-{
-}
-
-void ShopperWandererLv2::Render()
 {
 }
 
@@ -112,10 +105,6 @@ void ShopperWandererLv2::Update(const double dt)
 			}
 		}
 	}
-}
-
-void ShopperWandererLv2::Exit()
-{
 }
 
 void ShopperWandererLv2::Reset()

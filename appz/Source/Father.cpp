@@ -11,14 +11,6 @@ Father::~Father(void)
 {
 }
 
-void Father::Init()
-{
-}
-
-void Father::Render()
-{
-}
-
 void Father::Update(const double dt)
 {
 }
@@ -33,14 +25,6 @@ bool Father::checkInteract(const Camera& camera)
 	{
 		return false;
 	}
-}
-
-void Father::Exit()
-{
-}
-
-void Father::Reset()
-{
 }
 
 void Father::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

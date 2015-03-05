@@ -52,11 +52,8 @@ public:
 		PAYING,
 	};
 	state currentState;
-	void Init();
-	void Render();
 	void SetPosition(int No);
 	void Update(const double dt);
-	void Exit();
 	void Reset();
 	void CheckDisAndTargetPos(int No);
 	void takingItems();

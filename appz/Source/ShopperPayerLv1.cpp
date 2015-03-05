@@ -29,14 +29,6 @@ ShopperPayerLv1::~ShopperPayerLv1(void)
 {
 }
 
-void ShopperPayerLv1::Init()
-{
-}
-
-void ShopperPayerLv1::Render()
-{
-}
-
 void ShopperPayerLv1::SetPosition(int No)
 {
 	if(No == 6)
@@ -120,10 +112,6 @@ void ShopperPayerLv1::Update(const double dt)
 		if(paid == true)
 			CheckDisAndTargetPos(3);
 	}
-}
-
-void ShopperPayerLv1::Exit()
-{
 }
 
 void ShopperPayerLv1::Reset()

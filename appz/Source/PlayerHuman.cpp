@@ -15,23 +15,11 @@ PlayerHuman::~PlayerHuman(void)
 {
 }
 
-void PlayerHuman::Init()
-{
-}
-
 Vector3 PlayerHuman::Update(Camera camera)
 {
 	Vector3 tempVector;
 	tempVector.Set(0, 0, 0);
 	return tempVector;
-}
-
-void PlayerHuman::Render()
-{
-}
-
-void PlayerHuman::Exit()
-{
 }
 
 Vector3 PlayerHuman::MoveForward(Camera camera, double movingSpeed)

@@ -38,11 +38,8 @@ public:
 	ShopperWandererLv2(void);
 	~ShopperWandererLv2(void);
 	
-	void Init();
-	void Render();
 	void SetPosition(int No);
 	void Update(const double dt);
-	void Exit();
 	void Reset();
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 	void RotateChar(ShopperWandererLv2& OtherShopper);

@@ -14,10 +14,7 @@ class LostChild :
 	LostChild(void);
 	~LostChild(void);
 	
-	void Init();
-	void Render();
 	void Update(const double dt);
-	void Exit();
 	void Reset();
 	void DrawIsEqualTo(drawOrder& TempMain, drawOrder& TempPlayerBody, drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 	void PlayerIsEqualTo(Player* TempPlayer);

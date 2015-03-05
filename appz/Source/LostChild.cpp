@@ -71,21 +71,6 @@ void LostChild::SetRandPos(void)
 	}
 }
 
-void LostChild::Init()
-{
-
-}
-
-void LostChild::Render()
-{
-
-}
-
-void LostChild::Exit()
-{
-
-}
-
 void LostChild::Update(const double dt)
 {
 	timeIdling += dt;

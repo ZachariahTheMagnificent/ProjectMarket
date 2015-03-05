@@ -20,12 +20,8 @@ public:
 	
 	bool interacted;
 
-	void Init();
-	void Render();
 	void Update(const double dt);
 	bool checkInteract(const Camera& camera);
-	void Exit();
-	void Reset();
 	void Set(Vector3 TempPos);
 	void DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg);
 };

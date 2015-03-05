@@ -10,10 +10,7 @@ public:
 	PlayerHuman(void);
 	~PlayerHuman(void);
 	
-	void Init();
 	Vector3 Update(Camera camera);
-	void Render();
-	void Exit();
 	void takeItems();
 	void returnItems();
 	

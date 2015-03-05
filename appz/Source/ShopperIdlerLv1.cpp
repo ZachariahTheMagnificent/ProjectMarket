@@ -25,15 +25,6 @@ ShopperIdler::~ShopperIdler(void)
 {
 }
 
-void ShopperIdler::Init()
-{
-	characterBody->transform.rotate.y=270;
-}
-
-void ShopperIdler::Render()
-{
-}
-
 void ShopperIdler::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
@@ -105,10 +96,6 @@ void ShopperIdler::Update(const double dt)
 			distanceMovedInOneDir=0;
 		}
 	}
-}
-
-void ShopperIdler::Exit()
-{
 }
 
 void ShopperIdler::Reset()

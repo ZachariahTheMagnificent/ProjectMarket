@@ -9,10 +9,7 @@ public:
 	PlayerFrog(void);
 	~PlayerFrog(void);
 	
-	void Init();
 	Vector3 Update(Camera camera);
-	void Render();
-	void Exit();
 	
 	//movement
 	Vector3 MoveForward(Camera camera, double movingSpeed);
