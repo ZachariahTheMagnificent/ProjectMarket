@@ -258,7 +258,7 @@ void Graphics::RenderText(const std::string text, const Color color)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y)
+void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y, ORIENTATION orientation)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
@@ -285,9 +285,22 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Translate(x, y, 0);
-	modelStack.Scale(size, size, size);
-
+	switch(orientation)
+	{
+	case ORIENTATION_TOP:
+		modelStack.Translate(x, screenY - y, 0);
+		modelStack.Scale(size, size, 1);
+		break;
+	case ORIENTATION_BOTTOM:
+		modelStack.Translate(x, y, 0);
+		modelStack.Scale(size, size, 1);
+		break;
+	case ORIENTATION_CENTRE:
+		modelStack.Translate(screenX/2 + x, screenY/2 + y, 0);
+		modelStack.Scale(size, size, 1);
+		break;
+	}
+	
 	for(unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
@@ -307,7 +320,7 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, bool fromCentre)
+void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, ORIENTATION orientation)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
@@ -323,15 +336,21 @@ void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, 
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	Mtx44 translate;
-	if(fromCentre)
-	{
-		translate.SetToTranslation(screenX/2, screenY/2, 0);
-	}
-	else
-	{
-		translate.SetToIdentity();
-	}
 	modelStack.PushMatrix();
+	Vector3 translation;
+	switch(orientation)
+	{
+	case ORIENTATION_TOP:
+		translation = matrix * Vector3();
+		translate.SetToTranslation(0, screenY - translation.y * 2, 0);
+		break;
+	case ORIENTATION_BOTTOM:
+		translate.SetToIdentity();
+		break;
+	case ORIENTATION_CENTRE:
+		translate.SetToTranslation(screenX/2, screenY/2, 0);
+		break;
+	}
 	modelStack.LoadMatrix(translate * matrix);
 
 

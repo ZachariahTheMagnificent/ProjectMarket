@@ -1433,7 +1433,7 @@ void SceneMain::Render()
 		MS BG;
 		BG.Translate(0,0,-0.01);
 		BG.Scale(100,100,1);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top(), ORIENTATION_CENTRE);
 		MS Quad1,Quad2,Quad3,Quad4;
 		Quad1.Scale(20,7,1);
 		Quad2.Scale(20,7,1);
@@ -1443,10 +1443,10 @@ void SceneMain::Render()
 		Quad2.Translate(0,30,0);
 		Quad3.Translate(0,10,0);
 		Quad4.Translate(0,-10,0);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top(), true);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top(), true);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top(), true);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top(), ORIENTATION_CENTRE);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top(), ORIENTATION_CENTRE);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top(), ORIENTATION_CENTRE);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top(), ORIENTATION_CENTRE);
 	}
 	else if(state==START)
 	{
@@ -1715,7 +1715,7 @@ void SceneMain::Render()
 	gfx.RenderTextOnScreen(buffer1,Color(0,1,0),20,1,1);
 	currentFPS = 1 / deltaTime;
 	sprintf(buffer2,"FPS:%.3f", currentFPS);
-	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,460);
+	gfx.RenderTextOnScreen(buffer2,Color(0,1,0),20,1,40, ORIENTATION_TOP);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

@@ -25,7 +25,7 @@ name(meshName)
 		buffz.push_back(polygon->GetVertex2());
 		buffz.push_back(polygon->GetVertex3());
 	}
-	glBufferData(GL_ARRAY_BUFFER, Vertex_buffer.size() * sizeof(Vertex), &buffz.front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, buffz.size() * sizeof(Vertex), &buffz.front(), GL_STATIC_DRAW);
 }
 
 Mesh::~Mesh()

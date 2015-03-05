@@ -14,6 +14,14 @@
 #include "DrawOrder.h"
 
 const unsigned MAX_LIGHTS = 8;
+enum ORIENTATION
+{
+	ORIENTATION_TOP,
+	ORIENTATION_BOTTOM,
+	ORIENTATION_CENTRE,
+	TOTAL_ORIENTATIONS,
+};
+
 
 class Graphics
 {
@@ -25,8 +33,8 @@ public:
 	void SetViewAt(const Camera& camera);
 	void InitText(const std::wstring filepath);
 	void RenderText(const std::string text, const Color color);
-	void RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y);
-	void RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, bool fromCentre = false);
+	void RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y, ORIENTATION orientation = ORIENTATION_BOTTOM);
+	void RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, ORIENTATION orientation = ORIENTATION_BOTTOM);
 	void RenderMesh(const drawOrder& object, const Mtx44& Matrix);
 	bool AddLight(Light* light);
 	void UpdateLights();
