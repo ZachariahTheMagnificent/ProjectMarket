@@ -48,7 +48,7 @@ LostChild::~LostChild(void)
 \brief
 to take in body parts obj from main
 \param darwOrder& (bodypart)
-to pass in draworder
+		to pass in draworder
 */
 /****************************************************************************/
 void LostChild::DrawIsEqualTo(drawOrder& TempMain, drawOrder& TempPlayerBody, drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
@@ -111,7 +111,7 @@ void LostChild::SetRandPos(void)
 \brief
 to update on time length before next spawn
 \param dt
-to take it deltatime
+		to take it deltatime
 */
 /****************************************************************************/
 void LostChild::Update(const double dt)
@@ -128,7 +128,7 @@ void LostChild::Update(const double dt)
 \brief
 set player to get the passed in info
 \param Player pointer for TempPlayer
-to receive player
+		to receive player
 */
 /****************************************************************************/
 void LostChild::PlayerIsEqualTo(Player* TempPlayer)
@@ -140,7 +140,7 @@ void LostChild::PlayerIsEqualTo(Player* TempPlayer)
 \brief
 to pick child up using player
 \param camera
-for setting 'to look at'
+		for setting 'to look at'
 */
 /****************************************************************************/
 void LostChild::PickUpChild(const Camera& camera)

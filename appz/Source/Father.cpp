@@ -33,7 +33,7 @@ Father::~Father(void)
 \brief
 updating father 
 \param dt
-to take in deltatime
+		to take in deltatime
 */
 /****************************************************************************/
 void Father::Update(const double dt)
@@ -44,9 +44,9 @@ void Father::Update(const double dt)
 \brief
 to check if father has been interacted
 \param camera
-take is camera for 'to look at'
+		take is camera for 'to look at'
 \return
-boolean if interacted
+		boolean if interacted
 */
 /****************************************************************************/
 bool Father::checkInteract(const Camera& camera)
@@ -65,7 +65,7 @@ bool Father::checkInteract(const Camera& camera)
 \brief
 to take in body parts obj from main
 \param darwOrder& (bodypart)
-to pass in draworder
+		to pass in draworder
 */
 /****************************************************************************/
 void Father::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

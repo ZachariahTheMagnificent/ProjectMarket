@@ -36,7 +36,7 @@ DoorInteraction::~DoorInteraction(void)
 \brief
 to take in door parts obj from main
 \param darwOrder& (door parts)
-to pass in draworder
+		to pass in draworder
 */
 /****************************************************************************/
 void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right)
@@ -58,7 +58,7 @@ void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& Te
 \brief
 to interact with door: in range, opening closing.
 \param dt, Vector3& PlayerPos, const Vector3& ShopperPos
-dt for intake of moving according to time, Pos to get position of player and shopper
+		dt for intake of moving according to time, Pos to get position of player and shopper
 /****************************************************************************/
 void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPos, const Vector3& ShopperPos)
 {
@@ -149,7 +149,7 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 \brief
 function for door to open
 \param dt, PlayerPos, bool OpenLiftDoorInput
-dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to open
+		dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to open
 */
 /****************************************************************************/
 void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
@@ -192,7 +192,7 @@ void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos,
 \brief
 function for door to close
 \param dt, PlayerPos, bool OpenLiftDoorInput
-dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to close
+		dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to close
 */
 /****************************************************************************/
 void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
@@ -246,9 +246,14 @@ void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos
 /*!
 \brief
 function for player and trolley to teleport with lift
-\param dt, PlayerPos, TrolleyPos, bool isTakingTrolley
-dt to slide door, PlayerPos and TrolleyPos to check if they are in range of lift. 
-bool to check if trolley is being held by player or not
+\param dt
+		dt to slide door
+\param PlayerPos
+		PlayerPos to check if they are in range of lift. 
+\param TrolleyPos
+		TrolleyPos to check if they are in range of lift. 
+\param bool isTakingTrolley
+		bool to check if trolley is being held by player or not
 */
 /****************************************************************************/
 void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley)	
@@ -301,8 +306,12 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vec
 /*!
 \brief
 function for trolley to teleport in case player went other levels
-\param dt, PlayerPos,trolley pos
-dt to slide door, PlayerPos to check if player is out of range with lift. Trolley to check if in range with lift
+\param dt
+		dt to slide door
+\param PlayerPos
+		PlayerPos to check if they are in range of lift. 
+\param TrolleyPos
+		TrolleyPos to check if they are in range of lift. 
 */
 /****************************************************************************/
 void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos)	
@@ -329,8 +338,10 @@ void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& Pla
 /*!
 \brief
 function for player to travel on travelator
-\param dt, PlayerPos
-dt fro axis to multiply according to deltatime, PlayerPos to check if player is in range with travelator
+\param dt
+		dt to update player translation
+\param PlayerPos
+		PlayerPos to check if they are in range with travelator
 */
 /****************************************************************************/
 void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos)	
@@ -365,7 +376,7 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 \brief
 Return if player in range to travelator
 \return
-is in range
+		is in range
 */
 /****************************************************************************/
 bool DoorInteraction::GetTravelatorInRange(void)
@@ -377,7 +388,7 @@ bool DoorInteraction::GetTravelatorInRange(void)
 \brief
 Return if player in range to lift door
 \return
-is in range
+		is in range
 */
 /****************************************************************************/
 bool DoorInteraction::GetLiftDoorInRange(void)
