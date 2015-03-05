@@ -33,11 +33,11 @@ void SceneMain::Init()
 	InnitLogic();
 	player = new PlayerHuman;
 	player->noOfItemInTrolley = 0;
+	player->tempNoItemNeedToPay = 0;
 	player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
 	isJumping = false;
 	isFalling = false;
 	jumpedHeight = 0;
-	player->tempNoItemNeedToPay = 0;
 	isFrog = false;
 	UpdateLv2 = false;
 	UpdateLv1=true;
@@ -923,7 +923,18 @@ bool SceneMain::Update(const double dt)
 	UpdateView();
 	UpdateLight();
 	UpdateLogic();
+	//Target
 	globals.GetDraw(L"target").transform.translate = camera.ReturnTarget();
+	//Reset trolley and items if player exit outside
+	Range<int> ExitRangeX(-16,-7);
+	Range<int> ExitRangeY(0,5);
+	Range<int> ExitRangeZ(-107,-106);
+	if(ExitRangeX.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().x) && ExitRangeY.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().y) && ExitRangeZ.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().z))
+	{
+		player->ResetTrolley();
+		item.ResetItems();
+		trolley.Reset();
+	}
 	if(globals.GetDraw(L"player_body").GetGlobalPosition().y <= 7)
 	{
 		SWLv2[0].Reset();
@@ -1552,7 +1563,7 @@ void SceneMain::DoUserInput()
 			if(keyboard.isKeyPressed('G') && paying == false && player->isHoldingTrolley == true && player->isHoldingItem == false && player->noOfItemInTrolley > 0 && player->pay == false)
 			{
 				//check range
-				Range<int> PayingRangeX(-3.5,2.3);
+				Range<int> PayingRangeX(-4,-2);
 				Range<int> PayingRangeY(0,4);
 				Range<int> PayingRangeZ(-85, -78);
 				if(PayingRangeX.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().x) && PayingRangeY.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().y) && PayingRangeZ.IsInRange(globals.GetDraw(L"player_body").GetGlobalPosition().z)) // if in range

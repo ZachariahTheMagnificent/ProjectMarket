@@ -214,3 +214,19 @@ bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopP
 	}
 	return false;
 }
+
+void ItemInteraction::ResetItems()
+{
+	payingdistance = 0;
+	for(int i = 0; i < item.size(); ++i)
+	{
+		item[i]->SetParentAs(defaultParent[i]);
+		item[i]->transform.translate = defaultTranslation[i];
+		item[i]->transform.rotate = defaultRotation[i];
+		taken[i] = false;
+		atTrolley[i] = false;
+		posTaking[i] = -1;
+		paying[i] = false;
+		paid[i] = false;
+	}
+}

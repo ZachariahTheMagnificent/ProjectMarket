@@ -19,6 +19,7 @@ public:
 	void PutItem(const Camera& camera);
 	void PayItem(const Vector3& playerPos, drawOrder* CashierTable, const double dt);
 	bool EatLollipop(const Camera& camera, const Vector3& lollipopPos);
+	void ResetItems();
 
 	std::vector<bool> taken;
 	std::vector<bool> atTrolley;

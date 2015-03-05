@@ -24,6 +24,8 @@ public:
 	bool pay;
 	int tempNoItemNeedToPay;
 	int noOfItemInTrolley;
+	Vector3 defaultTrolleyPosition;
+	Rotation defaultTrolleyRotation;
 	
 	virtual Vector3 Update(Camera camera) = 0;
 	
@@ -35,5 +37,6 @@ public:
 	void DrawIsEqualTo(drawOrder& TempLeftArm, drawOrder& TempRightArm, drawOrder& TempBody, drawOrder& TempMain, drawOrder& TempTrolley);
 	virtual void TakingTrolley(const Camera& camera) = 0;
 	virtual void ReleaseTrolley(const Vector3& TrolleyCurrentPos) = 0;
+	void ResetTrolley();
 };
 

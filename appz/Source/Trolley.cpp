@@ -23,3 +23,11 @@ bool Trolley::GetBoolPos(int itemPos)
 {
 	return PutItemPos[itemPos];
 }
+
+void Trolley::Reset()
+{
+	for(int i = 0; i < 3; ++i)
+	{
+		PutItemPos[i] = false;
+	}
+}
