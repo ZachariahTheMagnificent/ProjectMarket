@@ -23,7 +23,7 @@ void Graphics::Init(GLFWwindow* window)
 {
 	m_window = window;
 	// Set background color to blue
-	glClearColor(0.0f, 0.0f, 4.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//Enable depth buffer and depth testing
 	glEnable(GL_DEPTH_TEST);
 	//Enable back face culling

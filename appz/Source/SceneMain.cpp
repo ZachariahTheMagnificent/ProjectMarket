@@ -328,7 +328,7 @@ Initializes geometry and obj
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1),0.06f));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"didact", L"OBJ//didact.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"ring", L"OBJ//ring.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
