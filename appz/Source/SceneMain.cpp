@@ -808,10 +808,50 @@ void SceneMain::InnitDraws()
 	//Cereal4: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	
-	//Draw Lollipop
+	//Draw Lollipop on ground
 	globals.AddDraw(drawOrder(L"lollipop",globals.GetMesh(L"lollipop"), &globals.GetMaterial(L"lollipop"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"lollipop").transform.rotate.Set(85,0,-45);
 	globals.GetDraw(L"lollipop").transform.translate.Set(18,11.25,-21);
+	//Draw Lollipop fences
+	drawOrder BigLollipop(L"big_lollipop",globals.GetMesh(L"lollipop"), &globals.GetMaterial(L"lollipop"), &globals.GetDraw(L"main"), true);
+	Vector3 BigLollipoptranslate(225,0,210);
+	Vector3 BigLollipopscale(50,50,50);
+	for(int i = 0; i < 20; ++i)
+	{
+		drawOrder buffer(BigLollipop);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"big_lollipop%d",i);
+		buffer.SetNameAs(Namebuffer);
+		buffer.transform.scale = BigLollipopscale;
+		buffer.transform.translate = BigLollipoptranslate;
+		if(i > 9)
+			buffer.transform.translate.z = -290;
+		globals.AddDraw(buffer);
+		if(i > 9)
+			BigLollipoptranslate+= Vector3(50,0,0);
+		else if(i < 9)
+			BigLollipoptranslate+= Vector3(-50,0,0);
+	}
+	BigLollipoptranslate.z -= 25;
+	for(int i = 20; i < 34; ++i)
+	{
+		drawOrder buffer(BigLollipop);
+		wchar_t Namebuffer[64];
+		wsprintf(Namebuffer,L"big_lollipop%d",i);
+		buffer.SetNameAs(Namebuffer);
+		buffer.transform.scale = BigLollipopscale * 1.5;
+		buffer.transform.translate = BigLollipoptranslate;
+		buffer.transform.rotate.y = 90;
+		if(i > 26)
+			buffer.transform.translate.x = -250;
+		else
+			buffer.transform.translate.x = 250;
+		globals.AddDraw(buffer);
+		if(i > 26)
+			BigLollipoptranslate+= Vector3(0,0,75);
+		if(i < 26)
+			BigLollipoptranslate+= Vector3(0,0,-75);
+	}
 }
 
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
