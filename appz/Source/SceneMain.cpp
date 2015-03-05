@@ -918,7 +918,6 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 void SceneMain::InnitCollisions()
 {
 	globals.AddCollisionBody(CollisionBody(L"player", &globals.GetDraw(L"player_body"), &globals.GetDraw(L"player_body"), 1, 1, 0.1, 0.1));
-	globals.GetDraw(L"player_body").SetMeshTo(NULL);
 	globals.GetCollisionBody(L"player").SetTerminalVelocityTo(Vector3(500,500,500));
 
 	globals.AddCollisionBody(CollisionBody(L"ground", &globals.GetDraw(L"ground"), &globals.GetDraw(L"ground"), 0, 1, 0.1, 0.1));
@@ -929,6 +928,7 @@ void SceneMain::InnitCollisions()
 	{
 		body->second->GenerateVoxels();
 	}
+	globals.GetDraw(L"player_body").SetMeshTo(NULL);
 }
 
 void SceneMain::InnitForces()
@@ -936,7 +936,7 @@ void SceneMain::InnitForces()
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
 	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
-		//body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
+		body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
 	}
 }
 
@@ -1232,6 +1232,7 @@ void SceneMain::UpdateDraws()
 	//where we do collision
 	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"ground"), &globals.GetCollisionBody(L"player"), deltaTime);
 	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"building"), &globals.GetCollisionBody(L"player"), deltaTime);
+	collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
 
 	//draws are finally updated after processing
 	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)

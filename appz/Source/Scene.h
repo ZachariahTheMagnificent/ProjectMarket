@@ -39,7 +39,7 @@ public:
 		screenX = x;
 		screenY = y;
 	}
-	virtual bool Update(double dt) = 0;
+	virtual bool Update(const double dt) = 0;
 	virtual void Render() = 0;
 	virtual void Exit() = 0;
 };

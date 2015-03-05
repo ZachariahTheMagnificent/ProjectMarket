@@ -151,7 +151,11 @@ void VoxelLeaf::Subdivide()
 
 bool VoxelLeaf::HasAlreadySubdivided() const
 {
-	return leaves.front();
+	if(leaves.front())
+	{
+		return true;
+	}
+	return false;
 }
 
 bool VoxelLeaf::IsEmpty() const

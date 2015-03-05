@@ -10,18 +10,19 @@ ContactSolver::~ContactSolver()
 
 bool ContactSolver::CheckThisCollision(CollisionBody* body1, CollisionBody* body2, const double deltaTime)
 {
+	Contact contact;
 	if(body1->GetDiameter() > body2->GetDiameter())
 	{
-		body1->DoCollisionWith(body2);
+		contact = body1->DoCollisionWith(body2, deltaTime);
 	}
 	else
 	{
-		body2->DoCollisionWith(body1);
+		contact = body2->DoCollisionWith(body1, deltaTime);
 	}
-	//for(std::vector<Contact>::iterator contact = contacts.begin(); contact != contacts.end(); ++contact)
-	//{
-	//	list.InsertNode(*contact);
-	//}
+	if(!(contact == Contact()))
+	{
+		list.InsertNode(contact);
+	}
 	return false;
 }
 

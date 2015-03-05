@@ -5,7 +5,6 @@ template<class nodeType>
 class Node
 {
 public:
-	Node();
 	Node(const nodeType& value = nodeType());
 	~Node();
 	nodeType& GetValue();
@@ -18,14 +17,6 @@ protected:
 	nodeType value;
 	Node* next;
 };
-
-template<class nodeType>
-Node<nodeType>::Node()
-	:
-next(NULL),
-value(nodeType())
-{
-}
 
 template<class nodeType>
 Node<nodeType>::Node(const nodeType& value)

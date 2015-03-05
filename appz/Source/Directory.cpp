@@ -10,7 +10,6 @@ filetype(searchpattern)
 	searchpath.append(filepath);
 	searchpath.append(searchpattern);
 	hFind = FindFirstFile((searchpath.c_str()), &FindData);
-	int index;
 	do
 	{
 		std::wstring buffer; //= filepath;
@@ -54,7 +53,6 @@ bool Directory::update()
 	HANDLE hFind;
 	WIN32_FIND_DATA FindData;
 	hFind = FindFirstFile((searchpath.c_str()), &FindData);
-	int index;
 	do
 	{
 		std::wstring buffer = FindData.cFileName;

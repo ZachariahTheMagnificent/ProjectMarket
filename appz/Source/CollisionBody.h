@@ -2,6 +2,7 @@
 #include "Force.h"
 #include "VoxelOctree.h"
 #include "DrawOrder.h"
+#include "Contacts.h"
 
 class CollisionBody
 {
@@ -10,6 +11,7 @@ public:
 	~CollisionBody();
 	
 	std::wstring GetName() const;
+	void SetVelocityTo(const Vector3 newVelocity);
 	void SetTerminalVelocityTo(Vector3 vector);
 	float GetMass() const;
 	void UpdateForcesTo(const double deltaTime);
@@ -37,7 +39,7 @@ public:
 	float GetMinY() const;
 	float GetMaxZ() const;
 	float GetMinZ() const;
-	void DoCollisionWith(CollisionBody* otherBody);
+	Contact DoCollisionWith(CollisionBody* otherBody, const double deltaTime);
 	std::vector<Voxel*>& GetVoxelVector();
 	Mtx44 GetMatrix() const;
 private:
