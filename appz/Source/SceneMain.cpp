@@ -44,7 +44,7 @@ void SceneMain::Init()
 	paying=false;
 	OpenLiftDoorInput = false;
 	exit = false;
-	snd.playSound("halot",true);
+	//snd.playSound("halot",true);
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	lostchild.DrawIsEqualTo(globals.GetDraw(L"main"), globals.GetDraw(L"player_body"), globals.GetDraw(L"lost_child_body"), globals.GetDraw(L"lost_child_arm_left"), globals.GetDraw(L"lost_child_arm_right"), globals.GetDraw(L"lost_child_leg_left"), globals.GetDraw(L"lost_child_leg_right"));
@@ -144,6 +144,8 @@ void SceneMain::InnitSounds()
 	snd.loadWave("elevator","sound//elevator.wav");
 	snd.loadWave("robot","sound//robot.wav");
 	snd.loadWave("halot","sound//halot.wav");
+	snd.loadWave("meet didact","sound//meet_didact");
+	snd.loadWave("didact freed","sound//didact_freed");
 }
 
 void SceneMain::InnitLogic()
@@ -159,6 +161,8 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"skybox", L"Image//skybox.tga");
 	globals.AddTexture(L"ground", L"Image//ground.tga");
 	globals.AddTexture(L"building", L"Image//large_forerunner_floor_plate.tga");
+	globals.AddTexture(L"didact", L"Image//didact.tga");
+	globals.AddTexture(L"ring", L"Image//ring.tga");
 	globals.AddTexture(L"cashiertable texture", L"Image//cashiertable_texture.tga");
 	globals.AddTexture(L"CabinetTexture", L"Image//CabinetTexture.tga");
 	globals.AddTexture(L"can1", L"Image//can1.tga");
@@ -202,6 +206,8 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"skybox",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"skybox")));
 	globals.AddMaterial(Material(L"ground",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"ground")));
 	globals.AddMaterial(Material(L"building",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"building")));
+	globals.AddMaterial(Material(L"didact",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),2000,globals.GetTexture(L"didact")));
+	globals.AddMaterial(Material(L"ring",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),2000,globals.GetTexture(L"ring")));
 	globals.AddMaterial(Material(L"cashiertable",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cashiertable texture")));
 	globals.AddMaterial(Material(L"cabinet",Component(AbientLight,AbientLight,AbientLight),Component(1.2,1.2,1.2),Component(0.8,0.8,0.8),20,globals.GetTexture(L"CabinetTexture")));
 	globals.AddMaterial(Material(L"can1",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"can1")));
@@ -260,7 +266,9 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 1.f));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.1f));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"didact", L"OBJ//didact.obj"));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"ring", L"OBJ//ring.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
@@ -325,6 +333,16 @@ void SceneMain::InnitDraws()
 
 	//Draw player target
 	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"BG"), &globals.GetDraw(L"main"), true));
+
+	//Draw Didact
+	globals.AddDraw(drawOrder(L"didact", globals.GetMesh(L"didact"), &globals.GetMaterial(L"didact"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"didact").transform.translate.Set(17,15,-12);
+	globals.GetDraw(L"didact").transform.scale.Set(10,10,10);
+
+	//Draw Ring
+	globals.AddDraw(drawOrder(L"ring", globals.GetMesh(L"ring"), &globals.GetMaterial(L"ring"), &globals.GetDraw(L"main"), true));
+	globals.GetDraw(L"ring").transform.translate.Set(17,15,-12);
+	globals.GetDraw(L"ring").transform.scale.Set(10,10,10);
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
@@ -1173,6 +1191,7 @@ void SceneMain::UpdateLogic()
 	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
 	InteractDoor.TrolleyTeleportWithoutPlayer(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate);
 
+
 	if (InteractDoor.GetLiftDoorInRange() == true)
 	{
 		if(keyboard.isKeyPressed('E'))
@@ -1197,7 +1216,8 @@ void SceneMain::UpdateLogic()
 	{
 		OpenLiftDoorInput = false;
 	}
-
+	const double rotationspeed = 300;
+	globals.GetDraw(L"ring").transform.rotate.y += rotationspeed * deltaTime;
 }
 
 void SceneMain::UpdateView()
@@ -1322,6 +1342,11 @@ void SceneMain::Render()
 		Mtx44 inexit;
 		inexit.SetToTranslation(Vector3(360,245,0));
 		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
+	}
+
+	if(camera.IsLookingAt(globals.GetDraw(L"ring").GetGlobalPosition(),10,5))
+	{
+		gfx.RenderTextOnScreen("Press T to release didact!",Color(1,1,1),27,23,400);
 	}
 
 	Range<int>x(12,18);
@@ -1617,6 +1642,13 @@ void SceneMain::DoUserInput()
 				{
 					player->pay = true;
 				}
+			}
+			if(keyboard.isKeyPressed('T') && camera.IsLookingAt(globals.GetDraw(L"ring").GetGlobalPosition(),10,5))
+			{
+				globals.GetDraw(L"didact").transform.translate.Set(0,342,-663);
+				globals.GetDraw(L"didact").transform.scale.Set(10420,10420,10420);
+				globals.GetDraw(L"ring").transform.translate.Set(0,342,-663);
+				snd.playSound("didact freed");
 			}
 			if(keyboard.isKeyPressed('E') && player->isHoldingItem == false)
 			{

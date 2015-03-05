@@ -11,6 +11,12 @@ struct Rotation
 	float x;
 	float y;
 	float z;
+	void capValues()
+	{
+		x = fmod(x,360.0f);
+		y = fmod(y,360.0f);
+		z = fmod(z,360.0f);
+	}
 	void Set(const float rotX, const float rotY, const float rotZ)
 	{
 		x = rotX;

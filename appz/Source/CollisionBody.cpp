@@ -77,6 +77,8 @@ Mtx44 CollisionBody::GetMatrix() const
 
 Contact CollisionBody::DoCollisionWith(CollisionBody* otherBody, const double deltaTime)
 {
+	Contact contact;
+	double newDeltaTime(deltaTime);
 	const double timestep = 0.001;
 	Mtx44 inverseMatrix = draw->GetMatrix().GetInverse(), otherMatrix = otherBody->draw->GetMatrix();
 	for(std::vector<Voxel*>::iterator voxel = otherBody->voxels.GetVector().begin(), end = otherBody->voxels.GetVector().end(); voxel != end; ++voxel)
@@ -84,20 +86,21 @@ Contact CollisionBody::DoCollisionWith(CollisionBody* otherBody, const double de
 		//move the otherBody's voxel to it's current position
 		Vector3 position = otherMatrix * (*voxel)->GetPosition();
 
-		for(double timeOfImpact = 0.0; timeOfImpact < deltaTime; timeOfImpact += timestep)
+		for(double timeOfImpact = 0.0; timeOfImpact < newDeltaTime; timeOfImpact += timestep)
 		{
 			Vector3 testPosition = position + otherBody->velocity * timeOfImpact;
 			Voxel* collidedVoxel;
 			//move it according to our original position
-			if(collidedVoxel = voxels.GetVoxel(inverseMatrix * testPosition))
+			if(collidedVoxel = voxels.GetVoxel(inverseMatrix * testPosition - velocity * timeOfImpact))
 			{
 				//otherBody->velocity = (otherBody->velocity * (timeOfImpact - timestep)) / deltaTime;
 				//otherBody->velocity.y = 1;
-				return Contact(this, otherBody, collidedVoxel, *voxel, timeOfImpact);
+				contact = Contact(this, otherBody, collidedVoxel, *voxel, timeOfImpact);
+				newDeltaTime = timeOfImpact;
 			}
 		}
 	}
-	return Contact();
+	return contact;
 }
 
 void CollisionBody::SetVelocityTo(const Vector3 newVelocity)
