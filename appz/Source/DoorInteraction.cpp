@@ -1,5 +1,19 @@
+/****************************************************************************/
+/*!
+\file DoorInteraction.cpp
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+functions for door interactions
+*/
+/****************************************************************************/
 #include "DoorInteraction.h"
-
+/****************************************************************************/
+/*!
+\brief
+default constructor that defines ranges and speed
+*/
+/****************************************************************************/
 DoorInteraction::DoorInteraction(void)
 {
 	// Ranges set for bool update in main
@@ -8,11 +22,23 @@ DoorInteraction::DoorInteraction(void)
 	//door speed
 	DoorSlidingSpeed = 9;
 }
-
+/****************************************************************************/
+/*!
+\brief
+default destructor 
+*/
+/****************************************************************************/
 DoorInteraction::~DoorInteraction(void)
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+to take in door parts obj from main
+\param darwOrder& (door parts)
+to pass in draworder
+*/
+/****************************************************************************/
 void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& TempOuterDoor1Right, drawOrder& TempOuterDoor2Left, drawOrder& TempOuterDoor2Right, drawOrder& TempInnerDoor1, drawOrder& TempInnerDoor2, drawOrder& TempLiftDoor1Left, drawOrder& TempLiftDoor1Right, drawOrder& TempLiftDoor2Left, drawOrder& TempLiftDoor2Right)
 {
 	//passing in of drawOrder
@@ -27,7 +53,13 @@ void DoorInteraction::DrawIsEqualTo(drawOrder& TempOuterDoor1Left, drawOrder& Te
 	LiftDoor2Left = &TempLiftDoor2Left;
 	LiftDoor2Right = &TempLiftDoor2Right;
 }
-
+/****************************************************************************/
+/*!
+\brief
+to interact with door: in range, opening closing.
+\param dt, Vector3& PlayerPos, const Vector3& ShopperPos
+dt for intake of moving according to time, Pos to get position of player and shopper
+/****************************************************************************/
 void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPos, const Vector3& ShopperPos)
 {
 	//OuterDoor1
@@ -112,7 +144,14 @@ void DoorInteraction::InteractWithDoors(const double dt, const Vector3& PlayerPo
 		}
 	}
 }
-// E to open
+/****************************************************************************/
+/*!
+\brief
+function for door to open
+\param dt, PlayerPos, bool OpenLiftDoorInput
+dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to open
+*/
+/****************************************************************************/
 void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
 {
 	Range<int> LiftDoor1and2RangeX(13,18);
@@ -148,7 +187,14 @@ void DoorInteraction::InteractWithLiftsOPEN(const double dt, Vector3& PlayerPos,
 		}
 	}
 }
-// Q to close
+/****************************************************************************/
+/*!
+\brief
+function for door to close
+\param dt, PlayerPos, bool OpenLiftDoorInput
+dt to slide door, PlayerPos to check if player is in range. bool to take in input in door is supposed to close
+*/
+/****************************************************************************/
 void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos, bool OpenLiftDoorInput)	
 {
 	Range<int> LiftDoor1and2RangeX(13,18);
@@ -196,7 +242,15 @@ void DoorInteraction::InteractWithLiftsCLOSE(const double dt, Vector3& PlayerPos
 		}
 	}
 }
-// Move with lift and trolley
+/****************************************************************************/
+/*!
+\brief
+function for player and trolley to teleport with lift
+\param dt, PlayerPos, TrolleyPos, bool isTakingTrolley
+dt to slide door, PlayerPos and TrolleyPos to check if they are in range of lift. 
+bool to check if trolley is being held by player or not
+*/
+/****************************************************************************/
 void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley)	
 {
 	//Lift > Lift translation
@@ -243,7 +297,14 @@ void DoorInteraction::TeleportWithLifts(const double dt, Vector3& PlayerPos, Vec
 		}
 	}	
 }
-
+/****************************************************************************/
+/*!
+\brief
+function for trolley to teleport in case player went other levels
+\param dt, PlayerPos,trolley pos
+dt to slide door, PlayerPos to check if player is out of range with lift. Trolley to check if in range with lift
+*/
+/****************************************************************************/
 void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos)	
 {
 	Range<int> Lift0and1RangeX(12,19);
@@ -264,11 +325,18 @@ void DoorInteraction::TrolleyTeleportWithoutPlayer(const double dt, Vector3& Pla
 		}
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+function for player to travel on travelator
+\param dt, PlayerPos
+dt fro axis to multiply according to deltatime, PlayerPos to check if player is in range with travelator
+*/
+/****************************************************************************/
 void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos)	
 {
 	Range<int> TravelatorRangeX(-14,10.716);
-	Range<int> TravelatorRangeY(0,14);
+	Range<int> TravelatorRangeY(0,15);
 	Range<int> TravelatorLeftUpRangeZ(-21.638,-20.788);
 	Range<int> TravelatorRightDownRangeZ(-24.337,-23.234);
 
@@ -292,12 +360,26 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 		TravelatorIsInrange = false;
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+Return if player in range to travelator
+\return
+is in range
+*/
+/****************************************************************************/
 bool DoorInteraction::GetTravelatorInRange(void)
 {
 	return TravelatorIsInrange;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Return if player in range to lift door
+\return
+is in range
+*/
+/****************************************************************************/
 bool DoorInteraction::GetLiftDoorInRange(void)
 {
 	return LiftDoorInRange;

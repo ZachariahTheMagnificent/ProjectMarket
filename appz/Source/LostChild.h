@@ -1,3 +1,12 @@
+/****************************************************************************/
+/*!
+\file LostChild.h
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Class to define the lostchild
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Character.h"
@@ -5,7 +14,12 @@
 #include "Range.h"
 #include "Camera.h"
 #include "Player.h"
-
+/****************************************************************************/
+/*!
+Class LostChild:
+\brief Defines lostchild and its method
+*/
+/****************************************************************************/
 class LostChild :
 	public Character
 {

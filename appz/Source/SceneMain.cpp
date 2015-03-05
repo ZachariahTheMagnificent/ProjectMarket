@@ -1,3 +1,12 @@
+/****************************************************************************/
+/*!
+\file SceneMain.cpp
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Scene that updates and init, main scene to be rendered
+*/
+/****************************************************************************/
 #include "SceneMain.h"
 #include "GL\glew.h"
 
@@ -1641,36 +1650,6 @@ void SceneMain::DoUserInput()
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			}
-			if (keyboard.isKeyPressed('I'))
-			{
-				if(isFrog == false)
-				{
-					int temp = player->tempNoItemNeedToPay;
-					int temp2 = player->noOfItemInTrolley;
-					player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-					delete player;
-					player = new PlayerFrog;
-					player->tempNoItemNeedToPay = temp;
-					player->noOfItemInTrolley = temp2;
-					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
-					globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
-					isFrog = true;
-				}
-				else
-				{
-					int temp = player->tempNoItemNeedToPay;
-					int temp2 = player->noOfItemInTrolley;
-					delete player;
-					player = new PlayerHuman;
-					player->tempNoItemNeedToPay = temp;
-					player->noOfItemInTrolley = temp2;
-					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
-					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
-					isFrog = false;
-				}
-			}
 		}
 		else
 		{
@@ -1691,6 +1670,21 @@ void SceneMain::DoUserInput()
 				}
 			}
 		}
+		if (keyboard.isKeyPressed('I'))
+			{
+					int temp = player->tempNoItemNeedToPay;
+					int temp2 = player->noOfItemInTrolley;
+					delete player;
+					player = new PlayerHuman;
+					player->tempNoItemNeedToPay = temp;
+					player->noOfItemInTrolley = temp2;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
+					isFrog = false;
+
+					father.interacted = false;
+			}
 		if (keyboard.isKeyHold(VK_SHIFT))
 		{
 			movingSpeed *= 3 ;

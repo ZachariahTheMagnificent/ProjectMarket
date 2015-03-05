@@ -1,3 +1,12 @@
+/****************************************************************************/
+/*!
+\file SceneMain.h
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Class SceneMain that updates and init, main scene to be rendered
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Scene.h"
@@ -20,7 +29,12 @@
 #include "DoorInteraction.h"
 #include "ItemInteraction.h"
 #include <vector>
-
+/****************************************************************************/
+/*!
+Class SceneMain:
+\brief Defines SceneMain and it's method
+*/
+/****************************************************************************/
 class SceneMain : public Scene
 {
 public:
