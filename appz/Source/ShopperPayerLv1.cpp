@@ -196,7 +196,7 @@ void ShopperPayerLv1::takingItems()
 void ShopperPayerLv1::returnItems()
 {
 	item1->SetParentAs(cabinet);
-	item1->transform.translate = Vector3(0,1.5,0);
+	item1->transform.translate = Vector3(0,0,0);
 	tookItems = false;
 }
 
