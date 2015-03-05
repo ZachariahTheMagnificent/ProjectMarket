@@ -68,6 +68,7 @@ private:
 	Trolley trolley;
 	bool OpenLiftDoorInput;
 	bool exit;
+	float AbientLight;
 
 	//print fps
 	double deltaTime;

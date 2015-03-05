@@ -23,6 +23,7 @@ void SceneMain::Init()
 {
 	InnitLight();
 	InnitTextures();
+	AbientLight = 1.2;
 	InnitMaterials();
 	InnitSounds();
 	InnitGeometry();
@@ -194,53 +195,53 @@ void SceneMain::InnitTextures()
 
 void SceneMain::InnitMaterials()
 {
-	globals.AddMaterial(Material(L"skybox",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"skybox")));
-	globals.AddMaterial(Material(L"ground",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"ground")));
-	globals.AddMaterial(Material(L"building",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"building")));
-	globals.AddMaterial(Material(L"cashiertable",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cashiertable texture")));
-	globals.AddMaterial(Material(L"cabinet",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"CabinetTexture")));
-	globals.AddMaterial(Material(L"can1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can1")));
-	globals.AddMaterial(Material(L"can2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can2")));
-	globals.AddMaterial(Material(L"can3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can3")));
-	globals.AddMaterial(Material(L"can4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"can4")));
-	globals.AddMaterial(Material(L"cereal1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal1")));
-	globals.AddMaterial(Material(L"cereal2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal2")));
-	globals.AddMaterial(Material(L"cereal3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal3")));
-	globals.AddMaterial(Material(L"cereal4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cereal4")));
-	globals.AddMaterial(Material(L"packet1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet1")));
-	globals.AddMaterial(Material(L"packet2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet2")));
-	globals.AddMaterial(Material(L"packet3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"packet3")));
-	globals.AddMaterial(Material(L"dullwhite",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"dullwhite")));
-	globals.AddMaterial(Material(L"lift",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lift")));
-	globals.AddMaterial(Material(L"liftdoor",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftdoor")));
-	globals.AddMaterial(Material(L"door texture",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"door texture")));
-	globals.AddMaterial(Material(L"travelatorhandle",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorhandle texture")));
-	globals.AddMaterial(Material(L"travelatorslope",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
-	globals.AddMaterial(Material(L"trolley",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"trolleytexture")));
-	globals.AddMaterial(Material(L"character1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
-	globals.AddMaterial(Material(L"character2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character2")));
-	globals.AddMaterial(Material(L"character3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character3")));
-	globals.AddMaterial(Material(L"character4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character4")));
-	globals.AddMaterial(Material(L"robot",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"robot")));
-	globals.AddMaterial(Material(L"Quad1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad1")));
-	globals.AddMaterial(Material(L"Quad2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
-	globals.AddMaterial(Material(L"Quad3",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad3")));
-	globals.AddMaterial(Material(L"Quad4",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad4")));
-	globals.AddMaterial(Material(L"BG",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"BG")));
-	globals.AddMaterial(Material(L"incredits",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
-	globals.AddMaterial(Material(L"inexit",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
-	globals.AddMaterial(Material(L"instructions",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
-	globals.AddMaterial(Material(L"liftlevel1",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel1")));
-	globals.AddMaterial(Material(L"liftlevel2",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel2")));
-	globals.AddMaterial(Material(L"lollipop",Component(1,1,1),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lollipop")));
+	globals.AddMaterial(Material(L"skybox",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"skybox")));
+	globals.AddMaterial(Material(L"ground",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"ground")));
+	globals.AddMaterial(Material(L"building",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"building")));
+	globals.AddMaterial(Material(L"cashiertable",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"cashiertable texture")));
+	globals.AddMaterial(Material(L"cabinet",Component(AbientLight,AbientLight,AbientLight),Component(1.2,1.2,1.2),Component(0.8,0.8,0.8),20,globals.GetTexture(L"CabinetTexture")));
+	globals.AddMaterial(Material(L"can1",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"can1")));
+	globals.AddMaterial(Material(L"can2",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"can2")));
+	globals.AddMaterial(Material(L"can3",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"can3")));
+	globals.AddMaterial(Material(L"can4",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"can4")));
+	globals.AddMaterial(Material(L"cereal1",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"cereal1")));
+	globals.AddMaterial(Material(L"cereal2",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"cereal2")));
+	globals.AddMaterial(Material(L"cereal3",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"cereal3")));
+	globals.AddMaterial(Material(L"cereal4",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"cereal4")));
+	globals.AddMaterial(Material(L"packet1",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"packet1")));
+	globals.AddMaterial(Material(L"packet2",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"packet2")));
+	globals.AddMaterial(Material(L"packet3",Component(AbientLight,AbientLight,AbientLight),Component(0.7,0.7,0.7),Component(0.5,0.5,0.5),10,globals.GetTexture(L"packet3")));
+	globals.AddMaterial(Material(L"dullwhite",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"dullwhite")));
+	globals.AddMaterial(Material(L"lift",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lift")));
+	globals.AddMaterial(Material(L"liftdoor",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftdoor")));
+	globals.AddMaterial(Material(L"door texture",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"door texture")));
+	globals.AddMaterial(Material(L"travelatorhandle",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorhandle texture")));
+	globals.AddMaterial(Material(L"travelatorslope",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"travelatorslope texture2")));
+	globals.AddMaterial(Material(L"trolley",Component(AbientLight,AbientLight,AbientLight),Component(0.8,0.8,0.8),Component(0.6,0.6,0.6),10,globals.GetTexture(L"trolleytexture")));
+	globals.AddMaterial(Material(L"character1",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character1")));
+	globals.AddMaterial(Material(L"character2",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character2")));
+	globals.AddMaterial(Material(L"character3",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character3")));
+	globals.AddMaterial(Material(L"character4",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"character4")));
+	globals.AddMaterial(Material(L"robot",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"robot")));
+	globals.AddMaterial(Material(L"Quad1",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad1")));
+	globals.AddMaterial(Material(L"Quad2",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
+	globals.AddMaterial(Material(L"Quad3",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad3")));
+	globals.AddMaterial(Material(L"Quad4",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad4")));
+	globals.AddMaterial(Material(L"BG",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"BG")));
+	globals.AddMaterial(Material(L"incredits",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
+	globals.AddMaterial(Material(L"inexit",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
+	globals.AddMaterial(Material(L"instructions",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"instructions")));
+	globals.AddMaterial(Material(L"liftlevel1",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel1")));
+	globals.AddMaterial(Material(L"liftlevel2",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel2")));
+	globals.AddMaterial(Material(L"lollipop",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lollipop")));
 }
 
 void SceneMain::InnitLight()
 {
-	light[1].type = Light::LIGHT_POINT;
+	light[1].type = Light::LIGHT_DIRECTIONAL;
 	light[1].position.Set(20, 20, 20);
 	light[1].color.Set(1, 1, 1);
-	light[1].power = 0.23;
+	light[1].power = 0.25;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
 	light[1].kQ = 0.001f;
@@ -1543,7 +1544,7 @@ void SceneMain::DoUserInput()
 				{
 					item.PutItem(camera);
 				}
-				if(player->isHoldingChild == false && father.interacted == true)
+				if(player->isHoldingChild == false && father.interacted == true && player->isHoldingTrolley == false)
 				{
 					lostchild.PickUpChild(camera);
 				}
