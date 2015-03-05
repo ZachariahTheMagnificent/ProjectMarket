@@ -45,8 +45,7 @@ ShopperIdler::~ShopperIdler(void)
 /*!
 \brief
 Setting position of the shopper idler
-\param rhs
-position number to set position
+\param rhs-number
 */
 /****************************************************************************/
 void ShopperIdler::SetPosition(int No)
@@ -60,8 +59,7 @@ void ShopperIdler::SetPosition(int No)
 /*!
 \brief
 update shopper idler
-\param rhs
-double delta time
+\param rhs-double delta time
 */
 /****************************************************************************/
 void ShopperIdler::Update(const double dt)
@@ -156,10 +154,11 @@ void ShopperIdler::Reset()
 /*!
 \brief
 Draw out the character body.
-\param rhs
-point to shopper body
-point to shopper Arms
-point to shopper legs
+\param rhs-point to Shopper Body
+\param rhs-point to Shopper Left leg
+\param rhs-point to Shopper Left arm
+\param rhs-point to Shopper Right leg
+\param rhs-point to Shopper Right arm
 */
 /****************************************************************************/
 void ShopperIdler::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

@@ -5,7 +5,8 @@
 \author Lim Ting Yang
 \par email: limtingyang@homail.com
 */
-/****************************************************************************/
+/****************************************************************************/
+
 #include "RobotCashier.h"
 /****************************************************************************/
 /*!
@@ -32,8 +33,7 @@ RobotCashier::~RobotCashier(void)
 /*!
 \brief
 updating the arm rotation
-\param rhs
-double delta time
+\param rhs-double delta time
 
 */
 /****************************************************************************/
@@ -74,10 +74,10 @@ void RobotCashier::Reset()
 /*!
 \brief
 
-\param rhs
-point to robot body
-point to robot arms
-point to robot legs
+\param rhs-point to robot body
+\param rhs-point to robot body
+\param rhs-point to robot arms
+\param rhs-point to robot legs
 */
 /****************************************************************************/
 void RobotCashier::DrawIsEqualTo(drawOrder& TempRobotBody, drawOrder& TempRobotLeftArm, drawOrder& TempRobotRightArm)
