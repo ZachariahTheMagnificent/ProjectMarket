@@ -23,7 +23,7 @@ void SceneMain::Init()
 {
 	InnitLight();
 	InnitTextures();
-	AbientLight = 1.2;
+	AbientLight = 0.6;
 	InnitMaterials();
 	InnitSounds();
 	InnitGeometry();
@@ -316,7 +316,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"ground").transform.translate.Set(0,1.09,-40);
 
 	//Draw Building
-	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"building",globals.GetMesh(L"building"), &globals.GetMaterial(L"building"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
 	//Draw player target
@@ -624,30 +624,30 @@ void SceneMain::InnitDraws()
 	}
 
 	//Draw Outer Door
-	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"outer_door_1_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"outer_door_1_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_1_right").transform.translate.Set(2,4.5,-8.5829);
 
 
-	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"outer_door_1_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"outer_door_1_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_1_left").transform.translate.Set(-2,4.5,-8.5829);
 
 
-	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"outer_door_2_right",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"outer_door_2_right").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_right").transform.translate.Set(-9,4.5,-105.4);
 
 
-	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"outer_door_2_left",globals.GetMesh(L"outerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"outer_door_2_left").transform.scale.Set(1,1,0.9);
 	globals.GetDraw(L"outer_door_2_left").transform.translate.Set(-13,4.5,-105.4);
 
 
-	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"inner_door_1",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"inner_door_1").transform.translate.Set(-17.5,4.5,-19.6);
 
-	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"inner_door_2",globals.GetMesh(L"innerdoor"), &globals.GetMaterial(L"door texture"), &globals.GetDraw(L"main"), false));
 	globals.GetDraw(L"inner_door_2").transform.scale.Set(1,1,0.7);
 	globals.GetDraw(L"inner_door_2").transform.translate.Set(-17.5,14.5,-19.5);
 
