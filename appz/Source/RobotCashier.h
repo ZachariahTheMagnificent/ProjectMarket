@@ -1,8 +1,22 @@
+/****************************************************************************/
+/*!
+\file RobotCashier.h
+\author Lim Ting Yang
+\par email: limtingyang@hotmail.com
+\brief
+Struct to define a 3D robot cashier AI
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Shopper.h"
 #include "DrawOrder.h"
-
+/****************************************************************************/
+/*!
+Class RobotCashier:
+\brief Defines a 3D robot cashier AI
+*/
+/****************************************************************************/
 class RobotCashier :
 	public Shopper
 {

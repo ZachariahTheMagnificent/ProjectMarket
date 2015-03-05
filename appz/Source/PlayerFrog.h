@@ -1,15 +1,28 @@
+/******************************************************************************/
+/*!
+\file	PlayerFrog.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Class to store frog player
+*/
+/******************************************************************************/
 #pragma once
 
 #include "player.h"
 
+/******************************************************************************/
+/*!
+		Class PlayerFrog:
+\brief	Defines a PlayerFrog class
+*/
+/******************************************************************************/
 class PlayerFrog :
 	public Player
 {
 public:
 	PlayerFrog(void);
 	~PlayerFrog(void);
-	
-	Vector3 Update(Camera camera);
 	
 	//movement
 	Vector3 MoveForward(Camera camera, double movingSpeed);

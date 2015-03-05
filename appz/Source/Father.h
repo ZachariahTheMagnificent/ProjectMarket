@@ -1,9 +1,24 @@
+/****************************************************************************/
+/*!
+\file Father.h
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Class to update father
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Character.h"
 #include "DrawOrder.h"
 #include "Camera.h"
 
+/****************************************************************************/
+/*!
+Class Father:
+\brief Defines father and its method
+*/
+/****************************************************************************/
 class Father :
 	public Character
 {

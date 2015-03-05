@@ -1,15 +1,48 @@
+/******************************************************************************/
+/*!
+\file	Player.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define Player Class functions
+*/
+/******************************************************************************/
 #include "Player.h"
 
 
+
+/******************************************************************************/
+/*!
+\brief
+Constructor
+*/
+/******************************************************************************/
 Player::Player(void)
 {
 }
 
 
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 Player::~Player(void)
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point pointer to some drawOrders
+\param TempLeftArm - Point to drawOrder Character's Left Arm
+\param TempRightArm - Point to drawOrder Character's Right Arm
+\param TempBody - Point to drawOrder Character's Body
+\param TempMain - Point to drawOrder main
+\param TempTrolley - Point to drawOrder trolley
+*/
+/******************************************************************************/
 void Player::DrawIsEqualTo(drawOrder& TempLeftArm, drawOrder& TempRightArm, drawOrder& TempBody, drawOrder& TempMain, drawOrder& TempTrolley)
 {
 	leftArm = &TempLeftArm;
@@ -21,6 +54,12 @@ void Player::DrawIsEqualTo(drawOrder& TempLeftArm, drawOrder& TempRightArm, draw
 	defaultTrolleyRotation = trolley->transform.rotate;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Reset Trolley to original position and status
+*/
+/******************************************************************************/
 void Player::ResetTrolley()
 {
 	isHoldingTrolley = false;

@@ -1,9 +1,24 @@
+/******************************************************************************/
+/*!
+\file	Player.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Abstract class to store player
+*/
+/******************************************************************************/
 #pragma once
 
 #include "character.h"
 #include "Camera.h"
 #include "drawOrder.h"
 
+/******************************************************************************/
+/*!
+		Class Player:
+\brief	Defines a Player class
+*/
+/******************************************************************************/
 class Player :
 	public Character
 {
@@ -26,8 +41,6 @@ public:
 	int noOfItemInTrolley;
 	Vector3 defaultTrolleyPosition;
 	Rotation defaultTrolleyRotation;
-	
-	virtual Vector3 Update(Camera camera) = 0;
 	
 	//movement
 	virtual Vector3 MoveForward(Camera camera, double movingSpeed) = 0;

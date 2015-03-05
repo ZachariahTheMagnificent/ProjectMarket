@@ -1,9 +1,24 @@
+/******************************************************************************/
+/*!
+\file	WizardLv2.h
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Class to store WizardLv2
+*/
+/******************************************************************************/
 #pragma once
 
 #include "Character.h"
 #include "DrawOrder.h"
 #include "Camera.h"
 
+/******************************************************************************/
+/*!
+		Class WizardLv2:
+\brief	Defines a WizardLv2 class
+*/
+/******************************************************************************/
 class WizardLv2 :
 	public Character
 {

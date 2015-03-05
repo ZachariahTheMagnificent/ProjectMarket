@@ -1,3 +1,12 @@
+/****************************************************************************/
+/*!
+\file DoorInteraction.h
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Class to define the door interaction
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Mesh.h"
@@ -7,7 +16,12 @@
 #include <vector>
 #include "GlobalList.h"
 #include "Range.h"
-
+/****************************************************************************/
+/*!
+Class DoorInteraction:
+\brief Defines door interactions and its method
+*/
+/****************************************************************************/
 class DoorInteraction
 {
 public:

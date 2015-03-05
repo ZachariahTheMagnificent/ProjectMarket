@@ -1,14 +1,42 @@
+/******************************************************************************/
+/*!
+\file	ItemInteraction.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define ItemInteraction Class functions
+*/
+/******************************************************************************/
 #include "ItemInteraction.h"
 
+/******************************************************************************/
+/*!
+\brief
+Constructor to initialise variables
+*/
+/******************************************************************************/
 ItemInteraction::ItemInteraction(void)
 {
 	payingdistance = 0;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 ItemInteraction::~ItemInteraction(void)
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point pointer to drawOrder item and initialise variables
+\param TempItem - Point pointer to drawOrder item
+*/
+/******************************************************************************/
 void ItemInteraction::AddItem(drawOrder& TempItem)
 {
 	item.push_back(&TempItem);
@@ -23,23 +51,52 @@ void ItemInteraction::AddItem(drawOrder& TempItem)
 	paid.push_back(false);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point pointer to Player
+\param TempPlayer - Point pointer to Player
+*/
+/******************************************************************************/
 void ItemInteraction::PlayerIsEqualTo(Player* TempPlayer)
 {
 	player = TempPlayer;
 }
 
-
+/******************************************************************************/
+/*!
+\brief
+Point pointer to Trolley
+\param TempTrolley - Point pointer to Trolley
+*/
+/******************************************************************************/
 void ItemInteraction::TrolleyIsEqualTo(Trolley& TempTrolley)
 {
 	trolleypos = &TempTrolley;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point pointer to drawOrder trolley and player
+\param TempTrolley - Point pointer to drawOrder trolley
+\param TempPlayerBody - Point pointer to drawOrder player
+*/
+/******************************************************************************/
 void ItemInteraction::DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlayerBody)
 {
 	trolley = &TempTrolley;
 	playerBody = &TempPlayerBody;
 }
 
+
+/******************************************************************************/
+/*!
+\brief
+Take item
+\param camera - Point to Camera
+*/
+/******************************************************************************/
 void ItemInteraction::InteractWithItem(const Camera& camera)
 {
 	for(int i = 0; i < item.size(); ++i)
@@ -90,6 +147,13 @@ void ItemInteraction::InteractWithItem(const Camera& camera)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Put item back to original position or trolley
+\param camera - Point to Camera
+*/
+/******************************************************************************/
 void ItemInteraction::PutItem(const Camera& camera)
 {
 	for(int i = 0; i < item.size(); ++i)
@@ -144,6 +208,15 @@ void ItemInteraction::PutItem(const Camera& camera)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Pay items
+\param playerPos - Point to player position
+\param CashierTable - Point to pointer cashier table
+\param dt - delta time
+*/
+/******************************************************************************/
 void ItemInteraction::PayItem(const Vector3& playerPos, drawOrder* CashierTable, const double dt)
 {
 	int i = 0;
@@ -206,6 +279,15 @@ void ItemInteraction::PayItem(const Vector3& playerPos, drawOrder* CashierTable,
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Eat lollipop
+\param camera - Point to camera
+\param lollipopPos - Point to lollipop position
+\return Bool whether the player is looking at the lollipop
+*/
+/******************************************************************************/
 bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopPos)
 {
 	if(camera.IsLookingAt(lollipopPos, 90, 5))
@@ -215,6 +297,12 @@ bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopP
 	return false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Reset all items
+*/
+/******************************************************************************/
 void ItemInteraction::ResetItems()
 {
 	payingdistance = 0;

@@ -1,3 +1,12 @@
+/****************************************************************************/
+/*!
+\file SceneMain.cpp
+\author Tan Jie Rong
+\par email: soupsf@hotmail.com
+\brief
+Scene that updates and init, main scene to be rendered
+*/
+/****************************************************************************/
 #include "SceneMain.h"
 #include "GL\glew.h"
 
@@ -8,17 +17,39 @@
 #include "PlayerFrog.h"
 #include "Polygon.h"
 #include "CollisionBody.h"
-
+/****************************************************************************/
+/*!
+\brief
+constructor to get mouse keyboard sound and graphics obj
+\param Keyboard& keyboard 
+		object from keyboard class
+\param GLMouse& mouse
+		object from GLmosuse class
+\param Sound& snd
+		object from Sound class
+\param Graphics& gfx
+*/
+/****************************************************************************/
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
 	:
 Scene(keyboard, mouse, snd, gfx)
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+default destructor
+*/
+/****************************************************************************/
 SceneMain::~SceneMain(void)
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initialize all variables used and also to pass in drawOrders for other classes
+*/
+/****************************************************************************/
 void SceneMain::Init()
 {
 	InnitLight();
@@ -137,7 +168,12 @@ void SceneMain::Init()
 	gfx.SetProjectionTo(45.f, 4.f / 3.f, 0.1f, 90000.f);
 	gfx.InitText(L"Image//ArialBlack.tga");
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes Sound
+*/
+/****************************************************************************/
 void SceneMain::InnitSounds()
 {
 	snd.loadWave("pure", "sound//pure.wav");
@@ -146,8 +182,14 @@ void SceneMain::InnitSounds()
 	snd.loadWave("halot","sound//halot.wav");
 	snd.loadWave("meet didact","sound//meet_didact");
 	snd.loadWave("didact freed","sound//didact_freed");
+	snd.loadWave("robot2","sound//robot2.wav");
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes logic like FPS and dt
+*/
+/****************************************************************************/
 void SceneMain::InnitLogic()
 {
 	frameCounter = 0;
@@ -155,7 +197,12 @@ void SceneMain::InnitLogic()
 	currentFPS = 60;
 	drawVoxels = false;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes texture
+*/
+/****************************************************************************/
 void SceneMain::InnitTextures()
 {
 	globals.AddTexture(L"skybox", L"Image//skybox.tga");
@@ -200,7 +247,12 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"liftlevel2",L"Image//liftlevel2.tga");
 	globals.AddTexture(L"lollipop",L"Image//lollipop_texture.tga");
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes material, combining texture and lighting.
+*/
+/****************************************************************************/
 void SceneMain::InnitMaterials()
 {
 	globals.AddMaterial(Material(L"skybox",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"skybox")));
@@ -245,7 +297,12 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"liftlevel2",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"liftlevel2")));
 	globals.AddMaterial(Material(L"lollipop",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"lollipop")));
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes light used
+*/
+/****************************************************************************/
 void SceneMain::InnitLight()
 {
 	light[1].type = Light::LIGHT_DIRECTIONAL;
@@ -262,7 +319,12 @@ void SceneMain::InnitLight()
 
 	gfx.AddLight(&light[1]);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initializes geometry and obj
+*/
+/****************************************************************************/
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
@@ -312,7 +374,12 @@ void SceneMain::InnitGeometry()
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"robotarm", L"OBJ//robotarm.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"lollipop", L"OBJ//lollipop.obj"));
 }
-
+/****************************************************************************/
+/*!
+\brief
+function to draw/load out every obj or images that will appear in scene
+*/
+/****************************************************************************/
 void SceneMain::InnitDraws()
 {
 	//main will be the main draw order that all other draw orders are children of
@@ -587,8 +654,6 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"inexit").transform.translate.Set(1,4,-4);
 	globals.AddDraw(drawOrder(L"instructions",globals.GetMesh(L"instructions"), &globals.GetMaterial(L"instructions"), NULL, true));
 	globals.GetDraw(L"instructions").transform.translate.Set(1,4,-4);
-
-
 
 	//Draw Travelator Support
 	drawOrder travelatorsupport(L"travelatorsupport",globals.GetMesh(L"travelatorsupport"), &globals.GetMaterial(L"dullwhite"), &globals.GetDraw(L"main"), true);
@@ -875,7 +940,18 @@ void SceneMain::InnitDraws()
 			BigLollipoptranslate+= Vector3(0,0,-75);
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+used to init items for hiddenroom
+\param drawOrder& basedraw
+		baesedraw to get in item
+\param const Vector3 offset
+		offset for how much to increase
+\param Vector3 increment
+		increment for final value
+*/
+/****************************************************************************/
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
 {
 	Vector3 individualOffset = offset;
@@ -890,7 +966,38 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 		globals.AddDraw(buffer);
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+algorithm used for the creation of our items. 
+\param drawOrder& item          
+		item: to pass in the obj used
+\param Vector3 offset
+		offset: initial location of first item
+\param std::wstring parentname
+		parentname: name of parents
+\param Rotation RotateItem
+		RotateItem: to take in rotation
+\param int ItemPerColumn
+		ItemPerColumn: how many items are there in a column
+\param int ColumnPerCompartment
+		ColumnPerCompartment: how many column are there in a bunch
+\param float defaultZ
+		defaultZ: starting position of each row based on Z axis
+\param float ItemDistanceX
+		Distance X axis of each item
+\param float ItemDistanceZ
+		Distance Z axis of each item
+\param int NumBunch
+		How many set of items in one cabinet
+\param int NumCabinet
+		How many Cabinet
+\param Vector3 BunchOffset
+		difference of distance of each bunch
+\param Vector3 CabinetOffset
+		difference of distance every cabinet
+*/
+/****************************************************************************/
 void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
 {	
 	int item_count = 0;
@@ -936,7 +1043,12 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 		}
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+initialising collisions with obj
+*/
+/****************************************************************************/
 void SceneMain::InnitCollisions()
 {
 	globals.AddCollisionBody(CollisionBody(L"player", &globals.GetDraw(L"player_body"), &globals.GetDraw(L"player_body"), 1, 1, 0.1, 0.1));
@@ -952,7 +1064,12 @@ void SceneMain::InnitCollisions()
 	}
 	globals.GetDraw(L"player_body").SetMeshTo(NULL);
 }
-
+/****************************************************************************/
+/*!
+\brief
+initializing forces, acceleration.
+*/
+/****************************************************************************/
 void SceneMain::InnitForces()
 {
 	Vector3 accelerationDueToGravity(0, -9.8f, 0);
@@ -961,7 +1078,16 @@ void SceneMain::InnitForces()
 		body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+updating of scene 
+\param dt - deltatime
+		used to take in deltatime which allow movements and animations
+\return
+		is update true or false
+*/
+/****************************************************************************/
 bool SceneMain::Update(const double dt)
 {
 	float rotationspeed = 2;
@@ -1135,7 +1261,12 @@ bool SceneMain::Update(const double dt)
 
 
 }
-
+/****************************************************************************/
+/*!
+\brief
+updating Logic for lifts, doors and main menus
+*/
+/****************************************************************************/
 void SceneMain::UpdateLogic()
 {
 	if(state==START)
@@ -1219,7 +1350,12 @@ void SceneMain::UpdateLogic()
 	const double rotationspeed = 300;
 	globals.GetDraw(L"ring").transform.rotate.y += rotationspeed * deltaTime;
 }
-
+/****************************************************************************/
+/*!
+\brief
+updating view in frog and player perspective, camera lock on.
+*/
+/****************************************************************************/
 void SceneMain::UpdateView()
 {
 	//the skybox is moved according to the camera position
@@ -1239,12 +1375,22 @@ void SceneMain::UpdateView()
 	globals.GetDraw(L"player_body").transform.rotate.y += player_current_frame_rotationY;
 	gfx.SetViewAt(camera);
 }
-
+/****************************************************************************/
+/*!
+\brief
+updating lights
+*/
+/****************************************************************************/
 void SceneMain::UpdateLight()
 {
 	gfx.UpdateLights();
 }
-
+/****************************************************************************/
+/*!
+\brief
+updating draws
+*/
+/****************************************************************************/
 void SceneMain::UpdateDraws()
 {
 	//where forces are applied
@@ -1266,7 +1412,12 @@ void SceneMain::UpdateDraws()
 		body->second->UpdateTo(deltaTime);
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+rendering of text, sounds and menu options
+*/
+/****************************************************************************/
 void SceneMain::Render()
 {
 	//clear depth and color buffer
@@ -1276,30 +1427,26 @@ void SceneMain::Render()
 	glEnableVertexAttribArray(1); // 2nd attribute buffer : colors
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
-
-	Mtx44 BG;
-	BG.SetToRotation(180,0,1,0);
-	BG.SetToTranslation(Vector3(30,30,30));
-	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+	
 	if(state==MAINMENU)
 	{
 		MS BG;
-		BG.Translate(360,245,-0.01);
-		BG.Scale(50,50,1);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top());
+		BG.Translate(0,0,-0.01);
+		BG.Scale(100,100,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top(), true);
 		MS Quad1,Quad2,Quad3,Quad4;
-		Quad1.Scale(15,5,1);
-		Quad2.Scale(15,5,1);
-		Quad3.Scale(15,5,1);
-		Quad4.Scale(15,5,1);
-		Quad1.Translate(24,70,0);
-		Quad2.Translate(24,55,0);
-		Quad3.Translate(24,40,0);
-		Quad4.Translate(24,25,0);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top());
+		Quad1.Scale(20,7,1);
+		Quad2.Scale(20,7,1);
+		Quad3.Scale(20,7,1);
+		Quad4.Scale(20,7,1);
+		Quad1.Translate(0,50,0);
+		Quad2.Translate(0,30,0);
+		Quad3.Translate(0,10,0);
+		Quad4.Translate(0,-10,0);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top(), true);
 	}
 	else if(state==START)
 	{
@@ -1575,11 +1722,21 @@ void SceneMain::Render()
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(3);
 }
-
+/****************************************************************************/
+/*!
+\brief
+empty exit
+*/
+/****************************************************************************/
 void SceneMain::Exit()
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+All user inputs
+*/
+/****************************************************************************/
 void SceneMain::DoUserInput()
 {
 	double mouseX;
@@ -1672,36 +1829,6 @@ void SceneMain::DoUserInput()
 			{
 				player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
 			}
-			if (keyboard.isKeyPressed('I'))
-			{
-				if(isFrog == false)
-				{
-					int temp = player->tempNoItemNeedToPay;
-					int temp2 = player->noOfItemInTrolley;
-					player->ReleaseTrolley(globals.GetDraw(L"trolley5").GetGlobalPosition());
-					delete player;
-					player = new PlayerFrog;
-					player->tempNoItemNeedToPay = temp;
-					player->noOfItemInTrolley = temp2;
-					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").SetMeshTo(NULL);
-					globals.GetDraw(L"player_arm_right").SetMeshTo(NULL);
-					isFrog = true;
-				}
-				else
-				{
-					int temp = player->tempNoItemNeedToPay;
-					int temp2 = player->noOfItemInTrolley;
-					delete player;
-					player = new PlayerHuman;
-					player->tempNoItemNeedToPay = temp;
-					player->noOfItemInTrolley = temp2;
-					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
-					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
-					isFrog = false;
-				}
-			}
 		}
 		else
 		{
@@ -1722,6 +1849,21 @@ void SceneMain::DoUserInput()
 				}
 			}
 		}
+		if (keyboard.isKeyPressed('I'))
+			{
+					int temp = player->tempNoItemNeedToPay;
+					int temp2 = player->noOfItemInTrolley;
+					delete player;
+					player = new PlayerHuman;
+					player->tempNoItemNeedToPay = temp;
+					player->noOfItemInTrolley = temp2;
+					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
+					isFrog = false;
+
+					father.interacted = false;
+			}
 		if (keyboard.isKeyHold(VK_SHIFT))
 		{
 			movingSpeed *= 3 ;
@@ -1825,7 +1967,6 @@ void SceneMain::DoUserInput()
 			}
 		}
 		playerAcceleration = playerAcceleration;
-		playerAcceleration += player->Update(camera);
 		Force playerForce;
 		playerForce.SetLifespanTo(0.0001);
 		playerForce.SetVector(playerAcceleration);
@@ -1835,6 +1976,7 @@ void SceneMain::DoUserInput()
 	{
 		if(keyboard.isKeyPressed('1'))
 		{
+			snd.playSound("robot2",true);
 			state=START;
 		}
 		if(keyboard.isKeyPressed('2'))

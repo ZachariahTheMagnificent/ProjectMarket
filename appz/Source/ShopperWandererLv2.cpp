@@ -1,6 +1,21 @@
+/******************************************************************************/
+/*!
+\file	ShopperWandererLv2.cpp
+\author Gregory Koh Wen Cong
+\par	email: pyroflame11@gmail.com
+\brief
+Define ShopperWandererLv2 Class functions
+*/
+/******************************************************************************/
 #include "ShopperWandererLv2.h"
 
 
+/******************************************************************************/
+/*!
+\brief
+Constructor to initialise variables
+*/
+/******************************************************************************/
 ShopperWandererLv2::ShopperWandererLv2(void)
 {
 	// initialise all variables
@@ -25,10 +40,23 @@ ShopperWandererLv2::ShopperWandererLv2(void)
 }
 
 
+/******************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/******************************************************************************/
 ShopperWandererLv2::~ShopperWandererLv2(void)
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Set position of the character
+\param No - Position Number
+*/
+/******************************************************************************/
 void ShopperWandererLv2::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
@@ -44,6 +72,13 @@ void ShopperWandererLv2::SetPosition(int No)
 	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Update the wanderer
+\param dt - delta time
+*/
+/******************************************************************************/
 void ShopperWandererLv2::Update(const double dt)
 {
 	if(idling == true)
@@ -107,6 +142,12 @@ void ShopperWandererLv2::Update(const double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Reset the wanderer
+*/
+/******************************************************************************/
 void ShopperWandererLv2::Reset()
 {
 	characterBody->transform.translate = defaultPoint;
@@ -125,6 +166,17 @@ void ShopperWandererLv2::Reset()
 	leftArmRotateUp = true;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Point drawOrder pointers to actual drawOrders
+\param TempCharacterBody - point to character body
+\param TempCharacterLeftArm - point to character left arm
+\param TempCharacterRightArm - point to character right arm
+\param TempCharacterLeftLeg - point to character left leg
+\param TempCharacterRightLeg - point to character right leg
+*/
+/******************************************************************************/
 void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
 {
 	characterBody = &TempCharacterBody;
@@ -134,6 +186,13 @@ void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& 
 	characterRightLeg  = &TempCharacterRightLeg;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Rotate character
+\param OtherShopper - point to other same class shopper
+*/
+/******************************************************************************/
 void ShopperWandererLv2::RotateChar(ShopperWandererLv2& OtherShopper)
 {
 	//If distance more than 15, character rotate
@@ -294,11 +353,27 @@ void ShopperWandererLv2::RotateChar(ShopperWandererLv2& OtherShopper)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get position of the wanderer
+\return Vector3 position of the character
+*/
+/******************************************************************************/
 Vector3 ShopperWandererLv2::GetPos()
 {
 	return characterBody->transform.translate;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Check if other shopper blocking
+\param OtherShopper - point to other same class shopper
+\param toTurn - the rotation to turn
+\return Bool if other shopper blocking
+*/
+/******************************************************************************/
 bool ShopperWandererLv2::IsBlocking(ShopperWandererLv2& OtherShopper, float toTurn)
 {
 	Vector3 target = characterBody->transform.translate;
