@@ -1547,8 +1547,8 @@ void SceneMain::Render()
 	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && isFrog==true)
 	{
 		gfx.RenderTextOnScreen("Opps, you had been turned into a",Color(1,1,1),55,60,500);
-		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),55,60,400);
-		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),55,60,350);
+		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),55,60,450);
+		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),55,60,400);
 	}
 	//lollipop
 	if(camera.IsLookingAt(globals.GetDraw(L"lollipop").GetGlobalPosition(), 90, 5) && isFrog==true)
