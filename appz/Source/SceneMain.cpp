@@ -42,6 +42,7 @@ void SceneMain::Init()
 	UpdateLv1=true;
 	paying=false;
 	OpenLiftDoorInput = false;
+	exit = false;
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	lostchild.DrawIsEqualTo(globals.GetDraw(L"main"), globals.GetDraw(L"player_body"), globals.GetDraw(L"lost_child_body"), globals.GetDraw(L"lost_child_arm_left"), globals.GetDraw(L"lost_child_arm_right"), globals.GetDraw(L"lost_child_leg_left"), globals.GetDraw(L"lost_child_leg_right"));
@@ -906,7 +907,7 @@ bool SceneMain::Update(const double dt)
 		accumulatingDT -= undateInterval;
 		frameCounter = 0;
 	}
-	if(keyboard.isKeyPressed(VK_ESCAPE) || keyboard.isKeyPressed ('Y'))
+	if(keyboard.isKeyPressed(VK_ESCAPE) || exit == true)
 	{
 		return true;
 	}
@@ -1751,6 +1752,14 @@ void SceneMain::DoUserInput()
 		if(keyboard.isKeyPressed('4'))
 		{
 			state=CHOOSETOEXIT;
+		}
+		if(keyboard.isKeyPressed('N'))
+		{
+			state=MAINMENU;
+		}
+		if(state==CHOOSETOEXIT && keyboard.isKeyPressed('Y'))
+		{
+			exit = true;
 		}
 	}
 }

@@ -67,6 +67,7 @@ private:
 	ItemInteraction item;
 	Trolley trolley;
 	bool OpenLiftDoorInput;
+	bool exit;
 
 	//print fps
 	double deltaTime;
