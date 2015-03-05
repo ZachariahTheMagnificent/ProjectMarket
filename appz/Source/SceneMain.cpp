@@ -1269,7 +1269,6 @@ void SceneMain::Render()
 	
 	if(state==MAINMENU)
 	{
-		snd.playSound("halot",true);
 		MS BG;
 		BG.Translate(0,0,-0.01);
 		BG.Scale(100,100,1);
