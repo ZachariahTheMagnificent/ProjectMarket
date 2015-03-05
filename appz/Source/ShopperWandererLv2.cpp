@@ -54,8 +54,7 @@ ShopperWandererLv2::~ShopperWandererLv2(void)
 /*!
 \brief
 Set position of the character
-\parm rhs
-   int Position Number
+\param No - Position Number
 */
 /******************************************************************************/
 void ShopperWandererLv2::SetPosition(int No)
@@ -77,8 +76,7 @@ void ShopperWandererLv2::SetPosition(int No)
 /*!
 \brief
 Update the wanderer
-\parm rhs
-   double delta time
+\param dt - delta time
 */
 /******************************************************************************/
 void ShopperWandererLv2::Update(const double dt)
@@ -172,12 +170,11 @@ void ShopperWandererLv2::Reset()
 /*!
 \brief
 Point drawOrder pointers to actual drawOrders
-\parm rhs
-   point to character body
-   point to character left arm
-   point to character right arm
-   point to character left leg
-   point to character right leg
+\param TempCharacterBody - point to character body
+\param TempCharacterLeftArm - point to character left arm
+\param TempCharacterRightArm - point to character right arm
+\param TempCharacterLeftLeg - point to character left leg
+\param TempCharacterRightLeg - point to character right leg
 */
 /******************************************************************************/
 void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
@@ -193,8 +190,7 @@ void ShopperWandererLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& 
 /*!
 \brief
 Rotate character
-\parm rhs
-   point to other same class shopper
+\param OtherShopper - point to other same class shopper
 */
 /******************************************************************************/
 void ShopperWandererLv2::RotateChar(ShopperWandererLv2& OtherShopper)
@@ -361,8 +357,7 @@ void ShopperWandererLv2::RotateChar(ShopperWandererLv2& OtherShopper)
 /*!
 \brief
 Get position of the wanderer
-\return
-   Vector3 position of the character
+\return Vector3 position of the character
 */
 /******************************************************************************/
 Vector3 ShopperWandererLv2::GetPos()
@@ -374,11 +369,9 @@ Vector3 ShopperWandererLv2::GetPos()
 /*!
 \brief
 Check if other shopper blocking
-\param rhs
-   point to other same class shopper
-   the rotation to turn
-\return
-   bool if other shopper blocking
+\param OtherShopper - point to other same class shopper
+\param toTurn - the rotation to turn
+\return Bool if other shopper blocking
 */
 /******************************************************************************/
 bool ShopperWandererLv2::IsBlocking(ShopperWandererLv2& OtherShopper, float toTurn)

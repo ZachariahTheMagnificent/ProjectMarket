@@ -38,11 +38,9 @@ PlayerFrog::~PlayerFrog(void)
 /*!
 \brief
 Move player forward
-\parm rhs
-   Camera
-   moving speed that store as double
-\return
-   A Vector3 that will move the player
+\param camera- Camera
+\param movingSpeed- moving speed that store as double
+\return Vector3 that will move the player
 */
 /******************************************************************************/
 Vector3 PlayerFrog::MoveForward(Camera camera, double movingSpeed)
@@ -58,11 +56,9 @@ Vector3 PlayerFrog::MoveForward(Camera camera, double movingSpeed)
 /*!
 \brief
 Move player backward
-\parm rhs
-   Camera
-   moving speed that store as double
-\return
-   A Vector3 that will move the player
+\param camera- Camera
+\param movingSpeed- moving speed that store as double
+\return Vector3 that will move the player
 */
 /******************************************************************************/
 Vector3 PlayerFrog::MoveBackward(Camera camera, double movingSpeed)
@@ -78,11 +74,9 @@ Vector3 PlayerFrog::MoveBackward(Camera camera, double movingSpeed)
 /*!
 \brief
 Move player to the right
-\parm rhs
-   Camera
-   moving speed that store as double
-\return
-   A Vector3 that will move the player
+\param camera- Camera
+\param movingSpeed- moving speed that store as double
+\return Vector3 that will move the player
 */
 /******************************************************************************/
 Vector3 PlayerFrog::MoveRight(Camera camera, double movingSpeed)
@@ -98,11 +92,9 @@ Vector3 PlayerFrog::MoveRight(Camera camera, double movingSpeed)
 /*!
 \brief
 Move player to the left
-\parm rhs
-   Camera
-   moving speed that store as double
-\return
-   A Vector3 that will move the player
+\param camera- Camera
+\param movingSpeed- moving speed that store as double
+\return Vector3 that will move the player
 */
 /******************************************************************************/
 Vector3 PlayerFrog::MoveLeft(Camera camera, double movingSpeed)
@@ -118,8 +110,7 @@ Vector3 PlayerFrog::MoveLeft(Camera camera, double movingSpeed)
 /*!
 \brief
 Take trolley
-\parm rhs
-   Point to camera
+\param camera - Point to camera
 */
 /******************************************************************************/
 void PlayerFrog::TakingTrolley(const Camera& camera)
@@ -130,8 +121,7 @@ void PlayerFrog::TakingTrolley(const Camera& camera)
 /*!
 \brief
 Release trolley
-\parm rhs
-   Point to trolley actual current postion
+\param TrolleyCurrentPos - Point to trolley actual current postion
 */
 /******************************************************************************/
 void PlayerFrog::ReleaseTrolley(const Vector3& TrolleyCurrentPos)

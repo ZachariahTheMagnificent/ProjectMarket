@@ -34,8 +34,7 @@ ItemInteraction::~ItemInteraction(void)
 /*!
 \brief
 Point pointer to drawOrder item and initialise variables
-\parm rhs
-   Point pointer to drawOrder item
+\param TempItem - Point pointer to drawOrder item
 */
 /******************************************************************************/
 void ItemInteraction::AddItem(drawOrder& TempItem)
@@ -56,8 +55,7 @@ void ItemInteraction::AddItem(drawOrder& TempItem)
 /*!
 \brief
 Point pointer to Player
-\parm rhs
-   Point pointer to Player
+\param TempPlayer - Point pointer to Player
 */
 /******************************************************************************/
 void ItemInteraction::PlayerIsEqualTo(Player* TempPlayer)
@@ -69,8 +67,7 @@ void ItemInteraction::PlayerIsEqualTo(Player* TempPlayer)
 /*!
 \brief
 Point pointer to Trolley
-\parm rhs
-   Point pointer to Trolley
+\param TempTrolley - Point pointer to Trolley
 */
 /******************************************************************************/
 void ItemInteraction::TrolleyIsEqualTo(Trolley& TempTrolley)
@@ -82,9 +79,8 @@ void ItemInteraction::TrolleyIsEqualTo(Trolley& TempTrolley)
 /*!
 \brief
 Point pointer to drawOrder trolley and player
-\parm rhs
-   Point pointer to drawOrder trolley
-   Point pointer to drawOrder player
+\param TempTrolley - Point pointer to drawOrder trolley
+\param TempPlayerBody - Point pointer to drawOrder player
 */
 /******************************************************************************/
 void ItemInteraction::DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlayerBody)
@@ -98,8 +94,7 @@ void ItemInteraction::DrawIsEqualTo(drawOrder& TempTrolley, drawOrder& TempPlaye
 /*!
 \brief
 Take item
-\parm rhs
-   Point to Camera
+\param camera - Point to Camera
 */
 /******************************************************************************/
 void ItemInteraction::InteractWithItem(const Camera& camera)
@@ -156,8 +151,7 @@ void ItemInteraction::InteractWithItem(const Camera& camera)
 /*!
 \brief
 Put item back to original position or trolley
-\parm rhs
-   Point to Camera
+\param camera - Point to Camera
 */
 /******************************************************************************/
 void ItemInteraction::PutItem(const Camera& camera)
@@ -218,10 +212,9 @@ void ItemInteraction::PutItem(const Camera& camera)
 /*!
 \brief
 Pay items
-\parm rhs
-   Point to player position
-   Point to pointer cashier table
-   double delta time
+\param playerPos - Point to player position
+\param CashierTable - Point to pointer cashier table
+\param dt - delta time
 */
 /******************************************************************************/
 void ItemInteraction::PayItem(const Vector3& playerPos, drawOrder* CashierTable, const double dt)
@@ -290,11 +283,9 @@ void ItemInteraction::PayItem(const Vector3& playerPos, drawOrder* CashierTable,
 /*!
 \brief
 Eat lollipop
-\parm rhs
-   Point to camera
-   Point to lollipop position
-\return
-   bool whether the player is looking at the lollipop
+\param camera - Point to camera
+\param lollipopPos - Point to lollipop position
+\return Bool whether the player is looking at the lollipop
 */
 /******************************************************************************/
 bool ItemInteraction::EatLollipop(const Camera& camera, const Vector3& lollipopPos)

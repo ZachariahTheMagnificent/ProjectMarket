@@ -53,8 +53,7 @@ ShopperPayerLv1::~ShopperPayerLv1(void)
 /*!
 \brief
 Set position of payer
-\param rhs
-   the position to set payer
+\param No - the position to set payer
 */
 /******************************************************************************/
 void ShopperPayerLv1::SetPosition(int No)
@@ -82,8 +81,7 @@ void ShopperPayerLv1::SetPosition(int No)
 /*!
 \brief
 Update
-\param rhs
-   double delta time
+\param dt - delta time
 */
 /******************************************************************************/
 void ShopperPayerLv1::Update(const double dt)
@@ -181,8 +179,7 @@ void ShopperPayerLv1::Reset()
 /*!
 \brief
 check distance and the target postion
-\param rhs
-   current position
+\param No - current position
 */
 /******************************************************************************/
 void ShopperPayerLv1::CheckDisAndTargetPos(int No)
@@ -266,8 +263,7 @@ void ShopperPayerLv1::returnItems()
 /*!
 \brief
 paying
-\parm rhs
-   double delta time
+\param dt - double delta time
 */
 /******************************************************************************/
 void ShopperPayerLv1::paying(const double dt)
@@ -314,13 +310,11 @@ void ShopperPayerLv1::putItemOntable()
 /*!
 \brief
 Point drawOrder pointers to actual drawOrders
-\parm rhs
-   point to character body
-   point to character left arm
-   point to character right arm
-   point to character item1
-   point to character cabinet
-   point to character cashier table
+\param TempCharacterBody - point to character body
+\param TempCharacterLeftArm - point to character left arm
+\param TempCharacterRightArm - point to character right arm
+\param TempCharacterLeftLeg - point to character left leg
+\param TempCharacterRightLeg - point to character right leg
 */
 /******************************************************************************/
 void ShopperPayerLv1::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg, drawOrder& TempItem1, drawOrder& TempCabinet, drawOrder& TempCashierTable)

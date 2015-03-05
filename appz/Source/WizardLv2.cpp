@@ -37,8 +37,7 @@ WizardLv2::~WizardLv2(void)
 /*!
 \brief
 Update the wizard
-\parm rhs
-   double delta time
+\param dt - delta time 
 */
 /******************************************************************************/
 void WizardLv2::Update(const double dt)
@@ -67,10 +66,8 @@ void WizardLv2::Update(const double dt)
 /*!
 \brief
 Update the wizard
-\parm rhs
-   point to camera
-\return
-   bool check if interacted
+\param camera - point to camera
+\return Bool check if interacted
 */
 /******************************************************************************/
 bool WizardLv2::checkInteract(const Camera& camera)
@@ -107,12 +104,11 @@ void WizardLv2::Reset()
 /*!
 \brief
 Point drawOrder pointers to actual drawOrders
-\parm rhs
-   point to character body
-   point to character left arm
-   point to character right arm
-   point to character left leg
-   point to character right leg
+\param TempCharacterBody - point to character body
+\param TempCharacterLeftArm - point to character left arm
+\param TempCharacterRightArm - point to character right arm
+\param TempCharacterLeftLeg - point to character left leg
+\param TempCharacterRightLeg - point to character right leg
 */
 /******************************************************************************/
 void WizardLv2::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)

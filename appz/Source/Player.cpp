@@ -36,12 +36,11 @@ Player::~Player(void)
 /*!
 \brief
 Point pointer to some drawOrders
-\parm rhs
-   Point to drawOrder Character's Left Arm
-   Point to drawOrder Character's Right Arm
-   Point to drawOrder Character's Body
-   Point to drawOrder main
-   Point to drawOrder trolley
+\param TempLeftArm - Point to drawOrder Character's Left Arm
+\param TempRightArm - Point to drawOrder Character's Right Arm
+\param TempBody - Point to drawOrder Character's Body
+\param TempMain - Point to drawOrder main
+\param TempTrolley - Point to drawOrder trolley
 */
 /******************************************************************************/
 void Player::DrawIsEqualTo(drawOrder& TempLeftArm, drawOrder& TempRightArm, drawOrder& TempBody, drawOrder& TempMain, drawOrder& TempTrolley)

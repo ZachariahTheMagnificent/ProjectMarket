@@ -38,9 +38,8 @@ Trolley::~Trolley(void)
 /*!
 \brief
 Set the position whether between taken or not
-\parm rhs
-   Item Position in trolley
-   bool to set if taken or not
+\param itemPos - Item Position in trolley
+\param taken -  bool to set if taken or not
 */
 /******************************************************************************/
 void Trolley::SetBoolPos(int itemPos, bool taken)
@@ -52,8 +51,7 @@ void Trolley::SetBoolPos(int itemPos, bool taken)
 /*!
 \brief
 Check the position whether between taken or not
-\parm rhs
-   Item Position in trolley
+\param itemPos - Item Position in trolley
 */
 /******************************************************************************/
 bool Trolley::GetBoolPos(int itemPos)
