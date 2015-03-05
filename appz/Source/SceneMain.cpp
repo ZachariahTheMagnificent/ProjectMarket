@@ -75,7 +75,7 @@ void SceneMain::Init()
 	paying=false;
 	OpenLiftDoorInput = false;
 	exit = false;
-	//snd.playSound("halot",true);
+	snd.playSound("halot",true);
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	lostchild.DrawIsEqualTo(globals.GetDraw(L"main"), globals.GetDraw(L"player_body"), globals.GetDraw(L"lost_child_body"), globals.GetDraw(L"lost_child_arm_left"), globals.GetDraw(L"lost_child_arm_right"), globals.GetDraw(L"lost_child_leg_left"), globals.GetDraw(L"lost_child_leg_right"));
@@ -1473,27 +1473,29 @@ void SceneMain::Render()
 	}
 	else if(state==INST)
 	{
-		Mtx44 instructions;
-		instructions.SetToTranslation(Vector3(360,245,0));
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),instructions);
-
+		MS INST;
+		INST.Translate(0,0,-0.01);
+		INST.Scale(2,2,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"instructions"),INST.Top(), ORIENTATION_CENTRE);
 	}
 	else if(state==CREDITS)
 	{
-		Mtx44 incredits;
-		incredits.SetToTranslation(Vector3(360,245,0));
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"incredits"),incredits);
+		MS CREDITS;
+		CREDITS.Translate(0,0,-0.01);
+		CREDITS.Scale(2,2,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"incredits"),CREDITS.Top(), ORIENTATION_CENTRE);
 	}
 	else if(state==CHOOSETOEXIT)
 	{
-		Mtx44 inexit;
-		inexit.SetToTranslation(Vector3(360,245,0));
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),inexit);
+		MS EXIT;
+		EXIT.Translate(0,0,-0.01);
+		EXIT.Scale(2,2,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"inexit"),EXIT.Top(), ORIENTATION_CENTRE);
 	}
 
 	if(camera.IsLookingAt(globals.GetDraw(L"ring").GetGlobalPosition(),10,5))
 	{
-		gfx.RenderTextOnScreen("Press T to release didact!",Color(1,1,1),27,23,400);
+		gfx.RenderTextOnScreen("Press T to release didact!",Color(1,1,1),55,60,500);
 	}
 
 	Range<int>x(12,18);
@@ -1502,8 +1504,8 @@ void SceneMain::Render()
 	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
 	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
 	{
-		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),27,9,400);
-		gfx.RenderTextOnScreen("2.Press E to move to level 2",Color(1,1,1),25,9,300);
+		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),55,60,700);
+		gfx.RenderTextOnScreen("2.Press E to move to level 2",Color(1,1,1),55,60,300);
 	}
 
 	Range<int>a(12,18);
@@ -1511,8 +1513,8 @@ void SceneMain::Render()
 	Range<int>c(-104,-92);
 	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
 	{
-		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),27,9,400);
-		gfx.RenderTextOnScreen("2.Press E to move to level 1!",Color(1,1,1),25,9,300);
+		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),55,60,700);
+		gfx.RenderTextOnScreen("2.Press E to move to level 1!",Color(1,1,1),55,60,300);
 	}
 
 	Range<int>d(14,18);
@@ -1521,7 +1523,7 @@ void SceneMain::Render()
 	if(d.IsInRange(Lift.x)&&e.IsInRange(Lift.y)&&f.IsInRange(Lift.z))
 	{
 		{
-			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),27,9,300);
+			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),55,60,500);
 		}
 	}
 	Range<int>g(12,18);
@@ -1530,13 +1532,13 @@ void SceneMain::Render()
 	if(g.IsInRange(Lift.x)&&h.IsInRange(Lift.y)&&i.IsInRange(Lift.z))
 	{
 		{
-			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),27,9,300);
+			gfx.RenderTextOnScreen("Press E to Open Lift door!",Color(1,1,1),55,60,500);
 		}
 	}
 	//wizard
 	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && wizard.casting==false && isFrog == false)
 	{
-		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),20,9,300);
+		gfx.RenderTextOnScreen("Press E to interact with wizard.",Color(1,1,1),55,60,500);
 	}
 	if(wizard.casting==true)
 	{
@@ -1544,36 +1546,36 @@ void SceneMain::Render()
 	}
 	if(camera.IsLookingAt(globals.GetDraw(L"wizard_body").GetGlobalPosition(), 20, 10) && isFrog==true)
 	{
-		gfx.RenderTextOnScreen("Opps, you had been turned into a",Color(1,1,1),20,20,300);
-		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),20,20,280);
-		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),20,70,260);
+		gfx.RenderTextOnScreen("Opps, you had been turned into a",Color(1,1,1),55,60,500);
+		gfx.RenderTextOnScreen("frog. Find an item on the ground",Color(1,1,1),55,60,400);
+		gfx.RenderTextOnScreen("to restore back to human",Color(1,1,1),55,60,350);
 	}
 	//lollipop
 	if(camera.IsLookingAt(globals.GetDraw(L"lollipop").GetGlobalPosition(), 90, 5) && isFrog==true)
 	{
-		gfx.RenderTextOnScreen("Press F to eat and turn back to human",Color(1,1,1),20,1,300);
+		gfx.RenderTextOnScreen("Press F to eat and turn back to human",Color(1,1,1),55,60,500);
 	}
 	//Father
 	if(camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == false)
 	{
-		gfx.RenderTextOnScreen("Press E to interact with him",Color(1,1,1),20,85,300);
+		gfx.RenderTextOnScreen("Press E to interact with him",Color(1,1,1),55,60,500);
 	}
 	if(camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == true && player->isHoldingChild == false)
 	{
-		gfx.RenderTextOnScreen("I had lost my son!",Color(1,1,1),20,150,300);
-		gfx.RenderTextOnScreen("Please help me find him.",Color(1,1,1),20,110,280);
+		gfx.RenderTextOnScreen("I had lost my son!",Color(1,1,1),55,60,500);
+		gfx.RenderTextOnScreen("Please help me find him.",Color(1,1,1),55,60,300);
 	}
 	else if (camera.IsLookingAt(globals.GetDraw(L"father_body").GetGlobalPosition(), 20, 10) && isFrog==false && father.interacted == true && player->isHoldingChild == true)
 	{
-		gfx.RenderTextOnScreen("OMG my son! Thankyou :')",Color(1,1,1),20,150,300);
+		gfx.RenderTextOnScreen("OMG my son! Thankyou :')",Color(1,1,1),55,60,500);
 	}
 	//trolley takeable
 	if(camera.IsLookingAt(globals.GetDraw(L"trolley5").GetGlobalPosition(), 20, 5))
 	{
 		if(player->isHoldingTrolley==false && player->isHoldingItem == false && player->isHoldingChild == false)
-			gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),25,9,300);
+			gfx.RenderTextOnScreen("Press E to take trolley",Color(1,1,1),55,60,500);
 		else if(player->isHoldingItem==true)
-			gfx.RenderTextOnScreen("Press F to put item",Color(1,1,1),25,150,300);
+			gfx.RenderTextOnScreen("Press F to put item",Color(1,1,1),55,60,500);
 	}
 	//trolley untakeable
 	if(player->isHoldingTrolley==false)
@@ -1593,12 +1595,12 @@ void SceneMain::Render()
 	if(camera.IsLookingAt(globals.GetDraw(L"robotbody0").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"robotbody1").GetGlobalPosition(), 20, 10))
 	{
 		snd.playSound("robot",true);
-		gfx.RenderTextOnScreen("*Nice Robot*",Color(1,1,1),25,225,300);
+		gfx.RenderTextOnScreen("*Nice Robot*",Color(1,1,1),55,60,500);
 	}
 	//shopper npc
 	if(camera.IsLookingAt(globals.GetDraw(L"shopper_wanderer_body0").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_wanderer_body1").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_payer_body").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"shopper_idler_body").GetGlobalPosition(), 20, 10))
 	{
-		gfx.RenderTextOnScreen("Hello!",Color(1,1,1),25,250,300);
+		gfx.RenderTextOnScreen("Hello!",Color(1,1,1),55,60,500);
 	}
 
 	//item
@@ -1611,7 +1613,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"can1_cabinet1_%d",i);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(),7.5, 5) && item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		
@@ -1621,7 +1623,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"can2_cabinet1_%d",i-360);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 670)// CAN_3 250
@@ -1630,7 +1632,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"can3_cabinet1_%d",i-420);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 706)// Packet1 36
@@ -1639,7 +1641,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"packet1_cabinet2_column1_%d",i-670);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 742)// Packet2 36
@@ -1648,7 +1650,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"packet2_cabinet2_column2_%d",i-706);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 934)// Packet3 192
@@ -1657,7 +1659,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"packet3_cabinet2_column1_%d",i-742);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 1114)// Can_4 180
@@ -1666,7 +1668,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"can4_cabinet2_column2_%d",i-934);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 1150)// Cereal1 36
@@ -1675,7 +1677,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"cereal1_cabinet3_%d",i-1114);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 
 		}
@@ -1685,7 +1687,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"cereal2_cabinet3_%d",i-1150);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 1210)// Cereal3 36
@@ -1694,7 +1696,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"cereal3_cabinet3_%d",i-1174);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 20, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 		else if(i < 1246)// Cereal4 36
@@ -1703,7 +1705,7 @@ void SceneMain::Render()
 			wsprintf(Namebuffer,L"cereal4_cabinet3_%d",i-1210);
 			if(camera.IsLookingAt(globals.GetDraw(Namebuffer).GetGlobalPosition(), 7.5, 5)&& item.taken[i] == false)
 			{
-				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),25,9,300);
+				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
 	}
