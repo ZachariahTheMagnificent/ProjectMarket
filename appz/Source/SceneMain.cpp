@@ -44,6 +44,7 @@ void SceneMain::Init()
 	paying=false;
 	OpenLiftDoorInput = false;
 	exit = false;
+	snd.playSound("halot",true);
 	state=MAINMENU;
 	InteractDoor.DrawIsEqualTo(globals.GetDraw(L"outer_door_1_left"),globals.GetDraw(L"outer_door_1_right"),globals.GetDraw(L"outer_door_2_left"),globals.GetDraw(L"outer_door_2_right"), globals.GetDraw(L"inner_door_1"), globals.GetDraw(L"inner_door_2"), globals.GetDraw(L"liftdoor_1_left"),  globals.GetDraw(L"liftdoor_1_right"), globals.GetDraw(L"liftdoor_2_left"),  globals.GetDraw(L"liftdoor_2_right"));
 	lostchild.DrawIsEqualTo(globals.GetDraw(L"main"), globals.GetDraw(L"player_body"), globals.GetDraw(L"lost_child_body"), globals.GetDraw(L"lost_child_arm_left"), globals.GetDraw(L"lost_child_arm_right"), globals.GetDraw(L"lost_child_leg_left"), globals.GetDraw(L"lost_child_leg_right"));
@@ -140,6 +141,9 @@ void SceneMain::Init()
 void SceneMain::InnitSounds()
 {
 	snd.loadWave("pure", "sound//pure.wav");
+	snd.loadWave("elevator","sound//elevator.wav");
+	snd.loadWave("robot","sound//robot.wav");
+	snd.loadWave("halot","sound//halot.wav");
 }
 
 void SceneMain::InnitLogic()
@@ -1173,8 +1177,10 @@ void SceneMain::UpdateLogic()
 	{
 		if(keyboard.isKeyPressed('E'))
 		{
+			
 			if(OpenLiftDoorInput == false)
 			{
+				snd.playSound("elevator",true);
 				InteractDoor.TeleportWithLifts(deltaTime,globals.GetDraw(L"player_body").transform.translate,globals.GetDraw(L"trolley5").transform.translate, player->isHoldingTrolley);
 			}
 
@@ -1255,7 +1261,6 @@ void SceneMain::Render()
 	BG.SetToRotation(180,0,1,0);
 	BG.SetToTranslation(Vector3(30,30,30));
 	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
-
 	if(state==MAINMENU)
 	{
 		MS BG;
@@ -1278,7 +1283,7 @@ void SceneMain::Render()
 	}
 	else if(state==START)
 	{
-
+		//snd.stopSound
 		if(drawVoxels)
 		{
 			Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
@@ -1321,7 +1326,7 @@ void SceneMain::Render()
 
 	Range<int>x(12,18);
 	Range<int>y(0.1,5);
-	Range<int>z(-104,-99);
+	Range<int>z(-104,-92);
 	Vector3 Lift(globals.GetDraw(L"player_body").GetGlobalPosition());
 	if(x.IsInRange(Lift.x)&&y.IsInRange(Lift.y)&&z.IsInRange(Lift.z))
 	{
@@ -1331,16 +1336,16 @@ void SceneMain::Render()
 
 	Range<int>a(12,18);
 	Range<int>b(9,14);
-	Range<int>c(-104,-99);
+	Range<int>c(-104,-92);
 	if(a.IsInRange(Lift.x)&&b.IsInRange(Lift.y)&&c.IsInRange(Lift.z))
 	{
 		gfx.RenderTextOnScreen("1.Press Q to close door!",Color(1,1,1),27,9,400);
 		gfx.RenderTextOnScreen("2.Press E to move to level 1!",Color(1,1,1),25,9,300);
 	}
 
-	Range<int>d(12,18);
+	Range<int>d(14,18);
 	Range<int>e(0.1,5);
-	Range<int>f(-95,-92);
+	Range<int>f(-88,-84);
 	if(d.IsInRange(Lift.x)&&e.IsInRange(Lift.y)&&f.IsInRange(Lift.z))
 	{
 		{
@@ -1349,7 +1354,7 @@ void SceneMain::Render()
 	}
 	Range<int>g(12,18);
 	Range<int>h(9,14);
-	Range<int>i(-95,-92);
+	Range<int>i(-88,-84);
 	if(g.IsInRange(Lift.x)&&h.IsInRange(Lift.y)&&i.IsInRange(Lift.z))
 	{
 		{
@@ -1415,6 +1420,7 @@ void SceneMain::Render()
 	//robot
 	if(camera.IsLookingAt(globals.GetDraw(L"robotbody0").GetGlobalPosition(), 20, 10) || camera.IsLookingAt(globals.GetDraw(L"robotbody1").GetGlobalPosition(), 20, 10))
 	{
+		snd.playSound("robot",true);
 		gfx.RenderTextOnScreen("*Nice Robot*",Color(1,1,1),25,225,300);
 	}
 	//shopper npc
