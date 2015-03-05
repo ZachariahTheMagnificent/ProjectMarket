@@ -2,8 +2,8 @@
 #include <vector>
 #include "MatrixStack.h"
 #include "Material.h"
+#include "Mesh.h"
 
-class Mesh;
 class Graphics;
 
 struct Rotation

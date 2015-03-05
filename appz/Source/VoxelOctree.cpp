@@ -35,4 +35,28 @@ int VoxelOctree::GetRadius() const
 void VoxelOctree::AddVoxel(Voxel& voxel)
 {
 	mainLeaf.AddVoxel(voxel);
+	voxels.push_back(mainLeaf.GetVoxel(voxel.GetPosition()));
+	if(voxels.back() == NULL)
+	{
+		throw;
+	}
+}
+
+std::vector<Voxel*>& VoxelOctree::GetVector()
+{
+	return voxels;
+}
+
+Voxel* VoxelOctree::GetVoxel(const Vector3& position)
+{
+	if(!mainLeaf.GetRangeX().IsInRange(position.x) || !mainLeaf.GetRangeY().IsInRange(position.y) || !mainLeaf.GetRangeZ().IsInRange(position.z))
+	{
+		return NULL;
+	}
+	return mainLeaf.GetVoxel(position);
+}
+
+bool VoxelOctree::DoCollisionWith(VoxelOctree* otherTree)
+{
+	return false;
 }

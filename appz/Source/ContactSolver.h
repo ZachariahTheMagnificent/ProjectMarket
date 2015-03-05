@@ -10,7 +10,7 @@ public:
 	ContactSolver();
 	~ContactSolver();
 	bool CheckThisCollision(Voxel* voxel1, Voxel* voxel2, const double deltaTime);
-	bool CheckThisCollision(CollisionBody* draw1, CollisionBody* draw2, const double deltaTime);
+	bool CheckThisCollision(CollisionBody* body1, CollisionBody* body2, const double deltaTime);
 	void ResolveAllCollisionsAccordingTo(const double deltaTime);
 private:
 	LinkList<Contact> list;

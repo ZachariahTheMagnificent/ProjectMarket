@@ -8,16 +8,20 @@ ContactSolver::~ContactSolver()
 {
 }
 
-bool ContactSolver::CheckThisCollision(CollisionBody* draw1, CollisionBody* draw2, const double deltaTime)
+bool ContactSolver::CheckThisCollision(CollisionBody* body1, CollisionBody* body2, const double deltaTime)
 {
-	//VoxelOctree myTree;
-	//myTree.SetUpFor(draw1, draw2, deltaTime);
-	//std::vector<Contact> contacts = myTree.GetAllContacts();
+	if(body1->GetDiameter() > body2->GetDiameter())
+	{
+		body1->DoCollisionWith(body2);
+	}
+	else
+	{
+		body2->DoCollisionWith(body1);
+	}
 	//for(std::vector<Contact>::iterator contact = contacts.begin(); contact != contacts.end(); ++contact)
 	//{
 	//	list.InsertNode(*contact);
 	//}
-	//bool test = contacts.size();
 	return false;
 }
 

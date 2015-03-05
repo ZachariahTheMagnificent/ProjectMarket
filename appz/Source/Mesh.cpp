@@ -8,16 +8,24 @@ name(meshName)
 {
 	nVerts = Vertex_buffer.size();
 	polygons.reserve(nVerts/3);
-	for(std::vector<Vertex>::iterator vert1 = Vertex_buffer.begin(),vert2 = vert1 + 1,vert3 = vert2 + 1; vert3 != Vertex_buffer.end(); ++vert1, ++vert2, ++vert3)
+	for(std::vector<Vertex>::iterator vert1 = Vertex_buffer.begin(); vert1 != Vertex_buffer.end(); vert1+=3)
 	{
-		if(!(vert1->pos - vert2->pos).Cross(vert3->pos - vert2->pos).IsZero())
+		if(!((vert1 + 2)->pos - (vert1 + 1)->pos).Cross(vert1->pos - (vert1 + 1)->pos).IsZero())
 		{
-			polygons.push_back(Polygonn(*vert1, *vert2, *vert3));
+			polygons.push_back(Polygonn(*vert1, *(vert1 + 1), *(vert1 + 2)));
 		}
 	}
+	
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, Vertex_buffer.size() * sizeof(Vertex), &Vertex_buffer.front(), GL_STATIC_DRAW);
+	std::vector<Vertex> buffz;
+	for(std::vector<Polygonn>::iterator polygon = polygons.begin(), end = polygons.end(); polygon != end; ++polygon)
+	{
+		buffz.push_back(polygon->GetVertex1());
+		buffz.push_back(polygon->GetVertex2());
+		buffz.push_back(polygon->GetVertex3());
+	}
+	glBufferData(GL_ARRAY_BUFFER, Vertex_buffer.size() * sizeof(Vertex), &buffz.front(), GL_STATIC_DRAW);
 }
 
 Mesh::~Mesh()
@@ -30,9 +38,8 @@ const std::wstring& Mesh::GetName() const
 	return name;
 }
 
-VoxelOctree* Mesh::GenerateVoxel()
+void Mesh::GetRanges(Range<int>& rangeX, Range<int>& rangeY, Range<int>& rangeZ)
 {
-	VoxelOctree* tree = new VoxelOctree;
 	int furthestLeft = INT_MAX;
 	int furthestRight = INT_MIN;
 	int furthestDown = INT_MAX;
@@ -73,31 +80,21 @@ VoxelOctree* Mesh::GenerateVoxel()
 		}
 	}
 	//increase the range by 1 to accomadate for all vertices in the grid
-	Range<int> rangeX(furthestLeft, furthestRight);
-	Range<int> rangeY(furthestDown, furthestUp);
-	Range<int> rangeZ(furthestBack, furthestFront);
-	Vector3 voxelDisplacement(0 + furthestLeft, 0 + furthestDown, 0 + furthestBack);
-	if(rangeX.Length() >= rangeY.Length() && rangeX.Length() >= rangeZ.Length())
-	{
-		tree->SetRangeTo(rangeX.Length(), voxelDisplacement);
-	}
-	else if(rangeY.Length() >= rangeX.Length() && rangeY.Length() >= rangeZ.Length())
-	{
-		tree->SetRangeTo(rangeY.Length(), voxelDisplacement);
-	}
-	else
-	{
-		tree->SetRangeTo(rangeZ.Length(), voxelDisplacement);
-	}
-	int areaXY = rangeX.Length() * rangeY.Length();
-	for(std::vector<Polygonn>::iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
+	rangeX.Set(furthestLeft, furthestRight);
+	rangeY.Set(furthestDown, furthestUp);
+	rangeZ.Set(furthestBack, furthestFront);
+}
+
+VoxelOctree* Mesh::GenerateVoxel(VoxelOctree* tree) const
+{
+	for(std::vector<Polygonn>::const_iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
 	{
 		//create the 5 polygons that the voxels will be checked against
 		Polygonn polygon1(*polygon);
-		polygon1.MoveAlongNormalBy(-1);
+		polygon1.MoveAlongNormalBy(-0.5);
 
 		Polygonn polygon2(polygon->Flipped());
-		polygon2.MoveAlongNormalBy(-1);
+		polygon2.MoveAlongNormalBy(-0.5);
 
 		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
 		Polygonn polygon4(*polygon2.ReturnFirstVertex(), *polygon2.ReturnLastVertex(), *polygon1.ReturnSecondVertex());
@@ -148,10 +145,10 @@ VoxelOctree* Mesh::GenerateVoxel()
 		//{
 		//	LongestVector = triangleVector2;
 		//}
-		//const unsigned steps = (LongestVector.Length() + 0.5) / sizeOfVoxel;
+		//const unsigned steps = (LongestVector.Length() + 0.5);
 		//for(Vector3 displacement1, displacement2, increment1 = triangleVector1 / steps, increment2 = triangleVector2 / steps; displacement1.Length() < triangleVector1.Length(); displacement1 += increment1, displacement2 += increment2)
 		//{
-		//	//create a vector that we create our voxel in
+		//	create a vector that we create our voxel in
 		//	Vector3 point1 = polygon->ReturnFirstVertex()->pos + displacement1;
 		//	Vector3 point2 = polygon->ReturnLastVertex()->pos + displacement2;
 		//	Vector3 voxelVector = point2 - point1;
@@ -159,44 +156,31 @@ VoxelOctree* Mesh::GenerateVoxel()
 		//	{
 		//		continue;
 		//	}
-		//	for(Vector3 displacement = voxelVector.Normalized() * (sizeOfVoxel*0.5), increment = voxelVector.Normalized() * sizeOfVoxel; displacement.Length() < voxelVector.Length(); displacement += increment)
+		//	for(Vector3 displacement = voxelVector.Normalized() * (0.5), increment = voxelVector.Normalized(); displacement.Length() < voxelVector.Length(); displacement += increment)
 		//	{
 		//		Vector3 voxelPosition = point1 + displacement;
 
-		//		//remove the floating point values
-		//		voxelPosition.x = (int)(voxelPosition.x + voxelDisplacement.x + 0.5);
-		//		voxelPosition.y = (int)(voxelPosition.y + voxelDisplacement.y + 0.5);
-		//		voxelPosition.z = (int)(voxelPosition.z + voxelDisplacement.z + 0.5);
+		//		remove the floating point values
+		//		voxelPosition.x = (int)(voxelPosition.x + 0.5);
+		//		voxelPosition.y = (int)(voxelPosition.y + 0.5);
+		//		voxelPosition.z = (int)(voxelPosition.z + 0.5);
+
+		//		Voxel voxel;
+		//		voxel.SetSolidityTo(1);
+		//		voxel.SetPositionTo(voxelPosition);
+		//		float red = rand();
+		//		red = red - (int)red;
+		//		float green = rand();
+		//		green = green - (int)green;
+		//		float blue = rand();
+		//		blue = blue - (int)blue;
+		//		voxel.SetColorTo(Color(red,green,blue));
 
 		//		
-		//		int index = voxelPosition.x + voxelPosition.y * lengthX + voxelPosition.z * areaXY;
-		//		VoxelGrid[index] = true;
+		//		tree->AddVoxel(voxel);
 		//	}
 		//}
 	}
-
-	//for(int z = furthestBack; z <= furthestFront; ++z)
-	//{
-	//	for(int y = furthestDown; y <= furthestUp; ++y)
-	//	{
-	//		for(int x = furthestLeft; x <= furthestRight; ++x)
-	//		{
-	//			if(VoxelGrid[(voxelDisplacement.x + x) + (voxelDisplacement.y + y) * lengthX + (voxelDisplacement.z + z) * areaXY])
-	//			{
-	//				Voxel temp;
-	//				temp.SetPositionTo(Vector3(x,y,z));
-	//				float red = rand();
-	//				red = red - (int)red;
-	//				float green = rand();
-	//				green = green - (int)green;
-	//				float blue = rand();
-	//				blue = blue - (int)blue;
-	//				temp.SetColorTo(Color(red,green,blue));
-	//				voxels.push_back(temp);
-	//			}
-	//		}
-	//	}
-	//}
 	return tree;
 }
 

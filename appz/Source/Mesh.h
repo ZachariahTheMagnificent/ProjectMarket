@@ -23,8 +23,9 @@ public:
 	void Render( unsigned textureID = 0, unsigned mode = GL_TRIANGLES);
 	//a function made to render only parts of the mesh
 	void Render(unsigned offset, unsigned count, unsigned textureID, unsigned mode);
+	void GetRanges(Range<int>& rangeX, Range<int>& rangeY, Range<int>& rangeZ);
 	void SetColor(Color color);
-	VoxelOctree* GenerateVoxel();
+	VoxelOctree* GenerateVoxel(VoxelOctree* tree) const;
 private:
 	const std::wstring name;
 	unsigned m_vertexBuffer;

@@ -91,6 +91,21 @@ void VoxelLeaf::AddVoxel(Voxel& voxel)
 	}
 }
 
+const Range<int>& VoxelLeaf::GetRangeX() const
+{
+	return fullRangeX;
+}
+
+const Range<int>& VoxelLeaf::GetRangeY() const
+{
+	return fullRangeY;
+}
+
+const Range<int>& VoxelLeaf::GetRangeZ() const
+{
+	return fullRangeZ;
+}
+
 Voxel* VoxelLeaf::GetVoxel(const Vector3& position)
 {
 	if(HasAlreadySubdivided())

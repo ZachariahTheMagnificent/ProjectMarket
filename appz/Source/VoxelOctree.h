@@ -9,7 +9,11 @@ public:
 	~VoxelOctree();
 	void SetRangeTo(int diameter, Vector3 displacement);
 	void AddVoxel(Voxel& voxel);
+	Voxel* GetVoxel(const Vector3& position);
+	std::vector<Voxel*>& GetVector();
 	int GetRadius() const;
+	bool DoCollisionWith(VoxelOctree* otherTree);
 private:
 	VoxelLeaf mainLeaf;
+	std::vector<Voxel*> voxels;
 };

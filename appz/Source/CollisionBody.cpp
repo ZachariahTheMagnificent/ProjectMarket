@@ -1,9 +1,10 @@
 #include "CollisionBody.h"
 #include "Custom Functions.h"
 
-CollisionBody::CollisionBody(std::wstring name, drawOrder* draw, float mass, float bounce, float staticFriction, float kineticFriction)
+CollisionBody::CollisionBody(std::wstring name, drawOrder* draw, drawOrder* parentDraw, float mass, float bounce, float staticFriction, float kineticFriction)
 	:
 name(name),
+mainDraw(draw),
 draw(draw),
 mass(mass),
 bounce(bounce),
@@ -55,8 +56,39 @@ void CollisionBody::UpdateVelocity(const double deltaTime)
 
 void CollisionBody::UpdateTo(const double deltaTime)
 {
-	draw->transform.translate += velocity * deltaTime;
+	mainDraw->transform.translate += velocity * deltaTime;
 	ApplyFriction();
+}
+
+int CollisionBody::GetDiameter() const
+{
+	return voxels.GetRadius() * 2;
+}
+
+std::vector<Voxel*>& CollisionBody::GetVoxelVector()
+{
+	return voxels.GetVector();
+}
+
+Mtx44 CollisionBody::GetMatrix() const
+{
+	return draw->GetMatrix();
+}
+
+void CollisionBody::DoCollisionWith(CollisionBody* otherBody)
+{
+	Mtx44 inverseMatrix = draw->GetMatrix().GetInverse(), otherMatrix = otherBody->draw->GetMatrix();
+	for(std::vector<Voxel*>::iterator voxel = otherBody->voxels.GetVector().begin(), end = otherBody->voxels.GetVector().end(); voxel != end; ++voxel)
+	{
+		//move the otherBody's voxel to it's current position
+		Vector3 position = otherMatrix * (*voxel)->GetPosition();
+		//move it according to our original position
+		if(voxels.GetVoxel(inverseMatrix * position))
+		{
+			otherBody->velocity.y = 1;
+			std::cout << "hit";
+		}
+	}
 }
 
 void CollisionBody::ApplyFriction()
@@ -180,10 +212,25 @@ void CollisionBody::SetFrictionTo(const float staticz, const float kineticz)
 
 void CollisionBody::GenerateVoxels()
 {
-	//if(geometry)
-	//{
-	//	voxels = geometry->GenerateVoxel();
-	//}
+	if(draw->GetMesh())
+	{
+		Range<int> rangeX, rangeY, rangeZ;
+		draw->GetMesh()->GetRanges(rangeX, rangeY, rangeZ);
+		Vector3 displacement(rangeX.Start(), rangeY.Start(), rangeZ.Start());
+		if(rangeX.Length() > rangeY.Length() && rangeX.Length() > rangeZ.Length())
+		{
+			voxels.SetRangeTo( rangeX.Length(), displacement);
+		}
+		if(rangeY.Length() > rangeX.Length() && rangeY.Length() > rangeZ.Length())
+		{
+			voxels.SetRangeTo( rangeY.Length(), displacement);
+		}
+		if(rangeZ.Length() > rangeX.Length() && rangeZ.Length() > rangeY.Length())
+		{
+			voxels.SetRangeTo( rangeZ.Length(), displacement);
+		}
+		draw->GetMesh()->GenerateVoxel(&voxels);
+	}
 }
 
 std::wstring CollisionBody::GetName() const
@@ -203,30 +250,30 @@ float CollisionBody::GetKinetic()
 
 float CollisionBody::GetMaxX() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).x + (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).x + (float)voxels.GetRadius();
 }
 
 float CollisionBody::GetMinX() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).x - (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).x - (float)voxels.GetRadius();
 }
 
 float CollisionBody::GetMaxY() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).y + (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).y + (float)voxels.GetRadius();
 }
 
 float CollisionBody::GetMinY() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).y - (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).y - (float)voxels.GetRadius();
 }
 
 float CollisionBody::GetMaxZ() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).z + (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).z + (float)voxels.GetRadius();
 }
 
 float CollisionBody::GetMinZ() const
 {
-	return (draw->GetMatrix() * draw->transform.translate).z - (float)voxels->GetRadius();
+	return (draw->GetMatrix() * draw->transform.translate).z - (float)voxels.GetRadius();
 }

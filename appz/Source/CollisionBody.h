@@ -6,7 +6,7 @@
 class CollisionBody
 {
 public:
-	CollisionBody(std::wstring name = std::wstring(), drawOrder* draw = NULL, float mass = 0, float bounce = 0, float staticFriction = 0, float kineticFriction = 0);
+	CollisionBody(std::wstring name = std::wstring(), drawOrder* draw = NULL, drawOrder* parentDraw = NULL, float mass = 0, float bounce = 0, float staticFriction = 0, float kineticFriction = 0);
 	~CollisionBody();
 	
 	std::wstring GetName() const;
@@ -30,16 +30,21 @@ public:
 	void GenerateVoxels();
 	void SetNameAs(const std::wstring name);
 	float GetKinetic();
+	int GetDiameter() const;
 	float GetMaxX() const;
 	float GetMinX() const;
 	float GetMaxY() const;
 	float GetMinY() const;
 	float GetMaxZ() const;
 	float GetMinZ() const;
+	void DoCollisionWith(CollisionBody* otherBody);
+	std::vector<Voxel*>& GetVoxelVector();
+	Mtx44 GetMatrix() const;
 private:
 	std::wstring name;
+	drawOrder* mainDraw;
 	drawOrder* draw;
-	VoxelOctree* voxels;
+	VoxelOctree voxels;
 	Vector3 velocity;
 	std::vector<Force> forces;
 	Vector3 terminalVelocity;

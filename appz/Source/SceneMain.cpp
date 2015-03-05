@@ -255,7 +255,7 @@ void SceneMain::InnitLight()
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 0.01f));
+	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1), 1.f));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"Quad1", Color(1, 1, 1), 10.f, 10.f));
 	globals.AddMesh(MeshBuilder::GenerateQuad(L"BG", Color(1, 1, 1), 10.f, 10.f));
@@ -323,7 +323,6 @@ void SceneMain::InnitDraws()
 
 	//Draw Player
 	globals.AddDraw(drawOrder(L"player_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"main"), true));
-	globals.GetDraw(L"player_body").selfTransform.scale.Set(10,10,10);
 	globals.AddDraw(drawOrder(L"player_arm_left",globals.GetMesh(L"characterarm"), &globals.GetMaterial(L"character1"), &globals.GetDraw(L"player_body"), true));
 	globals.GetDraw(L"player_arm_left").transform.translate.Set(0,0.6,1.5);
 	globals.GetDraw(L"player_arm_left").selfTransform.rotate.z = 115;
@@ -877,12 +876,18 @@ void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parent
 
 void SceneMain::InnitCollisions()
 {
-	globals.AddCollisionBody(CollisionBody(L"player", &globals.GetDraw(L"player_body"), 1, 1, 0.1, 0.1));
+	globals.AddCollisionBody(CollisionBody(L"player", &globals.GetDraw(L"player_body"), &globals.GetDraw(L"player_body"), 1, 1, 0.1, 0.1));
+	globals.GetDraw(L"player_body").SetMeshTo(NULL);
 	globals.GetCollisionBody(L"player").SetTerminalVelocityTo(Vector3(500,500,500));
-	//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-	//{
-	//	draw->second->GenerateVoxels();
-	//}
+
+	globals.AddCollisionBody(CollisionBody(L"ground", &globals.GetDraw(L"ground"), &globals.GetDraw(L"ground"), 0, 1, 0.1, 0.1));
+
+	globals.AddCollisionBody(CollisionBody(L"building", &globals.GetDraw(L"building"), &globals.GetDraw(L"building"), 0, 1, 0.1, 0.1));
+
+	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+	{
+		body->second->GenerateVoxels();
+	}
 }
 
 void SceneMain::InnitForces()
@@ -1173,7 +1178,8 @@ void SceneMain::UpdateDraws()
 	}
 
 	//where we do collision
-	//collisionSystem.CheckThisCollision(
+	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"ground"), &globals.GetCollisionBody(L"player"), deltaTime);
+	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"building"), &globals.GetCollisionBody(L"player"), deltaTime);
 
 	//draws are finally updated after processing
 	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
@@ -1222,19 +1228,18 @@ void SceneMain::Render()
 
 		if(drawVoxels)
 		{
-			//Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
-			//drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
-			//for(std::map<std::wstring, drawOrder*>::iterator draw = globals.GetDrawList().begin(); draw != globals.GetDrawList().end(); ++draw)
-			//{
-			//	Mtx44 matrix(draw->second->GetMatrix());
-			//	for(std::vector<Voxel>::iterator voxel = draw->second->voxels.begin(); voxel != draw->second->voxels.end(); voxel++)
-			//	{
-			//		voxel->ApplyToMatrix(matrix);
-			//		Mtx44 translate;
-			//		translate.SetToTranslation(voxel->GetPosition());
-			//		gfx.RenderMesh(draw_cube, translate);
-			//	}
-			//}
+			Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));
+			drawOrder draw_cube(L"cube", globals.GetMesh(L"cube"), &material, NULL, true);
+			for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+			{
+				Mtx44 matrix(body->second->GetMatrix());
+				for(std::vector<Voxel*>::iterator voxel = body->second->GetVoxelVector().begin(), end = body->second->GetVoxelVector().end(); voxel != end; ++voxel)
+				{
+					Mtx44 translate;
+					translate.SetToTranslation(matrix * (*voxel)->GetPosition());
+					gfx.RenderMesh(draw_cube, translate);
+				}
+			}
 		}
 		else
 		{
