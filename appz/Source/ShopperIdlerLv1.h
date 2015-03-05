@@ -1,8 +1,24 @@
+/****************************************************************************/
+/*!
+\file ShopperIdler.h
+\author Lim Ting Yang
+\par email: limtingyang@hotmail.com
+\brief
+Struct to define a 3D Shopper Idler AI
+*/
+/****************************************************************************/
 #pragma once
 
 #include "Shopper.h"
 #include "DrawOrder.h"
 
+/****************************************************************************/
+/*!
+Class ShopperIdler:
+\brief 
+Defines a 3D Shopper Idler AI
+*/
+/****************************************************************************/
 class ShopperIdler :
 	public Shopper
 {

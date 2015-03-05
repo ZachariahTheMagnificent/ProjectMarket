@@ -307,14 +307,12 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix)
+void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, bool fromCentre)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
 	{
 		return;
 	}
-
-	//glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
 	int screenX, screenY;
@@ -324,8 +322,17 @@ void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix)
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
+	Mtx44 translate;
+	if(fromCentre)
+	{
+		translate.SetToTranslation(screenX/2, screenY/2, 0);
+	}
+	else
+	{
+		translate.SetToIdentity();
+	}
 	modelStack.PushMatrix();
-	modelStack.LoadMatrix(matrix);
+	modelStack.LoadMatrix(translate * matrix);
 
 
 	Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();

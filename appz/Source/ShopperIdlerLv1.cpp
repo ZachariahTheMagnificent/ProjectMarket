@@ -1,6 +1,18 @@
+/****************************************************************************/
+/*!
+\file ShopperIdler.cpp
+\author Lim Ting Yang
+\par email: limtingyang@homail.com
+*/
+/****************************************************************************/
 #include "ShopperIdlerLv1.h"
 
-
+/****************************************************************************/
+/*!
+\brief
+Constructor(initialise all variable for shopper idler)
+*/
+/****************************************************************************/
 ShopperIdler::ShopperIdler(void)
 {
 	distanceMovedInOneDir = 0;
@@ -20,11 +32,23 @@ ShopperIdler::ShopperIdler(void)
 	timeWalking = 0;
 }
 
-
+/****************************************************************************/
+/*!
+\brief
+Destructor
+*/
+/****************************************************************************/
 ShopperIdler::~ShopperIdler(void)
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+Setting position of the shopper idler
+\param rhs
+position number to set position
+*/
+/****************************************************************************/
 void ShopperIdler::SetPosition(int No)
 {
 	characterBody->transform.translate = points[No];
@@ -32,7 +56,14 @@ void ShopperIdler::SetPosition(int No)
 	defaultPoint = points[No];
 	defaultCharBodyAngleRotate = characterBody->transform.rotate.y;
 }
-
+/****************************************************************************/
+/*!
+\brief
+update shopper idler
+\param rhs
+double delta time
+*/
+/****************************************************************************/
 void ShopperIdler::Update(const double dt)
 {
 	if(idling == true)
@@ -97,7 +128,12 @@ void ShopperIdler::Update(const double dt)
 		}
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+Reseting the shooper idler
+*/
+/****************************************************************************/
 void ShopperIdler::Reset()
 {
 	idling = true;
@@ -116,7 +152,16 @@ void ShopperIdler::Reset()
 	characterBody->transform.translate = defaultPoint;
 	characterBody->transform.rotate.y = defaultCharBodyAngleRotate;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Draw out the character body.
+\param rhs
+point to shopper body
+point to shopper Arms
+point to shopper legs
+*/
+/****************************************************************************/
 void ShopperIdler::DrawIsEqualTo(drawOrder& TempCharacterBody, drawOrder& TempCharacterLeftArm, drawOrder& TempCharacterRightArm, drawOrder& TempCharacterLeftLeg, drawOrder& TempCharacterRightLeg)
 {
 	characterBody = &TempCharacterBody;

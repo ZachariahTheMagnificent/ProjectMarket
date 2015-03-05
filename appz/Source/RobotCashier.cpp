@@ -1,16 +1,42 @@
-#include "RobotCashier.h"
 
+/****************************************************************************/
+/*!
+\file RobotCashier.cpp
+\author Lim Ting Yang
+\par email: limtingyang@homail.com
+*/
+/****************************************************************************/
+#include "RobotCashier.h"
+/****************************************************************************/
+/*!
+\brief
+constructor(initialise all variables)
+*/
+/****************************************************************************/
 RobotCashier::RobotCashier(void)
 {
 	robotBodyAngleRotate = 0;
 	robotArmRotate=89;
 	rightArmRotateUp=true;
 }
-
+/****************************************************************************/
+/*!
+\brief
+destructor
+*/
+/****************************************************************************/
 RobotCashier::~RobotCashier(void)
 {
 }
+/****************************************************************************/
+/*!
+\brief
+updating the arm rotation
+\param rhs
+double delta time
 
+*/
+/****************************************************************************/
 void RobotCashier::Update(const double dt)
 {
 	if(robotArmRotate >160)
@@ -29,7 +55,12 @@ void RobotCashier::Update(const double dt)
 	}
 	
 }
-
+/****************************************************************************/
+/*!
+\brief
+resetting the angles of rotation
+*/
+/****************************************************************************/
 
 void RobotCashier::Reset()
 {
@@ -39,7 +70,16 @@ void RobotCashier::Reset()
 	robotArmRotate = 30;
 	rightArmRotateUp = true;
 }
+/****************************************************************************/
+/*!
+\brief
 
+\param rhs
+point to robot body
+point to robot arms
+point to robot legs
+*/
+/****************************************************************************/
 void RobotCashier::DrawIsEqualTo(drawOrder& TempRobotBody, drawOrder& TempRobotLeftArm, drawOrder& TempRobotRightArm)
 {
 	robotBody = &TempRobotBody;

@@ -26,7 +26,7 @@ public:
 	void InitText(const std::wstring filepath);
 	void RenderText(const std::string text, const Color color);
 	void RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y);
-	void RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix);
+	void RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, bool fromCentre = false);
 	void RenderMesh(const drawOrder& object, const Mtx44& Matrix);
 	bool AddLight(Light* light);
 	void UpdateLights();

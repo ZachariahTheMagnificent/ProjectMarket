@@ -1266,30 +1266,27 @@ void SceneMain::Render()
 	glEnableVertexAttribArray(1); // 2nd attribute buffer : colors
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
-
-	Mtx44 BG;
-	BG.SetToRotation(180,0,1,0);
-	BG.SetToTranslation(Vector3(30,30,30));
-	gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG);
+	
 	if(state==MAINMENU)
 	{
+		snd.playSound("halot",true);
 		MS BG;
-		BG.Translate(360,245,-0.01);
-		BG.Scale(50,50,1);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top());
+		BG.Translate(0,0,-0.01);
+		BG.Scale(100,100,1);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"BG"),BG.Top(), true);
 		MS Quad1,Quad2,Quad3,Quad4;
-		Quad1.Scale(15,5,1);
-		Quad2.Scale(15,5,1);
-		Quad3.Scale(15,5,1);
-		Quad4.Scale(15,5,1);
-		Quad1.Translate(24,70,0);
-		Quad2.Translate(24,55,0);
-		Quad3.Translate(24,40,0);
-		Quad4.Translate(24,25,0);
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top());
-		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top());
+		Quad1.Scale(20,7,1);
+		Quad2.Scale(20,7,1);
+		Quad3.Scale(20,7,1);
+		Quad4.Scale(20,7,1);
+		Quad1.Translate(0,50,0);
+		Quad2.Translate(0,30,0);
+		Quad3.Translate(0,10,0);
+		Quad4.Translate(0,-10,0);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad1"),Quad1.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad2"),Quad2.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad3"),Quad3.Top(), true);
+		gfx.RenderMeshOnScreen(globals.GetDraw(L"Quad4"),Quad4.Top(), true);
 	}
 	else if(state==START)
 	{
