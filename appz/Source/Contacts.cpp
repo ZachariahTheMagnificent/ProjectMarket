@@ -35,7 +35,6 @@ void Contact::ResolveAccordingTo(const double deltaTime)
 	Voxel SecondVoxelAtCollision = *secondVoxel;
 	FirstVoxelAtCollision.SetPositionTo(firstBody->GetMatrix() * firstVoxel->GetPosition() + firstBody->GetVelocity() * timeOfImpact);
 	SecondVoxelAtCollision.SetPositionTo(secondBody->GetMatrix() * secondVoxel->GetPosition() + secondBody->GetVelocity() * timeOfImpact);
-
 	const float firsts_MinX = FirstVoxelAtCollision.GetMinX();
 	const float firsts_MinY = FirstVoxelAtCollision.GetMinY();
 	const float firsts_MinZ = FirstVoxelAtCollision.GetMinZ();

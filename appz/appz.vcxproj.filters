@@ -55,9 +55,6 @@
     <ClCompile Include="Source\SceneMain.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ScenePhysics.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Source\RobotCashier.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
@@ -175,9 +172,6 @@
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneMain.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScenePhysics.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshBuilder.h">
