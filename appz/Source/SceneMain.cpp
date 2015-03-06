@@ -1450,7 +1450,7 @@ void SceneMain::Render()
 	}
 	else if(state==START)
 	{
-		//snd.stopSound
+		snd.stopSound();
 		if(drawVoxels)
 		{
 			Material material(L"meep", Component(1,1,1), Component(1,1,1), Component(1,1,1),20,globals.GetTexture(L"building"));

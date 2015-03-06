@@ -17,6 +17,7 @@ public:
 	Sound();
 	~Sound();
 	void playSound(std::string key, bool async = true);
+	void stopSound();
 	bool loadWave(std::string key, char* filename);
 };
 

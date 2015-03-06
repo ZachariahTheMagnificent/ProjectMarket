@@ -3,6 +3,7 @@
 
 Sound::Sound()
 {
+	loadWave("stop", "");
 }
 
 Sound::~Sound()
@@ -51,4 +52,9 @@ bool Sound::loadWave(std::string key, char* filename)
     soundData[key] = memblock;
 
     return true;
+}
+
+void Sound::stopSound()
+{
+	playSound("stop");
 }
