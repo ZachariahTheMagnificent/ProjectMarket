@@ -180,8 +180,8 @@ void SceneMain::InnitSounds()
 	snd.loadWave("elevator","sound//elevator.wav");
 	snd.loadWave("robot","sound//robot.wav");
 	snd.loadWave("halot","sound//halot.wav");
-	snd.loadWave("meet didact","sound//meet_didact");
-	snd.loadWave("didact freed","sound//didact_freed");
+	snd.loadWave("meet didact","sound//meet_didact.wav");
+	snd.loadWave("didact freed","sound//didact_freed.wav");
 	snd.loadWave("robot2","sound//robot2.wav");
 }
 /****************************************************************************/
@@ -240,6 +240,7 @@ void SceneMain::InnitTextures()
 	globals.AddTexture(L"Quad3",L"Image//Quad3.tga");
 	globals.AddTexture(L"Quad4",L"Image//Quad4.tga");
 	globals.AddTexture(L"BG",L"Image//BG.tga");
+	globals.AddTexture(L"target",L"Image//white.tga");
 	globals.AddTexture(L"incredits",L"Image//incredits.tga");
 	globals.AddTexture(L"inexit",L"Image//inexit.tga");
 	globals.AddTexture(L"instructions",L"Image//instructions.tga");
@@ -289,6 +290,7 @@ void SceneMain::InnitMaterials()
 	globals.AddMaterial(Material(L"Quad2",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad2")));
 	globals.AddMaterial(Material(L"Quad3",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad3")));
 	globals.AddMaterial(Material(L"Quad4",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"Quad4")));
+	globals.AddMaterial(Material(L"target",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"target")));
 	globals.AddMaterial(Material(L"BG",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"BG")));
 	globals.AddMaterial(Material(L"incredits",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"incredits")));
 	globals.AddMaterial(Material(L"inexit",Component(AbientLight,AbientLight,AbientLight),Component(1,1,1),Component(1,1,1),20,globals.GetTexture(L"inexit")));
@@ -328,7 +330,7 @@ Initializes geometry and obj
 void SceneMain::InnitGeometry()
 {
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"skybox", L"OBJ//skybox.obj"));
-	globals.AddMesh(MeshBuilder::GenerateSphere(L"sphere", Color(1, 1, 1),0.06f));
+	globals.AddMesh(MeshBuilder::GenerateOBJ(L"sphere", L"OBJ//sphere.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"didact", L"OBJ//didact.obj"));
 	globals.AddMesh(MeshBuilder::GenerateOBJ(L"ring", L"OBJ//ring.obj"));
 	globals.AddMesh(MeshBuilder::GenerateRepeatQuad(L"ground", Color(1, 1, 1), 500.f, 500.f));
@@ -399,11 +401,13 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"building").transform.translate.Set(0,0.1,-30);
 
 	//Draw player target
-	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"BG"), &globals.GetDraw(L"main"), true));
+	globals.AddDraw(drawOrder(L"target",globals.GetMesh(L"sphere"), &globals.GetMaterial(L"target"), &globals.GetDraw(L"main"), false));
+	globals.GetDraw(L"target").transform.scale.Set(0.033,0.033,0.033);
 
 	//Draw Didact
 	globals.AddDraw(drawOrder(L"didact", globals.GetMesh(L"didact"), &globals.GetMaterial(L"didact"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"didact").transform.translate.Set(17,15,-12);
+	meetDidact.Set(17,15,-12);
 	globals.GetDraw(L"didact").transform.scale.Set(10,10,10);
 
 	//Draw Ring
@@ -1072,7 +1076,7 @@ initializing forces, acceleration.
 /****************************************************************************/
 void SceneMain::InnitForces()
 {
-	Vector3 accelerationDueToGravity(0, -9.8f, 0);
+	Vector3 accelerationDueToGravity(0, -20.8f, 0);
 	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
 	{
 		body->second->AddForce(accelerationDueToGravity * body->second->GetMass());
@@ -1322,6 +1326,11 @@ void SceneMain::UpdateLogic()
 	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
 	InteractDoor.TrolleyTeleportWithoutPlayer(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate);
 
+	if(camera.IsLookingAt(meetDidact,10,5))
+	{
+		snd.playSound("meet didact");
+		meetDidact.y = 5000;
+	}
 
 	if (InteractDoor.GetLiftDoorInRange() == true)
 	{
@@ -1858,6 +1867,16 @@ void SceneMain::DoUserInput()
 		}
 		if (keyboard.isKeyPressed('I'))
 		{
+			//ResetDidact
+			globals.GetDraw(L"didact").transform.translate.Set(17,15,-12);
+			meetDidact.Set(17,15,-12);
+			globals.GetDraw(L"didact").transform.scale.Set(10,10,10);
+
+			//Reset Ring
+			globals.AddDraw(drawOrder(L"ring", globals.GetMesh(L"ring"), &globals.GetMaterial(L"ring"), &globals.GetDraw(L"main"), true));
+			globals.GetDraw(L"ring").transform.translate.Set(17,15,-12);
+			globals.GetDraw(L"ring").transform.scale.Set(10,10,10);
+
 			int temp = player->tempNoItemNeedToPay;
 			int temp2 = player->noOfItemInTrolley;
 			delete player;

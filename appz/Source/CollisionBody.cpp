@@ -81,7 +81,6 @@ Contact CollisionBody::DoCollisionWith(CollisionBody* otherBody, const double de
 	double timeOfImpact;
 	double newDeltaTime(deltaTime);
 	const double timestep = 0.001;
-	Voxel* collidedVoxel;
 	Mtx44 inverseMatrix = draw->GetMatrix().GetInverse(), otherMatrix = otherBody->draw->GetMatrix();
 	for(std::vector<Voxel*>::iterator voxel = otherBody->voxels.GetVector().begin(), end = otherBody->voxels.GetVector().end(); voxel != end; ++voxel)
 	{
@@ -92,36 +91,37 @@ Contact CollisionBody::DoCollisionWith(CollisionBody* otherBody, const double de
 		{
 			Vector3 testPosition = position + otherBody->velocity * timeOfImpact;
 			Vector3 actualTestPosition = inverseMatrix * testPosition - velocity * timeOfImpact;
+			Voxel* collidedVoxel;
 			//move it according to our original position
 			if(collidedVoxel = voxels.GetVoxel(actualTestPosition))
 			{
 				//contact = Contact(this, otherBody, collidedVoxel, *voxel, timeOfImpact);
-				Vector3 distanceTravelled = otherBody->velocity * (timeOfImpact - timestep);
+				Vector3 distanceTravelled = otherBody->velocity * (timeOfImpact - timestep * 2);
 				Vector3 positionBeforeImpact = inverseMatrix *  (position + distanceTravelled);
-				if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,1,0)))
+				if(!voxels.GetVoxel(positionBeforeImpact + Vector3(0,1,0)))
 				{
-					otherBody->velocity.y = ((distanceTravelled + Vector3(0,0,0))/deltaTime).y;
+					otherBody->velocity.y = ((distanceTravelled + Vector3(0, 0, 0)) / deltaTime).y;
 				}
-				else if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,-1,0)))
+				else if(!voxels.GetVoxel(positionBeforeImpact + Vector3(0,-1,0)))
 				{
-					otherBody->velocity.y = ((distanceTravelled + Vector3(0,-0,0))/deltaTime).y;
+					otherBody->velocity.y = ((distanceTravelled + Vector3(0, -0, 0)) / deltaTime).y;
 				}
-				if(voxels.GetVoxel(positionBeforeImpact + Vector3(1,0,0)))
-				{
-					otherBody->velocity.x = ((distanceTravelled + Vector3(0,0,0))/deltaTime).x;
-				}
-				else if(voxels.GetVoxel(positionBeforeImpact + Vector3(-1,0,0)))
-				{
-					otherBody->velocity.x = ((distanceTravelled + Vector3(-0,0,0))/deltaTime).x;
-				}
-				if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,0,1)))
-				{
-					otherBody->velocity.z = ((distanceTravelled + Vector3(0,0,0))/deltaTime).z;
-				}
-				else if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,0,-1)))
-				{
-					otherBody->velocity.z = ((distanceTravelled + Vector3(0,0,-0))/deltaTime).z;
-				}
+				//else if(voxels.GetVoxel(positionBeforeImpact + Vector3(1,0,0)))
+				//{
+				//	otherBody->velocity.x = ((distanceTravelled + Vector3(0,0,0))/deltaTime).x;
+				//}
+				//else if(voxels.GetVoxel(positionBeforeImpact + Vector3(-1,0,0)))
+				//{
+				//	otherBody->velocity.x = ((distanceTravelled + Vector3(-0,0,0))/deltaTime).x;
+				//}
+				//else if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,0,1)))
+				//{
+				//	otherBody->velocity.z = ((distanceTravelled + Vector3(0,0,0))/deltaTime).z;
+				//}
+				//else if(voxels.GetVoxel(positionBeforeImpact + Vector3(0,0,-1)))
+				//{
+				//	otherBody->velocity.z = ((distanceTravelled + Vector3(0,0,-0))/deltaTime).z;
+				//}
 				newDeltaTime = timeOfImpact;
 			}
 		}

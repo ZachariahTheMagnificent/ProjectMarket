@@ -83,6 +83,7 @@ private:
 	bool OpenLiftDoorInput;
 	bool exit;
 	float AbientLight;
+	Vector3 meetDidact;
 
 	//print fps
 	double deltaTime;
