@@ -3,9 +3,23 @@
 #include "MatrixStack.h"
 #include "Material.h"
 #include "Mesh.h"
-
+/****************************************************************************/
+/*!
+\file DrawOrder.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+Contains drawOrder which is a class used to help render objects in a scene in a hierarchical fashion and struts like rotation to keep rotation values and transforms to keep all translate, rotate and scale values
+*/
+/****************************************************************************/
 class Graphics;
-
+/****************************************************************************/
+/*!
+Struct Rotation:
+\brief
+Used to handle and keep rotation values
+*/
+/****************************************************************************/
 struct Rotation
 {
 	float x;
@@ -78,7 +92,13 @@ struct Rotation
 		newRotate += rotate;
 	}
 };
-
+/****************************************************************************/
+/*!
+Struct Transformation:
+\brief
+Used to handle and store the values of translate, rotate and scale for use in transformations
+*/
+/****************************************************************************/
 struct Transformation
 {
 	Vector3 translate;
@@ -123,7 +143,13 @@ struct Transformation
 		return TranslationMatrix() * RotationMatrix() * ScalationMatrix();
 	}
 };
-
+/****************************************************************************/
+/*!
+Class drawOrder:
+\brief
+Used to help render objects in a scene in a hierarchical fashion
+*/
+/****************************************************************************/
 class drawOrder
 {
 public:

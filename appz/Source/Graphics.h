@@ -1,5 +1,13 @@
 #pragma once
-
+/****************************************************************************/
+/*!
+\file Graphics.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that contains all of our graphics functions and handles our shader and OpenGL initialization
+*/
+/****************************************************************************/
 #include <vector>
 #include <iostream>
 #include "MatrixStack.h"
@@ -12,8 +20,19 @@
 #include "LoadTGA.h"
 #include "Camera.h"
 #include "DrawOrder.h"
-
+/****************************************************************************/
+/*!
+\brief
+Maximum number of lights we have
+*/
+/****************************************************************************/
 const unsigned MAX_LIGHTS = 8;
+/****************************************************************************/
+/*!
+\brief
+enum for our orientation of objects on the screen
+*/
+/****************************************************************************/
 enum ORIENTATION
 {
 	ORIENTATION_TOP,
@@ -21,8 +40,13 @@ enum ORIENTATION
 	ORIENTATION_CENTRE,
 	TOTAL_ORIENTATIONS,
 };
-
-
+/****************************************************************************/
+/*!
+Class Graphics:
+\brief
+contains all of our graphics functions and handles our shader and OpenGL initialization
+*/
+/****************************************************************************/
 class Graphics
 {
 public:

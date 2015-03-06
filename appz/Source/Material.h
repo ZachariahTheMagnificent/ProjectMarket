@@ -1,7 +1,23 @@
 #ifndef _MATERIAL_H
 #define _MATERIAL_H
 #include "LoadTGA.h"
+/****************************************************************************/
+/*!
+\file Material.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that contains material values
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Struct Component:
+\brief
+contains RGB values
+*/
+/****************************************************************************/
 struct Component
 {
 	Component(const float r = 0.1f, const float g = 0.1f, const float b = 0.1f)
@@ -16,7 +32,13 @@ struct Component
 	}
 	float r, g, b;
 };
-
+/****************************************************************************/
+/*!
+Class Material:
+\brief
+contains material values
+*/
+/****************************************************************************/
 class Material
 {
 public:

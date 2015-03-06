@@ -19,7 +19,6 @@
     <ClCompile Include="Source\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\AwesomePointer.h" />
     <ClInclude Include="Source\BackwardNode.h" />
     <ClInclude Include="Source\Custom Functions.h" />
     <ClInclude Include="Source\ForwardNode.h" />

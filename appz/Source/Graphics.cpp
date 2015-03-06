@@ -1,14 +1,32 @@
 #include "Graphics.h"
 #include "MeshBuilder.h"
-
+/****************************************************************************/
+/*!
+\file Graphics.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that contains all of our graphics functions and handles our shader and OpenGL initialization
+*/
+/****************************************************************************/
 static const unsigned NUM_OF_LIGHT_PARAMETERS = 11;
-
+/****************************************************************************/
+/*!
+\brief
+Default constructor
+*/
+/****************************************************************************/
 Graphics::Graphics()
 	:
 meshText(L"text")
 {
 }
-
+/****************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/****************************************************************************/
 Graphics::~Graphics()
 {
 	if(meshText.GetMesh())
@@ -18,7 +36,14 @@ Graphics::~Graphics()
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Initialization of shaders, lighting, parameters and other OpenGL and graphics code necessary
+\param window
+		gives the graphics object our current window
+*/
+/****************************************************************************/
 void Graphics::Init(GLFWwindow* window)
 {
 	m_window = window;
@@ -102,14 +127,28 @@ void Graphics::Init(GLFWwindow* window)
 	}
 	currentNumOfLights = 0;
 }
-
+/****************************************************************************/
+/*!
+\brief
+initializes our text object to a font
+\param filepath
+		path to a *.tga that contains our font
+*/
+/****************************************************************************/
 void Graphics::InitText(std::wstring filepath)
 {
 	meshText.SetMeshTo(MeshBuilder::GenerateText(filepath,16,16));
 	textMaterial = Material(L"mat", Component(1,1,1), Component(1,1,1), Component(1,1,1), 20,LoadTGA(filepath));
 	meshText.SetMaterialTo(&textMaterial);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Sets our view according to the camera
+\param camera
+		the camera that our view will be set to
+*/
+/****************************************************************************/
 void Graphics::SetViewAt(const Camera& camera)
 {
 	viewStack.LoadIdentity();
@@ -119,14 +158,34 @@ void Graphics::SetViewAt(const Camera& camera)
 	up = camera.ReturnUp();
 	viewStack.LookAt(position.x, position.y, position.z, target.x, target.y, target.z, up.x, up.y, up.z);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Sets our perspective
+\param FOVy
+		the field of view of our perspective
+\param aspectRatio
+		the aspect ratio of our perspective
+\param nearPlane
+		the distance of a plane from our perspective that all objects behind it are excluded from the perspective
+\param farPlane
+		the distance of a plane from our perspective that all objects in front of it are excluded from the perspective
+*/
+/****************************************************************************/
 void Graphics::SetProjectionTo(const float FOVy, const float aspectRatio, const float nearPlane, const float farPlane)
 {
 	Mtx44 projection;
 	projection.SetToPerspective(FOVy, aspectRatio, nearPlane, farPlane);
 	projectionStack.LoadMatrix(projection);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Add a light to the shader
+\param light
+		pointer to the light used for our shader
+*/
+/****************************************************************************/
 bool Graphics::AddLight(Light* light)
 {
 	if(currentNumOfLights < MAX_LIGHTS)
@@ -150,7 +209,12 @@ bool Graphics::AddLight(Light* light)
 	}
 	return false;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Updates our light
+*/
+/****************************************************************************/
 void Graphics::UpdateLights()
 {
 	for(Light** light = lights; *light != NULL; ++light)
@@ -178,7 +242,12 @@ void Graphics::UpdateLights()
 		//glUniform3fv(m_parameters[index*NUM_OF_LIGHT_PARAMETERS + U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+Renders a mesh
+*/
+/****************************************************************************/
 void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 {
 	modelStack.PushMatrix();
@@ -224,7 +293,12 @@ void Graphics::RenderMesh(const drawOrder& object, const Mtx44& matrix)
 	object.Render();
 	modelStack.PopMatrix();
 }
-
+/****************************************************************************/
+/*!
+\brief
+Render text as a mesh in the world
+*/
+/****************************************************************************/
 void Graphics::RenderText(const std::string text, const Color color)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
@@ -257,7 +331,12 @@ void Graphics::RenderText(const std::string text, const Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Renders text on the screen
+*/
+/****************************************************************************/
 void Graphics::RenderTextOnScreen(const std::string text, const Color color, const float size, const float x, const float y, ORIENTATION orientation)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check
@@ -319,7 +398,12 @@ void Graphics::RenderTextOnScreen(const std::string text, const Color color, con
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Renders a mesh onto the screen
+*/
+/****************************************************************************/
 void Graphics::RenderMeshOnScreen(const drawOrder& object, const Mtx44& matrix, ORIENTATION orientation)
 {
 	if(!meshText.GetMesh() || meshText.GetMaterial()->GetTexture() <= 0) //Proper error check

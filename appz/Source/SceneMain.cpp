@@ -28,6 +28,7 @@ object from GLmosuse class
 \param Sound& snd
 object from Sound class
 \param Graphics& gfx
+object from Graphics class
 */
 /****************************************************************************/
 SceneMain::SceneMain(Keyboard& keyboard, GLMouse& mouse, Sound& snd, Graphics& gfx)
@@ -1326,7 +1327,7 @@ void SceneMain::UpdateLogic()
 	InteractDoor.InteractWithLiftsCLOSE(deltaTime,globals.GetDraw(L"player_body").transform.translate, OpenLiftDoorInput);
 	InteractDoor.TrolleyTeleportWithoutPlayer(deltaTime,globals.GetDraw(L"player_body").transform.translate, globals.GetDraw(L"trolley5").transform.translate);
 
-	if(camera.IsLookingAt(meetDidact,10,5))
+	if(camera.IsLookingAt(meetDidact,10,10))
 	{
 		snd.playSound("meet didact");
 		meetDidact.y = 5000;

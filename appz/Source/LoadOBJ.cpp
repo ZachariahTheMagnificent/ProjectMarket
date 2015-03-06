@@ -2,11 +2,27 @@
 #include <fstream>
 
 #include "LoadOBJ.h"
+/****************************************************************************/
+/*!
+\file LoadObj.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to load OBJs
+*/
+/****************************************************************************/
 
-bool ObjLoader::LoadOBJ(
-		std::wstring file_path,
-		std::vector<Vertex>& out_vertices
-)
+/****************************************************************************/
+/*!
+\brief
+Loads the obj from a file to a vector of vertices
+\param file_path
+		the location of the file
+\param out_vertices
+		the vector of vertices that the OBJ values will be stored
+*/
+/****************************************************************************/
+bool ObjLoader::LoadOBJ(std::wstring file_path, std::vector<Vertex>& out_vertices)
 {
 	std::ifstream fileStream(file_path, std::ios::binary);
 	if(!fileStream.is_open())
@@ -122,41 +138,3 @@ bool ObjLoader::LoadOBJ(
 
 	return true;
 }
-
-//void ObjLoader::IndexVBO(
-//	std::vector<Vector3>& in_vertices,
-//	std::vector<TexCoord>& in_uvs,
-//	std::vector<Vector3>& in_normals,
-//
-//	std::vector<unsigned>& out_indices,
-//	std::vector<Vertex>& out_vertices
-//)
-//{
-//	std::map<packedvertex,unsigned short> VertIndex;
-//
-//	// For each input vertex
-//	for(unsigned int i = 0; i < in_vertices.size(); ++i) 
-//	{
-//		packedvertex packedvert = {in_vertices[i], in_normals[i] , in_uvs[i]};
-//
-//		// Try to find a similar vertex in our current output
-//		std::map<packedvertex, unsigned short>::iterator result = VertIndex.find(packedvert);
-//
-//		if ( result != VertIndex.end() )
-//		{ 
-//			// A similar vertex is already in the VBO, use it instead !
-//			out_indices.push_back( result->second );
-//		}
-//		else
-//		{ 
-//			// If not, it needs to be added in the output data.
-//			Vertex vert = {in_vertices[i], Color(1, 1, 1), in_normals[i] , in_uvs[i]};
-//			unsigned newindex = (unsigned)out_vertices.size() - 1;
-//
-//			out_vertices.push_back(vert);
-//			out_indices.push_back( newindex );
-//
-//			VertIndex[ packedvert ] = newindex;
-//		}
-//	}
-//}

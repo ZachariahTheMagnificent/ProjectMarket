@@ -1,7 +1,23 @@
 #pragma once
 #include "GL\glew.h"
 #include "GLFW\glfw3.h"
+/****************************************************************************/
+/*!
+\file GLMouse.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that handles mouse input
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Class GLMouse:
+\brief
+handles mouse input
+*/
+/****************************************************************************/
 class GLMouse
 {
 public:

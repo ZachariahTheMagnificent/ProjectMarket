@@ -1,8 +1,22 @@
 #ifndef _LIGHT_H
 #define _LIGHT_H
-
+/****************************************************************************/
+/*!
+\file Light.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that contains light values
+*/
+/****************************************************************************/
 #include "Vertex.h"
-
+/****************************************************************************/
+/*!
+Struct Light:
+\brief
+contains light values
+*/
+/****************************************************************************/
 struct Light
 {
 	Vector3 position;

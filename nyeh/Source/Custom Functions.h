@@ -1,6 +1,14 @@
 #ifndef _CUSTOM_FUNCTIONS_H
 #define _CUSTOM_FUNCTIONS_H
-
+/****************************************************************************/
+/*!
+\file Custom Functions.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A bunch of custom made functions to handle numbers and letters in various situations
+*/
+/****************************************************************************/
 #include <iostream>
 #include <limits.h>
 #include <vector>

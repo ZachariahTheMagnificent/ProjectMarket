@@ -73,9 +73,6 @@
     <ClInclude Include="Source\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AwesomePointer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Range.h">
       <Filter>Header Files</Filter>
     </ClInclude>

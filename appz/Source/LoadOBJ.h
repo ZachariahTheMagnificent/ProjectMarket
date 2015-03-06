@@ -6,18 +6,23 @@
 #include "Vertex.h"
 #include "Vector3.h"
 #include "Directory.h"
+/****************************************************************************/
+/*!
+\file LoadObj.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to load OBJs
+*/
+/****************************************************************************/
 
-//a more compressed version of Vertex that excludes the color member created to make indexing and finding similar vertices faster.
-//struct packedvertex{
-//	Vector3 position;
-//	Vector3 normal;
-//	TexCoord uv;
-//	bool operator<(const packedvertex that) const
-//	{
-//		return memcmp((void*)this, (void*)&that, sizeof(packedvertex)) > 0;
-//	};
-//};
-
+/****************************************************************************/
+/*!
+Class ObjLoader:
+\brief
+used to load OBJs
+*/
+/****************************************************************************/
 class ObjLoader
 {
 public:
@@ -25,16 +30,6 @@ public:
 		std::wstring file_path,
 		std::vector<Vertex>& out_vertices
 	);
-
-	////Indexes the vertices from the file
-	//static void IndexVBO(
-	//	std::vector<Vector3> & in_vertices,
-	//	std::vector<TexCoord> & in_uvs,
-	//	std::vector<Vector3> & in_normals,
-
-	//	std::vector<unsigned> & out_indices,
-	//	std::vector<Vertex> & out_vertices
-	//);
 };
 
 #endif
