@@ -3,11 +3,12 @@
 
 Sound::Sound()
 {
-	loadWave("stop", "");
+	loadWave("stop", "Sound//Void.wav");
 }
 
 Sound::~Sound()
 {
+	playSound("stop", false);
     // free up memory used by the sound buffer
     for (std::map<std::string,char *>::iterator it = soundData.begin(); it != soundData.end(); ++it)
     {
