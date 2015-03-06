@@ -22,11 +22,11 @@ Scene that updates and init, main scene to be rendered
 \brief
 constructor to get mouse keyboard sound and graphics obj
 \param Keyboard& keyboard 
-		object from keyboard class
+object from keyboard class
 \param GLMouse& mouse
-		object from GLmosuse class
+object from GLmosuse class
 \param Sound& snd
-		object from Sound class
+object from Sound class
 \param Graphics& gfx
 */
 /****************************************************************************/
@@ -423,7 +423,7 @@ void SceneMain::InnitDraws()
 	globals.GetDraw(L"player_arm_right").selfTransform.rotate.y = -10;
 	globals.GetDraw(L"player_body").selfTransform.rotate.y = 90;
 	globals.GetDraw(L"player_body").transform.translate.Set(10,4,0);
-	
+
 	//Draw Lost Child
 	globals.AddDraw(drawOrder(L"lost_child_body",globals.GetMesh(L"characterbody"), &globals.GetMaterial(L"character2"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"lost_child_body").transform.scale.Set(0.45,0.45,0.45);
@@ -894,7 +894,7 @@ void SceneMain::InnitDraws()
 	CreateItems(drawOrder(L"cereal3_cabinet3_%d",globals.GetMesh(L"cereal3"), &globals.GetMaterial(L"cereal3"), NULL, true),Vector3(-3.3,3,1.5), L"lv1cabinet3_column1_1", Rotation(0,0,0), 6, 3, 1.5, 1.4, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
 	//Cereal4: 18 a bunch. 36cereals total
 	CreateItems(drawOrder(L"cereal4_cabinet3_%d",globals.GetMesh(L"cereal4"), &globals.GetMaterial(L"cereal4"), NULL, true),Vector3(-3.8,3,-4.5), L"lv1cabinet3_column1_1", Rotation(0,180,0), 6, 3, -4.5, 1.6, 0.7, 1, 2, Vector3(0,0,0), Vector3(2.75,0,0));
-	
+
 	//Draw Lollipop on ground
 	globals.AddDraw(drawOrder(L"lollipop",globals.GetMesh(L"lollipop"), &globals.GetMaterial(L"lollipop"), &globals.GetDraw(L"main"), true));
 	globals.GetDraw(L"lollipop").transform.rotate.Set(85,0,-45);
@@ -945,11 +945,11 @@ void SceneMain::InnitDraws()
 \brief
 used to init items for hiddenroom
 \param drawOrder& basedraw
-		baesedraw to get in item
+baesedraw to get in item
 \param const Vector3 offset
-		offset for how much to increase
+offset for how much to increase
 \param Vector3 increment
-		increment for final value
+increment for final value
 */
 /****************************************************************************/
 void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vector3 increment)
@@ -971,31 +971,31 @@ void SceneMain::InnitItems(const drawOrder& basedraw, const Vector3 offset, Vect
 \brief
 algorithm used for the creation of our items. 
 \param drawOrder& item          
-		item: to pass in the obj used
+item: to pass in the obj used
 \param Vector3 offset
-		offset: initial location of first item
+offset: initial location of first item
 \param std::wstring parentname
-		parentname: name of parents
+parentname: name of parents
 \param Rotation RotateItem
-		RotateItem: to take in rotation
+RotateItem: to take in rotation
 \param int ItemPerColumn
-		ItemPerColumn: how many items are there in a column
+ItemPerColumn: how many items are there in a column
 \param int ColumnPerCompartment
-		ColumnPerCompartment: how many column are there in a bunch
+ColumnPerCompartment: how many column are there in a bunch
 \param float defaultZ
-		defaultZ: starting position of each row based on Z axis
+defaultZ: starting position of each row based on Z axis
 \param float ItemDistanceX
-		Distance X axis of each item
+Distance X axis of each item
 \param float ItemDistanceZ
-		Distance Z axis of each item
+Distance Z axis of each item
 \param int NumBunch
-		How many set of items in one cabinet
+How many set of items in one cabinet
 \param int NumCabinet
-		How many Cabinet
+How many Cabinet
 \param Vector3 BunchOffset
-		difference of distance of each bunch
+difference of distance of each bunch
 \param Vector3 CabinetOffset
-		difference of distance every cabinet
+difference of distance every cabinet
 */
 /****************************************************************************/
 void SceneMain::CreateItems(drawOrder& item, Vector3 offset, std::wstring parentname, Rotation RotateItem, int ItemPerColumn, int ColumnPerCompartment,float defaultZ, float ItemDistanceX,float ItemDistanceZ, int NumBunch, int NumCabinet, Vector3 BunchOffset, Vector3 CabinetOffset)
@@ -1083,9 +1083,9 @@ void SceneMain::InnitForces()
 \brief
 updating of scene 
 \param dt - deltatime
-		used to take in deltatime which allow movements and animations
+used to take in deltatime which allow movements and animations
 \return
-		is update true or false
+is update true or false
 */
 /****************************************************************************/
 bool SceneMain::Update(const double dt)
@@ -1327,7 +1327,7 @@ void SceneMain::UpdateLogic()
 	{
 		if(keyboard.isKeyPressed('E'))
 		{
-			
+
 			if(OpenLiftDoorInput == false)
 			{
 				snd.playSound("elevator",true);
@@ -1393,23 +1393,28 @@ updating draws
 /****************************************************************************/
 void SceneMain::UpdateDraws()
 {
-	//where forces are applied
-	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+	if(InteractDoor.GetTravelatorInRange() == false)
 	{
-		//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
-		body->second->UpdateVelocity(deltaTime);
-		body->second->UpdateForcesTo(deltaTime);
+		//where forces are applied
+		for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+		{
+			//an object has 0 mass if it is infinitely heavy and forces will barely have any effect on it including gravity. This is totally how physics work
+			body->second->UpdateVelocity(deltaTime);
+			body->second->UpdateForcesTo(deltaTime);
+		}
 	}
-
 	//where we do collision
 	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"ground"), &globals.GetCollisionBody(L"player"), deltaTime);
 	collisionSystem.CheckThisCollision(&globals.GetCollisionBody(L"building"), &globals.GetCollisionBody(L"player"), deltaTime);
 	collisionSystem.ResolveAllCollisionsAccordingTo(deltaTime);
 
 	//draws are finally updated after processing
-	for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+	if(InteractDoor.GetTravelatorInRange() == false)
 	{
-		body->second->UpdateTo(deltaTime);
+		for(std::map<std::wstring, CollisionBody*>::iterator body = globals.GetCollisionBodiesList().begin(), end = globals.GetCollisionBodiesList().end(); body != end; ++body)
+		{
+			body->second->UpdateTo(deltaTime);
+		}
 	}
 }
 /****************************************************************************/
@@ -1427,7 +1432,7 @@ void SceneMain::Render()
 	glEnableVertexAttribArray(1); // 2nd attribute buffer : colors
 	glEnableVertexAttribArray(2); // 3rd attribute : normals
 	glEnableVertexAttribArray(3); // 4th attribute : UV coordinates
-	
+
 	if(state==MAINMENU)
 	{
 		MS BG;
@@ -1615,7 +1620,7 @@ void SceneMain::Render()
 				gfx.RenderTextOnScreen("Press F to pick/put items",Color(1,1,1),60,60,500);
 			}
 		}
-		
+
 		else if(i < 420)// CAN_2 60
 		{
 			wchar_t Namebuffer[64];
@@ -1708,7 +1713,7 @@ void SceneMain::Render()
 			}
 		}
 	}
-	
+
 	char buffer1[126];
 	char buffer2[126];
 	Vector3 position = globals.GetDraw(L"player_body").GetGlobalPosition();
@@ -1852,20 +1857,20 @@ void SceneMain::DoUserInput()
 			}
 		}
 		if (keyboard.isKeyPressed('I'))
-			{
-					int temp = player->tempNoItemNeedToPay;
-					int temp2 = player->noOfItemInTrolley;
-					delete player;
-					player = new PlayerHuman;
-					player->tempNoItemNeedToPay = temp;
-					player->noOfItemInTrolley = temp2;
-					player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
-					globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
-					globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
-					isFrog = false;
+		{
+			int temp = player->tempNoItemNeedToPay;
+			int temp2 = player->noOfItemInTrolley;
+			delete player;
+			player = new PlayerHuman;
+			player->tempNoItemNeedToPay = temp;
+			player->noOfItemInTrolley = temp2;
+			player->DrawIsEqualTo(globals.GetDraw(L"player_arm_left"), globals.GetDraw(L"player_arm_right"), globals.GetDraw(L"player_body"), globals.GetDraw(L"main"), globals.GetDraw(L"trolley5"));
+			globals.GetDraw(L"player_arm_left").SetMeshTo(globals.GetMesh(L"characterarm"));
+			globals.GetDraw(L"player_arm_right").SetMeshTo(globals.GetMesh(L"characterarm"));
+			isFrog = false;
 
-					father.interacted = false;
-			}
+			father.interacted = false;
+		}
 		if (keyboard.isKeyHold(VK_SHIFT))
 		{
 			movingSpeed *= 3 ;

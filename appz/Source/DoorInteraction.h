@@ -36,7 +36,6 @@ public:
 	void TeleportWithLifts(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos, bool isTakingTrolley);
 	void TrolleyTeleportWithoutPlayer(const double dt, Vector3& PlayerPos, Vector3& TrolleyPos);
 	void InteractWithTravelator(const double dt, Vector3& PlayerPos);
-
 	bool GetTravelatorInRange (void);
 	bool GetLiftDoorInRange (void);
 

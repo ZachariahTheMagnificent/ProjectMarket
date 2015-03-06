@@ -347,7 +347,7 @@ function for player to travel on travelator
 void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos)	
 {
 	Range<int> TravelatorRangeX(-14,10.716);
-	Range<int> TravelatorRangeY(0,15);
+	Range<int> TravelatorRangeY(3,16);
 	Range<int> TravelatorLeftUpRangeZ(-21.638,-20.788);
 	Range<int> TravelatorRightDownRangeZ(-24.337,-23.234);
 
@@ -355,7 +355,7 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 	{
 		TravelatorIsInrange = true;
 		PlayerPos.x += 6 * dt;
-		PlayerPos.y += -2.2 * dt;
+		PlayerPos.y += -2.4 * dt;
 	}
 
 
@@ -363,7 +363,7 @@ void DoorInteraction::InteractWithTravelator(const double dt, Vector3& PlayerPos
 	{
 		TravelatorIsInrange = true;
 		PlayerPos.x += -6 * dt;
-		PlayerPos.y += 2.2 * dt;
+		PlayerPos.y += 2.4 * dt;
 	}
 
 	else
