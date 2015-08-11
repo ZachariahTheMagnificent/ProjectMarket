@@ -1,8 +1,22 @@
 #pragma once
 #include "Voxel.h"
-
+/****************************************************************************/
+/*!
+\file Contact.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used handle contacts
+*/
+/****************************************************************************/
 class CollisionBody;
-
+/****************************************************************************/
+/*!
+Class Contact:
+\brief
+Used handle contacts
+*/
+/****************************************************************************/
 class Contact
 {
 public:

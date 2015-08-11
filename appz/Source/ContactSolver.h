@@ -3,7 +3,23 @@
 #include "LinkList.h"
 #include "VoxelOctree.h"
 #include "CollisionBody.h"
+/****************************************************************************/
+/*!
+\file ContactSolver.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to solve and handle contacts
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Class ContactSolver:
+\brief
+Used to solve and handle contacts
+*/
+/****************************************************************************/
 class ContactSolver
 {
 public:

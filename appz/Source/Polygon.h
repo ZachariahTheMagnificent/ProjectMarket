@@ -1,6 +1,21 @@
 #pragma once
+/****************************************************************************/
+/*!
+\file Polygon.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used store and handle polygon values
+*/
+/****************************************************************************/
 #include "Vertex.h"
-
+/****************************************************************************/
+/*!
+Class Polygonn:
+\brief
+Stores and handles polygon values
+*/
+/****************************************************************************/
 class Polygonn
 {
 public:
@@ -12,14 +27,11 @@ public:
 	bool OppositeNormalIsFacing(const Vertex& vert) const;
 	bool Intersects(Polygonn& polygon) const;
 	bool Intersects(Vector3& line, Vector3 displacement) const;
-	Vertex const* ReturnFirstVertex() const;
-	Vertex const* ReturnSecondVertex() const;
-	Vertex const* ReturnLastVertex() const;
 	void GetBounds(float*const returnFurthestLeft, float*const returnFurthestRight, float*const returnFurthestDown, float*const returnFurthestUp, float*const returnFurthestBack, float*const returnFurthestFront) const;
 	const Vector3& GetNormal() const;
-	const Vertex GetVertex1() const;
-	const Vertex GetVertex2() const;
-	const Vertex GetVertex3() const;
+	const Vertex& GetVertex1() const;
+	const Vertex& GetVertex2() const;
+	const Vertex& GetVertex3() const;
 	void MoveAlongNormalBy(const float displacement);
 	Polygonn Flipped() const;
 private:

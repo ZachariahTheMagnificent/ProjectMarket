@@ -1,6 +1,14 @@
 #include "Voxel.h"
 #include "Custom Functions.h"
-
+/****************************************************************************/
+/*!
+\file Voxel.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store and handle voxel information
+*/
+/****************************************************************************/
 Voxel::Voxel()
 	:
 solidness(0)

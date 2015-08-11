@@ -3,7 +3,23 @@
 #include "VoxelOctree.h"
 #include "DrawOrder.h"
 #include "Contacts.h"
+/****************************************************************************/
+/*!
+\file CollisionBody.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to represent a physical body
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Class CollisionBody:
+\brief
+Used to represent a physical body
+*/
+/****************************************************************************/
 class CollisionBody
 {
 public:

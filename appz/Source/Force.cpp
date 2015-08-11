@@ -1,5 +1,13 @@
 #include "force.h"
-
+/****************************************************************************/
+/*!
+\file Force.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store and handle force information
+*/
+/****************************************************************************/
 Force::Force(const Vector3 force, bool attract)
 	:
 force(force),

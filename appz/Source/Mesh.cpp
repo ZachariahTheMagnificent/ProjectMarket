@@ -1,7 +1,26 @@
 #include "Mesh.h"
 #include "GL\glew.h"
 #include "LoadTGA.h"
+/****************************************************************************/
+/*!
+\file Mesh.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store VBO (vertex & color buffer) and polygons and generate voxels from them
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+\brief
+default constructor
+\param meshName
+		the name of the mesh
+\param Vertex_buffer
+		the buffer containing all our vertices
+*/
+/****************************************************************************/
 Mesh::Mesh(const std::wstring &meshName, std::vector<Vertex>& Vertex_buffer)
 	:
 name(meshName)
@@ -27,17 +46,38 @@ name(meshName)
 	}
 	glBufferData(GL_ARRAY_BUFFER, buffz.size() * sizeof(Vertex), &buffz.front(), GL_STATIC_DRAW);
 }
-
+/****************************************************************************/
+/*!
+\brief
+default destructor
+*/
+/****************************************************************************/
 Mesh::~Mesh()
 {
 	glDeleteBuffers(1, &m_vertexBuffer);
 }
-
+/****************************************************************************/
+/*!
+\brief
+Returns the name of the mesh
+*/
+/****************************************************************************/
 const std::wstring& Mesh::GetName() const
 {
 	return name;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Returns the bounds of the mesh
+\param rangeX
+		the reference to the buffer storing the x-range
+\param rangeY
+		the reference to the buffer storing the y-range
+\param rangeZ
+		the reference to the buffer storing the z-range
+*/
+/****************************************************************************/
 void Mesh::GetRanges(Range<int>& rangeX, Range<int>& rangeY, Range<int>& rangeZ)
 {
 	int furthestLeft = INT_MAX;
@@ -50,8 +90,8 @@ void Mesh::GetRanges(Range<int>& rangeX, Range<int>& rangeY, Range<int>& rangeZ)
 	//loop through all our vertices
 	for(std::vector<Polygonn>::iterator polygon = polygons.begin(), end = polygons.end(); polygon != end; ++polygon)
 	{
-		Vertex const* vert = polygon->ReturnLastVertex();
-		for(Vertex const* vertex = polygon->ReturnFirstVertex(); vertex != vert; ++vertex)
+		Vertex const* vert = &polygon->GetVertex3();
+		for(Vertex const* vertex = &polygon->GetVertex1(); vertex != vert; ++vertex)
 		{
 			if(vertex->pos.x < furthestLeft)
 			{
@@ -84,7 +124,14 @@ void Mesh::GetRanges(Range<int>& rangeX, Range<int>& rangeY, Range<int>& rangeZ)
 	rangeY.Set(furthestDown, furthestUp);
 	rangeZ.Set(furthestBack, furthestFront);
 }
-
+/****************************************************************************/
+/*!
+\brief
+generates voxels from the mesh
+\param tree
+		a pointer to the octree to store our voxels
+*/
+/****************************************************************************/
 VoxelOctree* Mesh::GenerateVoxel(VoxelOctree* tree) const
 {
 	for(std::vector<Polygonn>::const_iterator polygon = polygons.begin(); polygon != polygons.end(); ++polygon)
@@ -96,9 +143,9 @@ VoxelOctree* Mesh::GenerateVoxel(VoxelOctree* tree) const
 		Polygonn polygon2(polygon->Flipped());
 		polygon2.MoveAlongNormalBy(-0.5);
 
-		Polygonn polygon3(*polygon1.ReturnFirstVertex(), *polygon1.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
-		Polygonn polygon4(*polygon2.ReturnFirstVertex(), *polygon2.ReturnLastVertex(), *polygon1.ReturnSecondVertex());
-		Polygonn polygon5(*polygon1.ReturnSecondVertex(), *polygon2.ReturnLastVertex(), *polygon2.ReturnSecondVertex());
+		Polygonn polygon3(polygon1.GetVertex1(), polygon1.GetVertex3(), polygon2.GetVertex2());
+		Polygonn polygon4(polygon2.GetVertex1(), polygon2.GetVertex3(), polygon1.GetVertex2());
+		Polygonn polygon5(polygon1.GetVertex2(), polygon2.GetVertex3(), polygon2.GetVertex2());
 		float furthestLeft, furthestRight, furthestDown, furthestUp, furthestBack, furthestFront;
 
 		polygon->GetBounds(&furthestLeft, &furthestRight, &furthestDown, &furthestUp, &furthestBack, &furthestFront);
@@ -183,7 +230,16 @@ VoxelOctree* Mesh::GenerateVoxel(VoxelOctree* tree) const
 	}
 	return tree;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Renders the mesh
+\param textureID
+		the id of the texture we will render the mesh with
+\param mode
+		the drawing mode of the render
+*/
+/****************************************************************************/
 void Mesh::Render(unsigned textureID, unsigned mode)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
@@ -198,13 +254,20 @@ void Mesh::Render(unsigned textureID, unsigned mode)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-
-void Mesh::SetColor(Color color)
-{
-	//glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex), &Vertex_buffer.front(), GL_STATIC_DRAW);
-}
-
+/****************************************************************************/
+/*!
+\brief
+renders a portion of the mesh
+\param offset
+		the offset to the first vertex in the vertex buffer to be rendered
+\param count
+		the number of vertices to be rendered after the first
+\param textureID
+		the id of the texture we will render the mesh with
+\param mode
+		the drawing mode of the render
+*/
+/****************************************************************************/
 void Mesh::Render(unsigned offset, unsigned count, unsigned textureID, unsigned mode)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);

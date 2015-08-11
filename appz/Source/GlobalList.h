@@ -1,8 +1,23 @@
 #pragma once
+/****************************************************************************/
+/*!
+\file GlobalList.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A list of all our assets
+*/
+/****************************************************************************/
 #include "DrawOrder.h"
 #include "CollisionBody.h"
 #include <map>
-
+/****************************************************************************/
+/*!
+Class GlobalList:
+\brief
+A list of all our assets
+*/
+/****************************************************************************/
 class GlobalList
 {
 public:

@@ -2,7 +2,23 @@
 #include "Vector3.h"
 #include "Vertex.h"
 #include "Mtx44.h"
+/****************************************************************************/
+/*!
+\file Voxel.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store and handle voxel information
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Class Voxel:
+\brief
+Used to store and handle voxel information
+*/
+/****************************************************************************/
 class Voxel
 {
 public:

@@ -1,7 +1,30 @@
 #include "MeshBuilder.h"
 #include <GL\glew.h>
 #include "LoadOBJ.h"
+/****************************************************************************/
+/*!
+\file MeshBuilder.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that provides methods to generate mesh of different shapes
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+\brief
+Generates axes
+\param meshName
+		the name of the axes
+\param lengthX
+		the length of the x-axis
+\param lengthY
+		the length of the y-axis
+\param lengthZ
+		the length of the z-axis
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateAxes(const std::wstring &meshName, const float lengthX, const float lengthY, const float lengthZ)
 {
 	Vertex v;
@@ -30,7 +53,20 @@ Mesh* MeshBuilder::GenerateAxes(const std::wstring &meshName, const float length
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates quads
+\param meshName
+		the name of the quad
+\param color
+		the color of the quad
+\param lengthX
+		the x-length of the quad
+\param lengthY
+		the y-length of the quad
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateQuad(const std::wstring &meshName, const Color color, const float lengthX, const float lengthY)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -69,7 +105,20 @@ Mesh* MeshBuilder::GenerateQuad(const std::wstring &meshName, const Color color,
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates quads with repeated textures in mind
+\param meshName
+		the name of the quad
+\param color
+		the color of the quad
+\lengthX
+		the x-length of the quad
+\lengthY
+		the y-length of the quad
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateRepeatQuad(const std::wstring &meshName, const Color color, const float lengthX, const float lengthY)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -108,7 +157,22 @@ Mesh* MeshBuilder::GenerateRepeatQuad(const std::wstring &meshName, const Color 
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates cuboids
+\param meshName
+		the name of the cuboid
+\param color
+		the color of the cuboid
+\param lengthX
+		the x-length of the cuboid
+\param lengthY
+		the y-length of the cuboid
+\param lengthZ
+		the z-length of the cuboid
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateCube(const std::wstring &meshName, const Color color, const float lengthX, const float lengthY, const float lengthZ)
 {
 	Vertex v;
@@ -218,7 +282,22 @@ Mesh* MeshBuilder::GenerateCube(const std::wstring &meshName, const Color color,
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates spheres
+\param meshName
+		the name of the sphere
+\param color
+		the color of the sphere
+\param radius
+		the radius of the sphere
+\param nSegments
+		the number of segments(verticals) the sphere has
+\param nRings
+		the number of rings(horizontals) the sphere has
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateSphere(const std::wstring &meshName, const Color color, const float radius, const int nSegments, const int nRings)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -308,7 +387,22 @@ Mesh* MeshBuilder::GenerateSphere(const std::wstring &meshName, const Color colo
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates cones
+\param meshName
+		the name of the cone
+\param color
+		the color of the cone
+\param height
+		the height of the cone
+\param radius
+		the radius of the base of the cone
+\param nSlices
+		the number of slices(verticals) the cone has
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateCone(const std::wstring &meshName, const Color color, const float height, const float radius, const int nSlices)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -411,7 +505,22 @@ Mesh* MeshBuilder::GenerateCone(const std::wstring &meshName, const Color color,
 	Mesh* mesh = new Mesh(meshName, actual_vertex_buffer);
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates cylinders
+\param meshName
+		the name of the cylinder
+\param color
+		the color of the cylinder
+\param height
+		the height of the cylinder
+\param radius
+		the radius of the cylinder
+\param thickness
+		the thickness of the cylinder(a value of 1 gives a solid cylinder)
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateCylinder(const std::wstring &meshName, const Color color, const float height, const float radius, const int nSlices, const float thickness)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -548,7 +657,22 @@ Mesh* MeshBuilder::GenerateCylinder(const std::wstring &meshName, const Color co
 	Mesh* mesh = new Mesh(meshName, actual_vertex_buffer);
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates rings
+\param meshName
+		the name of the ring
+\param color
+		the color of the ring
+\param radius
+		the radius of the ring
+\param thickness
+		the thickness of the ring
+\param nSlices
+		the number of slices(verticals) the ring has
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateRing(const std::wstring &meshName, const Color color, const float radius, const float thickness, const int nSlices)
 {
 	std::vector<Vertex> vertex_buffer_data;
@@ -649,13 +773,35 @@ Mesh* MeshBuilder::GenerateRing(const std::wstring &meshName, const Color color,
 
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates circles
+\param meshName
+		the name of the circle
+\param color
+		the color of the circle
+\param radius
+		the radius of the circle
+\param nSlices
+		the number of slices the circle has
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateCircle(const std::wstring &meshName, const Color color, const float radius, const int nSlices)
 {
 	Mesh* mesh = GenerateRing(meshName, color, radius, radius, nSlices);
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates meshes from an *.obj
+\param meshName
+		the name of the mesh
+\param file_path
+		the location of the *.obj
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateOBJ(const std::wstring& name, const std::wstring &file_path)
 {
 	std::vector<Vertex> vertex_buffer;
@@ -664,7 +810,18 @@ Mesh* MeshBuilder::GenerateOBJ(const std::wstring& name, const std::wstring &fil
 	Mesh* mesh = new Mesh(name, vertex_buffer);
 	return mesh;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Generates a mesh used for rendering text
+\param meshName
+		the name of the mesh text
+\param numRow
+		the number of rows of characters the text will have
+\param numColumn
+		the number of columns of characters the text will have
+*/
+/****************************************************************************/
 Mesh* MeshBuilder::GenerateText(const std::wstring &file_path, unsigned numRow, unsigned numCol)
 {
 	std::vector<Vertex> vertex_buffer_data;

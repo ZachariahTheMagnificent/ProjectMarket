@@ -1,6 +1,22 @@
 #pragma once
 #include "Vector3.h"
+/****************************************************************************/
+/*!
+\file Force.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store and handle force information
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+Class Force:
+\brief
+Used to store and handle force information
+*/
+/****************************************************************************/
 class Force
 {
 public:

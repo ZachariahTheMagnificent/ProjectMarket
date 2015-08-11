@@ -1,5 +1,13 @@
 #include "ContactSolver.h"
-
+/****************************************************************************/
+/*!
+\file ContactSolver.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to solve and handle contacts
+*/
+/****************************************************************************/
 ContactSolver::ContactSolver()
 {
 }

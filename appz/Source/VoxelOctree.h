@@ -1,7 +1,28 @@
 #pragma once
+/****************************************************************************/
+/*!
+\file VoxelOctree.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+An octree made specifically for voxels
+*/
+/****************************************************************************/
 #include "VoxelLeaf.h"
-
+/****************************************************************************/
+/*!
+\brief
+the default diameter of our voxelOctree
+*/
+/****************************************************************************/
 const int defaultDiameter = pow(2.0, 24.0);
+/****************************************************************************/
+/*!
+Class VoxelOctree:
+\brief
+An octree made specifically for voxels
+*/
+/****************************************************************************/
 class VoxelOctree
 {
 public:
@@ -12,7 +33,6 @@ public:
 	Voxel* GetVoxel(const Vector3& position);
 	std::vector<Voxel*>& GetVector();
 	int GetRadius() const;
-	bool DoCollisionWith(VoxelOctree* otherTree);
 private:
 	VoxelLeaf mainLeaf;
 	std::vector<Voxel*> voxels;

@@ -1,6 +1,14 @@
 #include "CollisionBody.h"
 #include "Custom Functions.h"
-
+/****************************************************************************/
+/*!
+\file CollisionBody.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to represent a physical body
+*/
+/****************************************************************************/
 CollisionBody::CollisionBody(std::wstring name, drawOrder* draw, drawOrder* parentDraw, float mass, float bounce, float staticFriction, float kineticFriction)
 	:
 name(name),
@@ -122,7 +130,9 @@ Contact CollisionBody::DoCollisionWith(CollisionBody* otherBody, const double de
 				//{
 				//	otherBody->velocity.z = ((distanceTravelled + Vector3(0,0,-0))/deltaTime).z;
 				//}
+				voxel = otherBody->voxels.GetVector().begin();
 				newDeltaTime = timeOfImpact;
+				break;
 			}
 		}
 	}

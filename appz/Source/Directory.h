@@ -1,13 +1,26 @@
-#ifndef _DIRECTORY_H
-#define _DIRECTORY_H
-
+#pragma once
+/****************************************************************************/
+/*!
+\file Directory.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that gives access to the content in a list of similar files located in the same folder
+*/
+/****************************************************************************/
 #include <windows.h> 
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
 #include <vector>
-
+/****************************************************************************/
+/*!
+Class Directory:
+\brief
+Gives access to the content in a list of similar files located in the same folder
+*/
+/****************************************************************************/
 class Directory
 {
 private:
@@ -28,5 +41,3 @@ public:
 	std::wstring operator[](int index);
 	void SaveDrawings();
 };
-
-#endif

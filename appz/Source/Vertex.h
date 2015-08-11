@@ -1,8 +1,22 @@
 #ifndef VERTEX_H
 #define VERTEX_H
-
+/****************************************************************************/
+/*!
+\file Vertex.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used to store vertex values
+*/
+/****************************************************************************/
 #include"Vector3.h"
-
+/****************************************************************************/
+/*!
+Class TexCoord:
+\brief
+Stores UV coordinates
+*/
+/****************************************************************************/
 struct TexCoord
 {
 	float u, v;
@@ -16,7 +30,13 @@ struct TexCoord
 		this->v = v;
 	}
 };
-
+/****************************************************************************/
+/*!
+Class Color:
+\brief
+Stores color values
+*/
+/****************************************************************************/
 struct Color
 {
 	float r; 
@@ -33,7 +53,13 @@ struct Color
 		this->b = b;
 	}
 };
-
+/****************************************************************************/
+/*!
+Class Vertex:
+\brief
+Stores vertex values
+*/
+/****************************************************************************/
 struct Vertex 
 {
 	Vector3 pos;

@@ -1,7 +1,15 @@
 #include "Contacts.h"
 #include "Custom Functions.h"
 #include "CollisionBody.h"
-
+/****************************************************************************/
+/*!
+\file Contact.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used handle contacts
+*/
+/****************************************************************************/
 Contact::Contact(CollisionBody* firstBody, CollisionBody* secondBody, Voxel* firstVoxel, Voxel* secondVoxel, const double timeOfImpact)
 	:
 firstBody(firstBody),

@@ -1,5 +1,26 @@
 #include "Directory.h"
+/****************************************************************************/
+/*!
+\file Directory.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that gives access to the content in a list of similar files located in the same folder
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+\brief
+Default constructor
+\param filepath
+		the location of the folder the files would have
+\param searchpattern
+		the type of files to be searched for
+\param innitDrawings
+		a bool to whether or not to read and store the information from the files after finding them
+*/
+/****************************************************************************/
 Directory::Directory(const wchar_t* filepath, const wchar_t* searchpattern, bool innitDrawings)
 	:
 filepath(filepath),
@@ -21,7 +42,12 @@ filetype(searchpattern)
 		InnitDrawings();
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+Default destructor
+*/
+/****************************************************************************/
 Directory::~Directory()
 {
 	if(drawings.size())
@@ -29,7 +55,12 @@ Directory::~Directory()
 		SaveDrawings();
 	}
 }
-
+/****************************************************************************/
+/*!
+\brief
+Stores the changes we have made to the files
+*/
+/****************************************************************************/
 void Directory::SaveDrawings()
 {
 	 std::ofstream savedata;// file to write to
@@ -40,12 +71,22 @@ void Directory::SaveDrawings()
 		savedata.close();
 	 }
 }
-
+/****************************************************************************/
+/*!
+\brief
+Returns the number of file the directory has
+*/
+/****************************************************************************/
 int Directory::size() const
 {
 	return FileList.size();
 }
-
+/****************************************************************************/
+/*!
+\brief
+Updates the directory
+*/
+/****************************************************************************/
 bool Directory::update()
 {
 	FileList.clear();
@@ -61,23 +102,45 @@ bool Directory::update()
 	InnitDrawings();
 	return true;
 }
-
+/****************************************************************************/
+/*!
+\brief
+returns the path used to find the files
+*/
+/****************************************************************************/
 std::wstring Directory::path() const
 {
 	return filepath;
 }
-
+/****************************************************************************/
+/*!
+\brief
+An operator overload for retrieving the files teh directory has
+*/
+/****************************************************************************/
 std::wstring Directory::operator[](int index)
 {
 	return FileList[index];
 }
-
+/****************************************************************************/
+/*!
+\brief
+Returns the name of a file
+\param index
+		the index of the file in the array
+*/
+/****************************************************************************/
 std::wstring Directory::getname(int index)
 {
 	std::wstring buffer = filepath + FileList[index];
 	return buffer;
 }
-
+/****************************************************************************/
+/*!
+\brief
+reads from the files found and stores their values
+*/
+/****************************************************************************/
 void Directory::InnitDrawings()
 {
 	 std::ifstream drawdata;//get input/stuff from file
@@ -94,7 +157,14 @@ void Directory::InnitDrawings()
 		 drawings.push_back(buffer);
 	 }
 }
-
+/****************************************************************************/
+/*!
+\brief
+gets the information in a file with a specified name
+\param filename
+		the name of the file
+*/
+/****************************************************************************/
 std::string* Directory::getstring(const wchar_t* filename)
 {
 	int index = 0;

@@ -1,11 +1,31 @@
 #include "sound.h"
 #include <stdlib.h>
+/****************************************************************************/
+/*!
+\file Sound.cpp
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class used for sound
+*/
+/****************************************************************************/
 
+/****************************************************************************/
+/*!
+\brief
+default constructor
+*/
+/****************************************************************************/
 Sound::Sound()
 {
 	loadWave("stop", "Sound//Void.wav");
 }
-
+/****************************************************************************/
+/*!
+\brief
+empty default destructer
+*/
+/****************************************************************************/
 Sound::~Sound()
 {
 	playSound("stop", false);
@@ -16,7 +36,16 @@ Sound::~Sound()
     }
 
 }
-
+/****************************************************************************/
+/*!
+\brief
+Plays a sound
+\param key
+		the name of the sound to be played
+\param async
+		a bool to whether or not the sound will be played asynchronously
+*/
+/****************************************************************************/
 void Sound::playSound(std::string key, bool async)
 {
     std::map<std::string, char*>::iterator it = soundData.find(key);
@@ -34,7 +63,16 @@ void Sound::playSound(std::string key, bool async)
         PlaySoundA(it->second, NULL, flag );
     }
 }
-
+/****************************************************************************/
+/*!
+\brief
+Load a *.wav file
+\param key
+		the name of the sound
+\param filename
+		the location of the *.wav file
+*/
+/****************************************************************************/
 bool Sound::loadWave(std::string key, char* filename)
 {
     std::ifstream waveFile(filename, std::ios::in | std::ios::binary | std::ios::ate);
@@ -54,7 +92,12 @@ bool Sound::loadWave(std::string key, char* filename)
 
     return true;
 }
-
+/****************************************************************************/
+/*!
+\brief
+Stop the current sound
+*/
+/****************************************************************************/
 void Sound::stopSound()
 {
 	playSound("stop");

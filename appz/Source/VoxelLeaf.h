@@ -1,11 +1,32 @@
 #pragma once
+/****************************************************************************/
+/*!
+\file VoxelLeaf.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A node in the voxelOctree
+*/
+/****************************************************************************/
 #include <iostream>
 #include <vector>
 #include "Voxel.h"
 #include "Range.h"
-
+/****************************************************************************/
+/*!
+\brief
+the default ranges of our leaf
+*/
+/****************************************************************************/
 const int VoxelLeafMin = INT_MIN/16;
 const int VoxelLeafMax = INT_MAX/16;
+/****************************************************************************/
+/*!
+Class VoxelLeaf:
+\brief
+A node in the voxelOctree
+*/
+/****************************************************************************/
 class VoxelLeaf
 {
 public:

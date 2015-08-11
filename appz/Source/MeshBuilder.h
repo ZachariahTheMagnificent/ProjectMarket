@@ -1,14 +1,23 @@
 #ifndef MESH_BUILDER_H
 #define MESH_BUILDER_H
-
+/****************************************************************************/
+/*!
+\file MeshBuilder.h
+\author Muhammad Shafik Bin Mazlinan
+\par email: cyboryxmen@yahoo.com
+\brief
+A class that provides methods to generate mesh of different shapes
+*/
+/****************************************************************************/
 #include "Mesh.h"
 #include "Vertex.h"
 #include "Custom Functions.h"
 
 /******************************************************************************/
 /*!
-		Class MeshBuilder:
-\brief	Provides methods to generate mesh of different shapes
+Class MeshBuilder:
+\brief
+Provides methods to generate mesh of different shapes
 */
 /******************************************************************************/
 class MeshBuilder
